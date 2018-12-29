@@ -12,3 +12,93 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+
+.container {
+      padding:0;
+      margin:0;
+    }
+.navbar{
+  margin-bottom: 0px;
+}
+
+.gaurav{
+  float: right;
+}
+
+/**********************************
+Responsive navbar-brand image CSS
+- Remove navbar-brand padding for firefox bug workaround
+- add 100% height and width auto ... similar to how bootstrap img-responsive class works
+***********************************/
+
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 5px;
+  width: auto;
+}
+@media (min-width: 200px){
+.container {
+    width: auto;
+}
+
+}
+@media (max-width: 770px){
+
+.gaurav{
+  float: none;
+}
+}
+
+/* EXAMPLE 9 - Center with Flexbox and Text*/
+.brand-centered {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+.brand-centered .navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar-toggle {
+    z-index: 1;
+}
+
+
+
+
+/* CSS Transform Align Navbar Brand Text ... This could also be achieved with table / table-cells */
+.navbar-alignit .navbar-header {
+    -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  height: 50px;
+}
+.navbar-alignit .navbar-brand {
+  top: 50%;
+  display: block;
+  position: relative;
+  height: auto;
+  -webkit-transform: translate(0,-50%);
+          transform: translate(0,-50%);
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+
+
+
+
+.navbar-nav>li>.dropdown-menu {
+  z-index: 9999;
+}
+
+body {
+  font-family: "Lato";
+}
