@@ -53,16 +53,11 @@ class Main extends Component{
 				  	<div className="mainbody">
 				  	<aside className="main_sidebar">
 				        <ul>
-				            <li><a href="#"><i className="fa fa-arrows"></i></a></li>
+				            <li><a href="#"><i className="fa fa-home"></i></a></li>
 				            <li><a href="#"><i className="fa fa-battery-2"></i></a></li>
-				            <li><a href="#"><i className="fa fa-bell"></i></a></li>
+				            <li><a href="#"><i className="fa fa-truck"></i></a></li>
 				            <li><a href="#"><i className="fa fa-bicycle"></i></a></li>
-				            <li><a href="#"><i className="fa fa-circle"></i></a></li>
-				            <li><a href="#"><i className="fa fa-crosshairs"></i></a></li>
-				            <li><a href="#"><i className="fa fa-deaf"></i></a></li>
-				            <li><a href="#"><i className="fa fa-desktop"></i></a></li>
-				            <li><a href="#"><i className="fa fa-dot-circle-o"></i></a></li>
-				            <li><a href="#"><i className="fa fa-folder"></i></a></li>
+				            <li><a href="#"><i className="fa fa-bicycle"></i></a></li>
 				        </ul>
 				    </aside>
 				  	<div className="main">

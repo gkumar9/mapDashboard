@@ -3,8 +3,9 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import ClaroAllpins from './ClaroAllPins.json';
 import logo from './pins/Minigrid_RMS_Absent.png'
 const mapStyles = {
-  width: '93%',
-  height: '100%'
+  width: '100%',
+  height: '100%',
+  position:'relative'
 };
 
 export class MapContainer extends Component {
