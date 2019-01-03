@@ -52,8 +52,8 @@ class Main extends Component{
 				  	<Header />
 				  	<div className="mainbody">
 				  	<aside className="main_sidebar">
-				        <ul>
-				            <li><a href="#"><i className="fa fa-home"></i></a></li>
+				        <ul >
+				            <li className="active"><a href="#"><i className="fa fa-home"></i></a></li>
 				            <li><a href="#"><i className="fa fa-battery-2"></i></a></li>
 				            <li><a href="#"><i className="fa fa-truck"></i></a></li>
 				            <li><a href="#"><i className="fa fa-bicycle"></i></a></li>

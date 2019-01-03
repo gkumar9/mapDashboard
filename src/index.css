@@ -53,21 +53,13 @@ code {
     box-shadow: inset -1px 0 5px rgba(0, 0, 0, 0.4);
     
 }
-.main_sidebar:after {
-    content: '';
-    position: relative;
-    /*top: 52px;*/
-    /*z-index: -1;*/
-    height: 100%;
-    /*width: 58px;*/
-}
+
 .main_sidebar ul {
-    list-style:none;
-    padding-left:58px;
+    padding-left:69px;
 }
 .main_sidebar ul li {
-    padding:10px;
-    display:-webkit-box;
+    padding:20px 1px 12px;
+    display:flex;
 }
 .main_sidebar ul li a {
     color:#777;
@@ -81,30 +73,34 @@ code {
     padding-left:7px;
 }
 .main_sidebar ul li:hover {
-    background:#167696;
+    background:#0f4698;
 }
 .main_sidebar ul li a {
-    /*color:#fff;*/
+    color:#fff;
     text-decoration:none;
 }
 .main_sidebar ul li a:hover {
-    /*color:#fff;*/
+    color:#fff;
     text-decoration:none;
 }
+
+.main_sidebar ul li i {
+    color:#aaa;
+}
 .main_sidebar ul li:hover i {
-    color:#fff;
+    color:black;
 }
 .main_sidebar ul li.active {
     background:#0f4698;
 }
 .main_sidebar ul li.active i {
-    color:#fff;
+    color:black;
 }
 .main_sidebar ul li.active:hover {
-    background:#167696;
+    background:#0f4698;
 }
 .main_sidebar ul li.active:hover i {
-    color:#fff;
+    color:black;
 }
 
 .mainbody{
@@ -116,9 +112,7 @@ code {
     -webkit-box-direction: normal;
 
 }
-.responsivedata{
-  display: none;
-}
+
 
 /**********************************
 Responsive navbar-brand image CSS
@@ -150,9 +144,6 @@ Responsive navbar-brand image CSS
 .verticalLine{
   display: none;
 }
-.responsivedata{
-  display: block;
-}
 }
 
 /* EXAMPLE 9 - Center with Flexbox and Text*/
@@ -177,7 +168,7 @@ Responsive navbar-brand image CSS
 
 /* CSS Transform Align Navbar Brand Text ... This could also be achieved with table / table-cells */
 .navbar-alignit .navbar-header {
-    -webkit-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   height: 50px;
 }
