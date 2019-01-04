@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Map from './Maps.js'
 import logo from './logo.png'
-
+import bluelogo from './pins/Drinking_RMS_Absent.png'
+import yellowlogo from './pins/Rooftop_RMS_Absent.png'
+import greenlogo from './pins/Irrigation_RMS_Absent.png'
+import pinklogo from './pins/Patvan_RMS_Absent.png'
 class Header extends Component{
 	render(){
 		return(
@@ -44,25 +47,81 @@ class Header extends Component{
 			)
 	}
 }
-
+class Sidebar extends Component{
+	render(){
+		return(
+				<aside className="main_sidebar">
+				        <ul >
+				            <li className="active"><a href="#"><i className="fa fa-home "></i></a></li>
+				            <li><a href="#"><i className="fa fa-battery-2"></i></a></li>
+				            <li><a href="#"><i className="fa fa-truck"></i></a></li>
+				            <li><a href="#"><i className="fa fa-bicycle"></i></a></li>
+				            <li><a href="#"><i className="fa fa-sun-o"></i></a></li>
+				        </ul>
+				    </aside>
+			)
+	}
+}
+class Filter extends Component{
+	render(){
+		return(
+			<div className="container ">
+			  <nav id="filter" className="navbar navbar-default">
+			    <div className="container-fluid">
+			      <div className="navbar-header">
+			        <button type="button" className="navbar-toggle collapsed btn btn-xs" data-toggle="collapse" data-target="#navbar2">
+			          <span className="sr-only">Toggle navigation</span>
+			          <span className="icon-bar"></span>
+			          <span className="icon-bar"></span>
+			          <span className="icon-bar"></span>
+			        </button>
+			        
+			      </div>
+			      <div id="navbar2" className="navbar-collapse collapse">
+			        <ul className="nav navbar-nav">
+			          <li className="filterItem">
+			          		<input type="checkbox" name="red" value="red" />
+			          		<img src={greenlogo} alt="logo" className="filterImg" />
+			          		<span className="filterText" >Irrigation pump</span>
+			          </li>
+			          <li><a><span className="verticalLine"></span></a></li>
+			          <li className="filterItem">
+			          		<input type="checkbox" name="red" value="red" />
+			          		<img src={pinklogo} alt="logo" className="filterImg" />
+			          		<span className="filterText" >Patvan</span>
+			          </li>
+			          <li><a><span className="verticalLine"></span></a></li>
+			          <li className="filterItem">
+			          		<input type="checkbox" name="red" value="red" />
+			          		<img src={bluelogo} alt="logo" className="filterImg" />
+			          		<span className="filterText" >Drinking water</span>
+			          </li>
+			          <li><a><span className="verticalLine"></span></a></li>
+			          <li className="filterItem">
+			          		<input type="checkbox" name="red" value="red" />
+			          		<img src={yellowlogo} alt="logo" className="filterImg" />
+			          		<span className="filterText" >Minigrid</span>
+			          </li>
+			        </ul>
+			      </div>
+			    </div>
+			  </nav>
+			</div>
+			)
+			
+	}
+}
 class Main extends Component{
 	render(){
 		return(		 
 					<div> 	
 				  	<Header />
 				  	<div className="mainbody">
-				  	<aside className="main_sidebar">
-				        <ul >
-				            <li className="active"><a href="#"><i className="fa fa-home"></i></a></li>
-				            <li><a href="#"><i className="fa fa-battery-2"></i></a></li>
-				            <li><a href="#"><i className="fa fa-truck"></i></a></li>
-				            <li><a href="#"><i className="fa fa-bicycle"></i></a></li>
-				            <li><a href="#"><i className="fa fa-bicycle"></i></a></li>
-				        </ul>
-				    </aside>
-				  	<div className="main">
-				  	<Map />
-				  	</div>
+					  	<Sidebar />
+					  	<div className="main">
+					  		<Filter />
+					  		<Map />
+					  	</div>
 				  	</div>
 				  	</div>
 			)
