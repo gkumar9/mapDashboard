@@ -13,6 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.filterIcon{
+  display: none;
+}
 .navbar-default {
     background-color: #FAFAFA;
     
@@ -159,10 +162,16 @@ Responsive navbar-brand image CSS
 
 }
 @media (max-width: 770px){
+.filterImg{
+  width: 6%;
+}
 .main_sidebar{
   display: none;
 }
-
+.filterIcon{
+    display: block;
+    margin: 10px 0 0 25px;
+}
 .gaurav{
   float: none;
 }
@@ -186,7 +195,6 @@ Responsive navbar-brand image CSS
 }
 .navbar-toggle {
     z-index: 1;
-    
 }
 
 
