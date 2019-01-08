@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "google-maps-react": "^2.0.2",
+    "history": "^4.7.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-scripts": "^2.1.2"
@@ -23,5 +24,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "homepage": "/dashboard/"
 }
