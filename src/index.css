@@ -27,7 +27,6 @@ code {
 .verticalLine {
   border-right:1.5px solid #aab;
   margin: auto;
-  padding: 
 
 }
 .container {
@@ -46,7 +45,7 @@ code {
   margin-left:10px
 }
 .filterItem{
-  margin-left: 15px;
+  margin-left: 8px;
 }
 .gaurav{
   float: right;
@@ -129,7 +128,29 @@ input[type=checkbox], input[type=radio]{
 .main_sidebar ul li.active:hover i {
     color:black;
 }
-
+#root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(1){
+  border-top-width: 24px;
+  position: absolute;
+  left: 1px !important;
+  transform: rotate(90deg);
+  top: 183px !important;
+  text-shadow: 0 0 0px black;
+}
+#root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(3){
+  border-top-width: 24px;
+  position: absolute;
+  left: 1px !important;
+  transform: rotate(90deg);
+  top: 183px !important;
+  text-shadow: 0 0 0px black;
+}
+/*#map div div div:last-child div:last-child div div div:nth-child(3) {
+  left: 0 !important;
+  top: 30px !important;
+  border-top-width: 24px;
+  position: absolute;
+  transform: rotate(90deg);
+}*/
 .mainbody{
   display: flex;
   flex-direction: row;
@@ -139,8 +160,29 @@ input[type=checkbox], input[type=radio]{
     -webkit-box-direction: normal;
 
 }
-
-
+.infoWindowImg{
+  border-radius: 50%;
+  box-shadow: 2px 4px 12px grey;
+  margin:20px;
+}
+.infoWindowDetail{
+  list-style-type: none;
+  margin-top: 50px;
+  margin-left: -29px;
+}
+.infoWindowDetail li {
+  margin-bottom: 20px;
+}
+.infoWindowName{
+  text-align: center;
+}
+.portal{
+  margin-top: 30px;
+  text-align: center;
+}
+.portal span{
+  margin-right: 10px;
+}
 /**********************************
 Responsive navbar-brand image CSS
 - Remove navbar-brand padding for firefox bug workaround

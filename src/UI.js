@@ -23,7 +23,7 @@ class Main extends Component{
 		})
 		.then((res)=>{
 			console.log('res:',res)
-			if(res!=undefined){
+			if(res!==undefined){
 				this.setState({pins:res.data.data.list})
 			}else{
 				console.log('eror')
