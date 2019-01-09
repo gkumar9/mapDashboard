@@ -4,6 +4,7 @@ import Header from './Header.js'
 import Sidebar from './Sidebar.js'
 import Filter from './Filter.js'
 import axios from 'axios'
+import config from './config.js'
 class Main extends Component{
 	constructor(props){
 		super(props)
@@ -12,7 +13,7 @@ class Main extends Component{
 
 	componentDidMount(){
 		axios({
-			url:'http://staging2.clarolabs.in/api/rs/claro/maps/all/pins',
+			url:config.allpins,
 			method:'POST',
 			data:{
 				temp:"temp"

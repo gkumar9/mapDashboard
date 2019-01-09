@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-// import ClaroAllpins from './ClaroAllPins.json';
 import DRINKING_WATER_PUMP from './pins/Drinking_RMS_Absent.png'
 import ROOFTOP from './pins/Rooftop_RMS_Absent.png'
 import IRRIGATION_PUMP from './pins/Irrigation_RMS_Absent.png'
 import PATVAN from './pins/Patvan_RMS_Absent.png'
 import MINIGRID from './pins/Minigrid_RMS_Absent.png'
-import farmer from './pins/CCAFS-image.jpg'
+import farmer from './pins/user.png'
+import axios from 'axios'
+import config from './config.js'
 const mapStyles = {
   width: '100%',
   height: '100%',
@@ -21,18 +22,41 @@ export class MapContainer extends Component {
       this.state = {
         showingInfoWindow: false,  //Hides or the shows the infoWindow
         activeMarker: {},          //Shows the active marker upon click
-        selectedPlace: {}          //Shows the infoWindow to the selected place upon a marker
+        selectedPlace: {'owner':{}}          //Shows the infoWindow to the selected place upon a marker
       };
       this.onMarkerClick=this.onMarkerClick.bind(this)
       this.onClose=this.onClose.bind(this)
     }
   onMarkerClick(props, marker, e){
-    console.log('on click called:')
-    this.setState({
-    selectedPlace: props,
-    activeMarker: marker,
-    showingInfoWindow: true
-    });
+    let url;
+    switch(props.assetType){
+      case 'PATVAN':url=config.patvan; break;
+      case 'MINIGRID':url=config.minigrid; break;
+      case 'IRRIGATION_PUMP':url=config.irrigation; break;
+      case 'DRINKING_WATER_PUMP':url=config.drinkingwater; break;
+      case 'ROOFTOP':url=config.rooftop; break;
+      default: break;  
+    }
+    axios({
+      url:url,
+      method:'POST',
+      data:{
+        assetId:props.assetId
+      },
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then((res)=>{
+      console.log('res:',res.data.data)
+      let data=res.data.data
+      data['assetType']=props.assetType
+      this.setState({
+        selectedPlace: data,
+        activeMarker: marker,
+        showingInfoWindow: true
+      });
+    })
+    
   }
   onClose(props) {
     if (this.state.showingInfoWindow) {
@@ -77,20 +101,26 @@ export class MapContainer extends Component {
               default: break;
             }
             return (
-            <Marker key={index} icon={icon} position={{lat: parseFloat(marker.lat), lng: parseFloat(marker.lng)}} onClick={this.onMarkerClick}  />
+            <Marker key={index} assetId={marker.assetId} assetType={assetType} icon={icon} position={{lat: parseFloat(marker.lat), lng: parseFloat(marker.lng)}} onClick={this.onMarkerClick}  />
             )
           })
         }
         <InfoWindow className="infoWindowCard"
-          pixelOffset={new this.props.google.maps.Size(170,380)}
+          pixelOffset={new this.props.google.maps.Size(185,410)}
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
+          disableAutoPan={true}
         >
           <div style={{'overflow':'hidden'}}>
+          {this.state.selectedPlace.owner.image!=='NA'&&this.state.selectedPlace.owner.image!==null?(
+
+            <img src={this.state.selectedPlace.owner.image} alt='farmer' className="infoWindowImg"/>
+            ):(
             <img src={farmer} alt='farmer' className="infoWindowImg"/>
-            <h4 className="infoWindowName"> Satpal Singh </h4>
-            <h6 className="infoWindowName"> Customer ID: 007 </h6>
+            )}
+            <h4 className="infoWindowName" style={{'max-width': '262px'}}> {this.state.selectedPlace.owner.name} </h4>
+            <h6 className="infoWindowName"> Customer ID: {this.state.selectedPlace.id} </h6>
             <div>
             <ul className="infoWindowDetail">
               <li>
@@ -99,7 +129,7 @@ export class MapContainer extends Component {
                     <i className="fa fa-calendar" aria-hidden="true"></i>
                   </div>
                   <div className="col-md-10">
-                  <span>Installed on 02 Dec 2017</span>
+                  <span>Installed on {this.state.selectedPlace.dateOfInstallation}</span>
                   </div>
                 </div>
               </li>
@@ -109,8 +139,8 @@ export class MapContainer extends Component {
                     <i className="fa fa-map-marker" aria-hidden="true"></i>
                   </div>
                   <div className="col-md-10">
-                  <span>Chuni ka Pura</span>
-                  <p>Morena, Madhya pradesh </p>
+                  <span>{this.state.selectedPlace.owner.block}</span>
+                  <p>{this.state.selectedPlace.owner.district}, {this.state.selectedPlace.owner.state} </p>
                   </div>
                 </div>
               </li>
@@ -120,8 +150,35 @@ export class MapContainer extends Component {
                     <i className="fa fa-tint" aria-hidden="true"></i>
                   </div>
                   <div className="col-md-10">
-                  <span>Irrigation Pump <b>2HP AC Surface</b></span>
-                  <p>Solar Panel Capacity 300Wp </p>
+                  { this.state.selectedPlace.assetType==='IRRIGATION_PUMP' &&
+                    <div>
+                    <span>Irrigation Pump <b>{this.state.selectedPlace.pumpCapacity} {this.state.selectedPlace.powerType} {this.state.selectedPlace.pumpType}</b></span>
+                    <p>Solar Panel Capacity {this.state.selectedPlace.panelRating} </p>
+                    </div>
+                  }
+                  { this.state.selectedPlace.assetType==='MINIGRID' &&
+                    <span>Minigrid <b>{this.state.selectedPlace.assetName} </b></span>
+          
+                  }
+                  { this.state.selectedPlace.assetType==='PATVAN' &&
+                  <div>
+                    <span>Patvan <b>{this.state.selectedPlace.pumpCapacity} {this.state.selectedPlace.powerType} {this.state.selectedPlace.pumpType}</b></span>
+                    <p>Solar Panel Capacity {this.state.selectedPlace.panelRating} </p>
+                    </div>
+                  }
+                  { this.state.selectedPlace.assetType==='DRINKING_WATER_PUMP' &&
+                  <div>
+                    <span>Drinking Water Pump <b>{this.state.selectedPlace.pumpCapacity} {this.state.selectedPlace.powerType} {this.state.selectedPlace.pumpType}</b></span>
+                    <p>Solar Panel Capacity {this.state.selectedPlace.panelRating} </p>
+                    </div>
+                  }
+                  { this.state.selectedPlace.assetType==='ROOFTOP' &&
+                  <div>
+                    <span>Rooftop</span>
+                    <p>Solar Panel Capacity {this.state.selectedPlace.panelRating} </p>
+                  </div>
+                  }
+                  
                   </div>
                 </div>
               </li>
