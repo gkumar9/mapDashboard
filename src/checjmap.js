@@ -1,57 +1,59 @@
 /* global google */
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from "google-maps-react";
 
-export class InfoWindowEx extends Component {
+class MarkersList extends React.Component {
+
   constructor(props) {
     super(props);
-    this.infoWindowRef = React.createRef();
-    this.onInfoWindowOpen = this.onInfoWindowOpen.bind(this);
-    if (!this.containerElement) {
-      this.containerElement = document.createElement(`div`);
-    }
+    this.markersRendered = false;
   }
 
-  onInfoWindowOpen() {
-    ReactDOM.render(
-      React.Children.only(this.props.children),
-      this.containerElement
-    );
-    this.infoWindowRef.current.infowindow.setContent(this.containerElement);
+  shouldComponentUpdate(nextProps, nextState) {
+    if (JSON.stringify(this.props.places) === JSON.stringify(nextProps.places) && this.markersRendered) {
+      return false;
+    }
+    this.markersRendered = true;
+    return true;
   }
+
   render() {
     return (
-      <InfoWindow
-        onOpen={this.onInfoWindowOpen}
-        ref={this.infoWindowRef}
-        {...this.props}
-      />
-    );
+      <span>
+        {this.props.places.map((place, i) => {
+          return (
+            <Marker
+              {...this.props}
+              key={i}
+              data={place}
+              position={{ lat: place.lat, lng: place.lng }}
+            />
+          );
+        })}
+      </span>
+    )
   }
+
 }
 
-export class MapContainer extends Component {
+class MapContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showingInfoWindow: false,
+      showInfoWindow: false,
       activeMarker: {},
       selectedPlace: {}
     };
   }
 
-  onMarkerClick = (props, marker, e) => {
+  handleMarkerClick = (markerProps, marker, e) => {
     this.setState({
-      selectedPlace: props.place_,
+      selectedPlace: markerProps.data,
       activeMarker: marker,
-      showingInfoWindow: true
+      showInfoWindow: true
     });
   };
 
-  showDetails = place => {
-    console.log(place);
-  };
 
   render() {
     return (
@@ -62,30 +64,14 @@ export class MapContainer extends Component {
           zoom={4}
           initialCenter={this.props.center}
         >
-          {this.props.places.map((place, i) => {
-            return (
-              <Marker
-                onClick={this.onMarkerClick}
-                key={place.id}
-                place_={place}
-                position={{ lat: place.lat, lng: place.lng }}
-              />
-            );
-          })}
-          <InfoWindowEx
+          <MarkersList google={this.props.google} places={this.props.places} onClick={this.handleMarkerClick} />
+          <InfoWindow
+            ref={this.infoWindowRef}
             marker={this.state.activeMarker}
-            visible={this.state.showingInfoWindow}
+            visible={this.state.showInfoWindow}
           >
-            <div>
-              <h3>{this.state.selectedPlace.name}</h3>
-              <button
-                type="button"
-                onClick={this.showDetails.bind(this, this.state.selectedPlace)}
-              >
-                Show details
-              </button>
-            </div>
-          </InfoWindowEx>
+            <h3>{this.state.selectedPlace.name}</h3>
+          </InfoWindow>
         </Map>
       </div>
     );
@@ -93,5 +79,6 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: ""
+  apiKey: "",
+  libraries: []
 })(MapContainer);

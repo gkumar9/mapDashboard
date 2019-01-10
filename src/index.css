@@ -9,6 +9,7 @@ body {
   overflow: hidden;
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -133,7 +134,7 @@ input[type=checkbox], input[type=radio]{
   position: absolute;
   left: 1px !important;
   transform: rotate(90deg);
-  top: 183px !important;
+  top: 245px !important;
   text-shadow: 0 0 0px black;
 }
 #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(3){
@@ -141,7 +142,7 @@ input[type=checkbox], input[type=radio]{
   position: absolute;
   left: 1px !important;
   transform: rotate(90deg);
-  top: 183px !important;
+  top: 245px !important;
   text-shadow: 0 0 0px black;
 }
 /*#map div div div:last-child div:last-child div div div:nth-child(3) {
@@ -224,6 +225,29 @@ Responsive navbar-brand image CSS
 
 }
 @media (max-width: 770px){
+  #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(4){
+  width: 237px !important;
+  height: 580px !important;
+  overflow: auto !important;
+}
+#root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(2){
+  width: 237px !important;
+  height: 580px !important;
+  overflow: auto !important;
+}
+#root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div{
+  width: 237px !important;
+  height: 580px !important;
+  /*overflow: auto !important;*/
+}
+.gm-style-iw{
+  left: 24px !important;
+}
+.infoWindowImg {
+  width: 120px !important;
+  height: 120px !important;
+  margin:30px !important;
+  }
 .filterImg{
   width: 6%;
 }

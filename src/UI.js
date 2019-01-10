@@ -8,7 +8,47 @@ import config from './config.js'
 class Main extends Component{
 	constructor(props){
 		super(props)
-		this.state={pins:[],filter:{Irrigation:true,Patvan:true,Drinking:true,Minigrid:true,Rooftop:true}}
+		this.state={allpins:[],filteredpins:[],filter:{IRRIGATION_PUMP:true,PATVAN:true,DRINKING_WATER_PUMP:true,MINIGRID:true,ROOFTOP:true}}
+		this.handleFilterChange=this.handleFilterChange.bind(this)
+	}
+
+	handleFilterChange(filtervalue){
+		let filterpins=[];
+		if(this.state.filter[filtervalue]){
+			this.state.filteredpins.map((item,key)=>{
+			if(item.assetType!==filtervalue){
+				filterpins.push(item)
+			}
+		})
+		this.setState(
+		  prevState => ({
+		    ...prevState,
+		    filter: {
+		      ...prevState.filter,
+		      [filtervalue]: !prevState.filter[filtervalue]
+		    },
+		    filteredpins:filterpins
+		  })
+		  )
+		}
+		else{
+			this.state.allpins.map((item,key)=>{
+			if(item.assetType===filtervalue){
+				filterpins.push(item)
+			}
+		})
+		this.setState(
+		  prevState => ({
+		    ...prevState,
+		    filter: {
+		      ...prevState.filter,
+		      [filtervalue]: !prevState.filter[filtervalue]
+		    },
+		    filteredpins:prevState.filteredpins.concat(filterpins)
+		  })
+		  )
+		}
+		
 	}
 
 	componentDidMount(){
@@ -25,7 +65,7 @@ class Main extends Component{
 		.then((res)=>{
 			console.log('res:',res)
 			if(res!==undefined){
-				this.setState({pins:res.data.data.list})
+				this.setState({allpins:res.data.data.list,filteredpins:res.data.data.list})
 			}else{
 				console.log('eror')
 			}
@@ -42,8 +82,8 @@ class Main extends Component{
 			  	<div className="mainbody">
 				  	<Sidebar />
 				  	<div className="main">
-				  		<Filter filter={this.state.filter}/>
-				  		<Map datapins={this.state.pins} filter={this.state.filter} />
+				  		<Filter filter={this.state.filter} onChangeFilter={this.handleFilterChange} />
+				  		<Map datapins={this.state.filteredpins} filter={this.state.filter} />
 				  	</div>
 			  	</div>
 			  	</div>

@@ -16,12 +16,63 @@ const mapStyles = {
   flexFlow: 'row nowrap', 
   justifyContent: 'center',
 };
-export class MapContainer extends Component {
+
+class MapList extends Component{
+  constructor(props) {
+    super(props);
+    this.markersRendered = false;
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (JSON.stringify(this.props.places) === JSON.stringify(nextProps.places) && this.markersRendered) {
+      return false;
+    }
+    this.markersRendered = true;
+    return true;
+  }
+
+  render() {
+    return (
+      <span>
+
+        {
+          this.props.places.map((marker, index) => {
+            let assetType=marker.assetType
+            let icon={
+            url:'' ,
+            anchor: new this.props.google.maps.Point(12,23),
+            origin: new this.props.google.maps.Point(0,0),
+            scaledSize:  new this.props.google.maps.Size(20,20)
+            }
+            switch(assetType){
+              case 'PATVAN':icon.url=PATVAN; break;
+              case 'MINIGRID':icon.url=MINIGRID; break;
+              case 'IRRIGATION_PUMP':icon.url=IRRIGATION_PUMP; break;
+              case 'DRINKING_WATER_PUMP':icon.url=DRINKING_WATER_PUMP; break;
+              case 'ROOFTOP':icon.url=ROOFTOP; break;
+              default: break;
+            }
+            return (
+            <Marker {...this.props} key={index} assetId={marker.assetId} assetType={assetType} icon={icon} position={{lat: parseFloat(marker.lat), lng: parseFloat(marker.lng)}}  />
+            )
+          })
+        }
+        
+      </span>
+    )
+  }
+}
+
+class MapContainer extends Component {
   constructor(props){
       super(props)
       this.state = {
         showingInfoWindow: false,  //Hides or the shows the infoWindow
         activeMarker: {},          //Shows the active marker upon click
+        mapcenter:{
+         lat: 21.5937,
+         lng: 78.9629
+        },
         selectedPlace: {'owner':{}}          //Shows the infoWindow to the selected place upon a marker
       };
       this.onMarkerClick=this.onMarkerClick.bind(this)
@@ -47,9 +98,9 @@ export class MapContainer extends Component {
         'Content-Type': 'application/json'
       }
     }).then((res)=>{
-      console.log('res:',res.data.data)
       let data=res.data.data
       data['assetType']=props.assetType
+      console.log('props',props)
       this.setState({
         selectedPlace: data,
         activeMarker: marker,
@@ -67,7 +118,6 @@ export class MapContainer extends Component {
     }
   }
   render() {
-    console.log('render')
     return (
       <Map id="map"
         mapTypeControl={false}
@@ -78,35 +128,12 @@ export class MapContainer extends Component {
         google={this.props.google}
         zoom={5}
         style={mapStyles}
-        initialCenter={{
-         lat: 21.5937,
-         lng: 78.9629
-        }}
+        center={this.state.mapcenter}
       >
-        {
-          this.props.datapins.map((marker, index) => {
-            let assetType=marker.assetType
-            let icon={
-            url:'' ,
-            anchor: new this.props.google.maps.Point(12,23),
-            origin: new this.props.google.maps.Point(0,0),
-            scaledSize:  new this.props.google.maps.Size(20,20)
-            }
-            switch(assetType){
-              case 'PATVAN':icon.url=PATVAN; break;
-              case 'MINIGRID':icon.url=MINIGRID; break;
-              case 'IRRIGATION_PUMP':icon.url=IRRIGATION_PUMP; break;
-              case 'DRINKING_WATER_PUMP':icon.url=DRINKING_WATER_PUMP; break;
-              case 'ROOFTOP':icon.url=ROOFTOP; break;
-              default: break;
-            }
-            return (
-            <Marker key={index} assetId={marker.assetId} assetType={assetType} icon={icon} position={{lat: parseFloat(marker.lat), lng: parseFloat(marker.lng)}} onClick={this.onMarkerClick}  />
-            )
-          })
-        }
+        <MapList google={this.props.google} places={this.props.datapins} onClick={this.onMarkerClick} />
+        
         <InfoWindow className="infoWindowCard"
-          pixelOffset={new this.props.google.maps.Size(185,410)}
+          pixelOffset={new this.props.google.maps.Size(185,310)}
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
@@ -119,7 +146,7 @@ export class MapContainer extends Component {
             ):(
             <img src={farmer} alt='farmer' className="infoWindowImg"/>
             )}
-            <h4 className="infoWindowName" style={{'max-width': '262px'}}> {this.state.selectedPlace.owner.name} </h4>
+            <h4 className="infoWindowName" style={{'maxWidth': '262px'}}> {this.state.selectedPlace.owner.name} </h4>
             <h6 className="infoWindowName"> Customer ID: {this.state.selectedPlace.id} </h6>
             <div>
             <ul className="infoWindowDetail">
