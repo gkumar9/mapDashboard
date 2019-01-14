@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import DRINKING_WATER_PUMP from './pins/Drinking_RMS_Absent.png'
-import ROOFTOP from './pins/Rooftop_RMS_Absent.png'
-import IRRIGATION_PUMP from './pins/Irrigation_RMS_Absent.png'
-import PATVAN from './pins/Patvan_RMS_Absent.png'
-import MINIGRID from './pins/Minigrid_RMS_Absent.png'
+import DRINKING_WATER_PUMP from './pins/strop3.png'
+import ROOFTOP from './pins/strop2.png'
+import IRRIGATION_PUMP from './pins/strop1.png'
+import PATVAN from './pins/strop5patvan.png'
+import MINIGRID from './pins/strop4.png'
 class Filter extends Component{
 	constructor(props){
 		super(props)
@@ -24,7 +24,7 @@ class Filter extends Component{
 			          <span className="icon-bar"></span>
 			          <span className="icon-bar"></span>
 			        </button>
-			        <div className="filterIcon"><i className="fa fa-filter fa-2x"></i>
+			        <div className="filterIcon"><img style={{'transform': 'rotate(90deg)'}}src="https://img.icons8.com/ios/32/000000/sorting-options.png" /> <span style={{'fontSize':'20px','margin':'5px'}}>Filters</span>
 			        </div>
 			      </div>
 			      <div id="navbar2" className="navbar-collapse collapse">
@@ -58,7 +58,13 @@ class Filter extends Component{
 			          		<img src={ROOFTOP} alt="logo" className="filterImg responsive" />
 			          		<span className="filterText" >Rooftop</span>
 			          </li>
+			          		
+			          
 			        </ul>
+			        <div className="filterbutton">
+			        <button  type="button" className="btn btn-default filterbuttonreset">Reset</button>
+			        <button  type="button" className="btn btn-primary filterbuttonapply">Apply</button>
+			       </div>
 			      </div>
 			    </div>
 			  </nav>

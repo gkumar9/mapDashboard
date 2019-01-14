@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import DRINKING_WATER_PUMP from './pins/Drinking_RMS_Absent.png'
-import ROOFTOP from './pins/Rooftop_RMS_Absent.png'
-import IRRIGATION_PUMP from './pins/Irrigation_RMS_Absent.png'
-import PATVAN from './pins/Patvan_RMS_Absent.png'
-import MINIGRID from './pins/Minigrid_RMS_Absent.png'
+import DRINKING_WATER_PUMP from './pins/strop3.png'
+import ROOFTOP from './pins/strop2.png'
+import IRRIGATION_PUMP from './pins/strop1.png'
+import PATVAN from './pins/strop5patvan.png'
+import MINIGRID from './pins/strop4.png'
 import farmer from './pins/user.png'
 import axios from 'axios'
 import config from './config.js'
+import Swal from 'sweetalert2'
 const mapStyles = {
   width: '100%',
   height: '100%',
@@ -69,10 +70,6 @@ class MapContainer extends Component {
       this.state = {
         showingInfoWindow: false,  //Hides or the shows the infoWindow
         activeMarker: {},          //Shows the active marker upon click
-        mapcenter:{
-         lat: 21.5937,
-         lng: 78.9629
-        },
         selectedPlace: {'owner':{}}          //Shows the infoWindow to the selected place upon a marker
       };
       this.onMarkerClick=this.onMarkerClick.bind(this)
@@ -98,14 +95,29 @@ class MapContainer extends Component {
         'Content-Type': 'application/json'
       }
     }).then((res)=>{
-      let data=res.data.data
-      data['assetType']=props.assetType
-      console.log('props',props)
-      this.setState({
-        selectedPlace: data,
-        activeMarker: marker,
-        showingInfoWindow: true
-      });
+      if(res.data.data!==null){
+        let data=res.data.data
+        data['assetType']=props.assetType
+        this.setState({
+          selectedPlace: data,
+          activeMarker: marker,
+          showingInfoWindow: true
+        });
+      }
+      else if(res.data.error!==undefined){
+        if(res.data.error.errorCode===153){
+          window.location.href='../login.html?redirect=dashboard';
+        }
+        else{
+          Swal({
+            type: 'error',
+            title: 'Oops...',
+            text: res.data.error.errorMsg,
+          })
+        }
+      }
+
+      
     })
     
   }
@@ -128,7 +140,10 @@ class MapContainer extends Component {
         google={this.props.google}
         zoom={5}
         style={mapStyles}
-        center={this.state.mapcenter}
+        initialCenter={{
+         lat: 21.5937,
+         lng: 78.9629
+        }}
       >
         <MapList google={this.props.google} places={this.props.datapins} onClick={this.onMarkerClick} />
         
@@ -137,7 +152,7 @@ class MapContainer extends Component {
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
-          disableAutoPan={true}
+          // disableAutoPan={true}
         >
           <div style={{'overflow':'hidden'}}>
           {this.state.selectedPlace.owner.image!=='NA'&&this.state.selectedPlace.owner.image!==null?(
@@ -211,7 +226,7 @@ class MapContainer extends Component {
               </li>
             </ul>
             <div className="portal">
-              <span>Visit portal</span><a href="/"><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
+              <span>Visit portal</span><a href="/dashboard"><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
             </div>
             </div>
           </div>

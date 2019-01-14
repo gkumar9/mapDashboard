@@ -5,6 +5,7 @@ import Sidebar from './Sidebar.js'
 import Filter from './Filter.js'
 import axios from 'axios'
 import config from './config.js'
+import Swal from 'sweetalert2'
 class Main extends Component{
 	constructor(props){
 		super(props)
@@ -64,14 +65,28 @@ class Main extends Component{
 		})
 		.then((res)=>{
 			console.log('res:',res)
-			if(res!==undefined){
+			if(res.data.data!==null){
 				this.setState({allpins:res.data.data.list,filteredpins:res.data.data.list})
-			}else{
-				console.log('eror')
 			}
+			else if(res.data.error!==undefined){
+		        if(res.data.error.errorCode===153){
+		          window.location.href='../login.html?redirect=dashboard';
+		        }
+		        else{
+		          Swal({
+		            type: 'error',
+		            title: 'Oops...',
+		            text: res.data.error.errorMsg,
+		          })
+		        }
+		      }
 		})
 		.catch((e)=>{
-			console.log('e:',e)
+			Swal({
+        type: 'error',
+        title: 'Oops...',
+        text: e,
+      })
 		})
 	}
 
