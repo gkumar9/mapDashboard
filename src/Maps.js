@@ -134,12 +134,49 @@ class MapContainer extends Component {
       <Map id="map"
         mapTypeControl={false}
         gestureHandling= {'greedy'}
-        zoomControl= {false}
+        zoomControl= {true}
         streetViewControl={false}
         fullscreenControl={false}
+        restriction= {{
+          latLngBounds: {north: 42.711540, south: 0.953572, west: 66.636488, east: -99.141484},
+          strictBounds: true,
+        }}
         google={this.props.google}
-        zoom={5}
+        zoom={7}
         style={mapStyles}
+        styles= {[
+            {elementType: 'geometry.fill', stylers: [{color: '#F2F2F2'}]},
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#E3E3E3'}]
+            },
+            {
+                featureType: 'transit.line',
+                elementType: 'geometry',
+                stylers: [{visibility: 'off'}]
+            },
+            {
+                featureType: 'road',
+                elementType: 'labels',
+                stylers: [{visibility: 'off'}]
+            },
+            {
+                featureType: 'road',
+                elementType: 'geometry',
+                stylers: [{visibility: 'off'}]
+              },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]}
         initialCenter={{
          lat: 21.5937,
          lng: 78.9629
@@ -226,7 +263,7 @@ class MapContainer extends Component {
               </li>
             </ul>
             <div className="portal">
-              <span>Visit portal</span><a href="/dashboard"><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
+              <span>Visit portal</span><a target="_blank" rel="noopener noreferrer" href={ "../all_rms/rmspage.html?ID=" + this.state.selectedPlace.id } ><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
             </div>
             </div>
           </div>

@@ -1,11 +1,11 @@
 // let config={
-// 	"allpins":"https://maps.clarolabs.in/api/rs/claro/maps/all/pins",
-// 	"minigrid":"https://maps.clarolabs.in/api/rs/claro/maps/asset/info/minigrid",
-// 	"patvan":"https://maps.clarolabs.in/api/rs/claro/maps/asset/info/patvan",
-// 	"rooftop":"https://maps.clarolabs.in/api/rs/claro/maps/asset/info/rooftop",
-// 	"irrigation":"https://maps.clarolabs.in/api/rs/claro/maps/asset/info/pump/irrigation",
-// 	"drinkingwater":"https://maps.clarolabs.in/api/rs/claro/maps/asset/info/pump/drinkingwater",
-// 	"LogoutServlet":"https://maps.clarolabs.in/LogoutServlet"
+// 	"allpins":"../api/rs/claro/maps/all/pins",
+// 	"minigrid":"../api/rs/claro/maps/asset/info/minigrid",
+// 	"patvan":"../api/rs/claro/maps/asset/info/patvan",
+// 	"rooftop":"../api/rs/claro/maps/asset/info/rooftop",
+// 	"irrigation":"../api/rs/claro/maps/asset/info/pump/irrigation",
+// 	"drinkingwater":"../api/rs/claro/maps/asset/info/pump/drinkingwater",
+// 	"LogoutServlet":"../LogoutServlet"
 // }
 
 let config={

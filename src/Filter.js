@@ -8,23 +8,31 @@ class Filter extends Component{
 	constructor(props){
 		super(props)
 		this.handleFilterChange=this.handleFilterChange.bind(this)
+		this.handlefilterReset=this.handlefilterReset.bind(this)
+		this.handlefilterApply=this.handlefilterApply.bind(this)
 	}
 	handleFilterChange(e){
 		this.props.onChangeFilter(e.target.value);
+	}
+	handlefilterReset(){
+		this.props.onFilterReset()
+	}
+	handlefilterApply(){
+		this.props.onFilterApply()
 	}
 	render(){
 		return(
 			<div className="container ">
 			  <nav id="filter" className="navbar navbar-default">
 			    <div className="container-fluid">
-			      <div className="navbar-header">
-			        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2">
-			          <span className="sr-only">Toggle navigation</span>
-			          <span className="icon-bar"></span>
-			          <span className="icon-bar"></span>
-			          <span className="icon-bar"></span>
-			        </button>
-			        <div className="filterIcon"><img style={{'transform': 'rotate(90deg)'}}src="https://img.icons8.com/ios/32/000000/sorting-options.png" /> <span style={{'fontSize':'20px','margin':'5px'}}>Filters</span>
+			      <div className="navbar-header" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar">
+			        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar">
+					  <span className="sr-only">Toggle navigation</span>
+					  <span className="icon-bar top-bar"></span>
+					  <span className="icon-bar middle-bar"></span>
+					  <span className="icon-bar bottom-bar"></span>
+					</button>
+			        <div className="filterIcon"><img style={{'transform': 'rotate(90deg)','width': '7%','marginTop': '-8px'}}src="https://img.icons8.com/ios/32/000000/sorting-options.png" /> <span style={{'fontSize':'20px','margin':'5px'}}>Filters</span>
 			        </div>
 			      </div>
 			      <div id="navbar2" className="navbar-collapse collapse">
@@ -62,8 +70,8 @@ class Filter extends Component{
 			          
 			        </ul>
 			        <div className="filterbutton">
-			        <button  type="button" className="btn btn-default filterbuttonreset">Reset</button>
-			        <button  type="button" className="btn btn-primary filterbuttonapply">Apply</button>
+			        <button  type="button" className="btn btn-default filterbuttonreset" onClick={this.handlefilterReset} >Reset</button>
+			        <button  type="button" className="btn btn-primary filterbuttonapply" onClick={this.handlefilterApply} >Apply</button>
 			       </div>
 			      </div>
 			    </div>

@@ -11,45 +11,44 @@ class Main extends Component{
 		super(props)
 		this.state={allpins:[],filteredpins:[],filter:{IRRIGATION_PUMP:true,PATVAN:true,DRINKING_WATER_PUMP:true,MINIGRID:true,ROOFTOP:true}}
 		this.handleFilterChange=this.handleFilterChange.bind(this)
+		this.handleReset=this.handleReset.bind(this)
+		this.handleApply=this.handleApply.bind(this)
 	}
-
-	handleFilterChange(filtervalue){
+	handleReset(){
+		let newfilter={IRRIGATION_PUMP:true,PATVAN:true,DRINKING_WATER_PUMP:true,MINIGRID:true,ROOFTOP:true}
+		this.setState(
+		  prevState => ({
+		    ...prevState,
+		    filter:newfilter,
+		    filteredpins:prevState.allpins
+		  })
+		  )
+	}
+	handleApply(){
 		let filterpins=[];
-		if(this.state.filter[filtervalue]){
-			this.state.filteredpins.map((item,key)=>{
-			if(item.assetType!==filtervalue){
+		this.state.allpins.map((item,key)=>{
+			if(this.state.filter[item.assetType]){
 				filterpins.push(item)
 			}
 		})
 		this.setState(
 		  prevState => ({
 		    ...prevState,
-		    filter: {
-		      ...prevState.filter,
-		      [filtervalue]: !prevState.filter[filtervalue]
-		    },
 		    filteredpins:filterpins
 		  })
 		  )
-		}
-		else{
-			this.state.allpins.map((item,key)=>{
-			if(item.assetType===filtervalue){
-				filterpins.push(item)
-			}
-		})
+
+	}
+	handleFilterChange(filtervalue){
 		this.setState(
 		  prevState => ({
 		    ...prevState,
 		    filter: {
 		      ...prevState.filter,
 		      [filtervalue]: !prevState.filter[filtervalue]
-		    },
-		    filteredpins:prevState.filteredpins.concat(filterpins)
+		    }
 		  })
-		  )
-		}
-		
+		  )	
 	}
 
 	componentDidMount(){
@@ -97,7 +96,7 @@ class Main extends Component{
 			  	<div className="mainbody">
 				  	<Sidebar />
 				  	<div className="main">
-				  		<Filter filter={this.state.filter} onChangeFilter={this.handleFilterChange} />
+				  		<Filter filter={this.state.filter} onChangeFilter={this.handleFilterChange} onFilterReset={this.handleReset} onFilterApply={this.handleApply}/>
 				  		<Map datapins={this.state.filteredpins} filter={this.state.filter} />
 				  	</div>
 			  	</div>

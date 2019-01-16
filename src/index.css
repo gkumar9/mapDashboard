@@ -14,6 +14,50 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.headerbutton{
+  float: left !important;
+  margin-right: 0px !important;
+}
+.navbar-toggle {
+  border: none;
+  background: transparent !important;
+}
+.navbar-toggle:hover {
+  background: transparent !important;
+}
+.navbar-toggle .icon-bar {
+  width: 22px;
+  transition: all 0.2s;
+}
+.navbar-toggle .top-bar {
+  transform: rotate(45deg);
+  transform-origin: 10% 10%;
+}
+.navbar-toggle .middle-bar {
+  opacity: 0;
+}
+.navbar-toggle .bottom-bar {
+  transform: rotate(-45deg);
+  transform-origin: 10% 90%;
+}
+.navbar-toggle.collapsed .top-bar {
+  transform: rotate(0);
+  display: none;
+}
+.navbar-toggle.collapsed .middle-bar {
+  opacity: 1;
+  display: none;
+}
+.navbar-toggle.collapsed .bottom-bar {
+  transform: rotate(0);
+  display: none;
+}
+
+
+a.disabled {
+   /*pointer-events: none;*/
+   cursor: not-allowed;
+}
 .filterbuttonreset{
   margin:8px;
   float:right;
@@ -21,12 +65,28 @@ code {
     border-color: blue;
   border-width: 1.2px;
   color: blue;
+  width: 8%;
 }
 .filterbuttonapply{
   margin:8px;
   float:right;
-  background:#6200ee;
+  background:#3A50FC !important;
   border-radius:0;
+  width: 8%;
+}
+.btn-primary:hover{
+  background-color:#3A50FC;
+}
+.btn-primary:active{
+  background-color:#3A50FC;
+}
+.btn-default:hover{
+  background: white;
+  border-color:blue;
+  color:blue;
+}
+.btn-default:active{
+  background: white;
 }
 .sidebarheader{
   display: none !important;
@@ -68,13 +128,15 @@ code {
   background-color: #e5e5e5;
 }
 .filterImg{
-  width: 14%
+  width: 14%;
+  margin-top: -10px;
 }
 .filterText{
   margin-left:10px
 }
 .filterItem{
   margin-left: 8px;
+  width:160px;
 }
 .gaurav{
   float: right;
@@ -91,6 +153,7 @@ code {
 }
 #filter{
   background-color: #edeef0;
+  border-bottom-color: darkgray;
 }
 input[type=checkbox], input[type=radio]{
   margin:18px 0 0;
@@ -132,7 +195,7 @@ input[type=checkbox], input[type=radio]{
     width: 45%;
 }
 .main_sidebar ul li:hover {
-    background:#6200ee;
+    background:#3A50FC;
     opacity: 1
 }
 .main_sidebar ul li a {
@@ -151,14 +214,14 @@ input[type=checkbox], input[type=radio]{
     color:black;
 }
 .main_sidebar ul li.active {
-    background:#6200ee;
+    background:#3A50FC;
     opacity: 1;
 }
 .main_sidebar ul li.active i {
     color:black;
 }
 .main_sidebar ul li.active:hover {
-    background:#6200ee;
+    background:#3A50FC;
 }
 .main_sidebar ul li.active:hover i {
     color:black;
@@ -168,7 +231,7 @@ input[type=checkbox], input[type=radio]{
   position: absolute;
   left: 1px !important;
   transform: rotate(90deg);
-  top: 245px !important;
+  top: 278px !important;
   text-shadow: 0 0 0px black;
 }
 #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(3){
@@ -176,7 +239,7 @@ input[type=checkbox], input[type=radio]{
   position: absolute;
   left: 1px !important;
   transform: rotate(90deg);
-  top: 245px !important;
+  top: 278px !important;
   text-shadow: 0 0 0px black;
 }
 /*#map div div div:last-child div:last-child div div div:nth-child(3) {
@@ -188,12 +251,12 @@ input[type=checkbox], input[type=radio]{
 }*/
 #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(4){
   width: 283px !important;
-  height: 580px !important;
+  height: 558px !important;
   overflow: auto !important;
 }
 #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(2){
   width: 283px !important;
-  height: 580px !important;
+  height: 558px !important;
   overflow: auto !important;
 }
 #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div{
@@ -216,7 +279,7 @@ input[type=checkbox], input[type=radio]{
 .infoWindowImg{
   border-radius: 50%;
   box-shadow: 2px 4px 12px grey;
-  margin:50px;
+  margin:44px;
   width:150px;
   height:150px;
 }
@@ -232,7 +295,7 @@ input[type=checkbox], input[type=radio]{
   text-align: center;
 }
 .portal{
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
 }
 .portal span{
@@ -298,14 +361,14 @@ Responsive navbar-brand image CSS
   margin:30px !important;
   }
 .filterImg{
-  width: 6%;
+  width: 15%;
 }
 .main_sidebar{
   display: none;
 }
 .filterIcon{
     display: block;
-    margin: 10px 0 0 25px;
+    margin: 11px 0px 0px 6px;
 }
 .gaurav{
   float: none;

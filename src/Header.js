@@ -24,7 +24,7 @@ class Header extends Component{
 			  <nav className="navbar navbar-default">
 			    <div className="container-fluid">
 			      <div className="navbar-header">
-			        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1">
+			        <button type="button" className="navbar-toggle collapsed headerbutton" data-toggle="collapse" data-target="#navbar1">
 			          <span className="sr-only">Toggle navigation</span>
 			          <span className="icon-bar"></span>
 			          <span className="icon-bar"></span>
@@ -36,15 +36,15 @@ class Header extends Component{
 			      <div id="navbar1" className="navbar-collapse collapse gaurav">
 			        <ul className="nav navbar-nav">
 
-			          <li className="sidebarheader"><a href="/dashboard"><img src={IRRIGATION_PUMP} />Irrigation Pump</a></li>
+			          <li className="sidebarheader"><a target="_blank" rel="noopener noreferrer" href="https://dashboard.claroenergy.in/all_rms/locrmspage.html"><img src={IRRIGATION_PUMP} />Irrigation Pump</a></li>
 			          <li className="sidebarheader"><a><span className="verticalLine"></span></a></li>
-			          <li className="sidebarheader"><a href="/dashboard"><img src={PATVAN} />Patvan</a></li>
+			          <li className="sidebarheader"><a href="#" className="disabled"><img src={PATVAN} />Patvan</a></li>
 			          <li className="sidebarheader"><a><span className="verticalLine"></span></a></li>
 			          <li className="sidebarheader"><a href="/dashboard"><img src={DRINKING_WATER_PUMP} />Drinking Water Pump</a></li>
 			          <li className="sidebarheader"><a><span className="verticalLine"></span></a></li>
-			          <li className="sidebarheader"><a href="/dashboard"><img src={MINIGRID} />Minigrid</a></li>
+			          <li className="sidebarheader"><a href="#" className="disabled"><img src={MINIGRID} />Minigrid</a></li>
 			          <li className="sidebarheader"><a><span className="verticalLine"></span></a></li>
-			          <li className="sidebarheader"><a href="/dashboard"><img src={ROOFTOP} />Rooftop</a></li>
+			          <li className="sidebarheader"><a href="#" className="disabled"><img src={ROOFTOP} />Rooftop</a></li>
 			          <li className="headerdivider"></li>
 			          <li ><a href="/dashboard" >Welcome User</a></li>
 			          <li ><a><span className="verticalLine"></span></a></li>

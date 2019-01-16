@@ -9,11 +9,11 @@
 			return(
 					<aside className="main_sidebar">
 					        <ul >
-					            <li title="Home" className="active"><a href="/dashboard"><i><img src={ROOFTOP} /></i></a></li>
-					            <li title="Coming Soon" ><a href="/dashboard"><i><img src={DRINKING_WATER_PUMP} /></i></a></li>
-					            <li title="Coming Soon"><a href="#"><i><img src={IRRIGATION_PUMP} /></i></a></li>
-					            <li title="Coming Soon"><a href="#"><i><img src={PATVAN} /></i></a></li>
-					            <li title="Coming Soon"><a href="#"><i><img src={MINIGRID} /></i></a></li>
+					            <li title="Home" className="active"><a href="#" ><i><img src={ROOFTOP} /></i></a></li>
+					            <li title="Pump RMS"><a target="_blank" rel="noopener noreferrer" href="../all_rms/locrmspage.html"><i><img src={IRRIGATION_PUMP} /></i></a></li>
+					            <li title="Drinking Water Pump" ><a target="_blank" rel="noopener noreferrer" href="../all_rms/locrmspage.html"><i><img src={DRINKING_WATER_PUMP} /></i></a></li>
+					            <li title="Patvan"><a target="_blank" rel="noopener noreferrer" href="../IAAS/menubar.html"><i><img src={PATVAN} /></i></a></li>
+					            <li title="Minigrid"><a href="#" className="disabled"><i><img src={MINIGRID} /></i></a></li>
 					        </ul>
 					    </aside>
 				)
