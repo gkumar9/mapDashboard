@@ -175,7 +175,7 @@ input[type=checkbox], input[type=radio]{
     padding-left:69px;
 }
 .main_sidebar ul li {
-    padding:20px 1px 12px;
+    padding:8px 1px 12px;
     display:flex;
     width: min-content;
     opacity: 0.3;
@@ -192,7 +192,7 @@ input[type=checkbox], input[type=radio]{
     padding-left:7px;
 }
 .main_sidebar ul li i img {
-    width: 45%;
+    width: 54%;
 }
 .main_sidebar ul li:hover {
     background:#3A50FC;
@@ -311,9 +311,10 @@ Responsive navbar-brand image CSS
   padding: 0px;
 }
 .navbar-brand>img {
-  height: 100%;
-  padding: 5px;
-  width: auto;
+    margin-top: 2px;
+    margin-left: 8px;
+    padding: 5px;
+    width: 60%;
 }
 @media (min-width: 200px){
 .container {

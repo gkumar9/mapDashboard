@@ -69,7 +69,7 @@ class Main extends Component{
 			}
 			else if(res.data.error!==undefined){
 		        if(res.data.error.errorCode===153){
-		          window.location.href='../login.html?redirect=dashboard';
+		          window.location.href='../login.html?redirect=maps';
 		        }
 		        else{
 		          Swal({

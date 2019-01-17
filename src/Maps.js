@@ -134,7 +134,7 @@ class MapContainer extends Component {
       <Map id="map"
         mapTypeControl={false}
         gestureHandling= {'greedy'}
-        zoomControl= {true}
+        zoomControl= {false}
         streetViewControl={false}
         fullscreenControl={false}
         restriction= {{
@@ -142,7 +142,7 @@ class MapContainer extends Component {
           strictBounds: true,
         }}
         google={this.props.google}
-        zoom={7}
+        zoom={5}
         style={mapStyles}
         styles= {[
             {elementType: 'geometry.fill', stylers: [{color: '#F2F2F2'}]},
@@ -204,20 +204,20 @@ class MapContainer extends Component {
             <ul className="infoWindowDetail">
               <li>
                 <div className="row">
-                  <div className="col-md-2">
+                  <div className="col-xs-2">
                     <i className="fa fa-calendar" aria-hidden="true"></i>
                   </div>
-                  <div className="col-md-10">
+                  <div className="col-xs-10">
                   <span>Installed on {this.state.selectedPlace.dateOfInstallation}</span>
                   </div>
                 </div>
               </li>
               <li>
                 <div className="row">
-                  <div className="col-md-2">
+                  <div className="col-xs-2">
                     <i className="fa fa-map-marker" aria-hidden="true"></i>
                   </div>
-                  <div className="col-md-10">
+                  <div className="col-xs-10">
                   <span>{this.state.selectedPlace.owner.block}</span>
                   <p>{this.state.selectedPlace.owner.district}, {this.state.selectedPlace.owner.state} </p>
                   </div>
@@ -225,10 +225,10 @@ class MapContainer extends Component {
               </li>
               <li>
                 <div className="row">
-                  <div className="col-md-2">
+                  <div className="col-xs-2">
                     <i className="fa fa-tint" aria-hidden="true"></i>
                   </div>
-                  <div className="col-md-10">
+                  <div className="col-xs-10">
                   { this.state.selectedPlace.assetType==='IRRIGATION_PUMP' &&
                     <div>
                     <span>Irrigation Pump <b>{this.state.selectedPlace.pumpCapacity} {this.state.selectedPlace.powerType} {this.state.selectedPlace.pumpType}</b></span>
@@ -263,7 +263,16 @@ class MapContainer extends Component {
               </li>
             </ul>
             <div className="portal">
-              <span>Visit portal</span><a target="_blank" rel="noopener noreferrer" href={ "../all_rms/rmspage.html?ID=" + this.state.selectedPlace.id } ><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
+              {(this.state.selectedPlace.assetType==='DRINKING_WATER_PUMP' ||this.state.selectedPlace.assetType==='IRRIGATION_PUMP') ?( 
+                <div>
+                  <span>Visit portal</span><a target="_blank" rel="noopener noreferrer" href={ "../all_rms/rmspage.html?ID=" + this.state.selectedPlace.id } ><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
+                </div>
+                ) :(
+                <div>
+                  <span>Visit portal</span><a href="#" ><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
+                </div>
+                )
+              }
             </div>
             </div>
           </div>

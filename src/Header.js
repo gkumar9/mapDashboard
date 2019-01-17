@@ -48,6 +48,8 @@ class Header extends Component{
 			          <li className="headerdivider"></li>
 			          <li ><a href="/dashboard" >Welcome User</a></li>
 			          <li ><a><span className="verticalLine"></span></a></li>
+			          <li ><a href="../OpsDashboard/index.html" >Operations</a></li>
+			          <li ><a><span className="verticalLine"></span></a></li>
 			          <li ><a href="#"onClick={this.handleSignout}>Sign Out</a></li>
 			          
 			        </ul>
