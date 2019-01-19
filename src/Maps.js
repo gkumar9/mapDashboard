@@ -106,7 +106,7 @@ class MapContainer extends Component {
       }
       else if(res.data.error!==undefined){
         if(res.data.error.errorCode===153){
-          window.location.href='../login.html?redirect=dashboard';
+          window.location.href='../login.html?redirect=maps';
         }
         else{
           Swal({
@@ -138,7 +138,7 @@ class MapContainer extends Component {
         streetViewControl={false}
         fullscreenControl={false}
         restriction= {{
-          latLngBounds: {north: 42.711540, south: 0.953572, west: 66.636488, east: -99.141484},
+          latLngBounds: {north: 42.711540, south: 0.953572, west: 66.636488, east: 99.141484},
           strictBounds: true,
         }}
         google={this.props.google}
@@ -179,13 +179,13 @@ class MapContainer extends Component {
           ]}
         initialCenter={{
          lat: 21.5937,
-         lng: 78.9629
+         lng: 80.9629
         }}
       >
         <MapList google={this.props.google} places={this.props.datapins} onClick={this.onMarkerClick} />
         
         <InfoWindow className="infoWindowCard"
-          pixelOffset={new this.props.google.maps.Size(185,310)}
+          pixelOffset={new this.props.google.maps.Size(190,290)}
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
@@ -265,12 +265,10 @@ class MapContainer extends Component {
             <div className="portal">
               {(this.state.selectedPlace.assetType==='DRINKING_WATER_PUMP' ||this.state.selectedPlace.assetType==='IRRIGATION_PUMP') ?( 
                 <div>
-                  <span>Visit portal</span><a target="_blank" rel="noopener noreferrer" href={ "../all_rms/rmspage.html?ID=" + this.state.selectedPlace.id } ><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
+                  <span>Visit portal</span><a target="_blank" rel="noopener noreferrer" href={ "../all_rms/rmspage.html?CID=" + this.state.selectedPlace.id } ><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
                 </div>
                 ) :(
-                <div>
-                  <span>Visit portal</span><a href="#" ><i className="fa fa-external-link-square" aria-hidden="true"></i></a>
-                </div>
+                  <div></div>
                 )
               }
             </div>

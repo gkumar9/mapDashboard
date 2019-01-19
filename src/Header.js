@@ -15,7 +15,7 @@ class Header extends Component{
 	handleSignout(){
 		console.log('sign out')
 		axios.get(config.LogoutServlet).then(()=>{
-			window.location.href='../login.html?redirect=dashboard';
+			window.location.href='../login.html?redirect=maps';
 		})
 	}
 	render(){
@@ -46,11 +46,11 @@ class Header extends Component{
 			          <li className="sidebarheader"><a><span className="verticalLine"></span></a></li>
 			          <li className="sidebarheader"><a href="#" className="disabled"><img src={ROOFTOP} />Rooftop</a></li>
 			          <li className="headerdivider"></li>
-			          <li ><a href="/dashboard" >Welcome User</a></li>
+			          <li ><a >Welcome User</a></li>
 			          <li ><a><span className="verticalLine"></span></a></li>
-			          <li ><a href="../OpsDashboard/index.html" >Operations</a></li>
+			          <li ><a target="_blank" rel="noopener noreferrer" href="../OpsDashboard/index.html" >Operations</a></li>
 			          <li ><a><span className="verticalLine"></span></a></li>
-			          <li ><a href="#"onClick={this.handleSignout}>Sign Out</a></li>
+			          <li ><a onClick={this.handleSignout}>Sign Out</a></li>
 			          
 			        </ul>
 			      </div>

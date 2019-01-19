@@ -43,21 +43,21 @@ class Filter extends Component{
 			          		<span className="filterText" >Irrigation pump</span>
 			          </li>
 			          <li><a><span className="verticalLine"></span></a></li>
-			          <li className="filterItem">
+			          <li style={{'width':'108px'}} className="filterItem">
 			          		<input type="checkbox" name="red" value="PATVAN" checked={this.props.filter.PATVAN} onChange={this.handleFilterChange} />
-			          		<img src={PATVAN} alt="logo" className="filterImg responsive" />
+			          		<img src={PATVAN} alt="logo" style={{'width':'21%'}} className="filterImg responsive" />
 			          		<span className="filterText" >Patvan</span>
 			          </li>
 			          <li><a><span className="verticalLine"></span></a></li>
-			          <li className="filterItem">
+			          <li style={{'width':'152px'}} className="filterItem">
 			          		<input type="checkbox" name="red" value="DRINKING_WATER_PUMP" checked={this.props.filter.DRINKING_WATER_PUMP} onChange={this.handleFilterChange} />
-			          		<img src={DRINKING_WATER_PUMP} alt="logo" className="filterImg responsive" />
+			          		<img style={{'width':'15%'}} src={DRINKING_WATER_PUMP} alt="logo" className="filterImg responsive" />
 			          		<span className="filterText" >Drinking water</span>
 			          </li>
 			          <li><a><span className="verticalLine"></span></a></li>
-			          <li className="filterItem">
+			          <li style={{'width':'118px'}} className="filterItem">
 			          		<input type="checkbox" name="red" value="MINIGRID" checked={this.props.filter.MINIGRID} onChange={this.handleFilterChange} />
-			          		<img src={MINIGRID} alt="logo" className="filterImg responsive" />
+			          		<img style={{'width':'19%'}} src={MINIGRID} alt="logo" className="filterImg responsive" />
 			          		<span className="filterText" >Minigrid</span>
 			          </li>
 			          <li><a><span className="verticalLine"></span></a></li>
