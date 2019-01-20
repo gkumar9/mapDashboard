@@ -93,10 +93,13 @@ a.disabled {
 .sidebarheader{
   display: none !important;
 }
-
+.dropdown{
+  margin: 7px;
+}
 .navbar-collapse {
   max-height: 460px !important;
   overflow-y: auto !important;
+  padding-left: 10px !important;
 }
 .filterIcon{
   display: none;
@@ -137,8 +140,11 @@ a.disabled {
   margin-left:10px
 }
 .filterItem{
-  margin-left: 8px;
-  width:160px;
+  margin-left: 5px;
+  width:140px;
+}
+.btn .caret {
+    margin-left: 8px;
 }
 .gaurav{
   float: right;

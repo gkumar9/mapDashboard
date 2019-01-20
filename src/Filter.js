@@ -37,9 +37,25 @@ class Filter extends Component{
 			      </div>
 			      <div id="navbar2" className="navbar-collapse collapse">
 			        <ul className="nav navbar-nav">
-			          <li className="filterItem">
+			        	<li className="filterItem">
+			          		<div class="dropdown">
+										  <button style={{'width': '-webkit-fill-available','border-radius':'0'}} class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										    States
+										    <span class="caret"></span>
+										  </button>
+										  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										    <li><a href="#">Action</a></li>
+										    <li><a href="#">Another action</a></li>
+										    <li><a href="#">Something else here</a></li>
+										    <li role="separator" class="divider"></li>
+										    <li><a href="#">Separated link</a></li>
+										  </ul>
+										</div>
+			          </li>
+			          <li><a><span className="verticalLine"></span></a></li>
+			          <li style={{'width':'157px'}} className="filterItem">
 			          		<input type="checkbox" name="red" value="IRRIGATION_PUMP" checked={this.props.filter.IRRIGATION_PUMP} onChange={this.handleFilterChange}/>
-			          		<img src={IRRIGATION_PUMP} alt="logo" className="filterImg responsive" />
+			          		<img src={IRRIGATION_PUMP} style={{'width':'15%'}} alt="logo" className="filterImg responsive" />
 			          		<span className="filterText" >Irrigation pump</span>
 			          </li>
 			          <li><a><span className="verticalLine"></span></a></li>
@@ -65,9 +81,7 @@ class Filter extends Component{
 			          		<input type="checkbox" name="red" value="ROOFTOP" checked={this.props.filter.ROOFTOP} onChange={this.handleFilterChange} />
 			          		<img src={ROOFTOP} alt="logo" className="filterImg responsive" />
 			          		<span className="filterText" >Rooftop</span>
-			          </li>
-			          		
-			          
+			          </li>      
 			        </ul>
 			        <div className="filterbutton">
 			        <button  type="button" className="btn btn-default filterbuttonreset" onClick={this.handlefilterReset} >Reset</button>
