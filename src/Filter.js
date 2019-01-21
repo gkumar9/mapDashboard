@@ -7,18 +7,27 @@ import MINIGRID from './pins/strop4.png'
 class Filter extends Component{
 	constructor(props){
 		super(props)
+		this.state={'classdisabledapply':true,'classdisabledreset':true}
 		this.handleFilterChange=this.handleFilterChange.bind(this)
 		this.handlefilterReset=this.handlefilterReset.bind(this)
 		this.handlefilterApply=this.handlefilterApply.bind(this)
+		this.handlestatefilter=this.handlestatefilter.bind(this)
 	}
 	handleFilterChange(e){
 		this.props.onChangeFilter(e.target.value);
+		this.setState({classdisabledapply:false,classdisabledreset:false})
 	}
 	handlefilterReset(){
 		this.props.onFilterReset()
+		this.setState({classdisabledapply:true,classdisabledreset:true})
 	}
 	handlefilterApply(){
 		this.props.onFilterApply()
+		this.setState({classdisabledapply:true,classdisabledreset:false})
+	}
+	handlestatefilter(filteredstates){
+		this.props.onChangeStates(filteredstates)
+		this.setState({classdisabledapply:false,classdisabledreset:false})
 	}
 	render(){
 		return(
@@ -37,18 +46,21 @@ class Filter extends Component{
 			      </div>
 			      <div id="navbar2" className="navbar-collapse collapse">
 			        <ul className="nav navbar-nav">
-			        	<li className="filterItem">
-			          		<div class="dropdown">
-										  <button style={{'width': '-webkit-fill-available','border-radius':'0'}} class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-										    States
-										    <span class="caret"></span>
+			        	<li style={{'width':'177px'}}className="filterItem">
+			          		<div className="dropdown">
+										  <button style={{'width': '-webkit-fill-available','borderRadius':'0'}} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										    {this.props.selectedstate==''?(<span>States</span>
+										    	):(this.props.selectedstate
+										    	)}
+										    <span className="caret"></span>
 										  </button>
-										  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										    <li><a href="#">Action</a></li>
-										    <li><a href="#">Another action</a></li>
-										    <li><a href="#">Something else here</a></li>
-										    <li role="separator" class="divider"></li>
-										    <li><a href="#">Separated link</a></li>
+										  <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+										  	{this.props.states.map((item)=>{
+										  		return(
+										    	<li onClick={this.handlestatefilter.bind(this,item)} key={item}><a>{item}</a></li>
+										  			)
+										  	})}
+										    
 										  </ul>
 										</div>
 			          </li>
@@ -84,8 +96,18 @@ class Filter extends Component{
 			          </li>      
 			        </ul>
 			        <div className="filterbutton">
-			        <button  type="button" className="btn btn-default filterbuttonreset" onClick={this.handlefilterReset} >Reset</button>
-			        <button  type="button" className="btn btn-primary filterbuttonapply" onClick={this.handlefilterApply} >Apply</button>
+			        {this.state.classdisabledreset===true?(
+			        	<button  type="button" className="btn btn-default filterbuttonreset disabled" onClick={this.handlefilterReset} aria-disabled="true" >Reset</button>
+			        	):(
+			        	<button  type="button" className="btn btn-default filterbuttonreset" onClick={this.handlefilterReset} >Reset</button>
+			        	)}
+			        {this.state.classdisabledapply===true?(
+			        	<button  type="button" className="btn btn-primary filterbuttonapply disabled" onClick={this.handlefilterApply} aria-disabled="true">Apply</button>
+			        	):(
+			        	<button  type="button" className="btn btn-primary filterbuttonapply" onClick={this.handlefilterApply} >Apply</button>
+			        	)}
+
+			        	
 			       </div>
 			      </div>
 			    </div>
