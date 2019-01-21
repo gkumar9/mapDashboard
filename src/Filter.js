@@ -97,12 +97,12 @@ class Filter extends Component{
 			        </ul>
 			        <div className="filterbutton">
 			        {this.state.classdisabledreset===true?(
-			        	<button  type="button" className="btn btn-default filterbuttonreset disabled" onClick={this.handlefilterReset} aria-disabled="true" >Reset</button>
+			        	<button  type="button" className="btn btn-default filterbuttonreset disabled"  aria-disabled="true" >Reset</button>
 			        	):(
 			        	<button  type="button" className="btn btn-default filterbuttonreset" onClick={this.handlefilterReset} >Reset</button>
 			        	)}
 			        {this.state.classdisabledapply===true?(
-			        	<button  type="button" className="btn btn-primary filterbuttonapply disabled" onClick={this.handlefilterApply} aria-disabled="true">Apply</button>
+			        	<button  type="button" className="btn btn-primary filterbuttonapply disabled"  aria-disabled="true">Apply</button>
 			        	):(
 			        	<button  type="button" className="btn btn-primary filterbuttonapply" onClick={this.handlefilterApply} >Apply</button>
 			        	)}

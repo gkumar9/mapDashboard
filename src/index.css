@@ -16,6 +16,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.btn.disabled{
+  background: gray !important;
+  border-color: white !important;
+  color:white !important;
+}
 .headerbutton{
   float: left !important;
   margin-right: 0px !important;
