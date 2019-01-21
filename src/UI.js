@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Map from './Maps.js'
 import Header from './Header.js'
 import Sidebar from './Sidebar.js'
@@ -107,15 +108,16 @@ class Main extends Component{
 		})
 		.catch((e)=>{
 			Swal({
-        type: 'error',
-        title: 'Oops...',
-        text: e,
-      })
+	        type: 'error',
+	        title: 'Oops...',
+	        text: e,
+	      })
 		})
 	}
 
 	render(){
-		return(		 
+		return(	
+					 
 				<div> 	
 			  	<Header />
 			  	<div className="mainbody">

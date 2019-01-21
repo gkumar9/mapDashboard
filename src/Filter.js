@@ -91,7 +91,7 @@ class Filter extends Component{
 			          <li><a><span className="verticalLine"></span></a></li>
 			          <li className="filterItem">
 			          		<input type="checkbox" name="red" value="ROOFTOP" checked={this.props.filter.ROOFTOP} onChange={this.handleFilterChange} />
-			          		<img src={ROOFTOP} alt="logo" className="filterImg responsive" />
+			          		<img style={{'width':'15%'}} src={ROOFTOP} alt="logo" className="filterImg responsive" />
 			          		<span className="filterText" >Rooftop</span>
 			          </li>      
 			        </ul>

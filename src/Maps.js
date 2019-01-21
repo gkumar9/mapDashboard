@@ -138,8 +138,13 @@ class MapContainer extends Component {
         streetViewControl={false}
         fullscreenControl={false}
         restriction= {{
-          latLngBounds: {north: 42.711540, south: 0.953572, west: 66.636488, east: 99.141484},
-          strictBounds: true,
+          latLngBounds: {
+          north: 37.803116,
+          south: 7.381437,
+          west: 67.917435,
+          east: 97.17622340167043
+        },
+          strictBounds: false,
         }}
         google={this.props.google}
         zoom={5}
@@ -177,10 +182,7 @@ class MapContainer extends Component {
               stylers: [{color: '#17263c'}]
             }
           ]}
-        initialCenter={{
-         lat: 21.5937,
-         lng: 80.9629
-        }}
+        center={new this.props.google.maps.LatLng(23.845625996700075,78.9629)}
       >
         <MapList google={this.props.google} places={this.props.datapins} onClick={this.onMarkerClick} />
         
