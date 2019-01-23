@@ -48,21 +48,21 @@ class Filter extends Component{
 			        <ul className="nav navbar-nav">
 			        	<li style={{'width':'177px'}}className="filterItem">
 			          		<div className="dropdown">
-										  <button style={{'width': '-webkit-fill-available','borderRadius':'0'}} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-										    {this.props.selectedstate==''?(<span>States</span>
-										    	):(this.props.selectedstate
-										    	)}
-										    <span className="caret"></span>
-										  </button>
-										  <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-										  	{this.props.states.map((item)=>{
-										  		return(
-										    	<li onClick={this.handlestatefilter.bind(this,item)} key={item}><a>{item}</a></li>
-										  			)
-										  	})}
-										    
-										  </ul>
-										</div>
+							  <button style={{'width': '-webkit-fill-available','borderRadius':'0'}} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							    {this.props.selectedstate==''?(<span>States</span>
+							    	):(this.props.selectedstate
+							    	)}
+							    <span className="caret"></span>
+							  </button>
+							  <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+							  	{this.props.states.map((item)=>{
+							  		return(
+							    	<li onClick={this.handlestatefilter.bind(this,item)} key={item}><a>{item}</a></li>
+							  			)
+							  	})}
+							    
+							  </ul>
+							</div>
 			          </li>
 			          <li><a><span className="verticalLine"></span></a></li>
 			          <li style={{'width':'157px'}} className="filterItem">

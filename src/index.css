@@ -16,6 +16,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.rmssidebar{
+  margin-bottom: 35px
+}
+.col-xs-9{
+  text-align: left;
+}
+ul{list-style-type: none;}
 .btn.disabled{
   background: gray !important;
   border-color: white !important;
