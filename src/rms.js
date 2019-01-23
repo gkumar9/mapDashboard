@@ -1,32 +1,24 @@
 import React, { Component } from 'react';
 import Header from './Header.js'
 import Sidebar from './Sidebar.js'
-import Filter from './Filter.js'
 import CO2 from './pins/CO2.png'
 import FLOW from './pins/flow.png'
 import SOLARENERGY from './pins/solar.jpg'
 import SUBMERSIBLE from './pins/submersible.png'
 import STATES from './pins/states.png'
-// import Tbl from './tbl.js'
+import { Link } from "react-router-dom";
+import axios from 'axios'
+import config from './config.js'
 const $ = require('jquery')
 $.DataTable=require('datatables.net')
-
-const mapStyles = {
-  width: '100%',
-  height: '100%',
-  position:'relative',
-  display: 'flex', 
-  flexFlow: 'row nowrap', 
-};
-
 class RmsHeader extends Component{
   render(){
     return(
         <div className="container ">
           <nav id="filter" className="navbar navbar-default">
-            <div className="container-fluid" style={{'text-align':'center'}}>                 
-            <button style={{'marginTop':'6px','background-color': 'lightgray','float': 'left'}} type="button" class="btn btn-default" aria-label="Left Align"><span  class="glyphicon glyphicon-menu-left" style={{'marginRight':'6px'}} aria-hidden="true"></span>Home </button>
-            <span style={{'font-size': 'x-large','color':'blue'}}>Remote Monitoring System </span>
+            <div className="container-fluid" style={{'textAlign':'center'}}>                 
+            <Link to="/"><button style={{'marginTop':'6px','backgroundColor': 'lightgray','float': 'left'}} type="button" className="btn btn-default" aria-label="Left Align"><span  className="glyphicon glyphicon-menu-left" style={{'marginRight':'6px'}} aria-hidden="true"></span>Home </button></Link>
+            <span style={{'fontSize': 'x-large','color':'blue'}}>Remote Monitoring System </span>
             </div>
           </nav>
         </div>
@@ -37,13 +29,13 @@ class RmsSidebardata extends Component{
   render(){
     return(
         
-            <div style={{'border-right-style': 'groove','min-height': '100vh','text-align':'center'}} className="col-xs-3">
-              <h4 style={{'marginTop':'40px','color':'gray','font-size': '25px'}}>Our Impact</h4>
+            <div style={{'borderRightStyle': 'groove','minHeight': '100vh','textAlign':'center'}} className="col-xs-2">
+              <h4 style={{'marginTop':'40px','color':'gray','fontSize': '25px'}}>Our Impact</h4>
               <ul style={{'marginTop':'40px','color':'gray'}}>
                 <li className="rmssidebar">
                   <div className="row">
                     <div className="col-xs-3">
-                      <img src={CO2} style={{'width':'46px'}}  />
+                      <img alt="CO2" src={CO2} style={{'width':'46px'}}  />
                     </div>
                     <div className="col-xs-9">
                     <span><b>10127.93 tonnes</b></span>
@@ -54,7 +46,7 @@ class RmsSidebardata extends Component{
                 <li className="rmssidebar">
                   <div className="row">
                     <div className="col-xs-3">
-                      <img src={FLOW} style={{'width':'32px'}}  />
+                      <img alt="flow" src={FLOW} style={{'width':'32px'}}  />
                     </div>
                     <div className="col-xs-9">
                     <span ><b>105442.0 kL</b></span>
@@ -65,7 +57,7 @@ class RmsSidebardata extends Component{
                 <li className="rmssidebar">
                   <div className="row">
                     <div className="col-xs-3">
-                      <img src={SOLARENERGY} style={{'width':'37px'}}  />
+                      <img alt="SOLARENERGY" src={SOLARENERGY} style={{'width':'37px'}}  />
                     </div>
                     <div className="col-xs-9">
                     <span ><b>10.4 GWh</b></span>
@@ -76,7 +68,7 @@ class RmsSidebardata extends Component{
                 <li className="rmssidebar">
                   <div className="row">
                     <div className="col-xs-3">
-                      <img src={SUBMERSIBLE} style={{'width':'42px'}}  />
+                      <img alt="submersible" src={SUBMERSIBLE} style={{'width':'42px'}}  />
                     </div>
                     <div className="col-xs-9">
                     <span ><b>6581</b></span>
@@ -87,7 +79,7 @@ class RmsSidebardata extends Component{
                 <li className="rmssidebar">
                   <div className="row">
                     <div className="col-xs-3">
-                      <img src={STATES} style={{'width':'42px'}}  />
+                      <img alt="states" src={STATES} style={{'width':'42px'}}  />
                     </div>
                     <div className="col-xs-9">
                     <span ><b>14</b></span>
@@ -107,6 +99,8 @@ class Rmsdatatable extends Component {
     this.$el.DataTable(
     {
       data: this.props.data,
+      scrollY: 520,
+      paging: false,
       columns: [
           { title: "Name" },
           { title: "Position" },
@@ -123,14 +117,28 @@ class Rmsdatatable extends Component {
   }
   render(){
     return(
-      <div style={{'max-height': '651px', 'overflow':'auto'}} className="col-xs-9">
-        <table className="display" width="100%" ref={el=>this.el=el}></table>
+      <div style={{'padding':'10px'}} className="col-xs-10">
+        <table id="example" className="display" width="100%" ref={el=>this.el=el}></table>
       </div>
           
       )
   }
 } 
 class Rms extends Component{
+  conponentDidMount(){
+    axios({
+      url:config.rmslist,
+      method:'POST',
+      data:{
+        temp:"temp"
+      },
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then((res)=>{
+      console.log(res.data.data.list)
+    })
+  }
   dataSet = [
     [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ],
     [ "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" ],
@@ -175,7 +183,7 @@ class Rms extends Component{
         <Header />
         <div className="mainbody">
           <Sidebar />
-          <div style={{'background-color':'#F2F2F2'}}className="main">
+          <div style={{'backgroundColor':'#F2F2F2'}}className="main">
             <RmsHeader />
             <div className="container">
               <div className="row">

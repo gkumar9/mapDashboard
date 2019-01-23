@@ -6,6 +6,7 @@
 // 	"irrigation":"../api/rs/claro/maps/asset/info/pump/irrigation",
 // 	"drinkingwater":"../api/rs/claro/maps/asset/info/pump/drinkingwater",
 // 	"LogoutServlet":"../LogoutServlet"
+//	"rmslist":"../rms/api/rs/claro/rms/device/list"
 // }
 
 let config={
@@ -15,7 +16,8 @@ let config={
 	"rooftop":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/rooftop",
 	"irrigation":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/pump/irrigation",
 	"drinkingwater":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/pump/drinkingwater",
-	"LogoutServlet":"http://staging2.clarolabs.in/LogoutServlet"
+	"LogoutServlet":"http://staging2.clarolabs.in/LogoutServlet",
+	"rmslist":"http://staging2.clarolabs.in/rms/api/rs/claro/rms/device/list"
 }
 
 export default config;

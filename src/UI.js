@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Map from './Maps.js'
 import Header from './Header.js'
 import Sidebar from './Sidebar.js'
@@ -30,7 +29,7 @@ class Main extends Component{
 	handleApply(){
 		let filterpins=[];
 		this.state.allpins.map((item,key)=>{
-			if(this.state.filteredstate==''){	
+			if(this.state.filteredstate===''){	
 				if(this.state.filter[item.assetType]){
 					filterpins.push(item)
 				}

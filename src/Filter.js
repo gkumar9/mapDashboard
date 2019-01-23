@@ -41,7 +41,7 @@ class Filter extends Component{
 					  <span className="icon-bar middle-bar"></span>
 					  <span className="icon-bar bottom-bar"></span>
 					</button>
-			        <div className="filterIcon"><img style={{'transform': 'rotate(90deg)','width': '7%','marginTop': '-8px'}}src="https://img.icons8.com/ios/32/000000/sorting-options.png" /> <span style={{'fontSize':'20px','margin':'5px'}}>Filters</span>
+			        <div className="filterIcon"><img alt="filterIcon" style={{'transform': 'rotate(90deg)','width': '7%','marginTop': '-8px'}}src="https://img.icons8.com/ios/32/000000/sorting-options.png" /> <span style={{'fontSize':'20px','margin':'5px'}}>Filters</span>
 			        </div>
 			      </div>
 			      <div id="navbar2" className="navbar-collapse collapse">
@@ -49,7 +49,7 @@ class Filter extends Component{
 			        	<li style={{'width':'177px'}}className="filterItem">
 			          		<div className="dropdown">
 							  <button style={{'width': '-webkit-fill-available','borderRadius':'0'}} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							    {this.props.selectedstate==''?(<span>States</span>
+							    {this.props.selectedstate===''?(<span>States</span>
 							    	):(this.props.selectedstate
 							    	)}
 							    <span className="caret"></span>

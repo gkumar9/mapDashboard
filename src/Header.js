@@ -36,15 +36,15 @@ class Header extends Component{
 			      <div id="navbar1" className="navbar-collapse collapse gaurav">
 			        <ul className="nav navbar-nav">
 
-			          <li className="sidebarheader"><a target="_blank" rel="noopener noreferrer" href="https://dashboard.claroenergy.in/all_rms/locrmspage.html"><img src={IRRIGATION_PUMP} />Irrigation Pump</a></li>
+			          <li className="sidebarheader"><a target="_blank" rel="noopener noreferrer" href="https://dashboard.claroenergy.in/all_rms/locrmspage.html"><img alt="irrigation" src={IRRIGATION_PUMP} />Irrigation Pump</a></li>
 			          <li className="sidebarheader"><a><span className="verticalLine"></span></a></li>
-			          <li className="sidebarheader"><a href="#" className="disabled"><img src={PATVAN} />Patvan</a></li>
+			          <li className="sidebarheader"><a href="#" className="disabled"><img alt="patvan" src={PATVAN} />Patvan</a></li>
 			          <li className="sidebarheader"><a><span className="verticalLine"></span></a></li>
-			          <li className="sidebarheader"><a href="/dashboard"><img src={DRINKING_WATER_PUMP} />Drinking Water Pump</a></li>
+			          <li className="sidebarheader"><a href="/dashboard"><img alt="DRINKING_WATER_PUMP" src={DRINKING_WATER_PUMP} />Drinking Water Pump</a></li>
 			          <li className="sidebarheader"><a><span className="verticalLine"></span></a></li>
-			          <li className="sidebarheader"><a href="#" className="disabled"><img src={MINIGRID} />Minigrid</a></li>
+			          <li className="sidebarheader"><a href="#" className="disabled"><img alt="Minigrid" src={MINIGRID} />Minigrid</a></li>
 			          <li className="sidebarheader"><a><span className="verticalLine"></span></a></li>
-			          <li className="sidebarheader"><a href="#" className="disabled"><img src={ROOFTOP} />Rooftop</a></li>
+			          <li className="sidebarheader"><a href="#" className="disabled"><img alt="Rooftop" src={ROOFTOP} />Rooftop</a></li>
 			          <li className="headerdivider"></li>
 			          <li ><a >Welcome User</a></li>
 			          <li ><a><span className="verticalLine"></span></a></li>
