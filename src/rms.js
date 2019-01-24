@@ -11,7 +11,6 @@ import axios from 'axios'
 import config from './config.js'
 const $ = require('jquery')
 $.DataTable=require('datatables.net')
-
 class RmsHeader extends Component{
   render(){
     return(
@@ -95,16 +94,28 @@ class RmsSidebardata extends Component{
   }
 }
 class Rmsdatatable extends Component {
+  constructor(props){
+    super(props)
+    this.handletableclick=this.handletableclick.bind(this)
+  }
+  handletableclick(event){
+    console.log(event)
+  }
   componentDidUpdate (){
     console.log(this.props.data)
     this.$el=$(this.el)
+
     this.$el.DataTable(
     {
       data: this.props.data,
       scrollY: 520,
       paging: false,
+      responsive: true,
       columns: [
-          { data: "vfdSno" },
+          { data: "vfdSno",
+          render: function (data, type, row) {
+                        return '<a href="/rms/"+this.innerHTML+" onClick=console.log(this.innerHTML) >' + data + '</a>'
+                    } },
           { data: "customerName" },
           { data: "district" },
           { data: "state" }
