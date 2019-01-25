@@ -15,7 +15,7 @@
 					            <li title="RMS"><a target="_blank" rel="noopener noreferrer" href="../all_rms/locrmspage.html"><i><img alt="rms" src={RMS} /></i></a></li>
 					            <li title="IAAS"><a target="_blank" rel="noopener noreferrer" href="../IAAS/menubar.html"><i><img alt="IAAS" src={IAAS} /></i></a></li>
 					            <Link to="/rms"><li title="Solar Rooftop" ><i><img alt="Rooftop" src={ROOFTOP} /></i></li></Link>
-					            <li title="Minigrid"><a className="disabled"><i><img alt="Minigrid" src={MINIGRID} /></i></a></li>
+					            <Link to="/rms/12"><li title="Minigrid"><i><img alt="Minigrid" src={MINIGRID} /></i></li></Link>
 					        </ul>
 				    </aside>
 				)
