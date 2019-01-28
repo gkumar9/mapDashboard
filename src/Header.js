@@ -30,7 +30,7 @@ class Header extends Component{
 			          <span className="icon-bar"></span>
 			          <span className="icon-bar"></span>
 			        </button>
-			        <a className="navbar-brand" href="/dashboard"><img src={logo} alt="logo" />
+			        <a className="navbar-brand" href="/home"><img src={logo} alt="logo" />
 			        </a>
 			      </div>
 			      <div id="navbar1" className="navbar-collapse collapse gaurav">

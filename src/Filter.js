@@ -36,48 +36,29 @@ class Filter extends Component{
 			    <div className="container-fluid">
 			      <div className="navbar-header" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar">
 			        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar">
-					  <span className="sr-only">Toggle navigation</span>
-					  <span className="icon-bar top-bar"></span>
-					  <span className="icon-bar middle-bar"></span>
-					  <span className="icon-bar bottom-bar"></span>
-					</button>
+								<span className="sr-only">Toggle navigation</span>
+								<span className="icon-bar top-bar"></span>
+								<span className="icon-bar middle-bar"></span>
+								<span className="icon-bar bottom-bar"></span>
+							</button>
 			        <div className="filterIcon"><img alt="filterIcon" style={{'transform': 'rotate(90deg)','width': '7%','marginTop': '-8px'}}src="https://img.icons8.com/ios/32/000000/sorting-options.png" /> <span style={{'fontSize':'20px','margin':'5px'}}>Filters</span>
 			        </div>
 			      </div>
 			      <div id="navbar2" className="navbar-collapse collapse">
 			        <ul className="nav navbar-nav">
-			        	<li style={{'width':'177px'}}className="filterItem">
-			          		<div className="dropdown">
-							  <button style={{'width': '-webkit-fill-available','borderRadius':'0'}} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							    {this.props.selectedstate===''?(<span>States</span>
-							    	):(this.props.selectedstate
-							    	)}
-							    <span className="caret"></span>
-							  </button>
-							  <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-							  	{this.props.states.map((item)=>{
-							  		return(
-							    	<li onClick={this.handlestatefilter.bind(this,item)} key={item}><a>{item}</a></li>
-							  			)
-							  	})}
-							    
-							  </ul>
-							</div>
-			          </li>
-			          <li><a><span className="verticalLine"></span></a></li>
-			          <li style={{'width':'157px'}} className="filterItem">
+			          <li style={{'width':'147px'}} className="filterItem">
 			          		<input type="checkbox" name="red" value="IRRIGATION_PUMP" checked={this.props.filter.IRRIGATION_PUMP} onChange={this.handleFilterChange}/>
-			          		<img src={IRRIGATION_PUMP} style={{'width':'15%'}} alt="logo" className="filterImg responsive" />
+			          		<img src={IRRIGATION_PUMP} style={{'width':'14%'}} alt="logo" className="filterImg responsive" />
 			          		<span className="filterText" >Irrigation pump</span>
 			          </li>
 			          <li><a><span className="verticalLine"></span></a></li>
-			          <li style={{'width':'108px'}} className="filterItem">
+			          <li style={{'width':'100px'}} className="filterItem">
 			          		<input type="checkbox" name="red" value="PATVAN" checked={this.props.filter.PATVAN} onChange={this.handleFilterChange} />
 			          		<img src={PATVAN} alt="logo" style={{'width':'21%'}} className="filterImg responsive" />
 			          		<span className="filterText" >Patvan</span>
 			          </li>
 			          <li><a><span className="verticalLine"></span></a></li>
-			          <li style={{'width':'152px'}} className="filterItem">
+			          <li style={{'width':'148px'}} className="filterItem">
 			          		<input type="checkbox" name="red" value="DRINKING_WATER_PUMP" checked={this.props.filter.DRINKING_WATER_PUMP} onChange={this.handleFilterChange} />
 			          		<img style={{'width':'15%'}} src={DRINKING_WATER_PUMP} alt="logo" className="filterImg responsive" />
 			          		<span className="filterText" >Drinking water</span>
@@ -89,11 +70,30 @@ class Filter extends Component{
 			          		<span className="filterText" >Minigrid</span>
 			          </li>
 			          <li><a><span className="verticalLine"></span></a></li>
-			          <li className="filterItem">
+			          <li style={{'width':'103px'}} className="filterItem">
 			          		<input type="checkbox" name="red" value="ROOFTOP" checked={this.props.filter.ROOFTOP} onChange={this.handleFilterChange} />
-			          		<img style={{'width':'15%'}} src={ROOFTOP} alt="logo" className="filterImg responsive" />
+			          		<img style={{'width':'22%'}} src={ROOFTOP} alt="logo" className="filterImg responsive" />
 			          		<span className="filterText" >Rooftop</span>
-			          </li>      
+			          </li>
+								<li><a><span className="verticalLine"></span></a></li>
+								<li style={{'width':'177px'}}className="filterItem">
+									<div className="dropdown">
+										<button style={{'width': '-webkit-fill-available','borderRadius':'0'}} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+											{this.props.selectedstate===''?(<span>States</span>
+												):(this.props.selectedstate
+												)}
+											<span className="caret"></span>
+										</button>
+										<ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+											{this.props.states.map((item)=>{
+												return(
+												<li onClick={this.handlestatefilter.bind(this,item)} key={item}><a>{item}</a></li>
+													)
+											})}
+											
+										</ul>
+									</div>
+			          </li>     
 			        </ul>
 			        <div className="filterbutton">
 			        {this.state.classdisabledreset===true?(

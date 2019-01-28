@@ -96,14 +96,16 @@ a.disabled {
     border-color: blue;
   border-width: 1.2px;
   color: blue;
-  width: 8%;
+  outline: none;
+  width:8%;
 }
 .filterbuttonapply{
   margin:8px;
+  outline: none;
   float:right;
   background:#3A50FC !important;
   border-radius:0;
-  width: 8%;
+  width:8%;
 }
 .btn-primary:hover{
   background-color:#3A50FC;
