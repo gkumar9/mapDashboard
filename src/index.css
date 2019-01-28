@@ -315,6 +315,9 @@ input[type=checkbox], input[type=radio]{
     -webkit-box-direction: normal;
 
 }
+.statefilter{
+  width: 177px;
+}
 .infoWindowImg{
   border-radius: 50%;
   box-shadow: 2px 4px 12px grey;
@@ -359,9 +362,25 @@ Responsive navbar-brand image CSS
 .container {
     width: auto;
 }
-
+@media (max-width: 1280px){
+  .filterbuttonreset{
+    width:6%
+  }
+  .filterbuttonapply{
+    width:6%;
+  }
+}
 }
 @media (max-width: 770px){
+  .navbar-nav{
+    margin:0;
+  }
+  .statefilter{
+    width: -webkit-fill-available !important; 
+  }
+  .btn .caret{
+    transform: rotate(180deg);
+  }
   .filterbuttonreset{
     float: right;
     width: 43%

@@ -76,7 +76,7 @@ class Filter extends Component{
 			          		<span className="filterText" >Rooftop</span>
 			          </li>
 								<li><a><span className="verticalLine"></span></a></li>
-								<li style={{'width':'177px'}}className="filterItem">
+								<li style={{'width':'177px'}}className="filterItem statefilter">
 									<div className="dropdown">
 										<button style={{'width': '-webkit-fill-available','borderRadius':'0'}} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 											{this.props.selectedstate===''?(<span>States</span>
