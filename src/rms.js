@@ -30,10 +30,11 @@ class Rmsdatatable extends Component {
   handletableclick(event){
     console.log(event)
   }
+  componentDidMount(){
+    console.log(this.$el)
+  }
   componentDidUpdate (){
-    console.log(this.props.data)
     this.$el=$(this.el)
-    const self = this;
     this.$el.DataTable(
     {
       data: this.props.data,
@@ -43,17 +44,15 @@ class Rmsdatatable extends Component {
       columns: [
           { data: "vfdSno",
           render: function (data, type, row) {
-                  return '<a onClick={' + self.handletableclick.bind(self, row) + '} >' + data + '</a>'
+                  return '<a href="rms/'+data+'" >' + data + '</a>'
                     } },
           { data: "customerName" },
           { data: "district" },
           { data: "state" }
       ]
     }
-      )
-  }
-  componentWillUnMount(){
-
+    )
+    
   }
   render(){
     return(
@@ -75,10 +74,27 @@ class Rmsdatatable extends Component {
 class Rms extends Component{
   constructor(props){
     super(props)
-    this.state={'list':[]}
+    this.state={'list':[],'allassetstat':{},'states':[]}
   }
-  componentDidMount(){
-    axios({
+  async componentDidMount(){
+    let allassetstattemp={}
+    let listtemp=[]
+    let tempstate=[]
+     await axios({
+			url:config.allassetstat,
+			method:'POST',
+			data:{
+      },
+			headers:{
+				'Content-Type': 'application/json'
+			}
+    })
+    .then((res)=>{
+      allassetstattemp=res.data.data
+    }).catch((e)=>{
+      console.log(e)
+    })
+     await axios({
       url:config.rmslist,
       method:'POST',
       data:{
@@ -88,11 +104,25 @@ class Rms extends Component{
         'Content-Type': 'application/json'
       }
     }).then((res)=>{
-      this.setState({list:res.data.data.list})
-    })
+      listtemp=res.data.data.list
+      tempstate=[]
+      res.data.data.list.map((itemmap)=>{
+        let check=false
+        tempstate.map((itemstate)=>{
+          if(itemmap.state===itemstate){
+            check=true
+          }
+        })
+        if(check===false){
+          tempstate.push(itemmap.state)
+        }
+      })
+      })
+        
     .catch((e)=>{
       console.log(e)
     })
+    this.setState({allassetstat:allassetstattemp,list:listtemp,states:tempstate})
   }
 	render(){
 		return(
@@ -104,7 +134,7 @@ class Rms extends Component{
             <RmsHeader />
             <div className="container">
               <div className="row">
-              <RmsSidebardata />
+              <RmsSidebardata states={this.state.states.length} pump={this.state.list.length} allassetstat={this.state.allassetstat} />
               <Rmsdatatable data={this.state.list} />
               </div>
             </div>
