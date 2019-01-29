@@ -17,7 +17,8 @@ let config={
 	"irrigation":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/pump/irrigation",
 	"drinkingwater":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/pump/drinkingwater",
 	"LogoutServlet":"http://staging2.clarolabs.in/LogoutServlet",
-	"rmslist":"http://staging2.clarolabs.in/rms/api/rs/claro/rms/device/list"
+	"rmslist":"http://staging2.clarolabs.in/rms/api/rs/assets/list",
+	"highchartdata":"http://staging2.clarolabs.in/rms/api/rs/asset/highchart/data"
 }
 
 export default config;

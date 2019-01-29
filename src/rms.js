@@ -33,7 +33,7 @@ class Rmsdatatable extends Component {
   componentDidUpdate (){
     console.log(this.props.data)
     this.$el=$(this.el)
-
+    const self = this;
     this.$el.DataTable(
     {
       data: this.props.data,
@@ -43,7 +43,7 @@ class Rmsdatatable extends Component {
       columns: [
           { data: "vfdSno",
           render: function (data, type, row) {
-                        return '<a onClick=console.log(this.innerHTML) >' + data + '</a>'
+                  return '<a onClick={' + self.handletableclick.bind(self, row) + '} >' + data + '</a>'
                     } },
           { data: "customerName" },
           { data: "district" },
