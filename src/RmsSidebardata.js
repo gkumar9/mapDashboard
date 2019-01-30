@@ -7,10 +7,9 @@ import STATES from './pins/states.png'
 class RmsSidebardata extends Component{ 
   render(){
     return(
-        
             <div style={{'borderRightStyle': 'groove','minHeight': '100vh','textAlign':'center'}} className="col-xs-2">
               <h4 style={{'marginTop':'40px','color':'gray','fontSize': '25px'}}>Our Impact</h4>
-              <ul style={{'marginTop':'40px','color':'gray'}}>
+              <ul style={{'marginTop':'40px','color':'black'}}>
                 <li className="rmssidebar">
                   <div className="row">
                     <div className="col-xs-3">
@@ -61,8 +60,18 @@ class RmsSidebardata extends Component{
                       <img className="responsive" alt="states" src={STATES} style={{'width':'42px'}}  />
                     </div>
                     <div className="col-xs-9">
-                    <span ><b>{this.props.states}</b></span>
-                    <p ><small>States in India</small></p>
+                    {this.props.states!==undefined?(
+                      <div>
+                      <span ><b>{this.props.states}</b></span>
+                      <p ><small>States in India</small></p>
+                      </div>
+                    ):(
+                      <div> 
+                      <span><b>{this.props.rmsubstate.district}</b></span>
+                      <p ><small>{this.props.rmsubstate.state}</small></p>
+                      </div>
+                    )}
+                    
                     </div>
                   </div>
                 </li>

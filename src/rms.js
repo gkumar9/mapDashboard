@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 import config from './config.js'
 import RmsSidebardata from './RmsSidebardata.js'
+import { withRouter } from 'react-router'
 const $ = require('jquery')
 $.DataTable=require('datatables.net')
 class RmsHeader extends Component{
@@ -12,8 +13,8 @@ class RmsHeader extends Component{
     return(
         <div className="container ">
           <nav id="filter" className="navbar navbar-default">
-            <div className="container-fluid" style={{'textAlign':'center'}}>                 
-            <Link to="/"><button style={{'marginTop':'6px','backgroundColor': 'lightgray','float': 'left'}} type="button" className="btn btn-default" aria-label="Left Align"><span  className="glyphicon glyphicon-menu-left" style={{'marginRight':'6px'}} aria-hidden="true"></span>Home </button></Link>
+            <div className="container-fluid" style={{'textAlign':'center','marginTop':'4px'}}>                 
+            <Link to="/"><button style={{'marginTop':'1px','backgroundColor': 'transparent','float': 'left'}} type="button" className="btn btn-default" aria-label="Left Align"><span  className="glyphicon glyphicon-menu-left" style={{'marginRight':'6px'}} aria-hidden="true"></span>Home </button></Link>
             <span style={{'fontSize': 'x-large','color':'blue'}}>Remote Monitoring System </span>
             </div>
           </nav>
@@ -23,20 +24,10 @@ class RmsHeader extends Component{
 }
 
 class Rmsdatatable extends Component {
-  constructor(props){
-    super(props)
-    this.handletableclick=this.handletableclick.bind(this)
-  }
-  handletableclick(event){
-    console.log(event)
-  }
-  componentDidMount(){
-    console.log(this.$el)
-  }
   componentDidUpdate (){
-    this.$el=$(this.el)
-    this.$el.DataTable(
-    {
+    
+    let self=this;
+    var otable=$('#table_id').DataTable({
       data: this.props.data,
       scrollY: 520,
       paging: false,
@@ -44,20 +35,27 @@ class Rmsdatatable extends Component {
       columns: [
           { data: "vfdSno",
           render: function (data, type, row) {
-                  return '<a href="rms/'+data+'" >' + data + '</a>'
+                  return '<a>' + data + '</a>'
                     } },
           { data: "customerName" },
           { data: "district" },
           { data: "state" }
       ]
-    }
-    )
+    });
+    $('#table_id').delegate('tr td:first-child', 'click', function() {
+      let rmssubdata=(otable.row($(this).parents('tr')).data())
+      self.props.history.push({
+        pathname: '/rms/'+rmssubdata.vfdSno,
+        state: { detail: rmssubdata }
+      })
+    })
     
   }
   render(){
     return(
       <div style={{'padding':'10px'}} className="col-xs-10">
-        <table id="example" className="display" width="100%" ref={el=>this.el=el}>
+      <table id="table_id" className="display" width="100%">
+        {/* <table id="example" className="display" width="100%" ref={el=>this.el=el}> */}
         <thead>
             <tr>
                 <th>VFD/Controller No</th>
@@ -66,12 +64,14 @@ class Rmsdatatable extends Component {
                 <th>State</th>
             </tr>
         </thead></table>
+
       </div>
           
       )
   }
 } 
 class Rms extends Component{
+  
   constructor(props){
     super(props)
     this.state={'list':[],'allassetstat':{},'states':[]}
@@ -98,7 +98,7 @@ class Rms extends Component{
       url:config.rmslist,
       method:'POST',
       data:{
-        temp:"temp"
+        s:"s"
       },
       headers:{
         'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ class Rms extends Component{
             <div className="container">
               <div className="row">
               <RmsSidebardata states={this.state.states.length} pump={this.state.list.length} allassetstat={this.state.allassetstat} />
-              <Rmsdatatable data={this.state.list} />
+              <Rmsdatatable data={this.state.list} history={this.props.history}/>
               </div>
             </div>
             
@@ -146,4 +146,4 @@ class Rms extends Component{
 	}
 }
 
-export default Rms;
+export default withRouter(Rms);

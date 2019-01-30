@@ -20,7 +20,7 @@ ReactDOM.render(
 	<Router>
 		<div>
 			<Route exact path="/" component={UI} />
-			<Route exact path="/rms" component={rms} />
+			<Route exact path="/rms"  component={rms} />
 			<Route exact path="/rms/:id" component={rmssub} />
 		</div>
 	</Router>

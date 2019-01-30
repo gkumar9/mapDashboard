@@ -16,9 +16,9 @@ class RmsHeader extends Component{
     return(
         <div className="container ">
           <nav id="filter" className="navbar navbar-default">
-            <div className="container-fluid" style={{'textAlign':'center'}}>                 
-            <Link to="/"><button style={{'marginTop':'6px','backgroundColor': 'transparent','float': 'left'}} type="button" className="btn btn-default" aria-label="Left Align"><span  className="glyphicon glyphicon-menu-left" style={{'marginRight':'6px'}} aria-hidden="true"></span>Home </button></Link>
-            <Link  to="/rms"><button style={{'marginTop':'6px','marginLeft':'10px','backgroundColor': 'transparent','float': 'left'}} type="button" className="btn btn-default" aria-label="Left Align"><span  className="glyphicon glyphicon-menu-left" style={{'marginRight':'6px'}} aria-hidden="true"></span>Rms </button></Link>
+            <div className="container-fluid" style={{'textAlign':'center','marginTop':'4px'}}>                 
+            <Link to="/"><button style={{'marginTop':'1px','backgroundColor': 'transparent','float': 'left'}} type="button" className="btn btn-default" aria-label="Left Align"><span  className="glyphicon glyphicon-menu-left" style={{'marginRight':'6px'}} aria-hidden="true"></span>Home </button></Link>
+            <Link  to="/rms"><button style={{'marginTop':'1px','marginLeft':'10px','backgroundColor': 'transparent','float': 'left'}} type="button" className="btn btn-default" aria-label="Left Align"><span  className="glyphicon glyphicon-menu-left" style={{'marginRight':'6px'}} aria-hidden="true"></span>Rms </button></Link>
             <span style={{'fontSize': 'x-large','color':'blue'}}>Remote Monitoring System </span>
             </div>
           </nav>
@@ -31,6 +31,7 @@ class RmsHeader extends Component{
 class Rms extends Component{
   constructor(props){
     super(props)
+    console.log(this.props.location.state.detail)
     this.state={singleassetstat:{}}
   }
   async componentDidMount(){
@@ -50,12 +51,12 @@ class Rms extends Component{
     }).catch((e)=>{
       console.log(e)
     })
-    axios({
+    await axios({
 			url:config.highchartdata,
 			method:'POST',
 			data:{
-        customerId: "500018",
-        rmsVendorId: 1003
+        customerId:this.props.location.state.detail.customerId,
+        rmsVendorId:this.props.location.state.detail.rmsVendorId
       },
 			headers:{
 				'Content-Type': 'application/json'
@@ -68,6 +69,7 @@ class Rms extends Component{
       Highcharts.chart('energy_chart', {
         chart: {
           type: 'column',
+          backgroundColor:'#f2f2f2',
           events: {
             load: function () {
               var fin = new Date();
@@ -158,9 +160,9 @@ class Rms extends Component{
           }
         },
         
-        "series" : [obj],
+        "series" : [rmsdata.energy_graph],
         "drilldown" : {
-          "series":obj.data,
+          "series":rmsdata.energy_graph.data,
         }
       });
       })
@@ -173,7 +175,7 @@ class Rms extends Component{
 	render(){
     // console.log(this.props.match.params)
 		return(
-			<div >  
+		<div >  
         <Header />
         <div className="mainbody">
           <Sidebar />
@@ -181,7 +183,7 @@ class Rms extends Component{
             <RmsHeader />
             <div className="container">
               <div className="row">
-              <RmsSidebardata allassetstat={this.state.singleassetstat}/>
+              <RmsSidebardata allassetstat={this.state.singleassetstat} rmsubstate={this.props.location.state.detail}/>
               <div style={{'padding':'30px'}} className="col-xs-10">
               <div id="energy_chart"></div>
               </div>

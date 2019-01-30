@@ -14,6 +14,9 @@ a {
 .dataTables_filter{
   margin-right: 15px;
 }
+.btn-default{
+  border-color: transparent !important;
+}
 table.dataTable thead th, table.dataTable thead td{
   border-bottom: 0 !important;
 }
