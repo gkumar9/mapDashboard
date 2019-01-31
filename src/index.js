@@ -12,7 +12,7 @@ export const history = createBrowserHistory({
 });
 
 ReactDOM.render(
-  <Router>
+  <Router basename={'/home/'}>
     <div>
       <Route exact path="/" component={UI} />
       <Route exact path="/rms" component={rms} />

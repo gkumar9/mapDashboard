@@ -26,7 +26,7 @@ class RmsSidebardata extends Component {
                   className="responsive"
                   alt="CO2"
                   src={CO2}
-                  style={{ width: "46px" }}
+                  style={{ width: "46px",marginLeft:'-11px' }}
                 />
               </div>
               <div className="col-xs-9">
@@ -46,7 +46,7 @@ class RmsSidebardata extends Component {
                   className="responsive"
                   alt="flow"
                   src={FLOW}
-                  style={{ width: "32px" }}
+                  style={{ width: "32px",marginLeft:'-11px' }}
                 />
               </div>
               <div className="col-xs-9">
@@ -66,7 +66,7 @@ class RmsSidebardata extends Component {
                   className="responsive"
                   alt="SOLARENERGY"
                   src={SOLARENERGY}
-                  style={{ width: "37px" }}
+                  style={{ width: "37px",marginLeft:'-11px' }}
                 />
               </div>
               <div className="col-xs-9">
@@ -86,7 +86,7 @@ class RmsSidebardata extends Component {
                   className="responsive"
                   alt="submersible"
                   src={SUBMERSIBLE}
-                  style={{ width: "42px" }}
+                  style={{ width: "42px",marginLeft:'-11px' }}
                 />
               </div>
               <div className="col-xs-9">
@@ -120,7 +120,7 @@ class RmsSidebardata extends Component {
                   className="responsive"
                   alt="states"
                   src={STATES}
-                  style={{ width: "42px" }}
+                  style={{ width: "42px",marginLeft:'-11px' }}
                 />
               </div>
               <div className="col-xs-9">

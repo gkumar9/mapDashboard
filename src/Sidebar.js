@@ -7,6 +7,7 @@ import HOME from "./pins/ROOFTOP.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
 class Sidebar extends Component {
   render() {
+    
     return (
       <aside className="main_sidebar">
         <ul>
@@ -23,15 +24,10 @@ class Sidebar extends Component {
           </Link>
           <Link to="/rms">
           <li title="RMS">
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="../all_rms/locrmspage.html"
-            >
+            
               <i>
                 <img alt="rms" src={RMS} />
               </i>
-            </a>
           </li>
           </Link>
           <li title="IAAS">

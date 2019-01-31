@@ -5,8 +5,11 @@
 // 	"rooftop":"../api/rs/claro/maps/asset/info/rooftop",
 // 	"irrigation":"../api/rs/claro/maps/asset/info/pump/irrigation",
 // 	"drinkingwater":"../api/rs/claro/maps/asset/info/pump/drinkingwater",
-// 	"LogoutServlet":"../LogoutServlet"
-//	"rmslist":"../rms/api/rs/claro/rms/device/list"
+// 	"LogoutServlet":"../LogoutServlet",
+// 	"rmslist":"../rms/api/rs/assets/list",
+// 	"highchartdata":"../rms/api/rs/asset/highchart/data",
+// 	"allassetstat":"../rms/api/rs/all/assets/stats",
+// 	"singleassetstat":"../rms/api/rs/asset/stats"
 // }
 
 let config={
