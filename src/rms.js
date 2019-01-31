@@ -15,12 +15,12 @@ class RmsHeader extends Component {
         <nav id="filter" className="navbar navbar-default">
           <div
             className="container-fluid"
-            style={{ textAlign: "center", marginTop: "4px" }}
+            style={{ textAlign: "center", marginTop: "10px" }}
           >
             <Link to="/">
               <button
                 style={{
-                  marginTop: "1px",
+                  marginTop: "-2px",
                   backgroundColor: "transparent",
                   float: "left"
                 }}
@@ -36,7 +36,7 @@ class RmsHeader extends Component {
                 Home{" "}
               </button>
             </Link>
-            <span style={{ fontSize: "x-large", color: "blue" }}>
+            <span style={{ fontSize: "large", color: "blue" }}>
               Remote Monitoring System{" "}
             </span>
           </div>
@@ -53,12 +53,12 @@ class Rmsdatatable extends Component {
       data: this.props.data,
       scrollY: 520,
       paging: false,
-      responsive: true,
+      responsive: false,
       columns: [
         {
           data: "vfdSno",
           render: function(data, type, row) {
-            return "<a>" + data + "</a>";
+            return "<a style='color:blue'>" + data + "</a>";
           }
         },
         { data: "customerName" },
@@ -77,7 +77,7 @@ class Rmsdatatable extends Component {
   render() {
     return (
       <div style={{ padding: "10px" }} className="col-xs-10">
-        <table id="table_id" className="display" width="100%">
+        <table id="table_id" className="display table" width="100%">
           {/* <table id="example" className="display" width="100%" ref={el=>this.el=el}> */}
           <thead>
             <tr>

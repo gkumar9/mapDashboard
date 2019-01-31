@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import CO2 from "./pins/CO2.png";
-import FLOW from "./pins/flow.png";
-import SOLARENERGY from "./pins/solar.jpg";
-import SUBMERSIBLE from "./pins/submersible.png";
-import STATES from "./pins/states.png";
+import CO2 from "./pins/1.png";
+import FLOW from "./pins/2.png";
+import SOLARENERGY from "./pins/3.png";
+import SUBMERSIBLE from "./pins/4.png";
+import STATES from "./pins/5.png";
 class RmsSidebardata extends Component {
   render() {
     return (
@@ -13,7 +13,7 @@ class RmsSidebardata extends Component {
           minHeight: "100vh",
           textAlign: "center"
         }}
-        className="col-xs-2"
+        className="col-xs-2 rmssidebar"
       >
         <h4 style={{ marginTop: "40px", color: "gray", fontSize: "25px" }}>
           Our Impact
@@ -90,12 +90,26 @@ class RmsSidebardata extends Component {
                 />
               </div>
               <div className="col-xs-9">
-                <span>
-                  <b>{this.props.pump}</b>
-                </span>
-                <p>
-                  <small>Pump Installed</small>
-                </p>
+              {this.props.states !== undefined ? (
+                  <div>
+                    <span>
+                      <b>{this.props.pump}</b>
+                    </span>
+                    <p>
+                      <small>Pump Installed</small>
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    <span>
+                      <b>{this.props.rmscapacity}</b>
+                    </span>
+                    <p>
+                      <small>Capacity</small>
+                    </p>
+                  </div>
+                )}
+                
               </div>
             </div>
           </li>

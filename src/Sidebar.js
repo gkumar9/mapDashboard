@@ -21,6 +21,7 @@ class Sidebar extends Component {
               </i>
             </li>
           </Link>
+          <Link to="/rms">
           <li title="RMS">
             <a
               target="_blank"
@@ -32,6 +33,7 @@ class Sidebar extends Component {
               </i>
             </a>
           </li>
+          </Link>
           <li title="IAAS">
             <a
               target="_blank"
@@ -43,13 +45,15 @@ class Sidebar extends Component {
               </i>
             </a>
           </li>
-          <Link to="/rms">
+          
             <li title="Solar Rooftop">
+            <a className="disabled">
               <i>
                 <img alt="Rooftop" src={ROOFTOP} />
               </i>
+            </a>
             </li>
-          </Link>
+          
           <li title="Minigrid">
             <a className="disabled">
               <i>

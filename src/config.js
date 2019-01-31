@@ -19,7 +19,8 @@ let config={
 	"LogoutServlet":"http://staging2.clarolabs.in/LogoutServlet",
 	"rmslist":"http://staging2.clarolabs.in/rms/api/rs/assets/list",
 	"highchartdata":"http://staging2.clarolabs.in/rms/api/rs/asset/highchart/data",
-	"allassetstat":"http://staging2.clarolabs.in/rms/api/rs/all/assets/stats"
+	"allassetstat":"http://staging2.clarolabs.in/rms/api/rs/all/assets/stats",
+	"singleassetstat":"http://staging2.clarolabs.in/rms/api/rs/asset/stats"
 }
 
 export default config;

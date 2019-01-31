@@ -9,6 +9,9 @@ body {
 a {
   cursor: pointer;
 }
+.modal{
+  display: content !important;
+}
 .dataTables_filter{
   margin-right: 15px;
 }
@@ -43,9 +46,9 @@ ul{
  list-style-type: none;
 }
 .btn.disabled{
-  background: gray !important;
-  border-color: white !important;
-  color:white !important;
+  background:transparent !important;
+  border-color: gray !important;
+  color:black !important;
 }
 .headerbutton{
   float: left !important;
@@ -91,18 +94,20 @@ a.disabled {
   cursor: not-allowed;
 }
 .filterbuttonreset{
-  margin:8px;
+  margin-top: 8px;
+  margin-right: -20px;
   float:right;
   border-radius:0;
   border-color: blue;
-  border-width: 1.2px;
+  /* border-width: 1.2px; */
   color: blue;
-  outline: none;
+  outline: none !important;
   width:8%;
 }
 .filterbuttonapply{
-  margin:8px;
-  outline: none;
+  margin-top:8px;
+  margin-right: 18px;
+  outline: none !important;
   float:right;
   background:#3A50FC !important;
   border-radius:0;
@@ -367,6 +372,9 @@ input[type=checkbox], input[type=radio]{
  }
 }
 @media (max-width: 770px){
+  .rmssidebar{
+    display: none;
+  }
   .navbar-nav{
       margin:0;
  }

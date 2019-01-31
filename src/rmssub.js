@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import { Link } from "react-router-dom";
-import Highcharts from "highcharts";
+import Highcharts from 'highcharts/highstock'
+
 import drilldown from "highcharts-drilldown";
 import rmsdata from "./rmsdata.json";
 import axios from "axios";
@@ -32,12 +33,12 @@ class RmsHeader extends Component {
         <nav id="filter" className="navbar navbar-default">
           <div
             className="container-fluid"
-            style={{ textAlign: "center", marginTop: "4px" }}
+            style={{ textAlign: "center", marginTop: "10px" }}
           >
             <Link to="/">
               <button
                 style={{
-                  marginTop: "1px",
+                  marginTop: "-2px",
                   backgroundColor: "transparent",
                   float: "left"
                 }}
@@ -56,7 +57,7 @@ class RmsHeader extends Component {
             <Link to="/rms">
               <button
                 style={{
-                  marginTop: "1px",
+                  marginTop: "-2px",
                   marginLeft: "10px",
                   backgroundColor: "transparent",
                   float: "left"
@@ -70,10 +71,10 @@ class RmsHeader extends Component {
                   style={{ marginRight: "6px" }}
                   aria-hidden="true"
                 />
-                Rms{" "}
+                RMS{" "}
               </button>
             </Link>
-            <span style={{ fontSize: "x-large", color: "blue" }}>
+            <span style={{ fontSize: "large", color: "blue" ,"marginLeft":"-82px"}}>
               Remote Monitoring System{" "}
             </span>
           </div>
@@ -90,17 +91,21 @@ class Rms extends Component {
     this.state = { singleassetstat: {} };
   }
   async componentDidMount() {
-    let singleassetstatttemp = {};
+		let singleassetstatttemp = {};
+		let self=this;
     await axios({
-      url: config.allassetstat,
+      url: config.singleassetstat,
       method: "POST",
-      data: {},
+      data: {
+        customerId: this.props.location.state.detail.customerId,
+        rmsVendorId: this.props.location.state.detail.rmsVendorId
+      },
       headers: {
         "Content-Type": "application/json"
       }
     })
       .then(res => {
-        singleassetstatttemp = res.data.data;
+				singleassetstatttemp = res.data.data;
         this.setState({ singleassetstat: singleassetstatttemp });
       })
       .catch(e => {
@@ -151,6 +156,7 @@ class Rms extends Component {
               },
 
               drilldown: function(e) {
+								console.log(e)
                 var charts_this = this;
                 var inidrillDate = new Date(e.point.x);
                 setTimeout(function() {
@@ -182,7 +188,8 @@ class Rms extends Component {
                   if (charts_this.yAxis[0].dataMax == 0) {
                     charts_this.yAxis[0].setExtremes(null, 1);
                   }
-                }, 0);
+								}, 0);
+								
               }
             }
           },
@@ -206,7 +213,46 @@ class Rms extends Component {
           },
           credits: {
             enabled: false
-          },
+					},
+					// plotOptions: {
+          //   series: {
+          //     cursor: "pointer",
+          //     dataLabels: {
+          //       enabled: true,
+          //       format: "{point.y}"
+          //     },
+					// 		color: "#fcd562",
+					// 		point:{
+					// 			events:{
+					// 				click:function(event){
+					// 					console.log(this.options,event)
+					// 					$.ajax({
+					// 					"url":"http://staging2.clarolabs.in/rms/api/rs/asset/activity",
+					// 					"method":"post",
+					// 					"data":"{\"customerId\":\"600015\",\"rmsVendorId\":1007,\"date\":\"2018-09-19\",\"powerType\":\"AC\"}",
+					// 					"headers": {
+					// 						"content-type": "application/json"
+					// 					},
+					// 					"success":function (test) {
+					// 						// self.setState({drilldown:test.data})
+					// 						let series={
+					// 							data: test.data.datasets.data,
+					// 							name:  test.data.datasets.name,
+					// 							type:  test.data.datasets.type,
+					// 							// color: Highcharts.getOptions().colors[i],
+					// 							fillOpacity: 0.3,
+					// 							tooltip: {
+					// 								valueSuffix: ' ' +  test.data.datasets.unit
+					// 							}
+					// 						}
+											
+					// 						// this.drilldown=test.data
+					// 					}})
+					// 				}
+					// 			}
+					// 		}
+					// 	}
+					// },
           tooltip: {
             formatter: function() {
               if (this.point.options.drilldown) {
@@ -228,197 +274,9 @@ class Rms extends Component {
               }
             }
           },
-          plotOptions: {
-            series: {
-              cursor: "pointer",
-              dataLabels: {
-                enabled: true,
-                format: "{point.y}"
-              },
-              color: "#fcd562",
-              point: {
-                events: {
-                  click: function(event) {
-                    if (this.options != null) {
-                      var dayOfYear =
-                        new Date(this.x).getFullYear() +
-                        "-" +
-                        (new Date(this.x).getMonth() + 1) +
-                        "-" +
-                        new Date(this.x).getDate();
-                      var formatted_date =
-                        new Date(this.x).getDate() +
-                        " " +
-                        months[new Date(this.x).getMonth()] +
-                        " " +
-                        new Date(this.x).getFullYear();
-                      document.getElementById(
-                        "chart_date_id"
-                      ).innerHTML = formatted_date; //setting modal title with current date
-                      $("#energy_chart").bind(
-                        "mousemove touchmove touchstart",
-                        function(e) {
-                          var chart, point, i, event;
-                          var sync_charts = $(".chart");
-                          for (i = 0; i < sync_charts.length; i = i + 1) {
-                            var chart_1 = sync_charts[i];
-                            var chart_2 = chart_1.getAttribute(
-                              "data-highcharts-chart"
-                            );
-                            chart = Highcharts.charts[chart_2];
-                            event = chart.pointer.normalize(e.originalEvent);
-                            point = chart.series[0].searchPoint(event, true);
-
-                            if (point) {
-                              point.highlight(e);
-                            }
-                          }
-                        }
-                      );
-                      Highcharts.Pointer.prototype.reset = function() {
-                        return undefined;
-                      };
-                      Highcharts.Point.prototype.highlight = function(event) {
-                        event = this.series.chart.pointer.normalize(event);
-                        this.onMouseOver(); // Show the hover marker
-                        this.series.chart.tooltip.refresh(this); // Show the tooltip
-                        this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
-                      };
-                      function syncExtremes(e) {
-                        var thisChart = this.chart;
-
-                        if (e.trigger !== "syncExtremes") {
-                          // Prevent feedback loop
-                          Highcharts.each(Highcharts.charts, function(chart) {
-                            if (chart !== thisChart) {
-                              if (chart.xAxis[0].setExtremes) {
-                                // It is null while updating
-                                chart.xAxis[0].setExtremes(
-                                  e.min,
-                                  e.max,
-                                  undefined,
-                                  false,
-                                  { trigger: "syncExtremes" }
-                                );
-                              }
-                            }
-                          });
-                        }
-                      }
-                      $.ajax({
-                        "url":"http://staging2.clarolabs.in/rms/api/rs/asset/activity",
-                        "method":"post",
-                        "data":"{\"customerId\":\"600015\",\"rmsVendorId\":1007,\"date\":\"2018-09-19\",\"powerType\":\"AC\"}",
-                        "headers": {
-                          "content-type": "application/json"
-                        },
-                        "success":function (test) {
-                          
-                          let activity = test.data
-                          console.log(activity)
-                          if($('.chart')){
-                            $('.chart').remove();
-                          }
-                          var isDataAvail = true;
-                          if(activity.xData=="NA") {
-                            isDataAvail = false;
-                          }
-                          $.each(activity.datasets, function (i, dataset) {
-                            console.log($('<div class="chart">').appendTo('#energy_chart').highcharts())
-                            $('<div class="chart">')
-                            .appendTo('#energy_chart')
-                            .highcharts({
-                              chart: {
-                                marginLeft: 40, // Keep all charts left aligned
-                                spacingTop: 20,
-                                spacingBottom: 20
-                              },
-                              plotOptions: {
-                                series: {
-                                  marker:{
-                                    enabled:false
-                                  }
-                                }
-                              },
-                              exporting: { enabled: false },
-                              title: {
-                                text: dataset.name,
-                                align: 'left',
-                                margin: 0,
-                                x: 30
-                              },
-                              credits: {
-                                enabled: false
-                              },
-                              legend: {
-                                enabled: false
-                              },
-                              xAxis: {
-                                crosshair:{ width: 3},
-                                events: {
-                                  setExtremes: syncExtremes
-                                },
-                                labels: {
-                                  format: '{value}'
-                                },categories: activity.xData
-                              },
-                              yAxis: {
-                                title: {
-                                  text: null
-                                }
-                              },
-                              series: [{
-                                data: dataset
-                              }],
-                              tooltip: {
-                                positioner: function () {
-                                  return {
-                                    x: this.chart.chartWidth - this.label.width,
-                                    y: 10 // align to title
-                                  };
-                                },
-                                borderWidth: 0,
-                                backgroundColor: 'none',
-                                pointFormat: '{point.y}',
-                                headerFormat: '',
-                                shadow: false,
-                                style: {
-                                  fontSize: '18px'
-                                },
-                                valueDecimals: dataset.valueDecimals
-                              },
-                              series: [{
-                                data: dataset.data,
-                                name: dataset.name,
-                                type: dataset.type,
-                                color: Highcharts.getOptions().colors[i],
-                                fillOpacity: 0.3,
-                                tooltip: {
-                                  valueSuffix: ' ' + dataset.unit
-                                }
-                              }]
-                            });
-                          });
-                          if(isDataAvail) {
-                            $("#Modal_e_1").modal();
-                          }
-
-                          else {
-                            $("#myModal").modal();
-                          }
-                        }
-                      })
-                      
-                    }
-                  }
-                }
-              }
-            }
-          },
-
-          series: [rmsdata.energy_graph],
+          series: [{'data':rmsdata.energy_graph.data,'name':rmsdata.energy_graph.name,"color":"#0000ff"}],
           drilldown: {
-            series: rmsdata.energy_graph.data
+						series: rmsdata.energy_graph.data
           }
         });
       })
@@ -438,89 +296,19 @@ class Rms extends Component {
               <div className="row">
                 <RmsSidebardata
                   allassetstat={this.state.singleassetstat}
-                  rmsubstate={this.props.location.state.detail}
+									rmsubstate={this.props.location.state.detail}
+									rmscapacity={this.props.location.state.detail.capacity}
                 />
                 <div style={{ padding: "30px" }} className="col-xs-10">
-                  <div id="energy_chart" />
-                  <div
-                    className="modal fade"
-                    id="Modal_e_1"
-                    tabindex="-1"
-                    role="dialog"
-                  >
-                    <div className="modal-dialog" id="Modal_e_2">
-                      <div className="modal-content">
-                        <div
-                          className="modal-header"
-                          style={{ "backgroundColor": "#ffbf00" }}
-                        >
-                          <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                          >
-                            &times;
-                          </button>
-                          <h4
-                            id="chart_date_id"
-                            className="modal-title"
-                            align="center"
-                          />
-                        </div>
-                        <div className="modal-body">
-                          <div id="container" />
-                        </div>
-                        <div className="modal-footer">
-                          <button
-                            type="button"
-                            className="btn btn-default"
-                            data-dismiss="modal"
-                            style={{ "backgroundColor": "#ffbf00" }}
-                          >
-                            Close
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="modal fade"
-                    id="myModal"
-                    tabindex="-1"
-                    role="dialog"
-                  >
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                          >
-                            &times;
-                          </button>
-                          <h4 className="modal-title">
-                            Remote Monitoring System
-                          </h4>
-                        </div>
-                        <div className="modal-body">
-                          <p>No data to display.</p>
-                        </div>
-                        <div className="modal-footer">
-                          <button
-                            type="button"
-                            className="btn btn-default"
-                            data-dismiss="modal"
-                          >
-                            Close
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+								<div>
+								<h4>{this.props.location.state.detail.customerName}</h4>
+								<i class="fa fa-calendar" aria-hidden="true"></i><span style={{'marginLeft':'8px'}}>{this.props.location.state.detail.doi}</span>
+								</div>
+								<div id="energy_chart" />		
+                  
             </div>
+						</div>
+						</div>
           </div>
         </div>
       </div>

@@ -192,7 +192,7 @@ class Filter extends Component {
                       aria-expanded="true"
                     >
                       {this.props.selectedstate === "" ? (
-                        <span>States</span>
+                        <span>All states</span>
                       ) : (
                         this.props.selectedstate
                       )}
@@ -206,9 +206,9 @@ class Filter extends Component {
                         return (
                           <li
                             onClick={this.handlestatefilter.bind(this, item)}
-                            key={item}
+                            key={item.slice(0,1)+item.slice(1).toLowerCase()}
                           >
-                            <a>{item}</a>
+                            <a>{item.slice(0,1)+item.slice(1).toLowerCase()}</a>
                           </li>
                         );
                       })}
