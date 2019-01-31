@@ -1,15 +1,13 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 .dataTables_filter{
   margin-right: 15px;
@@ -33,16 +31,17 @@ label{
   color:gray;
 }
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 .rmssidebar{
-  margin-bottom: 35px
+  margin-bottom: 35px 
 }
 .col-xs-9{
   text-align: left;
 }
-ul{list-style-type: none;}
+ul{
+ list-style-type: none;
+}
 .btn.disabled{
   background: gray !important;
   border-color: white !important;
@@ -86,17 +85,16 @@ ul{list-style-type: none;}
   transform: rotate(0);
   display: none;
 }
-
-
 a.disabled {
-   /*pointer-events: none;*/
-   cursor: not-allowed;
+ /*pointer-events: none;
+ */
+  cursor: not-allowed;
 }
 .filterbuttonreset{
   margin:8px;
   float:right;
   border-radius:0;
-    border-color: blue;
+  border-color: blue;
   border-width: 1.2px;
   color: blue;
   outline: none;
@@ -137,26 +135,23 @@ a.disabled {
 }
 .filterIcon{
   display: none;
-  /*transform: rotate(90deg);*/
+ /*transform: rotate(90deg);
+ */
 }
 .navbar-default {
-    background-color: white;
-    
+  background-color: white;
 }
 .navbar-default1 {
-    background-color: #E3E1D2;
+  background-color: #E3E1D2;
 }
-
 .verticalLine {
   border-right:1.5px solid #aab;
   margin: auto;
-
 }
 .container {
-      padding:0;
-      margin:0;
-
-    }
+  padding:0;
+  margin:0;
+}
 .navbar{
   margin-bottom: 0px;
 }
@@ -171,27 +166,28 @@ a.disabled {
   margin-top: -10px;
 }
 .filterText{
-  margin-left:10px
+  margin-left:10px 
 }
 .filterItem{
   margin-left: 5px;
   width:140px;
 }
 .btn .caret {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 .gaurav{
   float: right;
 }
 .main{
-    -webkit-box-flex: 3;
-    /*-ms-flex: 3;*/
-    flex: 3;
-    -webkit-box-ordinal-group: 3;
-    -ms-flex-order: 2;
-    order: 2;
-    position: relative;
-    min-height: 100%;
+  -webkit-box-flex: 3;
+ /*-ms-flex: 3;
+ */
+  flex: 3;
+  -webkit-box-ordinal-group: 3;
+  -ms-flex-order: 2;
+  order: 2;
+  position: relative;
+  min-height: 100%;
 }
 #filter{
   background-color: #edeef0;
@@ -201,72 +197,72 @@ input[type=checkbox], input[type=radio]{
   margin:18px 0 0;
 }
 .main_sidebar {
-    /*min-height:100vh;*/
-    position:relative;
-    /*top:52px;*/
-    left:0;
-    background: #f9f9f9;
-    order: 1;
-    /*width:min-content;*/
-    transition: all 300ms cubic-bezier(0.65, 0.05, 0.36, 1);
-    box-shadow: inset -1px 0 5px rgba(0, 0, 0, 0.4);
-    
+ /*min-height:100vh;
+ */
+  position:relative;
+ /*top:52px;
+ */
+  left:0;
+  background: #f9f9f9;
+  order: 1;
+ /*width:min-content;
+ */
+  transition: all 300ms cubic-bezier(0.65, 0.05, 0.36, 1);
+  box-shadow: inset -1px 0 5px rgba(0, 0, 0, 0.4);
 }
-
 .main_sidebar ul {
-    padding-left:69px;
+  padding-left:69px;
 }
 .main_sidebar ul li {
-    padding:8px 1px 12px;
-    display:flex;
-    width: min-content;
-    opacity: 0.3;
-}
-.main_sidebar ul li a  {
-    color:#777;
-    display:block;
-}
-.main_sidebar ul li i {
-    float:left;
-    color:grey;
-    margin-left:-58px;
-    font-size:24px;
-    padding-left:7px;
-}
-.main_sidebar ul li i img {
-    width: 54%;
-}
-.main_sidebar ul li:hover {
-    background:#3A50FC;
-    opacity: 1
+  padding:8px 1px 12px;
+  display:flex;
+  width: min-content;
+  opacity: 0.3;
 }
 .main_sidebar ul li a {
-    color:#fff;
-    text-decoration:none;
+  color:#777;
+  display:block;
+}
+.main_sidebar ul li i {
+  float:left;
+  color:grey;
+  margin-left:-58px;
+  font-size:24px;
+  padding-left:7px;
+}
+.main_sidebar ul li i img {
+  width: 54%;
+}
+.main_sidebar ul li:hover {
+  background:#3A50FC;
+  opacity: 1 
+}
+.main_sidebar ul li a {
+  color:#fff;
+  text-decoration:none;
 }
 .main_sidebar ul li a:hover {
-    color:#fff;
-    text-decoration:none;
+  color:#fff;
+  text-decoration:none;
 }
-
 .main_sidebar ul li i {
-    color:#aaa;
+  color:#aaa;
 }
 .main_sidebar ul li:hover i {
-    color:black;
+  color:black;
 }
 .main_sidebar ul li.active {
-    background:#3A50FC;
-    opacity: 1;
+  background:#3A50FC;
+  opacity: 1;
 }
 .main_sidebar ul li.active i {
-    color:black;
+  color:black;
 }
 .main_sidebar ul li.active:hover {
-    background:#3A50FC;
+  background:#3A50FC;
 }
 .main_sidebar ul li.active:hover i {
-    color:black;
+  color:black;
 }
 #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(1){
   border-top-width: 24px;
@@ -290,7 +286,8 @@ input[type=checkbox], input[type=radio]{
   border-top-width: 24px;
   position: absolute;
   transform: rotate(90deg);
-}*/
+}
+*/
 #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(4){
   width: 283px !important;
   height: 558px !important;
@@ -304,7 +301,8 @@ input[type=checkbox], input[type=radio]{
 #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div{
   width: 283px !important;
   height: 580px !important;
-  /*overflow: auto !important;*/
+ /*overflow: auto !important;
+ */
 }
 .gm-style-iw{
   top:0!important;
@@ -312,11 +310,10 @@ input[type=checkbox], input[type=radio]{
 .mainbody{
   display: flex;
   flex-direction: row;
-      position: relative;
-    min-height: 100vh;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-
+  position: relative;
+  min-height: 100vh;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
 }
 .statefilter{
   width: 177px;
@@ -346,100 +343,95 @@ input[type=checkbox], input[type=radio]{
 .portal span{
   margin-right: 10px;
 }
-/**********************************
-Responsive navbar-brand image CSS
-- Remove navbar-brand padding for firefox bug workaround
-- add 100% height and width auto ... similar to how bootstrap img-responsive class works
-***********************************/
-
+/********************************** Responsive navbar-brand image CSS - Remove navbar-brand padding for firefox bug workaround - add 100% height and width auto ... similar to how bootstrap img-responsive class works ***********************************/
 .navbar-brand {
   padding: 0px;
 }
 .navbar-brand>img {
-    margin-top: 2px;
-    margin-left: 8px;
-    padding: 5px;
-    width: 60%;
+  margin-top: 2px;
+  margin-left: 8px;
+  padding: 5px;
+  width: 60%;
 }
 @media (min-width: 200px){
-.container {
-    width: auto;
-}
-@media (max-width: 1280px){
-  .filterbuttonreset{
-    width:6%
-  }
-  .filterbuttonapply{
-    width:6%;
-  }
-}
+  .container {
+      width: auto;
+ }
+  @media (max-width: 1280px){
+      .filterbuttonreset{
+          width:6% 
+     }
+      .filterbuttonapply{
+          width:6%;
+     }
+ }
 }
 @media (max-width: 770px){
   .navbar-nav{
-    margin:0;
-  }
+      margin:0;
+ }
   .statefilter{
-    width: -webkit-fill-available !important; 
-  }
+      width: -webkit-fill-available !important;
+ }
   .btn .caret{
-    transform: rotate(180deg);
-  }
+      transform: rotate(180deg);
+ }
   .filterbuttonreset{
-    float: right;
-    width: 43%
-  }
+      float: right;
+      width: 43% 
+ }
   .filterbuttonapply{
-    float: left;
-    width: 43%
-  }
+      float: left;
+      width: 43% 
+ }
   .sidebarheader{
-  display: block !important;
-}
-.sidebarheader img {
-  width: 7%;
-  margin-right: 10px;
-}
+      display: block !important;
+ }
+  .sidebarheader img {
+      width: 7%;
+      margin-right: 10px;
+ }
   #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(4){
-  width: 237px !important;
-  height: 580px !important;
-  overflow: auto !important;
+      width: 237px !important;
+      height: 580px !important;
+      overflow: auto !important;
+ }
+  #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(2){
+      width: 237px !important;
+      height: 580px !important;
+      overflow: auto !important;
+ }
+  #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div{
+      width: 237px !important;
+      height: 580px !important;
+     /*overflow: auto !important;
+     */
+ }
+  .gm-style-iw{
+      left: 24px !important;
+ }
+  .infoWindowImg {
+      width: 120px !important;
+      height: 120px !important;
+      margin:30px !important;
+ }
+  .filterImg{
+      width: 15%;
+ }
+  .main_sidebar{
+      display: none;
+ }
+  .filterIcon{
+      display: block;
+      margin: 11px 0px 0px 6px;
+ }
+  .gaurav{
+      float: none;
+ }
+  .verticalLine{
+      display: none;
+ }
 }
-#root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(2){
-  width: 237px !important;
-  height: 580px !important;
-  overflow: auto !important;
-}
-#root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div{
-  width: 237px !important;
-  height: 580px !important;
-  /*overflow: auto !important;*/
-}
-.gm-style-iw{
-  left: 24px !important;
-}
-.infoWindowImg {
-  width: 120px !important;
-  height: 120px !important;
-  margin:30px !important;
-  }
-.filterImg{
-  width: 15%;
-}
-.main_sidebar{
-  display: none;
-}
-.filterIcon{
-    display: block;
-    margin: 11px 0px 0px 6px;
-}
-.gaurav{
-  float: none;
-}
-.verticalLine{
-  display: none;
-}
-}
-
 /* EXAMPLE 9 - Center with Flexbox and Text*/
 .brand-centered {
   display: flex;
@@ -454,12 +446,8 @@ Responsive navbar-brand image CSS
   align-items: center;
 }
 .navbar-toggle {
-    z-index: 1;
+  z-index: 1;
 }
-
-
-
-
 /* CSS Transform Align Navbar Brand Text ... This could also be achieved with table / table-cells */
 .navbar-alignit .navbar-header {
   -webkit-transform-style: preserve-3d;
@@ -472,15 +460,13 @@ Responsive navbar-brand image CSS
   position: relative;
   height: auto;
   -webkit-transform: translate(0,-50%);
-          transform: translate(0,-50%);
+  transform: translate(0,-50%);
   margin-right: 15px;
   margin-left: 15px;
 }
-
 .navbar-nav>li>.dropdown-menu {
   z-index: 9999;
 }
-
 body {
   font-family: "Lato" !important;
 }
