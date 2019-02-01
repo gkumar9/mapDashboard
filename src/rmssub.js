@@ -3,7 +3,7 @@ import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import { Link } from "react-router-dom";
 import Highcharts from 'highcharts/highstock'
-
+import Swal from "sweetalert2";
 import drilldown from "highcharts-drilldown";
 import rmsdata from "./rmsdata.json";
 import axios from "axios";
@@ -29,7 +29,7 @@ var months = [
 class RmsHeader extends Component {
   render() {
     return (
-      <div className="container ">
+      <div className="container rmssidebar">
         <nav id="filter" className="navbar navbar-default">
           <div
             className="container-fluid"
@@ -105,8 +105,21 @@ class Rms extends Component {
       }
     })
       .then(res => {
+        if(res.data.data!== null){
 				singleassetstatttemp = res.data.data;
         this.setState({ singleassetstat: singleassetstatttemp });
+        }
+        else if (res.data.error !== undefined) {
+          if (res.data.error.errorCode === 153) {
+            window.location.href = "../login.html?redirect=maps";
+          } else {
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: res.data.error.errorMsg
+            });
+          }
+        }
       })
       .catch(e => {
         console.log(e);
@@ -126,6 +139,8 @@ class Rms extends Component {
         let obj = {};
         obj["data"] = res.data.data.list;
         obj["name"] = "Energy";
+        console.log('obj:',obj)
+        console.log('rmsdata:',rmsdata.energy_graph)
         drilldown(Highcharts);
         Highcharts.chart("energy_chart", {
           chart: {
@@ -274,9 +289,9 @@ class Rms extends Component {
               }
             }
           },
-          series: [{'data':rmsdata.energy_graph.data,'name':rmsdata.energy_graph.name,"color":"#0000ff"}],
+          series: [{'data':obj.data,'name':obj.name,"color":"#0000ff91"}],
           drilldown: {
-						series: rmsdata.energy_graph.data
+						series: obj.data
           }
         });
       })

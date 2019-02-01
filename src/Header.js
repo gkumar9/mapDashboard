@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import logo from "./logo.png";
 import axios from "axios";
 import config from "./config.js";
-import DRINKING_WATER_PUMP from "./pins/DRINKING_WATER_PUMP.png";
-import IRRIGATION_PUMP from "./pins/IRRIGATION_PUMP.png";
-import PATVAN from "./pins/PATVAN.png";
-import MINIGRID from "./pins/MINIGRID.png";
-import ROOFTOP from "./pins/ROOFTOP.png";
+import { Link } from "react-router-dom";
+// import DRINKING_WATER_PUMP from "./pins/DRINKING_WATER_PUMP.png";
+// import IRRIGATION_PUMP from "./pins/IRRIGATION_PUMP.png";
+// import PATVAN from "./pins/PATVAN.png";
+// import MINIGRID from "./pins/MINIGRID.png";
+// import ROOFTOP from "./pins/ROOFTOP.png";
+
+import RMS from "./pins/RMS.png";
+import IAAS from "./pins/IAAS.png";
+import MINIGRID from "./pins/Minigrid(2).png";
+import HOME from "./pins/ROOFTOP.png";
+import ROOFTOP from "./pins/Rooftop(2).png";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -41,14 +48,30 @@ class Header extends Component {
             </div>
             <div id="navbar1" className="navbar-collapse collapse gaurav">
               <ul className="nav navbar-nav">
+              {/* <li className="sidebarheader">
+                <Link to="/">
+                    <img alt="irrigation" src={HOME} />
+                    Home
+                    </Link>
+                </li> */}
                 <li className="sidebarheader">
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://dashboard.claroenergy.in/all_rms/locrmspage.html"
-                  >
-                    <img alt="irrigation" src={IRRIGATION_PUMP} />
-                    Irrigation Pump
+                <Link to="/rms">
+                    <img alt="irrigation" src={RMS} />
+                    RMS
+                    </Link>
+                </li>
+                
+                <li className="sidebarheader">
+                  <a>
+                    <span className="verticalLine" />
+                  </a>
+                </li>
+                <li className="sidebarheader">
+                  <a target="_blank"
+                  rel="noopener noreferrer"
+                    href="../IAAS/menubar.html">
+                    <img alt="patvan" src={IAAS} />
+                    IAAS
                   </a>
                 </li>
                 <li className="sidebarheader">
@@ -57,9 +80,9 @@ class Header extends Component {
                   </a>
                 </li>
                 <li className="sidebarheader">
-                  <a href="#" className="disabled">
-                    <img alt="patvan" src={PATVAN} />
-                    Patvan
+                  <a >
+                    <img alt="DRINKING_WATER_PUMP" src={ROOFTOP} />
+                    Rooftop
                   </a>
                 </li>
                 <li className="sidebarheader">
@@ -68,18 +91,7 @@ class Header extends Component {
                   </a>
                 </li>
                 <li className="sidebarheader">
-                  <a href="/dashboard">
-                    <img alt="DRINKING_WATER_PUMP" src={DRINKING_WATER_PUMP} />
-                    Drinking Water Pump
-                  </a>
-                </li>
-                <li className="sidebarheader">
-                  <a>
-                    <span className="verticalLine" />
-                  </a>
-                </li>
-                <li className="sidebarheader">
-                  <a href="#" className="disabled">
+                  <a >
                     <img alt="Minigrid" src={MINIGRID} />
                     Minigrid
                   </a>
@@ -89,12 +101,7 @@ class Header extends Component {
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li className="sidebarheader">
-                  <a href="#" className="disabled">
-                    <img alt="Rooftop" src={ROOFTOP} />
-                    Rooftop
-                  </a>
-                </li>
+                
                 <li className="headerdivider" />
                 <li>
                   <a>Welcome User</a>

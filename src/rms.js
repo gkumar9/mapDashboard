@@ -6,12 +6,13 @@ import axios from "axios";
 import config from "./config.js";
 import RmsSidebardata from "./RmsSidebardata.js";
 import { withRouter } from "react-router";
+import Swal from "sweetalert2";
 const $ = require("jquery");
 $.DataTable = require("datatables.net");
 class RmsHeader extends Component {
   render() {
     return (
-      <div className="container ">
+      <div className="container rmssidebar">
         <nav id="filter" className="navbar navbar-default">
           <div
             className="container-fluid"
@@ -53,6 +54,7 @@ class Rmsdatatable extends Component {
       data: this.props.data,
       scrollY: 520,
       paging: false,
+      ordering:false,
       responsive: false,
       columns: [
         {
@@ -111,10 +113,27 @@ class Rms extends Component {
       }
     })
       .then(res => {
-        allassetstattemp = res.data.data;
+        if(res.data.data !== null){
+          allassetstattemp = res.data.data;
+      } else if (res.data.error !== undefined) {
+        if (res.data.error.errorCode === 153) {
+          window.location.href = "../login.html?redirect=maps";
+        } else {
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: res.data.error.errorMsg
+          });
+        }
+      }
       })
       .catch(e => {
         console.log(e);
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
       });
     await axios({
       url: config.rmslist,
@@ -127,6 +146,7 @@ class Rms extends Component {
       }
     })
       .then(res => {
+        if(res.data.data!== null){
         listtemp = res.data.data.list;
         tempstate = [];
         res.data.data.list.map(itemmap => {
@@ -140,10 +160,27 @@ class Rms extends Component {
             tempstate.push(itemmap.state);
           }
         });
+      }
+        else if (res.data.error !== undefined) {
+          if (res.data.error.errorCode === 153) {
+            window.location.href = "../login.html?redirect=maps";
+          } else {
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: res.data.error.errorMsg
+            });
+          }
+        }
       })
 
       .catch(e => {
         console.log(e);
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
       });
     this.setState({
       allassetstat: allassetstattemp,

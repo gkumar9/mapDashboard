@@ -15,7 +15,7 @@ class RmsSidebardata extends Component {
         }}
         className="col-xs-2 rmssidebar"
       >
-        <h4 style={{ marginTop: "40px", color: "gray", fontSize: "25px" }}>
+        <h4 style={{ marginTop: "40px", color: "gray", fontSize: "large" }}>
           Our Impact
         </h4>
         <ul style={{ marginTop: "40px", color: "black" }}>
