@@ -209,7 +209,7 @@ class MapContainer extends Component {
             stylers: [{ color: "#17263c" }]
           }
         ]}
-        center={new this.props.google.maps.LatLng(19.845625996700075, 78.9629)}
+        initialCenter={{lat:19.845625996700075,lng: 78.9629}}
       >
         <MapList
           google={this.props.google}

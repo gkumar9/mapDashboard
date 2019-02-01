@@ -9,8 +9,9 @@ import rmsdata from "./rmsdata.json";
 import axios from "axios";
 import config from "./config.js";
 import RmsSidebardata from "./RmsSidebardata.js";
+import nodata from './pins/nodata.png'
+import fvc from './fvc.json'
 const $ = require("jquery");
-
 var months = [
   "January",
   "February",
@@ -87,247 +88,446 @@ class RmsHeader extends Component {
 class Rms extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.location.state.detail);
-    this.state = { singleassetstat: {} };
+    this.state = { singleassetstat: {},open: false };
   }
   async componentDidMount() {
+    
 		let singleassetstatttemp = {};
-		let self=this;
-    await axios({
-      url: config.singleassetstat,
-      method: "POST",
-      data: {
-        customerId: this.props.location.state.detail.customerId,
-        rmsVendorId: this.props.location.state.detail.rmsVendorId
-      },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => {
-        if(res.data.data!== null){
-				singleassetstatttemp = res.data.data;
-        this.setState({ singleassetstat: singleassetstatttemp });
-        }
-        else if (res.data.error !== undefined) {
-          if (res.data.error.errorCode === 153) {
-            window.location.href = "../login.html?redirect=maps";
-          } else {
-            Swal({
-              type: "error",
-              title: "Oops...",
-              text: res.data.error.errorMsg
-            });
-          }
+    let self=this;
+    if(this.props.location.state!==undefined){
+      await axios({
+        url: config.singleassetstat,
+        method: "POST",
+        data: {
+          customerId: this.props.location.state.detail.customerId,
+          rmsVendorId: this.props.location.state.detail.rmsVendorId
+        },
+        headers: {
+          "Content-Type": "application/json"
         }
       })
-      .catch(e => {
-        console.log(e);
-      });
-    await axios({
-      url: config.highchartdata,
-      method: "POST",
-      data: {
-        customerId: this.props.location.state.detail.customerId,
-        rmsVendorId: this.props.location.state.detail.rmsVendorId
-      },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => {
-        let obj = {};
-        obj["data"] = res.data.data.list;
-        obj["name"] = "Energy";
-        console.log('obj:',obj)
-        console.log('rmsdata:',rmsdata.energy_graph)
-        drilldown(Highcharts);
-        Highcharts.chart("energy_chart", {
-          chart: {
-            type: "column",
-            backgroundColor: "#f2f2f2",
-            events: {
-              load: function() {
-                var fin = new Date();
-                var finDate = fin.getDate();
-
-                var finMonth = fin.getMonth();
-                var finYear = fin.getFullYear();
-
-                var ini = new Date();
-                ini.setFullYear(ini.getFullYear() - 1);
-                var iniDate = ini.getDate();
-                var iniMonth = ini.getMonth();
-                var iniYear = ini.getFullYear();
-                if (this.yAxis[0].dataMax == 0) {
-                  this.yAxis[0].setExtremes(null, 1);
-                }
-                //this.yAxis.set
-
-                this.xAxis[0].setExtremes(
-                  Date.UTC(iniYear, iniMonth, iniDate),
-                  Date.UTC(finYear, finMonth, finDate)
-                );
-              },
-
-              drilldown: function(e) {
-								console.log(e)
-                var charts_this = this;
-                var inidrillDate = new Date(e.point.x);
-                setTimeout(function() {
-                  inidrillDate.setDate(0);
-                  inidrillDate.setMonth(inidrillDate.getMonth());
-                  var DateinidrillDate = inidrillDate.getDate();
-                  var MonthinidrillDate = inidrillDate.getMonth();
-                  var YearinidrillDate = inidrillDate.getFullYear();
-                  var findrillDate = inidrillDate;
-                  findrillDate.setMonth(findrillDate.getMonth() + 1);
-                  findrillDate.setDate(findrillDate.getDate() - 1);
-                  var DatefindrillDate = findrillDate.getDate();
-                  var MonthfindrillDate = findrillDate.getMonth();
-                  var YearfindrillDate = findrillDate.getFullYear();
-
-                  charts_this.xAxis[0].setExtremes(
-                    Date.UTC(
-                      YearinidrillDate,
-                      MonthinidrillDate,
-                      DateinidrillDate
-                    ),
-                    Date.UTC(
-                      YearfindrillDate,
-                      MonthfindrillDate,
-                      DatefindrillDate
-                    )
-                  );
-
-                  if (charts_this.yAxis[0].dataMax == 0) {
-                    charts_this.yAxis[0].setExtremes(null, 1);
-                  }
-								}, 0);
-								
-              }
-            }
-          },
-          title: {
-            text: '<p class="energy_gen">Energy Generated</p>'
-          },
-          exporting: { enabled: false },
-          xAxis: {
-            type: "datetime",
-            labels: {
-              step: 1
-            },
-            dateTimeLabelFormats: {
-              day: "%e"
-            }
-          },
-          yAxis: {
-            title: {
-              text: "kWh"
-            }
-          },
-          credits: {
-            enabled: false
-					},
-					// plotOptions: {
-          //   series: {
-          //     cursor: "pointer",
-          //     dataLabels: {
-          //       enabled: true,
-          //       format: "{point.y}"
-          //     },
-					// 		color: "#fcd562",
-					// 		point:{
-					// 			events:{
-					// 				click:function(event){
-					// 					console.log(this.options,event)
-					// 					$.ajax({
-					// 					"url":"http://staging2.clarolabs.in/rms/api/rs/asset/activity",
-					// 					"method":"post",
-					// 					"data":"{\"customerId\":\"600015\",\"rmsVendorId\":1007,\"date\":\"2018-09-19\",\"powerType\":\"AC\"}",
-					// 					"headers": {
-					// 						"content-type": "application/json"
-					// 					},
-					// 					"success":function (test) {
-					// 						// self.setState({drilldown:test.data})
-					// 						let series={
-					// 							data: test.data.datasets.data,
-					// 							name:  test.data.datasets.name,
-					// 							type:  test.data.datasets.type,
-					// 							// color: Highcharts.getOptions().colors[i],
-					// 							fillOpacity: 0.3,
-					// 							tooltip: {
-					// 								valueSuffix: ' ' +  test.data.datasets.unit
-					// 							}
-					// 						}
-											
-					// 						// this.drilldown=test.data
-					// 					}})
-					// 				}
-					// 			}
-					// 		}
-					// 	}
-					// },
-          tooltip: {
-            formatter: function() {
-              if (this.point.options.drilldown) {
-                return (
-                  "Energy generated: <b> " +
-                  this.y +
-                  "</b> kWh " +
-                  "<br>" +
-                  Highcharts.dateFormat("%b %Y", new Date(this.x))
-                );
-              } else {
-                return (
-                  "Energy generated: <b> " +
-                  this.y +
-                  "</b> kWh " +
-                  "<br>" +
-                  Highcharts.dateFormat("%e %b %Y", new Date(this.x))
-                );
-              }
-            }
-          },
-          series: [{'data':obj.data,'name':obj.name,"color":"#0000ff91"}],
-          drilldown: {
-						series: obj.data
+        .then(res => {
+          if(res.data.data!== null){
+          singleassetstatttemp = res.data.data;
+          this.setState({ singleassetstat: singleassetstatttemp });
           }
+          else if (res.data.error !== undefined) {
+            if (res.data.error.errorCode === 153) {
+              window.location.href = "../login.html?redirect=maps";
+            } else {
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: res.data.error.errorMsg
+              });
+            }
+          }
+        })
+        .catch(e => {
+          console.log(e);
         });
+      await axios({
+        url: config.highchartdata,
+        method: "POST",
+        data: {
+          customerId: this.props.location.state.detail.customerId,
+          rmsVendorId: this.props.location.state.detail.rmsVendorId
+        },
+        headers: {
+          "Content-Type": "application/json"
+        }
       })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-  render() {
-    return (
-      <div>
-        <Header />
-        <div className="mainbody">
-          <Sidebar />
-          <div style={{ backgroundColor: "#F2F2F2" }} className="main">
-            <RmsHeader />
-            <div className="container">
-              <div className="row">
-                <RmsSidebardata
-                  allassetstat={this.state.singleassetstat}
-									rmsubstate={this.props.location.state.detail}
-									rmscapacity={this.props.location.state.detail.capacity}
-                />
-                <div style={{ padding: "30px" }} className="col-xs-10">
-								<div>
-								<h4>{this.props.location.state.detail.customerName}</h4>
-								<i class="fa fa-calendar" aria-hidden="true"></i><span style={{'marginLeft':'8px'}}>{this.props.location.state.detail.doi}</span>
-								</div>
-								<div id="energy_chart" />		
+        .then(res => {
+          let obj = {};
+          obj["data"] = rmsdata.data.list;
+          obj["name"] = "Energy";
+        //   if (!Highcharts.Chart.prototype.addSeriesAsDrilldown) {
+        //   drilldown(Highcharts);
+        //   // Drilldown(Highcharts);
+        // }
+          drilldown(Highcharts);
+          Highcharts.chart("energy_chart", {
+            chart: {
+              type: "column",
+              spacingBottom: 15,
+              spacingTop: 10,
+              spacingLeft: 10,
+              spacingRight: 10,
+              backgroundColor: "#f2f2f2",
+              events: {
+                load: function() {
+                  var fin = new Date();
+                  var finDate = fin.getDate();
+  
+                  var finMonth = fin.getMonth();
+                  var finYear = fin.getFullYear();
+  
+                  var ini = new Date();
+                  ini.setFullYear(ini.getFullYear() - 1);
+                  var iniDate = ini.getDate();
+                  var iniMonth = ini.getMonth();
+                  var iniYear = ini.getFullYear();
+                  if (this.yAxis[0].dataMax == 0) {
+                    this.yAxis[0].setExtremes(null, 1);
+                  }
+                  //this.yAxis.set
+  
+                  this.xAxis[0].setExtremes(
+                    Date.UTC(iniYear, iniMonth, iniDate),
+                    Date.UTC(finYear, finMonth, finDate)
+                  );
+                },
+  
+                drilldown: function(e) {
+                  var charts_this = this;
+                  var inidrillDate = new Date(e.point.x);
+                  setTimeout(function() {
+                    inidrillDate.setDate(0);
+                    inidrillDate.setMonth(inidrillDate.getMonth());
+                    var DateinidrillDate = inidrillDate.getDate();
+                    var MonthinidrillDate = inidrillDate.getMonth();
+                    var YearinidrillDate = inidrillDate.getFullYear();
+                    var findrillDate = inidrillDate;
+                    findrillDate.setMonth(findrillDate.getMonth() + 1);
+                    findrillDate.setDate(findrillDate.getDate() - 1);
+                    var DatefindrillDate = findrillDate.getDate();
+                    var MonthfindrillDate = findrillDate.getMonth();
+                    var YearfindrillDate = findrillDate.getFullYear();
+  
+                    charts_this.xAxis[0].setExtremes(
+                      Date.UTC(
+                        YearinidrillDate,
+                        MonthinidrillDate,
+                        DateinidrillDate
+                      ),
+                      Date.UTC(
+                        YearfindrillDate,
+                        MonthfindrillDate,
+                        DatefindrillDate
+                      )
+                    );
+  
+                    if (charts_this.yAxis[0].dataMax === 0) {
+                      charts_this.yAxis[0].setExtremes(null, 1);
+                    }
+                  }, 0);
                   
+                }
+              }
+            },
+            title: {
+              text: '<p className="energy_gen">Energy Generated</p>'
+            },
+            exporting: { enabled: false },
+            xAxis: {
+              type: "datetime",
+              labels: {
+                step: 1
+              },
+              dateTimeLabelFormats: {
+                day: "%e"
+              }
+            },
+            yAxis: {
+              title: {
+                text: "kWh"
+              }
+            },
+            credits: {
+              enabled: false
+            },
+            // plotOptions: {
+            //   series: {
+            //     cursor: "pointer",
+            //     dataLabels: {
+            //       enabled: true,
+            //       format: "{point.y}"
+            //     },
+            //     color: "#fcd562",
+            //     point:{
+            //       events:{
+            //         click:function(event){
+            //          if(this.options!=null){
+            //             var dayOfYear=new Date(this.x).getFullYear() +"-"+(new Date(this.x).getMonth()+1)+"-"+new Date(this.x).getDate();
+            //           var formatted_date = new Date(this.x).getDate() + " " + months[(new Date(this.x).getMonth())] +" "+ new Date(this.x).getFullYear();
+            //           // document.getElementById('chart_date_id').innerHTML = formatted_date;		//setting modal title with current date
+            //             $('#container').bind('mousemove touchmove touchstart', function (e) {
+  
+            //               var chart,
+            //               point,
+            //               i,
+            //               event;
+            //               var sync_charts = $('.chart');
+            //               for (i = 0; i < sync_charts.length; i = i + 1) {
+  
+            //                 var chart_1 = sync_charts[i];
+            //                 var chart_2 = chart_1.getAttribute('data-highcharts-chart');
+            //                 chart=Highcharts.charts[chart_2];
+            //                 event = chart.pointer.normalize(e.originalEvent);
+            //                 point = chart.series[0].searchPoint(event, true);
+  
+            //                 if (point) {
+            //                   point.highlight(e);
+            //                 }
+            //               }
+            //             });
+            //             Highcharts.Pointer.prototype.reset = function () {
+  
+            //               return undefined;
+            //             };
+            //             Highcharts.Point.prototype.highlight = function (event) {
+  
+            //               event = this.series.chart.pointer.normalize(event);
+            //               this.onMouseOver(); // Show the hover marker
+            //               this.series.chart.tooltip.refresh(this); // Show the tooltip
+            //               this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
+            //             };
+            //             function syncExtremes(e) {
+  
+            //               var thisChart = this.chart;
+  
+            //               if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
+            //                 Highcharts.each(Highcharts.charts, function (chart) {
+            //                   if (chart !== thisChart) {
+            //                     if (chart.xAxis[0].setExtremes) { // It is null while updating
+            //                       chart.xAxis[0].setExtremes(
+            //                           e.min,
+            //                           e.max,
+            //                           undefined,
+            //                           false,
+            //                           { trigger: 'syncExtremes' }
+            //                       );
+            //                     }
+            //                   }
+            //                 });
+            //               }
+            //             }
+            //           axios({
+            //             url: config.fvcstat,
+            //             method: "POST",
+            //             data: {
+            //               "customerId":self.props.location.state.detail.customerId,"rmsVendorId":self.props.location.state.detail.rmsVendorId,
+            //               "date":dayOfYear,
+            //               "powerType":self.props.location.state.detail.powerType
+            //             },
+            //             headers: {
+            //               "Content-Type": "application/json"
+            //             }
+            //           }).then((res)=>{
+            //             let activity = fvc.data;
+            //             if($('.chart')){
+            //               $('.chart').remove();
+            //             }
+            //             $.each(activity.datasets, function (i, dataset) {
+            //               console.log(1)
+            //               var chartDiv = document.createElement('div');
+            //               chartDiv.className = 'chart';
+            //               document.getElementById('container').appendChild(chartDiv);
+            //               Highcharts.chart(chartDiv,{
+            //                 chart: {
+                              
+            //                 },
+            //                 plotOptions: {
+            //                   series: {
+            //                     marker:{
+            //                       enabled:false
+            //                     }
+            //                   }
+            //                 },
+            //                 exporting: { enabled: false },
+            //                 title: {
+            //                   text: dataset.name,
+            //                   align: 'left',
+            //                   margin: 0,
+            //                   x: 30
+            //                 },
+            //                 credits: {
+            //                   enabled: false
+            //                 },
+            //                 legend: {
+            //                   enabled: false
+            //                 },
+            //                 xAxis: {
+            //                   crosshair:{ width: 3},
+            //                   events: {
+            //                     setExtremes: syncExtremes
+            //                   },
+            //                   labels: {
+            //                     format: '{value}'
+            //                   },categories: activity.xData
+            //                 },
+            //                 yAxis: {
+            //                   title: {
+            //                     text: null
+            //                   }
+            //                 },
+            //                 series: [{
+            //                   data: dataset
+            //                 }],
+            //                 tooltip: {
+            //                   positioner: function () {
+            //                     return {
+            //                       x: this.chart.chartWidth - this.label.width,
+            //                       y: 10 // align to title
+            //                     };
+            //                   },
+            //                   borderWidth: 0,
+            //                   backgroundColor: 'none',
+            //                   pointFormat: '{point.y}',
+            //                   headerFormat: '',
+            //                   shadow: false,
+            //                   style: {
+            //                     fontSize: '18px'
+            //                   },
+            //                   valueDecimals: dataset.valueDecimals
+            //                 },
+            //                 series: [{
+            //                   data: dataset.data,
+            //                   name: dataset.name,
+            //                   type: dataset.type,
+            //                   color: Highcharts.getOptions().colors[i],
+            //                   fillOpacity: 0.3,
+            //                   tooltip: {
+            //                     valueSuffix: ' ' + dataset.unit
+            //                   }
+            //                 }]
+            //               });
+            //             });
+                        
+            //           })
+            //           }		
+            //         }
+            //       }
+            //     }
+            //   }
+            // },
+            tooltip: {
+              formatter: function() {
+                if (this.point.options.drilldown) {
+                  return (
+                    "Energy generated: <b> " +
+                    this.y +
+                    "</b> kWh " +
+                    "<br>" +
+                    Highcharts.dateFormat("%b %Y", new Date(this.x))
+                  );
+                } else {
+                  return (
+                    "Energy generated: <b> " +
+                    this.y +
+                    "</b> kWh " +
+                    "<br>" +
+                    Highcharts.dateFormat("%e %b %Y", new Date(this.x))
+                  );
+                }
+              }
+            },
+            series: [{'data':obj.data,'name':obj.name,"color":"#4848d3"}],
+            drilldown: {
+              series: obj.data
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e);
+        })
+    }
+    
+  }
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+ 
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
+  render() {
+    const { open } = this.state;
+      return (
+        <div>
+          <Header />
+          <div className="mainbody">
+            <Sidebar />
+            <div style={{ backgroundColor: "#F2F2F2" }} className="main">
+              <RmsHeader />
+              <div className="container">
+                <div className="row">
+                {
+                  this.props.location.state!==undefined ?(
+                      <RmsSidebardata
+                        allassetstat={this.state.singleassetstat}
+                        rmsubstate={this.props.location.state.detail}
+                        rmscapacity={this.props.location.state.detail.capacity}
+                      />
+                      
+                 
+                  ):(
+                      <RmsSidebardata
+                        allassetstat={this.state.singleassetstat}
+                        rmsubstate={{
+                        capacity: "NA",
+                        customerId: "NA",
+                        customerName: "NA",
+                        district: "NA",
+                        doi: "NA",
+                        imei: "NA",
+                        powerType: "NA",
+                        rmsVendorId: null,
+                        serverConfig: null,
+                        state: "NA",
+                        vfdSno: "NA"}}
+                        rmscapacity={'NA'}
+                      />
+                  )
+                }
+                 <div style={{ paddingLeft: "30px" }} className="col-xs-10">
+                {
+                  this.props.location.state!==undefined ?(
+                  <div>
+                  
+                      <h4>{this.props.location.state.detail.customerName}</h4>
+                      <i className="fa fa-calendar" aria-hidden="true"></i><span style={{'marginLeft':'8px'}}>{this.props.location.state.detail.doi}</span>
+                      <div style={{'margin':'10px'}} id="energy_chart" />		
+                      
+                  </div>
+                  ):(
+                    <div>
+                    
+                  
+                      <h4>NA</h4>
+                      <i className="fa fa-calendar" aria-hidden="true"></i><span style={{'marginLeft':'8px'}}>NA</span>
+                      <img style={{width:"40%"}} className="center"src={nodata} alt="no data" />
+                  </div>
+                  )
+                }
+                <div id="energy_chart" />
+                {/* <div id="myModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div> */}
+                {/* <div id="container" style={{'margin':'50px'}}/> */}
+                </div>
+              </div>
+              </div>
             </div>
-						</div>
-						</div>
           </div>
         </div>
-      </div>
-    );
+      );
+    
   }
 }
 
