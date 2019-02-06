@@ -131,7 +131,7 @@ class Main extends Component {
       <div>
         <Header />
         <div className="mainbody">
-          <Sidebar />
+          <Sidebar history={this.props.history}/>
           <div className="main">
             <Filter
               states={this.state.states}

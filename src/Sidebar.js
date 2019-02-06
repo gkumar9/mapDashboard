@@ -5,14 +5,13 @@ import IAAS from "./pins/IAAS.png";
 import MINIGRID from "./pins/Minigrid(2).png";
 import HOME from "./pins/ROOFTOP.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
-class Sidebar extends Component {
+class Sidebar extends Component { 
   render() {
-    
     return (
       <aside className="main_sidebar">
-        <ul>
-          <Link to="/">
-            <li title="Home" className="active">
+        <ul  >
+          <Link key='home'  to="/">
+            <li title="Home"  className={this.props.history.location.pathname.search('rms')===-1 && this.props.history.location.pathname.search('iaas')===-1? 'active':''}>
               <i>
                 <img
                   alt="home"
@@ -22,27 +21,24 @@ class Sidebar extends Component {
               </i>
             </li>
           </Link>
-          <Link to="/rms">
-          <li title="RMS">
+          <Link key="rms"  to="/rms">
+          <li title="RMS" className= {this.props.history.location.pathname.search('rms')!==-1? 'active':''}>
             
               <i>
                 <img alt="rms" src={RMS} />
               </i>
           </li>
           </Link>
-          <li title="IAAS">
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="../IAAS/menubar.html"
-            >
+          <Link key="rms"  to="/iaas">
+          <li title="IAAS" className= {this.props.history.location.pathname.search('iaas')!==-1? 'active':''}>
+            
               <i>
                 <img alt="IAAS" src={IAAS} />
               </i>
-            </a>
           </li>
+          </Link>
           
-            <li title="Solar Rooftop">
+          <li title="Solar Rooftop">
             <a className="disabled">
               <i>
                 <img alt="Rooftop" src={ROOFTOP} />

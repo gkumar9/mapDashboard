@@ -139,6 +139,7 @@ class Rms extends Component {
       })
         .then(res => {
           let obj = {};
+          // obj["data"] = res.data.data.list;
           obj["data"] = rmsdata.data.list;
           obj["name"] = "Energy";
         //   if (!Highcharts.Chart.prototype.addSeriesAsDrilldown) {
@@ -167,11 +168,12 @@ class Rms extends Component {
                   var iniDate = ini.getDate();
                   var iniMonth = ini.getMonth();
                   var iniYear = ini.getFullYear();
-                  if (this.yAxis[0].dataMax == 0) {
+                  if (this.yAxis[0].dataMax === 0) {
                     this.yAxis[0].setExtremes(null, 1);
                   }
                   //this.yAxis.set
-  
+                  console.log(new Date(Date.UTC(iniYear, iniMonth, iniDate)))
+                  console.log(new Date(Date.UTC(finYear, finMonth, finDate)))
                   this.xAxis[0].setExtremes(
                     Date.UTC(iniYear, iniMonth, iniDate),
                     Date.UTC(finYear, finMonth, finDate)
@@ -179,8 +181,10 @@ class Rms extends Component {
                 },
   
                 drilldown: function(e) {
+                  console.log('drilldown')
                   var charts_this = this;
                   var inidrillDate = new Date(e.point.x);
+                    
                   setTimeout(function() {
                     inidrillDate.setDate(0);
                     inidrillDate.setMonth(inidrillDate.getMonth());
@@ -193,7 +197,16 @@ class Rms extends Component {
                     var DatefindrillDate = findrillDate.getDate();
                     var MonthfindrillDate = findrillDate.getMonth();
                     var YearfindrillDate = findrillDate.getFullYear();
-  
+                    console.log(Date.UTC(
+                      YearinidrillDate,
+                      MonthinidrillDate,
+                      DateinidrillDate
+                    ))
+                    console.log(Date.UTC(
+                      YearfindrillDate,
+                      MonthfindrillDate,
+                      DatefindrillDate
+                    ))
                     charts_this.xAxis[0].setExtremes(
                       Date.UTC(
                         YearinidrillDate,
@@ -236,171 +249,338 @@ class Rms extends Component {
             credits: {
               enabled: false
             },
-            // plotOptions: {
-            //   series: {
-            //     cursor: "pointer",
-            //     dataLabels: {
-            //       enabled: true,
-            //       format: "{point.y}"
-            //     },
-            //     color: "#fcd562",
-            //     point:{
-            //       events:{
-            //         click:function(event){
-            //          if(this.options!=null){
-            //             var dayOfYear=new Date(this.x).getFullYear() +"-"+(new Date(this.x).getMonth()+1)+"-"+new Date(this.x).getDate();
-            //           var formatted_date = new Date(this.x).getDate() + " " + months[(new Date(this.x).getMonth())] +" "+ new Date(this.x).getFullYear();
-            //           // document.getElementById('chart_date_id').innerHTML = formatted_date;		//setting modal title with current date
-            //             $('#container').bind('mousemove touchmove touchstart', function (e) {
+            plotOptions: {
+              series: {
+                cursor: "pointer",
+                dataLabels: {
+                  enabled: true,
+                  format: "{point.y}"
+                },
+                color: "#fcd562",
+                point:{
+                  events:{
+                    click:function(event){
+                     if(this.options!=null){
+                      var dayOfYear=new Date(this.x).getFullYear() +"-"+(new Date(this.x).getMonth()+1)+"-"+new Date(this.x).getDate();
+                      document.getElementById('energy_chart').style.display = 'none';
+                       document.getElementById('drilldownContainer').style.display = 'block';
+                       document.getElementById('drillUp').style.display = 'block';
+                      ['mousemove', 'touchmove', 'touchstart'].forEach(function(eventType) {
+                        document.getElementById('drilldownContainer').addEventListener(
+                            eventType,
+                            function(e) {
+                                var chart,
+                                    point,
+                                    i,
+                                    event;
+                    
+                                for (i = 0; i < Highcharts.charts.length; i = i + 1) {
+                                    chart = Highcharts.charts[i];
+                                    // Find coordinates within the chart
+                                    event = chart.pointer.normalize(e);
+                                    // Get the hovered point
+                                    point = chart.series[0].searchPoint(event, true);
+                    
+                                    if (point) {
+                                        point.highlight(e);
+                                    }
+                                }
+                            }
+                        );
+                    });
+                    
+                    /**
+                     * Override the reset function, we don't need to hide the tooltips and
+                     * crosshairs.
+                     */
+                    Highcharts.Pointer.prototype.reset = function() {
+                        return undefined;
+                    };
+                    
+                    /**
+                     * Highlight a point by showing tooltip, setting hover state and draw crosshair
+                     */
+                    Highcharts.Point.prototype.highlight = function(event) {
+                        event = this.series.chart.pointer.normalize(event);
+                        this.onMouseOver(); // Show the hover marker
+                        this.series.chart.tooltip.refresh(this); // Show the tooltip
+                        this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
+                    };
+                    
+                    /**
+                     * Synchronize zooming through the setExtremes event handler.
+                     */
+                    function syncExtremes(e) {
+                        var thisChart = this.chart;
+                    
+                        if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
+                            Highcharts.each(Highcharts.charts, function(chart) {
+                                if (chart !== thisChart) {
+                                    if (chart.xAxis[0].setExtremes) { // It is null while updating
+                                        chart.xAxis[0].setExtremes(
+                                            e.min,
+                                            e.max,
+                                            undefined,
+                                            false, {
+                                                trigger: 'syncExtremes'
+                                            }
+                                        );
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    document.getElementById('drilldownContainer').style.display = 'block';
+                    document.getElementById('drillUp').style.display = 'block';
+                    if($('.chart')){
+                      $('.chart').remove();
+                    }
+                    // function createDrilldownChart() {
+                        $.ajax({
+                            url: 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/activity.json',
+                            dataType: 'text',
+                            success: function(activity) {
+                    
+                                activity = JSON.parse(activity);
+                                activity.datasets.forEach(function(dataset, i) {
+                                  
+                                    // Add X values
+                                    dataset.data = Highcharts.map(dataset.data, function(val, j) {
+                                        return [activity.xData[j], val];
+                                    });
+                    
+                                    var chartDiv = document.createElement('div');
+                                    chartDiv.className = 'chart';
+                                    document.getElementById('drilldownContainer').appendChild(chartDiv);
+                    
+                                    Highcharts.chart(chartDiv, {
+                                        chart: {
+                                          spacingBottom: 15,
+                                          spacingTop: 10,
+                                          spacingLeft: 10,
+                                          spacingRight: 10,
+                                          marginRight:30,
+                                          height:195,
+                                          backgroundColor: "#f2f2f2",
+                                        },
+                                        title: {
+                                            text: dataset.name,
+                                            align: 'left',
+                                            margin: 0,
+                                            x: 30
+                                        },
+                                        credits: {
+                                            enabled: false
+                                        },
+                                        legend: {
+                                            enabled: false
+                                        },
+                                        xAxis: {
+                                            crosshair: true,
+                                            events: {
+                                                setExtremes: syncExtremes
+                                            },
+                                            labels: {
+                                                format: '{value} km'
+                                            }
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: null
+                                            }
+                                        },
+                                        tooltip: {
+                                            positioner: function() {
+                                                return {
+                                                    // right aligned
+                                                    x: this.chart.chartWidth - this.label.width-50,
+                                                    y: 10 // align to title
+                                                };
+                                            },
+                                            borderWidth: 0,
+                                            backgroundColor: 'none',
+                                            pointFormat: '{point.y}',
+                                            headerFormat: '',
+                                            shadow: false,
+                                            style: {
+                                                fontSize: '18px'
+                                            },
+                                            valueDecimals: dataset.valueDecimals
+                                        },
+                                        series: [{
+                                            data: dataset.data,
+                                            name: dataset.name,
+                                            type: dataset.type,
+                                            color: Highcharts.getOptions().colors[i],
+                                            fillOpacity: 0.3,
+                                            tooltip: {
+                                                valueSuffix: ' ' + dataset.unit
+                                            }
+                                        }]
+                                    });
+                                });
+                            }
+                        });
+                    // }
+                    
+                    document.getElementById('drillUp').addEventListener('click', function(){
+                      document.getElementById('energy_chart').style.display = "block";
+                        document.getElementById('drilldownContainer').style.display = "none";
+                        document.getElementById('drillUp').style.display = 'none';
+                    });
+                      
+                      // var formatted_date = new Date(this.x).getDate() + " " + months[(new Date(this.x).getMonth())] +" "+ new Date(this.x).getFullYear();
+                      // // document.getElementById('chart_date_id').innerHTML = formatted_date;		//setting modal title with current date
+                      //   $('#container').bind('mousemove touchmove touchstart', function (e) {
   
-            //               var chart,
-            //               point,
-            //               i,
-            //               event;
-            //               var sync_charts = $('.chart');
-            //               for (i = 0; i < sync_charts.length; i = i + 1) {
+                      //     var chart,
+                      //     point,
+                      //     i,
+                      //     event;
+                      //     var sync_charts = $('.chart');
+                      //     for (i = 0; i < sync_charts.length; i = i + 1) {
   
-            //                 var chart_1 = sync_charts[i];
-            //                 var chart_2 = chart_1.getAttribute('data-highcharts-chart');
-            //                 chart=Highcharts.charts[chart_2];
-            //                 event = chart.pointer.normalize(e.originalEvent);
-            //                 point = chart.series[0].searchPoint(event, true);
+                      //       var chart_1 = sync_charts[i];
+                      //       var chart_2 = chart_1.getAttribute('data-highcharts-chart');
+                      //       chart=Highcharts.charts[chart_2];
+                      //       event = chart.pointer.normalize(e.originalEvent);
+                      //       point = chart.series[0].searchPoint(event, true);
   
-            //                 if (point) {
-            //                   point.highlight(e);
-            //                 }
-            //               }
-            //             });
-            //             Highcharts.Pointer.prototype.reset = function () {
+                      //       if (point) {
+                      //         point.highlight(e);
+                      //       }
+                      //     }
+                      //   });
+                      //   Highcharts.Pointer.prototype.reset = function () {
   
-            //               return undefined;
-            //             };
-            //             Highcharts.Point.prototype.highlight = function (event) {
+                      //     return undefined;
+                      //   };
+                      //   Highcharts.Point.prototype.highlight = function (event) {
   
-            //               event = this.series.chart.pointer.normalize(event);
-            //               this.onMouseOver(); // Show the hover marker
-            //               this.series.chart.tooltip.refresh(this); // Show the tooltip
-            //               this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
-            //             };
-            //             function syncExtremes(e) {
+                      //     event = this.series.chart.pointer.normalize(event);
+                      //     this.onMouseOver(); // Show the hover marker
+                      //     this.series.chart.tooltip.refresh(this); // Show the tooltip
+                      //     this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
+                      //   };
+                      //   function syncExtremes(e) {
   
-            //               var thisChart = this.chart;
+                      //     var thisChart = this.chart;
   
-            //               if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
-            //                 Highcharts.each(Highcharts.charts, function (chart) {
-            //                   if (chart !== thisChart) {
-            //                     if (chart.xAxis[0].setExtremes) { // It is null while updating
-            //                       chart.xAxis[0].setExtremes(
-            //                           e.min,
-            //                           e.max,
-            //                           undefined,
-            //                           false,
-            //                           { trigger: 'syncExtremes' }
-            //                       );
-            //                     }
-            //                   }
-            //                 });
-            //               }
-            //             }
-            //           axios({
-            //             url: config.fvcstat,
-            //             method: "POST",
-            //             data: {
-            //               "customerId":self.props.location.state.detail.customerId,"rmsVendorId":self.props.location.state.detail.rmsVendorId,
-            //               "date":dayOfYear,
-            //               "powerType":self.props.location.state.detail.powerType
-            //             },
-            //             headers: {
-            //               "Content-Type": "application/json"
-            //             }
-            //           }).then((res)=>{
-            //             let activity = fvc.data;
-            //             if($('.chart')){
-            //               $('.chart').remove();
-            //             }
-            //             $.each(activity.datasets, function (i, dataset) {
-            //               console.log(1)
-            //               var chartDiv = document.createElement('div');
-            //               chartDiv.className = 'chart';
-            //               document.getElementById('container').appendChild(chartDiv);
-            //               Highcharts.chart(chartDiv,{
-            //                 chart: {
+                      //     if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
+                      //       Highcharts.each(Highcharts.charts, function (chart) {
+                      //         if (chart !== thisChart) {
+                      //           if (chart.xAxis[0].setExtremes) { // It is null while updating
+                      //             chart.xAxis[0].setExtremes(
+                      //                 e.min,
+                      //                 e.max,
+                      //                 undefined,
+                      //                 false,
+                      //                 { trigger: 'syncExtremes' }
+                      //             );
+                      //           }
+                      //         }
+                      //       });
+                      //     }
+                      //   }
+                      // axios({
+                      //   url: config.fvcstat,
+                      //   method: "POST",
+                      //   data: {
+                      //     "customerId":self.props.location.state.detail.customerId,"rmsVendorId":self.props.location.state.detail.rmsVendorId,
+                      //     "date":dayOfYear,
+                      //     "powerType":self.props.location.state.detail.powerType
+                      //   },
+                      //   headers: {
+                      //     "Content-Type": "application/json"
+                      //   }
+                      // }).then((res)=>{
+                      //   let activity = fvc.data;
+                      //   if($('.chart')){
+                      //     $('.chart').remove();
+                      //   }
+                      //   $.each(activity.datasets, function (i, dataset) {
+                      //     console.log(1)
+                      //     var chartDiv = document.createElement('div');
+                      //     chartDiv.className = 'chart';
+                      //     document.getElementById('container').appendChild(chartDiv);
+                      //     Highcharts.chart(chartDiv,{
+                      //       chart: {
                               
-            //                 },
-            //                 plotOptions: {
-            //                   series: {
-            //                     marker:{
-            //                       enabled:false
-            //                     }
-            //                   }
-            //                 },
-            //                 exporting: { enabled: false },
-            //                 title: {
-            //                   text: dataset.name,
-            //                   align: 'left',
-            //                   margin: 0,
-            //                   x: 30
-            //                 },
-            //                 credits: {
-            //                   enabled: false
-            //                 },
-            //                 legend: {
-            //                   enabled: false
-            //                 },
-            //                 xAxis: {
-            //                   crosshair:{ width: 3},
-            //                   events: {
-            //                     setExtremes: syncExtremes
-            //                   },
-            //                   labels: {
-            //                     format: '{value}'
-            //                   },categories: activity.xData
-            //                 },
-            //                 yAxis: {
-            //                   title: {
-            //                     text: null
-            //                   }
-            //                 },
-            //                 series: [{
-            //                   data: dataset
-            //                 }],
-            //                 tooltip: {
-            //                   positioner: function () {
-            //                     return {
-            //                       x: this.chart.chartWidth - this.label.width,
-            //                       y: 10 // align to title
-            //                     };
-            //                   },
-            //                   borderWidth: 0,
-            //                   backgroundColor: 'none',
-            //                   pointFormat: '{point.y}',
-            //                   headerFormat: '',
-            //                   shadow: false,
-            //                   style: {
-            //                     fontSize: '18px'
-            //                   },
-            //                   valueDecimals: dataset.valueDecimals
-            //                 },
-            //                 series: [{
-            //                   data: dataset.data,
-            //                   name: dataset.name,
-            //                   type: dataset.type,
-            //                   color: Highcharts.getOptions().colors[i],
-            //                   fillOpacity: 0.3,
-            //                   tooltip: {
-            //                     valueSuffix: ' ' + dataset.unit
-            //                   }
-            //                 }]
-            //               });
-            //             });
+                      //       },
+                      //       plotOptions: {
+                      //         series: {
+                      //           marker:{
+                      //             enabled:false
+                      //           }
+                      //         }
+                      //       },
+                      //       exporting: { enabled: false },
+                      //       title: {
+                      //         text: dataset.name,
+                      //         align: 'left',
+                      //         margin: 0,
+                      //         x: 30
+                      //       },
+                      //       credits: {
+                      //         enabled: false
+                      //       },
+                      //       legend: {
+                      //         enabled: false
+                      //       },
+                      //       xAxis: {
+                      //         crosshair:{ width: 3},
+                      //         events: {
+                      //           setExtremes: syncExtremes
+                      //         },
+                      //         labels: {
+                      //           format: '{value}'
+                      //         },categories: activity.xData
+                      //       },
+                      //       yAxis: {
+                      //         title: {
+                      //           text: null
+                      //         }
+                      //       },
+                      //       series: [{
+                      //         data: dataset
+                      //       }],
+                      //       tooltip: {
+                      //         positioner: function () {
+                      //           return {
+                      //             x: this.chart.chartWidth - this.label.width,
+                      //             y: 10 // align to title
+                      //           };
+                      //         },
+                      //         borderWidth: 0,
+                      //         backgroundColor: 'none',
+                      //         pointFormat: '{point.y}',
+                      //         headerFormat: '',
+                      //         shadow: false,
+                      //         style: {
+                      //           fontSize: '18px'
+                      //         },
+                      //         valueDecimals: dataset.valueDecimals
+                      //       },
+                      //       series: [{
+                      //         data: dataset.data,
+                      //         name: dataset.name,
+                      //         type: dataset.type,
+                      //         color: Highcharts.getOptions().colors[i],
+                      //         fillOpacity: 0.3,
+                      //         tooltip: {
+                      //           valueSuffix: ' ' + dataset.unit
+                      //         }
+                      //       }]
+                      //     });
+                      //   });
                         
-            //           })
-            //           }		
-            //         }
-            //       }
-            //     }
-            //   }
-            // },
+                      // })
+                      }		
+                    }
+                  }
+                }
+              }
+            },
             tooltip: {
               formatter: function() {
                 if (this.point.options.drilldown) {
@@ -434,20 +614,12 @@ class Rms extends Component {
     }
     
   }
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
- 
-  onCloseModal = () => {
-    this.setState({ open: false });
-  };
   render() {
-    const { open } = this.state;
       return (
         <div>
           <Header />
           <div className="mainbody">
-            <Sidebar />
+            <Sidebar history={this.props.history} />
             <div style={{ backgroundColor: "#F2F2F2" }} className="main">
               <RmsHeader />
               <div className="container">
@@ -487,7 +659,15 @@ class Rms extends Component {
                   
                       <h4>{this.props.location.state.detail.customerName}</h4>
                       <i className="fa fa-calendar" aria-hidden="true"></i><span style={{'marginLeft':'8px'}}>{this.props.location.state.detail.doi}</span>
-                      <div style={{'margin':'10px'}} id="energy_chart" />		
+                      <div style={{'margin':'10px'}} id="energy_chart" />	
+                      <button id="drillUp" style={{display: 'none','float':'right','marginTop':'-24px','marginRight':'30px','backgroundColor': "#f2f2f2"}}>
+                      <span
+                        className="glyphicon glyphicon-menu-left"
+                        style={{ marginRight: "6px" }}
+                        aria-hidden="true"
+                      />Back</button>
+                      <div id="drilldownContainer" style={{display: 'none'}}>
+                      </div>	
                       
                   </div>
                   ):(
@@ -500,26 +680,7 @@ class Rms extends Component {
                   </div>
                   )
                 }
-                <div id="energy_chart" />
-                {/* <div id="myModal" class="modal fade" role="dialog">
-                  <div class="modal-dialog">
-
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
-                      </div>
-                      <div class="modal-body">
-                        <p>Some text in the modal.</p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-
-                  </div>
-                </div> */}
-                {/* <div id="container" style={{'margin':'50px'}}/> */}
+                
                 </div>
               </div>
               </div>

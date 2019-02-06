@@ -7,6 +7,7 @@ import UI from "./UI.js";
 import * as serviceWorker from "./serviceWorker";
 import rms from "./rms.js";
 import rmssub from "./rmssub.js";
+import iaas from './iaas.js'
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL
 });
@@ -16,6 +17,7 @@ ReactDOM.render(
     <div>
       <Route exact path="/" component={UI} />
       <Route exact path="/rms" component={rms} />
+      <Route exact path="/iaas" component={iaas} />
       <Route exact path="/rms/:id" component={rmssub} />
     </div>
   </HashRouter>,

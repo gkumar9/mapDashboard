@@ -54,7 +54,7 @@ class Rmsdatatable extends Component {
       data: this.props.data,
       scrollY: 520,
       paging: false,
-      ordering:false,
+      ordering:true,
       responsive: false,
       columns: [
         {
@@ -78,8 +78,8 @@ class Rmsdatatable extends Component {
   }
   render() {
     return (
-      <div style={{ padding: "10px" }} className="col-xs-10">
-        <table id="table_id" className="display table" width="100%">
+      <div style={{ padding: "10px" }} className="col-xs-10 table-responsive">
+        <table id="table_id" className="table table-striped table-hover" width="100%">
           {/* <table id="example" className="display" width="100%" ref={el=>this.el=el}> */}
           <thead>
             <tr>
@@ -193,7 +193,7 @@ class Rms extends Component {
       <div>
         <Header />
         <div className="mainbody">
-          <Sidebar />
+          <Sidebar history={this.props.history} />
           <div style={{ backgroundColor: "#F2F2F2" }} className="main">
             <RmsHeader />
             <div className="container">

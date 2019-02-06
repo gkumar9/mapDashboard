@@ -9,6 +9,9 @@ body {
 a {
   cursor: pointer;
 }
+.table-hover>tbody>tr:hover{
+  background-color: #ffffff;
+}
 .modal{
   display: content !important;
 }
