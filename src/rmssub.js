@@ -12,20 +12,6 @@ import RmsSidebardata from "./RmsSidebardata.js";
 import nodata from './pins/nodata.png'
 import fvc from './fvc.json'
 const $ = require("jquery");
-var months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
-];
 
 class RmsHeader extends Component {
   render() {
@@ -137,15 +123,10 @@ class Rms extends Component {
           "Content-Type": "application/json"
         }
       })
-        .then(res => {
+        .then((res) => {
           let obj = {};
-          // obj["data"] = res.data.data.list;
-          obj["data"] = rmsdata.data.list;
+          obj["data"] = rmsdata.energy_graph.data;
           obj["name"] = "Energy";
-        //   if (!Highcharts.Chart.prototype.addSeriesAsDrilldown) {
-        //   drilldown(Highcharts);
-        //   // Drilldown(Highcharts);
-        // }
           drilldown(Highcharts);
           Highcharts.chart("energy_chart", {
             chart: {
@@ -172,8 +153,6 @@ class Rms extends Component {
                     this.yAxis[0].setExtremes(null, 1);
                   }
                   //this.yAxis.set
-                  console.log(new Date(Date.UTC(iniYear, iniMonth, iniDate)))
-                  console.log(new Date(Date.UTC(finYear, finMonth, finDate)))
                   this.xAxis[0].setExtremes(
                     Date.UTC(iniYear, iniMonth, iniDate),
                     Date.UTC(finYear, finMonth, finDate)
@@ -181,7 +160,6 @@ class Rms extends Component {
                 },
   
                 drilldown: function(e) {
-                  console.log('drilldown')
                   var charts_this = this;
                   var inidrillDate = new Date(e.point.x);
                     
@@ -197,16 +175,7 @@ class Rms extends Component {
                     var DatefindrillDate = findrillDate.getDate();
                     var MonthfindrillDate = findrillDate.getMonth();
                     var YearfindrillDate = findrillDate.getFullYear();
-                    console.log(Date.UTC(
-                      YearinidrillDate,
-                      MonthinidrillDate,
-                      DateinidrillDate
-                    ))
-                    console.log(Date.UTC(
-                      YearfindrillDate,
-                      MonthfindrillDate,
-                      DatefindrillDate
-                    ))
+                   
                     charts_this.xAxis[0].setExtremes(
                       Date.UTC(
                         YearinidrillDate,
@@ -259,9 +228,10 @@ class Rms extends Component {
                 color: "#fcd562",
                 point:{
                   events:{
-                    click:function(event){
+                    click:function(){
                      if(this.options!=null){
                       var dayOfYear=new Date(this.x).getFullYear() +"-"+(new Date(this.x).getMonth()+1)+"-"+new Date(this.x).getDate();
+
                       document.getElementById('energy_chart').style.display = 'none';
                        document.getElementById('drilldownContainer').style.display = 'block';
                        document.getElementById('drillUp').style.display = 'block';
@@ -330,251 +300,112 @@ class Rms extends Component {
                             });
                         }
                     }
+
                     document.getElementById('drilldownContainer').style.display = 'block';
                     document.getElementById('drillUp').style.display = 'block';
                     if($('.chart')){
                       $('.chart').remove();
                     }
-                    // function createDrilldownChart() {
-                        $.ajax({
-                            url: 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/activity.json',
-                            dataType: 'text',
-                            success: function(activity) {
-                    
-                                activity = JSON.parse(activity);
-                                activity.datasets.forEach(function(dataset, i) {
-                                  
-                                    // Add X values
-                                    dataset.data = Highcharts.map(dataset.data, function(val, j) {
-                                        return [activity.xData[j], val];
-                                    });
-                    
-                                    var chartDiv = document.createElement('div');
-                                    chartDiv.className = 'chart';
-                                    document.getElementById('drilldownContainer').appendChild(chartDiv);
-                    
-                                    Highcharts.chart(chartDiv, {
-                                        chart: {
-                                          spacingBottom: 15,
-                                          spacingTop: 10,
-                                          spacingLeft: 10,
-                                          spacingRight: 10,
-                                          marginRight:30,
-                                          height:195,
-                                          backgroundColor: "#f2f2f2",
-                                        },
-                                        title: {
-                                            text: dataset.name,
-                                            align: 'left',
-                                            margin: 0,
-                                            x: 30
-                                        },
-                                        credits: {
-                                            enabled: false
-                                        },
-                                        legend: {
-                                            enabled: false
-                                        },
-                                        xAxis: {
-                                            crosshair: true,
-                                            events: {
-                                                setExtremes: syncExtremes
-                                            },
-                                            labels: {
-                                                format: '{value} km'
-                                            }
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: null
-                                            }
-                                        },
-                                        tooltip: {
-                                            positioner: function() {
-                                                return {
-                                                    // right aligned
-                                                    x: this.chart.chartWidth - this.label.width-50,
-                                                    y: 10 // align to title
-                                                };
-                                            },
-                                            borderWidth: 0,
-                                            backgroundColor: 'none',
-                                            pointFormat: '{point.y}',
-                                            headerFormat: '',
-                                            shadow: false,
-                                            style: {
-                                                fontSize: '18px'
-                                            },
-                                            valueDecimals: dataset.valueDecimals
-                                        },
-                                        series: [{
-                                            data: dataset.data,
-                                            name: dataset.name,
-                                            type: dataset.type,
-                                            color: Highcharts.getOptions().colors[i],
-                                            fillOpacity: 0.3,
-                                            tooltip: {
-                                                valueSuffix: ' ' + dataset.unit
-                                            }
-                                        }]
-                                    });
-                                });
-                            }
+                       axios({
+                        url: config.fvcstat,
+                        method: "POST",
+                        data: {
+                          "customerId":self.props.location.state.detail.customerId,"rmsVendorId":self.props.location.state.detail.rmsVendorId,
+                          "date":dayOfYear,
+                          "powerType":self.props.location.state.detail.powerType
+                        },
+                        headers: {
+                          "Content-Type": "application/json"
+                        }
+                      })
+                      .then((res)=>{
+                        let activity = fvc.data;
+                        console.log('activity',activity)
+                        activity.datasets.forEach(function(dataset, i) {
+                          
+                            // Add X values
+                            dataset.data = Highcharts.map(dataset.data, function(val, j) {
+                                return [activity.xData[j], val];
+                            });
+            
+                            var chartDiv = document.createElement('div');
+                            chartDiv.className = 'chart';
+                            document.getElementById('drilldownContainer').appendChild(chartDiv);
+            
+                            Highcharts.chart(chartDiv, {
+                                chart: {
+                                  spacingBottom: 15,
+                                  spacingTop: 10,
+                                  spacingLeft: 10,
+                                  spacingRight: 10,
+                                  marginRight:30,
+                                  height:195,
+                                  backgroundColor: "#f2f2f2",
+                                },
+                                title: {
+                                    text: dataset.name,
+                                    align: 'left',
+                                    margin: 0,
+                                    x: 30
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                legend: {
+                                    enabled: false
+                                },
+                                xAxis: {
+                                  crosshair:{ width: 3},
+                                  events: {
+                                    setExtremes: syncExtremes
+                                  },
+                                  labels: {
+                                    format: '{value}'
+                                  },
+                                  categories: activity.xData
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: null
+                                    }
+                                },
+                                tooltip: {
+                                    positioner: function() {
+                                        return {
+                                            // right aligned
+                                            x: this.chart.chartWidth - this.label.width-50,
+                                            y: 10 // align to title
+                                        };
+                                    },
+                                    borderWidth: 0,
+                                    backgroundColor: 'none',
+                                    pointFormat: '{point.y}',
+                                    headerFormat: '',
+                                    shadow: false,
+                                    style: {
+                                        fontSize: '18px'
+                                    },
+                                    valueDecimals: dataset.valueDecimals
+                                },
+                                series: [{
+                                    data: dataset.data,
+                                    name: dataset.name,
+                                    type: dataset.type,
+                                    color: Highcharts.getOptions().colors[i],
+                                    fillOpacity: 0.3,
+                                    tooltip: {
+                                        valueSuffix: ' ' + dataset.unit
+                                    }
+                                }]
+                            });
                         });
-                    // }
+                      })
                     
-                    document.getElementById('drillUp').addEventListener('click', function(){
-                      document.getElementById('energy_chart').style.display = "block";
-                        document.getElementById('drilldownContainer').style.display = "none";
-                        document.getElementById('drillUp').style.display = 'none';
-                    });
-                      
-                      // var formatted_date = new Date(this.x).getDate() + " " + months[(new Date(this.x).getMonth())] +" "+ new Date(this.x).getFullYear();
-                      // // document.getElementById('chart_date_id').innerHTML = formatted_date;		//setting modal title with current date
-                      //   $('#container').bind('mousemove touchmove touchstart', function (e) {
-  
-                      //     var chart,
-                      //     point,
-                      //     i,
-                      //     event;
-                      //     var sync_charts = $('.chart');
-                      //     for (i = 0; i < sync_charts.length; i = i + 1) {
-  
-                      //       var chart_1 = sync_charts[i];
-                      //       var chart_2 = chart_1.getAttribute('data-highcharts-chart');
-                      //       chart=Highcharts.charts[chart_2];
-                      //       event = chart.pointer.normalize(e.originalEvent);
-                      //       point = chart.series[0].searchPoint(event, true);
-  
-                      //       if (point) {
-                      //         point.highlight(e);
-                      //       }
-                      //     }
-                      //   });
-                      //   Highcharts.Pointer.prototype.reset = function () {
-  
-                      //     return undefined;
-                      //   };
-                      //   Highcharts.Point.prototype.highlight = function (event) {
-  
-                      //     event = this.series.chart.pointer.normalize(event);
-                      //     this.onMouseOver(); // Show the hover marker
-                      //     this.series.chart.tooltip.refresh(this); // Show the tooltip
-                      //     this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
-                      //   };
-                      //   function syncExtremes(e) {
-  
-                      //     var thisChart = this.chart;
-  
-                      //     if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
-                      //       Highcharts.each(Highcharts.charts, function (chart) {
-                      //         if (chart !== thisChart) {
-                      //           if (chart.xAxis[0].setExtremes) { // It is null while updating
-                      //             chart.xAxis[0].setExtremes(
-                      //                 e.min,
-                      //                 e.max,
-                      //                 undefined,
-                      //                 false,
-                      //                 { trigger: 'syncExtremes' }
-                      //             );
-                      //           }
-                      //         }
-                      //       });
-                      //     }
-                      //   }
-                      // axios({
-                      //   url: config.fvcstat,
-                      //   method: "POST",
-                      //   data: {
-                      //     "customerId":self.props.location.state.detail.customerId,"rmsVendorId":self.props.location.state.detail.rmsVendorId,
-                      //     "date":dayOfYear,
-                      //     "powerType":self.props.location.state.detail.powerType
-                      //   },
-                      //   headers: {
-                      //     "Content-Type": "application/json"
-                      //   }
-                      // }).then((res)=>{
-                      //   let activity = fvc.data;
-                      //   if($('.chart')){
-                      //     $('.chart').remove();
-                      //   }
-                      //   $.each(activity.datasets, function (i, dataset) {
-                      //     console.log(1)
-                      //     var chartDiv = document.createElement('div');
-                      //     chartDiv.className = 'chart';
-                      //     document.getElementById('container').appendChild(chartDiv);
-                      //     Highcharts.chart(chartDiv,{
-                      //       chart: {
-                              
-                      //       },
-                      //       plotOptions: {
-                      //         series: {
-                      //           marker:{
-                      //             enabled:false
-                      //           }
-                      //         }
-                      //       },
-                      //       exporting: { enabled: false },
-                      //       title: {
-                      //         text: dataset.name,
-                      //         align: 'left',
-                      //         margin: 0,
-                      //         x: 30
-                      //       },
-                      //       credits: {
-                      //         enabled: false
-                      //       },
-                      //       legend: {
-                      //         enabled: false
-                      //       },
-                      //       xAxis: {
-                      //         crosshair:{ width: 3},
-                      //         events: {
-                      //           setExtremes: syncExtremes
-                      //         },
-                      //         labels: {
-                      //           format: '{value}'
-                      //         },categories: activity.xData
-                      //       },
-                      //       yAxis: {
-                      //         title: {
-                      //           text: null
-                      //         }
-                      //       },
-                      //       series: [{
-                      //         data: dataset
-                      //       }],
-                      //       tooltip: {
-                      //         positioner: function () {
-                      //           return {
-                      //             x: this.chart.chartWidth - this.label.width,
-                      //             y: 10 // align to title
-                      //           };
-                      //         },
-                      //         borderWidth: 0,
-                      //         backgroundColor: 'none',
-                      //         pointFormat: '{point.y}',
-                      //         headerFormat: '',
-                      //         shadow: false,
-                      //         style: {
-                      //           fontSize: '18px'
-                      //         },
-                      //         valueDecimals: dataset.valueDecimals
-                      //       },
-                      //       series: [{
-                      //         data: dataset.data,
-                      //         name: dataset.name,
-                      //         type: dataset.type,
-                      //         color: Highcharts.getOptions().colors[i],
-                      //         fillOpacity: 0.3,
-                      //         tooltip: {
-                      //           valueSuffix: ' ' + dataset.unit
-                      //         }
-                      //       }]
-                      //     });
-                      //   });
-                        
-                      // })
+                        document.getElementById('drillUp').addEventListener('click', function(){
+                          document.getElementById('energy_chart').style.display = "block";
+                          document.getElementById('drilldownContainer').style.display = "none";
+                          document.getElementById('drillUp').style.display = 'none';
+                        });
                       }		
                     }
                   }

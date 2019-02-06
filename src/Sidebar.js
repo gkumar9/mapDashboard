@@ -29,7 +29,7 @@ class Sidebar extends Component {
               </i>
           </li>
           </Link>
-          <Link key="rms"  to="/iaas">
+          <Link key="iaas"  to="/iaas">
           <li title="IAAS" className= {this.props.history.location.pathname.search('iaas')!==-1? 'active':''}>
             
               <i>
