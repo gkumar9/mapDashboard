@@ -3,10 +3,37 @@ import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import IaasHeader from './iaasheader.js'
 import IaasSidebar from './iaassidebar.js'
-import IaasRevenue from './iaasrevenue.js'
+import IaasRevenue from './iaasrevenue2.js'
 import IaasPatvan from './iaaspatvan.js'
 import Iasshourtrans from './iaashourtrans.js'
+import axios from 'axios'
+import config from './config.js'
+
 class iaas extends Component {
+  constructor(props){
+    super(props)
+    this.state={statsdata:{}}
+  }
+
+  componentDidMount(){
+    axios({
+      url: config.iaasstats,
+      method: "POST",
+      data: { requestId: 1 },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then((res)=>{
+      console.log('res',res.data.data)
+      this.setState({
+        statsdata:res.data.data
+      })
+    })
+      .catch((e)=>{
+        console.log(e)
+      })
+  }
 
   render() {
     return (
@@ -18,7 +45,7 @@ class iaas extends Component {
             <IaasHeader />
             <div className="container">
               <div className="row">
-                  <IaasSidebar />
+                  <IaasSidebar statsdata={this.state.statsdata}/>
                   <div className="col-xs-10">
                     <div>
                         <ul className="nav nav-tabs" role="tablist" style={{'marginLeft':'-16px'}}>

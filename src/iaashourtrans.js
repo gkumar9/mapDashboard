@@ -17,10 +17,35 @@ class Iaashourtans extends Component{
             }
           })
           .then((res)=>{
-              var data121 = res.data.data.valueList;
+            //   var data121 = res.data.data.list;
+              // let durationlist=res.data.data.list.map((item)=>{
+              //     let temp=parseInt(item.durationList)+1
+              //     return item.durationList +'-'+temp
+							// })
+							let durationlist=[]
+							for(let i=0;i< 10;i++){
+								// if(i===10){
+								// 	durationlist.push(i+'+')
+								// }
+								// else{
+									durationlist.push(i+'-'+(i+1))
+								// }
+								
+							}
+							// console.log(durationlist)
+              let valuelist=durationlist.map((item,number)=>{
+									let value=0;
+									res.data.data.list.map((listvalue)=>{
+										if( parseInt(listvalue.durationList)===number){
+											value=listvalue.valueList
+										}
+									})
+									return value
+							})
+
                 var dataSum = 0;
-                for (var i=0;i < data121.length;i++) {
-                    dataSum += data121[i]
+                for (var i=0;i < valuelist.length;i++) {
+                    dataSum += valuelist[i]
                 }
               var chart = new Highcharts.Chart({
                 chart: {
@@ -70,7 +95,7 @@ class Iaashourtans extends Component{
                       
                 },
                 xAxis: [{
-                    categories: res.data.data.durationList,
+                    categories:durationlist,
                     crosshair: true,
                     title:{
                         text:'Hours',
@@ -84,7 +109,7 @@ class Iaashourtans extends Component{
                 },    
                 series: [{
                     pointWidth: 35,
-                    data: res.data.data.valueList,
+                    data: valuelist,
                     color:"#4848d3",
                 }]
                 

@@ -5,7 +5,10 @@ import SOLARENERGY from "./pins/3.png";
 import SUBMERSIBLE from "./pins/4.png";
 import STATES from "./pins/5.png";
 
+
 class IaasSidebar extends Component {
+  
+  
     render() {
       return (
         <div style={{
@@ -21,7 +24,7 @@ class IaasSidebar extends Component {
                       <img alt="CO2" src={CO2} style={{ width: "46px",marginLeft:'-11px' }}  />
                     </div>
                     <div className="col-xs-9">
-                    <span><b>802.0 Kg</b></span>
+                    <span><b>{this.props.statsdata.co2Saved} Kg</b></span>
                     <p ><small>CO2 Saved</small></p>
                     </div>
                   </div>
@@ -32,7 +35,7 @@ class IaasSidebar extends Component {
                       <img alt="flow" src={FLOW} style={{ width: "32px",marginLeft:'-11px' }}  />
                     </div>
                     <div className="col-xs-9">
-                    <span ><b>7914.0 kL</b></span>
+                    <span ><b>{this.props.statsdata.waterDischarged} kL</b></span>
                     <p ><small>Water Discharged</small></p>
                     </div>
                   </div>
@@ -43,7 +46,7 @@ class IaasSidebar extends Component {
                       <img alt="SOLARENERGY" src={SOLARENERGY} style={{ width: "37px",marginLeft:'-11px' }}  />
                     </div>
                     <div className="col-xs-9">
-                    <span ><b>1488 Acre</b></span>
+                    <span ><b>{this.props.statsdata.landIrrigated} Acre</b></span>
                     <p ><small>Land Irrigated</small></p>
                     </div>
                   </div>
@@ -54,7 +57,7 @@ class IaasSidebar extends Component {
                       <img alt="submersible" src={SUBMERSIBLE} style={{ width: "42px",marginLeft:'-11px' }}  />
                     </div>
                     <div className="col-xs-9">
-                    <span ><b>50</b></span>
+                    <span ><b>{this.props.statsdata.noOfPatvans}</b></span>
                     <p ><small>No of Patvans</small></p>
                     </div>
                   </div>
@@ -65,7 +68,7 @@ class IaasSidebar extends Component {
                       <img alt="states" src={STATES} style={{ width: "42px",marginLeft:'-11px' }}  />
                     </div>
                     <div className="col-xs-9">
-                    <span ><b>184</b></span>
+                    <span ><b>{this.props.statsdata.noOfFarmers}</b></span>
                     <p ><small>No of Farmers</small></p>
                     </div>
                   </div>

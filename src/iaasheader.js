@@ -10,7 +10,7 @@ class IaasHeader extends Component {
               className="container-fluid"
               style={{ textAlign: "center", marginTop: "10px" }}
             >
-              <Link to="/">
+              {/* <Link to="/">
                 <button
                   style={{
                     marginTop: "-2px",
@@ -28,7 +28,7 @@ class IaasHeader extends Component {
                   />
                   Home{" "}
                 </button>
-              </Link>
+              </Link> */}
               <span style={{ fontSize: "large", color: "blue" }}>
                 Irrigation as a Service{" "}
               </span>

@@ -125,7 +125,8 @@ class Rms extends Component {
       })
         .then((res) => {
           let obj = {};
-          obj["data"] = rmsdata.energy_graph.data;
+          console.log('rmssub',res.data.data.list)
+          obj["data"] = res.data.data.list;
           obj["name"] = "Energy";
           drilldown(Highcharts);
           document.getElementById('drillUp').addEventListener('click', function(){

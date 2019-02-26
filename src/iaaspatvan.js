@@ -412,14 +412,14 @@ class Iaaspatvan extends Component{
                                     // console.log(pat1)	
                                         //console.log(pat1+'->'+selected+'-->'+aa);		
                                         if(p.patvanRevenue[pat1]!==undefined){
-                                            if(p.patvanRevenue[pat1].patvanYearData[selected])
+                                            if(p.patvanRevenue[pat1].patvanYearDataList[selected])
                                             {
                                                 		
                                                 // console.log(p.patvanRevenue[pat1].patvanYearData[selected].monthDataList[aa])
-                                                if(p.patvanRevenue[pat1].patvanYearData[selected].monthDataList[aa])
+                                                if(p.patvanRevenue[pat1].patvanYearDataList[selected].monthDataList[aa])
                                                 {
                 
-                                                    var data2= parseInt(p.patvanRevenue[pat1].patvanYearData[selected].monthDataList[aa]);	
+                                                    var data2= parseInt(p.patvanRevenue[pat1].patvanYearDataList[selected].monthDataList[aa]);	
                                                     series_array.push(data2);	
                                                     if(data2>maximum_y)
                                                     {
@@ -506,17 +506,17 @@ class Iaaspatvan extends Component{
            
            
            
-           
+        //    console.log(selected)
         // console.log(month_button_array)
         for(let yr1=0; yr1<month_button_array.length; yr1++)
         {
-            var ss = month_button_array[yr1]
-            var sss = parseInt(ss.id);
+             ss = month_button_array[yr1]
+             sss = parseInt(ss.id);
                 //debugger;
             ss.className ="";
             
-        
-            if(p['month'][selected].indexOf(sss)== -1)
+            // console.log(p['month'][2018])
+            if(p['month'][selected].toString().indexOf(sss)=== -1)
             {
                 ss.className = 'month_button disabled pvlist';
         
@@ -536,9 +536,9 @@ class Iaaspatvan extends Component{
                                {		
                                var pat1  = p['patvanList'][yr];	
                                  
-                               if(p.patvanRevenue[pat1])
-                               {				
-                                        data2= parseInt(p.patvanRevenue[pat1].patvanYearData[selected]['total']);
+                               if(p.patvanRevenue[pat1].patvanYearDataList[selected])
+                               {	    
+                                        data2= (p.patvanRevenue[pat1].patvanYearDataList[selected]['total']);
                                        if(data2 ===0)
                                            {
                                            series_array.push(null);

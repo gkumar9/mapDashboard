@@ -1,37 +1,41 @@
-let config={
-	"allpins":"../api/rs/claro/maps/all/pins",
-	"minigrid":"../api/rs/claro/maps/asset/info/minigrid",
-	"patvan":"../api/rs/claro/maps/asset/info/patvan",
-	"rooftop":"../api/rs/claro/maps/asset/info/rooftop",
-	"irrigation":"../api/rs/claro/maps/asset/info/pump/irrigation",
-	"drinkingwater":"../api/rs/claro/maps/asset/info/pump/drinkingwater",
-	"LogoutServlet":"../LogoutServlet",
-	"rmslist":"../rms/api/rs/assets/list",
-	"highchartdata":"../rms/api/rs/asset/highchart/data",
-	"allassetstat":"../rms/api/rs/all/assets/stats",
-	"singleassetstat":"../rms/api/rs/asset/stats",
- 	"fvcstat":"../rms/api/rs/asset/activity",
-	"hourtrans":"../iaas/api/rs/highchart/transaction/byduration",
-	"revenue":"../iaas/api/rs/highchart/revenue/bytimeline",
-	"iaaspatvan":"../iaas/api/rs/highchart/revenue/bypatvan"
-}
-
 // let config={
-// 	"allpins":"http://staging2.clarolabs.in/api/rs/claro/maps/all/pins",
-// 	"minigrid":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/minigrid",
-// 	"patvan":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/patvan",
-// 	"rooftop":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/rooftop",
-// 	"irrigation":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/pump/irrigation",
-// 	"drinkingwater":"http://staging2.clarolabs.in/api/rs/claro/maps/asset/info/pump/drinkingwater",
-// 	"LogoutServlet":"http://staging2.clarolabs.in/LogoutServlet",
-// 	"rmslist":"http://staging2.clarolabs.in/rms/api/rs/assets/list",
-// 	"highchartdata":"http://staging2.clarolabs.in/rms/api/rs/asset/highchart/data",
-// 	"allassetstat":"http://staging2.clarolabs.in/rms/api/rs/all/assets/stats",
-// 	"singleassetstat":"http://staging2.clarolabs.in/rms/api/rs/asset/stats",
-// 	"fvcstat":"http://staging2.clarolabs.in/rms/api/rs/asset/activity",
-// 	"hourtrans":"http://staging2.clarolabs.in/iaas/api/rs/highchart/transaction/byduration",
-// 	"revenue":"http://staging2.clarolabs.in/iaas/api/rs/highchart/revenue/bytimeline",
-// 	"patvan":"http://staging2.clarolabs.in/iaas/api/rs/highchart/revenue/bypatvan"
+// 	"allpins":"../api/rs/claro/maps/all/pins",
+// 	"minigrid":"../api/rs/claro/maps/asset/info/minigrid",
+// 	"patvan":"../api/rs/claro/maps/asset/info/patvan",
+// 	"rooftop":"../api/rs/claro/maps/asset/info/rooftop",
+// 	"irrigation":"../api/rs/claro/maps/asset/info/pump/irrigation",
+// 	"drinkingwater":"../api/rs/claro/maps/asset/info/pump/drinkingwater",
+// 	"LogoutServlet":"../LogoutServlet",
+// 	"rmslist":"../rms/api/rs/assets/list",
+// 	"highchartdata":"../rms/api/rs/asset/highchart/data",
+// 	"allassetstat":"../rms/api/rs/all/assets/stats",
+// 	"singleassetstat":"../rms/api/rs/asset/stats",
+//  	"fvcstat":"../rms/api/rs/asset/activity",
+// 	"hourtrans":"../iaas/api/rs/highchart/transaction/byduration",
+// 	"revenue":"../iaas/api/rs/highchart/revenue/bytimeline",
+// 	"iaaspatvan":"../iaas/api/rs/highchart/revenue/bypatvan"
 // }
+
+let config={
+	"allpins":"http://staging.clarolabs.in:7060/api/rs/claro/maps/all/pins",
+	"minigrid":"http://staging.clarolabs.in:7060/api/rs/claro/maps/asset/info/minigrid",
+	"patvan":"http://staging.clarolabs.in:7060/api/rs/claro/maps/asset/info/patvan",
+	"rooftop":"http://staging.clarolabs.in:7060/api/rs/claro/maps/asset/info/rooftop",
+	"irrigation":"http://staging.clarolabs.in:7060/api/rs/claro/maps/asset/info/pump/irrigation",
+	"drinkingwater":"http://staging.clarolabs.in:7060/api/rs/claro/maps/asset/info/pump/drinkingwater",
+	"LogoutServlet":"http://staging.clarolabs.in:7060/LogoutServlet",
+	"rmslist":"http://staging.clarolabs.in:7060/rms/api/rs/assets/list",
+	"highchartdata":"http://staging.clarolabs.in:7060/rms/api/rs/asset/highchart/data",
+	"allassetstat":"http://staging.clarolabs.in:7060/rms/api/rs/all/assets/stats",
+	"singleassetstat":"http://staging.clarolabs.in:7060/rms/api/rs/asset/stats",
+	"fvcstat":"http://staging.clarolabs.in:7060/rms/api/rs/asset/activity",
+	"hourtrans":"http://staging.clarolabs.in:7060/iaas/api/rs/highchart/transaction/byduration",
+	"revenue":"http://staging.clarolabs.in:7060/iaas/api/rs/highchart/revenue/bytimeline",
+	"iaaspatvan":"http://staging.clarolabs.in:7060/iaas/api/rs/highchart/revenue/bypatvan",
+	"iaasrevenueyearly":"http://staging.clarolabs.in:7060/iaas/api/rs/highchart/revenue/yearly",
+	"iaasrevenuemonthly":"http://staging.clarolabs.in:7060/iaas/api/rs/highchart/revenue/monthly/",
+	"iaasrevenuedaily":"http://staging.clarolabs.in:7060/iaas/api/rs/highchart/revenue/daily/",
+	"iaasstats":"http://staging.clarolabs.in:7060/iaas/api/rs/widget/home"
+}
 
 export default config;
