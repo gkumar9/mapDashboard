@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import RMS from "./pins/RMS.png";
 import IAAS from "./pins/IAAS.png";
 import MINIGRID from "./pins/Minigrid(2).png";
-import HOME from "./pins/ROOFTOP.png";
+// import HOME from "./pins/ROOFTOP.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
 class Header extends Component {
   constructor(props) {

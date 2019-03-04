@@ -13,7 +13,11 @@
 //  	"fvcstat":"../rms/api/rs/asset/activity",
 // 	"hourtrans":"../iaas/api/rs/highchart/transaction/byduration",
 // 	"revenue":"../iaas/api/rs/highchart/revenue/bytimeline",
-// 	"iaaspatvan":"../iaas/api/rs/highchart/revenue/bypatvan"
+// 	"iaaspatvan":"../iaas/api/rs/highchart/revenue/bypatvan",
+// 	"iaasrevenueyearly":"../iaas/api/rs/highchart/revenue/yearly",
+// 	"iaasrevenuemonthly":"../iaas/api/rs/highchart/revenue/monthly/",
+// 	"iaasrevenuedaily":"../iaas/api/rs/highchart/revenue/daily/",
+// 	"iaasstats":"../iaas/api/rs/widget/home"
 // }
 
 let config={
@@ -35,7 +39,8 @@ let config={
 	"iaasrevenueyearly":"http://staging.clarolabs.in:7060/iaas/api/rs/highchart/revenue/yearly",
 	"iaasrevenuemonthly":"http://staging.clarolabs.in:7060/iaas/api/rs/highchart/revenue/monthly/",
 	"iaasrevenuedaily":"http://staging.clarolabs.in:7060/iaas/api/rs/highchart/revenue/daily/",
-	"iaasstats":"http://staging.clarolabs.in:7060/iaas/api/rs/widget/home"
+	"iaasstats":"http://staging.clarolabs.in:7060/iaas/api/rs/widget/home",
+	"transactionlist":"http://staging.clarolabs.in:7060/iaas/api/rs/transactionlist"
 }
 
 export default config;

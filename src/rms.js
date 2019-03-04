@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import config from "./config.js";
 import RmsSidebardata from "./RmsSidebardata.js";
@@ -53,6 +52,7 @@ class Rmsdatatable extends Component {
     var otable = $("#table_id").DataTable({
       data: this.props.data,
       scrollY: 520,
+      destroy:true,
       paging: false,
       ordering:true,
       responsive: false,

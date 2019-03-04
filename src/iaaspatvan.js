@@ -102,7 +102,7 @@ class Iaaspatvan extends Component{
             
             
             
-            //console.log(a2d);
+            
             
             
             
@@ -117,7 +117,7 @@ class Iaaspatvan extends Component{
             {	
                 //console.log(a2d[sa][0] +"-"+ a2d[sa][0]);
                 sorted_patvan1.push(a2d[sa][1]);
-                if(a2d[sa][0]==0)
+                if(a2d[sa][0]===0)
                 {
                     sorted_Data1.push(null);
                     
@@ -128,13 +128,14 @@ class Iaaspatvan extends Component{
                     
                     }
                 }
-            
+                // console.log(sorted_Data1);
+                // console.log(sorted_patvan1);
             Sorted_Data2(sorted_Data1,sorted_patvan1)
             
         }
         		 
         function Sorted_Data2(a1,a2){
-            if(page_load_times == 0)
+            if(page_load_times === 0)
                 {
                 page_load_times++;
                 }
@@ -174,7 +175,7 @@ class Iaaspatvan extends Component{
                 align: 'high'
             
                 },
-                // max:19,
+                max:19,
                 scrollbar: {
                             enabled: true,
                         buttonArrowColor: 'black',
@@ -207,7 +208,7 @@ class Iaaspatvan extends Component{
                     series: {
                         pointPadding: 0,
                         groupPadding: 0,
-                        pointWidth: 20,
+                        pointWidth: 12,
                     },
                     bar: {
                         dataLabels: {
@@ -392,7 +393,7 @@ class Iaaspatvan extends Component{
         }
         $(".month_button").click(function(){
     
-
+            // console.log('month_button')
 
             if(!$(this).hasClass("disabled"))
             {
@@ -494,7 +495,7 @@ class Iaaspatvan extends Component{
                                    }	
                        }
                            else{   
-                            //    series_array.push(null);		
+                               series_array.push(null);		
                                }								
                }
                             sorting_array(series_array);
@@ -515,49 +516,65 @@ class Iaaspatvan extends Component{
                 //debugger;
             ss.className ="";
             
-            // console.log(p['month'][2018])
-            if(p['month'][selected].toString().indexOf(sss)=== -1)
-            {
+            // console.log(p['month'][selected])
+            let check=false
+            // eslint-disable-next-line no-loop-func
+            p['month'][selected].map((item)=>{
+                if(item===sss){
+                    check=true
+                }
+
+            })
+            if(check){
+                ss.className = 'month_button active pvlist';
+            }
+            else{
                 ss.className = 'month_button disabled pvlist';
+            }
+            // if(p['month'][selected][yr1]=== sss)
+            // {
+            //     ss.className = 'month_button disabled pvlist';
         
                     
-            }
-            else
-            {
-                ss.className = 'month_button active pvlist';
+            // }
+            // else
+            // {   
+
+            //     ss.className = 'month_button active pvlist';
             
-            }
+            // }
         
         }
-           var maximum_y =0;
-           
-                      series_array = [];
-                            for(let yr=0; yr<p.patvanList.length; yr++)
-                               {		
-                               var pat1  = p['patvanList'][yr];	
-                                 
-                               if(p.patvanRevenue[pat1].patvanYearDataList[selected])
-                               {	    
-                                        data2= (p.patvanRevenue[pat1].patvanYearDataList[selected]['total']);
-                                       if(data2 ===0)
-                                           {
-                                           series_array.push(null);
-                                           }
-                                       else
-                                           {
-                                           series_array.push(data2);
-                                           }
-                                       
-                                   if(data2>maximum_y)
-                                   {
-                                       maximum_y = data2;
-                                   }	
-                               }
-                           else{   
-                            //    series_array.push(null);		
-                               }								
-               }
-                            sorting_array(series_array);
+        maximum_y =0;
+        
+        series_array = [];
+        for(let yr=0; yr<p.patvanList.length; yr++)
+                        {		
+                        pat1  = p["patvanList"][yr];	
+                            // console.log('patvan:',pat1)
+                        if(p.patvanRevenue[pat1].patvanYearDataList[selected])
+                        {	    
+                                data2= (p.patvanRevenue[pat1].patvanYearDataList[selected]['total']);
+                                //  console.log('data:',data2)
+                                if(data2 ===0)
+                                    {
+                                    series_array.push(null);
+                                    }
+                                else
+                                    {
+                                    series_array.push(data2);
+                                    }
+                                
+                            if(data2>maximum_y)
+                            {
+                                maximum_y = data2;
+                            }	
+                        }
+                    else{   
+                       series_array.push(null);		
+                        }								
+        }
+        sorting_array(series_array);
                
            
            
@@ -591,21 +608,21 @@ class Iaaspatvan extends Component{
 
                 </select>
                 </li>
-                <li className="month_button disabled pvlist" id="1" ><a  >Jan</a></li>
-                <li className="month_button disabled pvlist" id="2"><a>Feb </a></li>
-                <li className="month_button disabled pvlist"  id="3" ><a >Mar</a></li>
-                <li className="month_button disabled pvlist" id="4"><a >Apr </a></li>
-                <li className="month_button disabled pvlist" id="5"><a  >May </a></li>
-                <li className="month_button disabled pvlist" id="6"><a  >Jun</a></li>
-                <li className="month_button disabled pvlist" id="7"><a >Jul</a></li>
-                <li className="month_button disabled pvlist" id="8"><a  >Aug </a></li>
-                <li className="month_button disabled pvlist" id="9"><a  >Sep </a></li>
+                <li className="month_button disabled pvlist" id="01" ><a  >Jan</a></li>
+                <li className="month_button disabled pvlist" id="02"><a>Feb </a></li>
+                <li className="month_button disabled pvlist"  id="03" ><a >Mar</a></li>
+                <li className="month_button disabled pvlist" id="04"><a >Apr </a></li>
+                <li className="month_button disabled pvlist" id="05"><a  >May </a></li>
+                <li className="month_button disabled pvlist" id="06"><a  >Jun</a></li>
+                <li className="month_button disabled pvlist" id="07"><a >Jul</a></li>
+                <li className="month_button disabled pvlist" id="08"><a  >Aug </a></li>
+                <li className="month_button disabled pvlist" id="09"><a  >Sep </a></li>
                 <li  className="month_button disabled pvlist" id="10"><a >Oct </a></li>
                 <li className="month_button disabled pvlist" id="11"><a >Nov </a></li>
                 <li className="month_button disabled pvlist" id="12"><a>Dec </a></li>
             </ul>
-            <div id="patrev" ></div>
-            </div>
+            <div id="patrev" /></div>
+            
         )
     }
 }

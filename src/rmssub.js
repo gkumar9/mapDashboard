@@ -22,25 +22,7 @@ class RmsHeader extends Component {
             className="container-fluid"
             style={{ textAlign: "center", marginTop: "10px" }}
           >
-            <Link to="/">
-              <button
-                style={{
-                  marginTop: "-2px",
-                  backgroundColor: "transparent",
-                  float: "left"
-                }}
-                type="button"
-                className="btn btn-default"
-                aria-label="Left Align"
-              >
-                <span
-                  className="glyphicon glyphicon-menu-left"
-                  style={{ marginRight: "6px" }}
-                  aria-hidden="true"
-                />
-                Home{" "}
-              </button>
-            </Link>
+            
             <Link to="/rms">
               <button
                 style={{
@@ -77,7 +59,7 @@ class Rms extends Component {
     this.state = { singleassetstat: {},open: false };
   }
   async componentDidMount() {
-    
+    let chartarray=[]
 		let singleassetstatttemp = {};
     let self=this;
     if(this.props.location.state!==undefined){
@@ -125,8 +107,9 @@ class Rms extends Component {
       })
         .then((res) => {
           let obj = {};
-          console.log('rmssub',res.data.data.list)
+          // console.log('rmssub',res.data.data.list)
           obj["data"] = res.data.data.list;
+          // obj["data"] = rmsdata.energy_graph.data;
           obj["name"] = "Energy";
           drilldown(Highcharts);
           document.getElementById('drillUp').addEventListener('click', function(){
@@ -173,8 +156,9 @@ class Rms extends Component {
         function createDrillDownCharts(activity) {
           // let activity = fvc.data;
           // console.log('activity', activity)
+          
           activity.datasets.forEach(function(dataset, i) {
-      
+            let temp={}
               // Add X values
               dataset.data = Highcharts.map(dataset.data, function(val, j) {
                   return [activity.xData[j], val];
@@ -183,8 +167,7 @@ class Rms extends Component {
               var chartDiv = document.createElement('div');
               chartDiv.className = 'chart';
               document.getElementById('drilldownContainer').appendChild(chartDiv);
-              console.log(dataset.data)
-              Highcharts.chart(chartDiv, {
+              temp=Highcharts.chart(chartDiv, {
                   chart: {
                       spacingBottom: 15,
                       spacingTop: 10,
@@ -252,26 +235,73 @@ class Rms extends Component {
                       }
                   }]
               });
+              chartarray.push(temp)
+
           });
         }
         function updateDrillDownCharts(activity) {
-          let arr=[]
-          activity.datasets.forEach(function(dataset, i) {
-            arr.push(dataset.data);
-          })
-          console.log(arr)
-            Highcharts.charts.forEach(function(chart, i) {
-              console.log(i)
-                if (i) {
-                    chart.update({
-                        series: [{
-                            data: arr[i]
-                        }]
-                    }, true, true)
-                }
-            });
-        }
 
+          // activity.datasets.forEach(function(dataset, i) {
+          //   dataset.data = Highcharts.map(dataset.data, function(val, j) {
+          //     return [activity.xData[j], val];
+      
+          // });
+          // console.log(dataset.data,chartarray[i])
+          // chartarray[i].series[0].setData(dataset.data,true);
+          // chartarray[i].xAxis[0].setCategories(activity.xData,true);
+          // chartarray[i].redraw();
+      
+          // })
+          // let arr=[];
+          activity.datasets.forEach(function(dataset, i) {
+            // console.log(i,dataset.data)
+              /* dataset.data = Highcharts.map(dataset.data, function(val, j) {
+                  return [activity.xData[j], val];
+              
+              }); */
+              // arr.push(dataset.data)
+              chartarray[i].update({
+                  series: [{
+                      data: dataset.data
+                  }]
+              }, true, true)
+          })
+      
+      
+          // Highcharts.charts.forEach(function(chart, i) {
+      
+          //     if (i) {
+          //         chart.update({
+          //             series: [{
+          //                 data: arr[i]
+          //             }]
+          //         }, true, true)
+          //     }
+          // });
+      }
+      ['mousemove', 'touchmove', 'touchstart'].forEach(function(eventType) {
+          document.getElementById('drilldownContainer').addEventListener(
+              eventType,
+              function(e) {
+                  var chart,
+                      point,
+                      i,
+                      event;
+      
+                  for (i = 0; i < Highcharts.charts.length; i = i + 1) {
+                      chart = Highcharts.charts[i];
+                      // Find coordinates within the chart
+                      event = chart.pointer.normalize(e);
+                      // Get the hovered point
+                      point = chart.series[0].searchPoint(event, true);
+      
+                      if (point) {
+                          point.highlight(e);
+                      }
+                  }
+              }
+          );
+      });
         Highcharts.chart("energy_chart", {
           chart: {
             type: "column",
@@ -373,62 +403,41 @@ class Rms extends Component {
               point:{
                 events:{
                   click:function(){
-                  //   if(this.options!=null){
-                  //   var dayOfYear=new Date(this.x).getFullYear() +"-"+(new Date(this.x).getMonth()+1)+"-"+new Date(this.x).getDate();
-                  //   ['mousemove', 'touchmove', 'touchstart'].forEach(function(eventType) {
-                  //     document.getElementById('drilldownContainer').addEventListener(
-                  //         eventType,
-                  //         function(e) {
-                  //             var chart,
-                  //                 point,
-                  //                 i,
-                  //                 event;
-                  
-                  //             for (i = 0; i < Highcharts.charts.length; i = i + 1) {
-                  //                 chart = Highcharts.charts[i];
-                  //                 // Find coordinates within the chart
-                  //                 event = chart.pointer.normalize(e);
-                  //                 // Get the hovered point
-                  //                 point = chart.series[0].searchPoint(event, true);
-                  
-                  //                 if (point) {
-                  //                     point.highlight(e);
-                  //                 }
-                  //             }
-                  //         }
-                  //     );
-                  // });
-                  //   document.getElementById('energy_chart').style.display = 'none';
-                  //   document.getElementById('drilldownContainer').style.display = 'block';
-                  //   document.getElementById('drillUp').style.display = 'block';
-                  //   if($('.chart')){
-                  //     $('.chart').remove();
-                  //   }
-                  //     axios({
-                  //     url: config.fvcstat,
-                  //     method: "POST",
-                  //     data: {
-                  //       "customerId":self.props.location.state.detail.customerId,"rmsVendorId":self.props.location.state.detail.rmsVendorId,
-                  //       "date":dayOfYear,
-                  //       "powerType":self.props.location.state.detail.powerType
-                  //     },
-                  //     headers: {
-                  //       "Content-Type": "application/json"
-                  //     }
-                  //   })
-                  //   .then((res)=>{
-                  //     let activity = fvc.data;
-                  //     console.log('Highcharts.charts.length',Highcharts.charts.length)
-                  //     // createDrillDownCharts(activity);
-                  //     if (Highcharts.charts.length === 1) {
-                  //             createDrillDownCharts(activity);
-                  //         } else {
-                  //             updateDrillDownCharts(activity);
-                  //         }
-                  //   })
+                    // if(this.options!=null){
+                    // var dayOfYear=new Date(this.x).getFullYear() +"-"+(new Date(this.x).getMonth()+1)+"-"+new Date(this.x).getDate();
+
+                    
+                    // if($('.chart')){
+                    //   $('.chart').remove();
+                    // }
+                    //   axios({
+                    //   url: config.fvcstat,
+                    //   method: "POST",
+                    //   data: {
+                    //     "customerId":self.props.location.state.detail.customerId,"rmsVendorId":self.props.location.state.detail.rmsVendorId,
+                    //     "date":dayOfYear,
+                    //     "powerType":self.props.location.state.detail.powerType
+                    //   },
+                    //   headers: {
+                    //     "Content-Type": "application/json"
+                    //   }
+                    // })
+                    // .then((res)=>{
+                    //   let activity = fvc.data;
+                     
+                    //   // createDrillDownCharts(activity);
+                    //   if (Highcharts.charts.length === 1) {
+                    //           createDrillDownCharts(activity);
+                    //       } else {
+                    //           updateDrillDownCharts(activity);
+                    //       }
+                    //       document.getElementById('energy_chart').style.display = 'none';
+                    //       document.getElementById('drilldownContainer').style.display = 'block';
+                    //       document.getElementById('drillUp').style.display = 'block';
+                    // })
                   
                       
-                  //   }		
+                    // }		
                   }
                 }
               }
