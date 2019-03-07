@@ -384,7 +384,10 @@ class IaasRevenue extends Component {
         //         type: 'category'
         // }
       });
-    });
+    })
+    .catch((e)=>{
+      console.log(e)  
+    })
   }
 
   render() {
@@ -414,7 +417,7 @@ class IaasRevenue extends Component {
           <div
             id="tablerevenue"
             style={{ display: "none", marginTop: "64px" }}
-            class="container"
+            className="container"
           >
             <div style={{ marginTop: "-46px", marginLeft: "-34px" }}>
               <ul>
@@ -432,7 +435,7 @@ class IaasRevenue extends Component {
             <table
               id="example"
               style={{ marginTop: "20px" }}
-              class=" table table-striped table-hover"
+              className=" table table-striped table-hover"
               width="100%"
             >
               <thead>

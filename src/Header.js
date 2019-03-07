@@ -67,12 +67,10 @@ class Header extends Component {
                   </a>
                 </li>
                 <li className="sidebarheader">
-                  <a target="_blank"
-                  rel="noopener noreferrer"
-                    href="../IAAS/menubar.html">
+                <Link to="/iaas">
                     <img alt="patvan" src={IAAS} />
                     IAAS
-                  </a>
+                </Link>
                 </li>
                 <li className="sidebarheader">
                   <a>
