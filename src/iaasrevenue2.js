@@ -7,17 +7,17 @@ const $ = require("jquery");
 $.DataTable = require("datatables.net");
 
 class IaasRevenue extends Component {
-  constructor(props){
-    super(props)
-    this.state={tabledata:{}}
+  constructor(props) {
+    super(props);
+    this.state = { tabledata: {} };
   }
   componentDidMount() {
     drilldown(Highcharts);
     var arr1 = [];
     var arr2 = [];
-    var arr3=[];
-    let self=this;
-    let stateiaas=[];
+    var arr3 = [];
+    let self = this;
+    let stateiaas = [];
     axios({
       url: config.iaasrevenueyearly,
       method: "POST",
@@ -27,10 +27,10 @@ class IaasRevenue extends Component {
       }
     }).then(res => {
       let z = res.data.data.list;
-      let year=0;
-      let month=0;
+      let year = 0;
+      let month = 0;
       var arr2 = [];
-      var arr3=[];
+      var arr3 = [];
       var months = [
         "Jan",
         "Feb",
@@ -79,205 +79,194 @@ class IaasRevenue extends Component {
         30,
         31
       ];
-      let yearxaxis=[]
-      let count1
+      let yearxaxis = [];
+      let count1;
       for (let i = 0; i < z.length; i++) {
-        yearxaxis.push(z[i].xCoordinate)
+        yearxaxis.push(z[i].xCoordinate);
         arr1.push({
           name: z[i].xCoordinate,
           y: parseInt(z[i].value),
           drilldown: z[i].xCoordinate + "_month",
           Districts: z[i].district,
           Patvans: z[i].patvan,
-          Farmers: z[i].farmer,
-
+          Farmers: z[i].farmer
         });
       }
-      $('#drillUp').click(function() {
-        console.log('back')
-        document.getElementById('tablerevenue').style.display = 'none';
-        document.getElementById('iaas').style.display = 'block';
-        let removed=stateiaas.pop()
-        if(stateiaas.length===0){
-            document.getElementById('drillUp').style.display = 'none';
-            chart.series[0].setData(arr1,true);
-            chart.xAxis[0].setCategories(yearxaxis,true);
-            chart.redraw();
-        }
-        else if(stateiaas.length===1){
-          chart.series[0].setData(arr2,true);
-          chart.xAxis[0].setCategories(months,true);
+      $("#drillUp").click(function() {
+        console.log("back");
+        document.getElementById("tablerevenue").style.display = "none";
+        document.getElementById("iaas").style.display = "block";
+        let removed = stateiaas.pop();
+        if (stateiaas.length === 0) {
+          document.getElementById("drillUp").style.display = "none";
+          chart.series[0].setData(arr1, true);
+          chart.xAxis[0].setCategories(yearxaxis, true);
+          chart.redraw();
+        } else if (stateiaas.length === 1) {
+          chart.series[0].setData(arr2, true);
+          chart.xAxis[0].setCategories(months, true);
+          chart.redraw();
+        } else if (stateiaas.length === 2) {
+          chart.series[0].setData(arr3, true);
+          chart.xAxis[0].setCategories(days, true);
           chart.redraw();
         }
-        else if(stateiaas.length===2){
-          chart.series[0].setData(arr3,true);
-          chart.xAxis[0].setCategories(days,true);
-          chart.redraw();
-        }
-        
-    })
+      });
       function onrevenueclick(type) {
         var itIsNumber = /^\d{4}$/.test(type);
-        let itstwonumber=/^\d{2}$/.test(type);
-        let itsonenumber=/^\d{1}$/.test(type);
-        if(typeof type ==='number' && itIsNumber){
-          stateiaas.push(type)
+        let itstwonumber = /^\d{2}$/.test(type);
+        let itsonenumber = /^\d{1}$/.test(type);
+        if (typeof type === "number" && itIsNumber) {
+          stateiaas.push(type);
           arr2 = [];
-            year=type
-            axios({
-                url: config.iaasrevenuemonthly + type,
-                method: "POST",
-                data: { requestId: 1 },
-                headers: {
-                  "Content-Type": "application/json"
-                }
-              })
-                .then(res => {
-                  let z = res.data.data.list;
-                  for(let i=0;i<=months.length;i++){
-                      let check=false
-                      let numbers;
-                      z.map((item,number)=>{
-                          if(item.xCoordinate===i){
-                              check=true
-                              numbers=number
-                          }
-                      })
-                      if(check){
-                          arr2.push({
-                              name: months[z[numbers].xCoordinate-1],
-                              y: parseInt(z[numbers].value),
-                              Districts: z[numbers].district,
-                              Patvans: z[numbers].patvan,
-                              Farmers: z[numbers].farmer
-                            });
-                      }else{
-                          arr2.push({
-                              name: months[i-1],
-                              y: 0,
-                              Districts: 0,
-                              Patvans: 0,
-                              Farmers: 0
-                            });
-                      }
+          year = type;
+          axios({
+            url: config.iaasrevenuemonthly + type,
+            method: "POST",
+            data: { requestId: 1 },
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+            .then(res => {
+              let z = res.data.data.list;
+              for (let i = 0; i <= months.length; i++) {
+                let check = false;
+                let numbers;
+                z.map((item, number) => {
+                  if (item.xCoordinate === i) {
+                    check = true;
+                    numbers = number;
                   }
-                 
-                    chart.series[0].setData(arr2,true);
-                    chart.xAxis[0].setCategories(months,true);
-                    chart.redraw();
-                  
-                })
-                .catch(e => {
-                  console.log(e);
                 });
-        }
-        else if(typeof type ==='string'){
-          stateiaas.push(type)
-          arr3=[];
-            let monthnumber;
-            months.map((item,number)=>{
-                if(item===type){
-                    monthnumber=number+1
-                    month=monthnumber
+                if (check) {
+                  arr2.push({
+                    name: months[z[numbers].xCoordinate - 1],
+                    y: parseInt(z[numbers].value),
+                    Districts: z[numbers].district,
+                    Patvans: z[numbers].patvan,
+                    Farmers: z[numbers].farmer
+                  });
+                } else {
+                  arr2.push({
+                    name: months[i - 1],
+                    y: 0,
+                    Districts: 0,
+                    Patvans: 0,
+                    Farmers: 0
+                  });
                 }
-            })
-            axios({
-                url: config.iaasrevenuedaily + year+'/'+monthnumber,
-                method: "POST",
-                data: { requestId: 1 },
-                headers: {
-                  "Content-Type": "application/json"
-                }
-              })
-              .then((res)=>{
-                  let z = res.data.data.list;
-                  for(let i=0;i<days.length;i++){
-                    let check=false
-                    let numbers;
-                    z.map((item,number)=>{
-                        if(item.xCoordinate===days[i]){
-                            check=true
-                            numbers=number
-                        }
-                    })
-                    if(check){
-                        arr3.push({
-                            name: days[i],
-                            y: parseInt(z[numbers].value),
-                            Districts: z[numbers].district,
-                            Patvans: z[numbers].patvan,
-                            Farmers: z[numbers].farmer
-                          });
-                    }else{
-                        arr3.push({
-                            name: days[i],
-                            y: 0,
-                            Districts: 0,
-                            Patvans: 0,
-                            Farmers: 0
-                          });
-                    }
-                }
-               
-                  chart.series[0].setData(arr3,true);
-                  chart.xAxis[0].setCategories(days,true);
-                  
-                  chart.redraw();
+              }
 
-              })
+              chart.series[0].setData(arr2, true);
+              chart.xAxis[0].setCategories(months, true);
+              chart.redraw();
+            })
+            .catch(e => {
+              console.log(e);
+            });
+        } else if (typeof type === "string") {
+          stateiaas.push(type);
+          arr3 = [];
+          let monthnumber;
+          months.map((item, number) => {
+            if (item === type) {
+              monthnumber = number + 1;
+              month = monthnumber;
+            }
+          });
+          axios({
+            url: config.iaasrevenuedaily + year + "/" + monthnumber,
+            method: "POST",
+            data: { requestId: 1 },
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }).then(res => {
+            let z = res.data.data.list;
+            for (let i = 0; i < days.length; i++) {
+              let check = false;
+              let numbers;
+              z.map((item, number) => {
+                if (item.xCoordinate === days[i]) {
+                  check = true;
+                  numbers = number;
+                }
+              });
+              if (check) {
+                arr3.push({
+                  name: days[i],
+                  y: parseInt(z[numbers].value),
+                  Districts: z[numbers].district,
+                  Patvans: z[numbers].patvan,
+                  Farmers: z[numbers].farmer
+                });
+              } else {
+                arr3.push({
+                  name: days[i],
+                  y: 0,
+                  Districts: 0,
+                  Patvans: 0,
+                  Farmers: 0
+                });
+              }
+            }
+
+            chart.series[0].setData(arr3, true);
+            chart.xAxis[0].setCategories(days, true);
+
+            chart.redraw();
+          });
+        } else if (typeof type === "number" && (itstwonumber || itsonenumber)) {
+          stateiaas.push(type);
+          let date = year + "-" + month + "-" + type;
+          opendate(date);
         }
-        else if(typeof type ==='number' && (itstwonumber||itsonenumber)){
-          stateiaas.push(type)
-          let date=year+"-"+month+"-"+type
-          opendate(date)
-        }
-        
       }
       function opendate(key) {
-        document.getElementById('tablerevenue').style.display = 'block';
-        document.getElementById('iaas').style.display = 'none';
+        document.getElementById("tablerevenue").style.display = "block";
+        document.getElementById("iaas").style.display = "none";
         var date = key;
         let datatable;
-        
+
         $.ajax({
           method: "POST",
           dataType: "json",
           contentType: "application/json; charset=utf-8",
           url: config.transactionlist,
-          data: JSON.stringify( {"reqDate":date} ),
-          success: function(status) {      
-            datatable=status.data.list
-            let sum =0
-            datatable.map( ( item)=>{
-              sum=sum+item.amount
+          data: JSON.stringify({ reqDate: date }),
+          success: function(status) {
+            datatable = status.data.list;
+            let sum = 0;
+            datatable.map(item => {
+              sum = sum + item.amount;
             });
-            let temp={}
-            temp['date']=date
-            temp['number']=datatable.length
-            temp['sum']=sum
-            self.setState({tabledata:temp})
-            $('#example').DataTable( {
-              data:datatable,
-              destroy:true,
+            let temp = {};
+            temp["date"] = date;
+            temp["number"] = datatable.length;
+            temp["sum"] = sum;
+            self.setState({ tabledata: temp });
+            $("#example").DataTable({
+              data: datatable,
+              destroy: true,
               scrollY: 420,
               columns: [
-                  { data: "transactionId" },
-                  { data: "farmerName" },
-                  { data: "patvanName" }, 
-                  { data: "flow" },
-                  { data: "startTime" },
-                  { data: "endTime" },
-                  { data: "amount" }
+                { data: "transactionId" },
+                { data: "farmerName" },
+                { data: "patvanName" },
+                { data: "flow" },
+                { data: "startTime" },
+                { data: "endTime" },
+                { data: "amount" }
               ],
               paging: false,
-              ordering:true,
-              responsive: false,
-          } ); 
+              ordering: true,
+              responsive: false
+            });
           }
-          });
-              
+        });
       }
-     let chart=Highcharts.chart("container1", {
+      let chart = Highcharts.chart("container1", {
         tooltip: {
           formatter: function() {
             if (this.point.key == null) {
@@ -298,14 +287,15 @@ class IaasRevenue extends Component {
               return "Ravenue:<b>" + this.y + "</b><br/>click to view Data";
             }
           },
-          useHTML: true
+          useHTML: true,
+          borderColor:'#4848d3'
         },
         chart: {
           backgroundColor: "#f2f2f2",
           spacingRight: 100,
           events: {
             redraw: function(event) {
-                this.series[0].options.pointWidth = 25;
+              this.series[0].options.pointWidth = 25;
             }
           }
         },
@@ -340,19 +330,18 @@ class IaasRevenue extends Component {
             dataLabels: {
               enabled: true
             },
-            
+
             // enableMouseTracking: true,
 
             // to enable he click function on the highchart
             point: {
-
               events: {
                 click: function() {
                   // location.href = 'https://en.wikipedia.org/wiki/' +
                   // this.options.key;
                   // console.log(this.name)
                   onrevenueclick(this.name);
-                  document.getElementById('drillUp').style.display = 'block';
+                  document.getElementById("drillUp").style.display = "block";
                   //if key is not found then no action
                   // if(this.key == null){
                   // }
@@ -373,10 +362,10 @@ class IaasRevenue extends Component {
             type: "column",
             name: "Year",
             //colorByPoint:true,
-            color: "#4848d3",
+            color: "#ff4081",
             data: arr1
           }
-        ],
+        ]
         // drilldown: {
         //   series: []
         // }
@@ -396,46 +385,73 @@ class IaasRevenue extends Component {
         // }
       });
     });
-    
   }
 
   render() {
     return (
       <div>
-          <div >
-              <button id="drillUp" style={{ 'display': 'none', 'float': 'right', 'marginTop': '-50px', 'marginRight': '30px', 'backgroundColor': "#f2f2f2"}}>
-                  <span className="glyphicon glyphicon-menu-left" style={{ marginRight: "6px" }} aria-hidden="true" />Back</button>
+        <div>
+          <button
+            id="drillUp"
+            style={{
+              display: "none",
+              float: "right",
+              marginTop: "-50px",
+              marginRight: "30px",
+              backgroundColor: "#f2f2f2"
+            }}
+          >
+            <span
+              className="glyphicon glyphicon-menu-left"
+              style={{ marginRight: "6px" }}
+              aria-hidden="true"
+            />
+            Back
+          </button>
           <div id="iaas">
-          <div style={{ marginTop: "64px" }} id="container1" />
+            <div style={{ marginTop: "64px" }} id="container1" />
           </div>
-              <div id="tablerevenue" style={{"display":"none","marginTop": "64px"}} class="container">
-                  <div style={{"marginTop": "-46px","marginLeft":"-34px"}}>
-                    <ul >
-                      <li> <i className="fa fa-calendar" aria-hidden="true"></i><span>  {this.state.tabledata.date}</span></li>
-                      {/* <li ><b>Transactions:</b>  {this.state.tabledata.number}</li> */}
-                      <li style={{"marginTop": "6px"}}><b>Revenue:</b>  {this.state.tabledata.sum} &#8377;</li>
-                    </ul>
-                  </div>
-                  <table id="example"  style={{"marginTop": "20px"}} class=" table table-striped table-hover" width="100%">
-                      <thead>
-                          <tr>
-                              <th>Transaction Id</th>
-                              <th>Farmer's Name</th>
-                              <th>Patvan Id</th>
+          <div
+            id="tablerevenue"
+            style={{ display: "none", marginTop: "64px" }}
+            class="container"
+          >
+            <div style={{ marginTop: "-46px", marginLeft: "-34px" }}>
+              <ul>
+                <li>
+                  {" "}
+                  <i className="fa fa-calendar" aria-hidden="true" />
+                  <span> {this.state.tabledata.date}</span>
+                </li>
+                {/* <li ><b>Transactions:</b>  {this.state.tabledata.number}</li> */}
+                <li style={{ marginTop: "6px" }}>
+                  <b>Revenue:</b> {this.state.tabledata.sum} &#8377;
+                </li>
+              </ul>
+            </div>
+            <table
+              id="example"
+              style={{ marginTop: "20px" }}
+              class=" table table-striped table-hover"
+              width="100%"
+            >
+              <thead>
+                <tr>
+                  <th>Transaction Id</th>
+                  <th>Farmer's Name</th>
+                  <th>Patvan Id</th>
 
-                              <th>Flow</th>
-                              <th>Start Time</th>
-                              <th>End Time</th>
-                              <th>Amount</th>
-                          </tr>
-                      </thead>
-                  </table>
-              </div>
+                  <th>Flow</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+            </table>
           </div>
+        </div>
       </div>
-  
     );
-
   }
 }
 export default IaasRevenue;

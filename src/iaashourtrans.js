@@ -69,7 +69,8 @@ class Iaashourtans extends Component{
                         
                         
                     },
-                    useHTML: true
+                    useHTML: true,
+                    borderColor:'#4848d3'
                 
                 },
     
@@ -110,7 +111,7 @@ class Iaashourtans extends Component{
                 series: [{
                     pointWidth: 35,
                     data: valuelist,
-                    color:"#4848d3",
+                    color:"#ff4081",
                 }]
                 
                 

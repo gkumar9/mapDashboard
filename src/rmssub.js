@@ -216,6 +216,7 @@ class Rms extends Component {
                       },
                       borderWidth: 0,
                       backgroundColor: 'none',
+                      borderColor:'#4848d3',
                       pointFormat: '{point.y}',
                       headerFormat: '',
                       shadow: false,
@@ -228,7 +229,7 @@ class Rms extends Component {
                       data: dataset.data,
                       name: dataset.name,
                       type: dataset.type,
-                      color: Highcharts.getOptions().colors[i],
+                      color: '#ff4081',
                       fillOpacity: 0.3,
                       tooltip: {
                           valueSuffix: ' ' + dataset.unit
@@ -399,7 +400,7 @@ class Rms extends Component {
                 enabled: true,
                 format: "{point.y}"
               },
-              color: "#fcd562",
+              color: "#ff4081",
               point:{
                 events:{
                   click:function(){
@@ -444,6 +445,7 @@ class Rms extends Component {
             }
           },
           tooltip: {
+            borderColor:'#4848d3',
             formatter: function() {
               if (this.point.options.drilldown) {
                 return (
@@ -464,7 +466,7 @@ class Rms extends Component {
               }
             }
           },
-          series: [{'data':obj.data,'name':obj.name,"color":"#4848d3"}],
+          series: [{'data':obj.data,'name':obj.name,"color":"#ff4081"}],
           drilldown: {
             series: obj.data
           }

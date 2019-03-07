@@ -202,7 +202,8 @@ class Iaaspatvan extends Component{
                 legend: {enabled: false
                 },
                 tooltip: {
-                valueSuffix: ' Rs'
+                valueSuffix: ' Rs',
+                borderColor:'#4848d3'
                 },
                 plotOptions: {
                     series: {
@@ -220,7 +221,7 @@ class Iaaspatvan extends Component{
                 series: [{
                 name : 'Revenue',
                 data: a1,
-                color:"#4848d3",
+                color:"#ff4081",
                 }]
                 },
                 function(chart) {
