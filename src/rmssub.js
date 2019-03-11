@@ -12,7 +12,11 @@ import RmsSidebardata from "./RmsSidebardata.js";
 import nodata from './pins/nodata.png'
 import fvc from './fvc.json'
 const $ = require("jquery");
-
+Highcharts.setOptions({
+  time: {
+      timezone: 'Asia/Kolkata'
+  }
+});
 class RmsHeader extends Component {
   render() {
     return (
@@ -624,20 +628,26 @@ class Rms extends Component {
           responsive: {
             rules: [{
                 condition: {
-                    minWidth: 500
+                    maxWidth: 500
                 },
                 chartOptions: {
+                    width:400,
                     legend: {
                         align: 'center',
                         verticalAlign: 'bottom',
                         layout: 'horizontal'
                     },
+                    plotOptions:{
+                      series:{
+                        pointWidth:null
+                      }
+                    },
                     yAxis: {
-                        labels: {
-                            align: 'left',
-                            x: 0,
-                            y: -5
-                        },
+                        // labels: {
+                        //     align: 'right',
+                        //     x: 0,
+                        //     y: -5
+                        // },
                         title: {
                             text: null
                         }

@@ -80,7 +80,7 @@ class IaasRevenue extends Component {
         31
       ];
       let yearxaxis = [];
-      let count1;
+      // let count1;
       for (let i = 0; i < z.length; i++) {
         yearxaxis.push(z[i].xCoordinate);
         arr1.push({
@@ -131,7 +131,7 @@ class IaasRevenue extends Component {
           })
             .then(res => {
               let z = res.data.data.list;
-              for (let i = 0; i <= months.length; i++) {
+              for (let i = 1; i <= months.length; i++) {
                 let check = false;
                 let numbers;
                 z.map((item, number) => {
@@ -142,7 +142,7 @@ class IaasRevenue extends Component {
                 });
                 if (check) {
                   arr2.push({
-                    name: months[z[numbers].xCoordinate - 1],
+                    name: months[i - 1],
                     y: parseInt(z[numbers].value),
                     Districts: z[numbers].district,
                     Patvans: z[numbers].patvan,
@@ -329,7 +329,10 @@ class IaasRevenue extends Component {
             borderWidth: 0,
             pointWidth: 20,
             dataLabels: {
-              enabled: true
+              enabled: true,
+              style:{
+                color:"black"
+              }
             },
 
             // enableMouseTracking: true,

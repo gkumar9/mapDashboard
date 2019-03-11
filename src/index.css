@@ -403,6 +403,9 @@ input[type=checkbox], input[type=radio]{
   .rmssidebar{
     display: none;
   }
+  body{
+    overflow: scroll;
+  }
   .navbar-nav{
       margin:0;
  }

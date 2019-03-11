@@ -181,7 +181,8 @@ class MapContainer extends Component {
           {
             featureType: "water",
             elementType: "geometry",
-            stylers: [{ color: "#E3E3E3" }]
+            // stylers: [{ color: "#E3E3E3" }]
+            stylers: [{ color: "#a6d2ff" }]
           },
           {
             featureType: "transit.line",
@@ -198,16 +199,16 @@ class MapContainer extends Component {
             elementType: "geometry",
             stylers: [{ visibility: "off" }]
           },
-          {
-            featureType: "water",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#515c6d" }]
-          },
-          {
-            featureType: "water",
-            elementType: "labels.text.stroke",
-            stylers: [{ color: "#17263c" }]
-          }
+          // {
+          //   featureType: "water",
+          //   elementType: "labels.text.fill",
+          //   stylers: [{ color: "#515c6d" }]
+          // },
+          // {
+          //   featureType: "water",
+          //   elementType: "labels.text.stroke",
+          //   stylers: [{ color: "#17263c" }]
+          // }
         ]}
         initialCenter={{lat:19.845625996700075,lng: 78.9629}}
       >
