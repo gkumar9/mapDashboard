@@ -182,7 +182,7 @@ class MapContainer extends Component {
             featureType: "water",
             elementType: "geometry",
             // stylers: [{ color: "#E3E3E3" }]
-            stylers: [{ color: "#a6d2ff" }]
+            stylers: [{ color: "#97a2ff" }]
           },
           {
             featureType: "transit.line",
