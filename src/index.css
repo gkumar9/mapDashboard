@@ -213,6 +213,7 @@ a.disabled {
   order: 2;
   position: relative;
   min-height: 100%;
+  width:-webkit-fill-available
 }
 #filter{
   background-color: #edeef0;

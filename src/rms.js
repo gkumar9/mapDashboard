@@ -11,8 +11,8 @@ $.DataTable = require("datatables.net");
 class RmsHeader extends Component {
   render() {
     return (
-      <div className="container rmssidebar">
-        <nav id="filter" className="navbar navbar-default">
+      <div className="container ">
+        <nav style={{ backgroundColor: '#edeef0', borderBottomColor: 'darkgray' }} className="navbar navbar-default">
           <div
             className="container-fluid"
             style={{ textAlign: "center", marginTop: "10px" }}

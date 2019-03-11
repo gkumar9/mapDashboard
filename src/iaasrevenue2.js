@@ -103,6 +103,7 @@ class IaasRevenue extends Component {
           chart.xAxis[0].setCategories(yearxaxis, true);
           chart.redraw();
         } else if (stateiaas.length === 1) {
+          console.log(arr2,months)
           chart.series[0].setData(arr2, true);
           chart.xAxis[0].setCategories(months, true);
           chart.redraw();
@@ -365,7 +366,37 @@ class IaasRevenue extends Component {
             color: "#ff4081",
             data: arr1
           }
-        ]
+        ],
+        responsive: {
+          rules: [{
+              condition: {
+                  maxWidth: 500
+              },
+              chartOptions: {
+                  legend: {
+                      align: 'center',
+                      verticalAlign: 'bottom',
+                      layout: 'horizontal'
+                  },
+                  yAxis: {
+                      labels: {
+                          align: 'left',
+                          x: 0,
+                          y: -5
+                      },
+                      title: {
+                          text: null
+                      }
+                  },
+                  subtitle: {
+                      text: null
+                  },
+                  credits: {
+                      enabled: false
+                  }
+              }
+          }]
+        }
         // drilldown: {
         //   series: []
         // }
