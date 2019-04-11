@@ -11,7 +11,7 @@ import config from "./config.js";
 import Swal from "sweetalert2";
 const mapStyles = {
   width: "100%",
-  height: "100%",
+  height: "89%",
   position: "relative",
   display: "flex",
   flexFlow: "row nowrap",
@@ -161,7 +161,8 @@ class MapContainer extends Component {
         id="map"
         mapTypeControl={false}
         gestureHandling={"greedy"}
-        zoomControl={false}
+        zoomControl={true}
+        // zoomControlOptions= {{position :this.props.google.maps.ControlPosition.RIGHT_CENTER}}
         streetViewControl={false}
         fullscreenControl={false}
         restriction={{
@@ -182,7 +183,7 @@ class MapContainer extends Component {
             featureType: "water",
             elementType: "geometry",
             // stylers: [{ color: "#E3E3E3" }]
-            stylers: [{ color: "#97a2ff" }]
+            stylers: [{ color: "#ACC8F2" }]
           },
           {
             featureType: "transit.line",
@@ -210,7 +211,7 @@ class MapContainer extends Component {
           //   stylers: [{ color: "#17263c" }]
           // }
         ]}
-        initialCenter={{lat:19.845625996700075,lng: 78.9629}}
+        initialCenter={{lat:22.845625996700075,lng: 78.9629}}
       >
         <MapList
           google={this.props.google}

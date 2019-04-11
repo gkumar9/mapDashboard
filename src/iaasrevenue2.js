@@ -381,9 +381,14 @@ class IaasRevenue extends Component {
                       verticalAlign: 'bottom',
                       layout: 'horizontal'
                   },
+                  plotOptions:{
+                    series:{
+                      pointWidth:null
+                    }
+                  },
                   yAxis: {
                       labels: {
-                          align: 'left',
+                          align: 'right',
                           x: 0,
                           y: -5
                       },

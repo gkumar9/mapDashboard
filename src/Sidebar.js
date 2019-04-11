@@ -5,6 +5,7 @@ import IAAS from "./pins/IAAS.png";
 import MINIGRID from "./pins/Minigrid(2).png";
 import HOME from "./pins/ROOFTOP.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
+import farmer from "./pins/user.png";
 class Sidebar extends Component { 
   render() {
     return (
@@ -53,6 +54,14 @@ class Sidebar extends Component {
               </i>
             </a>
           </li>
+          <Link key="farmer"  to="/farmer">
+          <li title="Farmers">
+            
+              <i>
+                <img alt="farmer" src={farmer} />
+              </i>
+            
+          </li></Link>
         </ul>
       </aside>
     );
