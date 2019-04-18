@@ -14,8 +14,6 @@ import config from "./config.js";
 const $ = require("jquery");
 ReactFC.fcRoot(FusionCharts, Maps, India, Bihar, FusionTheme);
 
-// import { withRouter } from "react-router";
-
 class FarmerSidebar extends Component {
   render() {
     return (
@@ -51,26 +49,50 @@ class FarmerSidebar extends Component {
               </div>
             </div>
           </li>
-          <li className="rmssidebar">
-            <div className="row">
-              <div className="col-xs-3">
-                <img
-                  className="responsive"
-                  alt="states"
-                  src={states}
-                  style={{ width: "32px", marginLeft: "-11px" }}
-                />
+          {this.props.states !== null && (
+            <li className="rmssidebar">
+              <div className="row">
+                <div className="col-xs-3">
+                  <img
+                    className="responsive"
+                    alt="states"
+                    src={states}
+                    style={{ width: "32px", marginLeft: "-11px" }}
+                  />
+                </div>
+                <div className="col-xs-9">
+                  <span>
+                    <b>{this.props.states}</b>
+                  </span>
+                  <p>
+                    <small>Number of states</small>
+                  </p>
+                </div>
               </div>
-              <div className="col-xs-9">
-                <span>
-                  <b>{this.props.states}</b>
-                </span>
-                <p>
-                  <small>Number of states</small>
-                </p>
+            </li>
+          )}
+          {this.props.district !== null && (
+            <li className="rmssidebar">
+              <div className="row">
+                <div className="col-xs-3">
+                  <img
+                    className="responsive"
+                    alt="states"
+                    src={states}
+                    style={{ width: "32px", marginLeft: "-11px" }}
+                  />
+                </div>
+                <div className="col-xs-9">
+                  <span>
+                    <b>{this.props.district}</b>
+                  </span>
+                  <p>
+                    <small>Number of district</small>
+                  </p>
+                </div>
               </div>
-            </div>
-          </li>
+            </li>
+          )}
         </ul>
       </div>
     );
@@ -114,7 +136,6 @@ class FarmerHeader extends Component {
     );
   }
 }
-
 const dataSource = {
   chart: {
     // canvasBgAlpha: "0",
@@ -123,7 +144,12 @@ const dataSource = {
     // animation: "0",
     showLabels: "0",
     usehovercolor: "1",
-    canvasbordercolor: "FFFFFF",
+    showToolTip: "0",
+    toolTipBorderColor: "#666666",
+    toolTipBgColor: "#efefef",
+    toolTipBgAlpha: "80",
+    showToolTipShadow: "1",
+    canvasbordercolor: "#F2F2F2",
     bordercolor: "#aaa",
     showlegend: "0",
     showshadow: "0",
@@ -136,6 +162,7 @@ const dataSource = {
     hoverFillalpha: "20",
     hovercolor: "#b3ffec",
     showborder: "1"
+    // borderColor:'#ffffff',
     // theme: "gammel"
   },
   colorrange: {
@@ -173,103 +200,66 @@ const dataSource = {
     }
   ]
 };
-let chartConfigs = {};
 class Farmer extends Component {
   constructor(props) {
     super(props);
-    this.state = { farmers: "", states: "",backbutton:[],indiadata:[],statedata:[] };
+    this.state = {
+      farmers: "",
+      states: null,
+      district: null,
+      backbutton: [],
+      indiadata: [],
+      statedata: [],
+      chart: null,
+      ch: {},
+      actualValue: "Hover on the plot to see the value along with the label",
+      message: "Hover on the plot to see the value along with the label"
+    };
+    
+   
   }
-  handletable=()=>{
-    console.log('table click')
-  }
-  handlechartclik = data => {
-    console.log("handleclick", chartConfigs);
-    let self=this;
+  handletable = data => {
+    // this.state.ch.dispose();
+    let datatemp = Object.assign({}, data);
+    // let self = this;
+
     let check = false;
     dataSource.data[0].data.map(item => {
-      if (item.id === data.id) {
+      if (item.id === datatemp.originalId) {
         console.log("found it");
         check = true;
       }
     });
     if (check) {
-      let checkstate=false;
-      let itemstate={};
-      self.state.statedata.map((item)=>{
-        if(Object.keys(item)[0]===data.id){
-          checkstate=true
-          itemstate=item
-        }
-      })
-      console.log(itemstate)
-      if(checkstate){
-        dataSource.data[0].data = itemstate[data.id].mapDataBeanList;
-            chartConfigs = {
-              type: data.label.replace(/ /g, "").toLowerCase(),
-              width: "100%",
-              height: 600,
-              dataFormat: "json",
-              dataSource: dataSource,
-              events: {
-                entityClick: function(evt, data) {
-                  self.handletable();
-                }
-              }
-            };
-            // let statetemp={}
-            // statetemp[data.id]=res.data.data
-
-            document.getElementById("drillUp").style.display = "block";
-            this.setState({backbutton:['india']})
-            this.forceUpdate();
-      }else{
-        axios({
-          url: config.farmerdistrict + data.id,
-          method: "POST",
-          data: {},
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-          .then(res => {
-            // console.log(res, data.label.replace(/ /g, "").toLowerCase());
-            
-            dataSource.data[0].data = res.data.data.mapDataBeanList;
-            chartConfigs = {
-              type: data.label.replace(/ /g, "").toLowerCase(),
-              width: "100%",
-              height: 600,
-              dataFormat: "json",
-              dataSource: dataSource,
-              events: {
-                entityClick: function(evt, data) {
-                  self.handletable();
-                }
-              }
-            };
-            let statetemp={}
-            statetemp[data.id]=res.data.data
-            let tempstatedata=self.state.statedata
-            tempstatedata.push(statetemp)
-            document.getElementById("drillUp").style.display = "block";
-            this.setState({backbutton:['india'],statedata:tempstatedata})
-            this.forceUpdate();
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      }
-      
+      this.setState({ backbutton: ["india", "state"] });
+      document.getElementById("chartmap").style.display = "none";
     }
   };
-  componentDidMount() {
-    console.log('componentdidMount')
+  handlechartclik = data => {
+    let datatemp = Object.assign({}, data);
     let self = this;
-    $("#drillUp").click(function() {
-      if(self.state.backbutton.length===2){
-        dataSource.data[0].data = self.state.statedata;
-        chartConfigs = {
-          type: this.state.backbutton[-1],
+
+    let check = false;
+    dataSource.data[0].data.map(item => {
+      if (item.id === datatemp.id) {
+        console.log("found it");
+        check = true;
+      }
+    });
+
+    if (check) {
+      let checkstate = false;
+      let itemstate = {};
+      self.state.statedata.map(item => {
+        if (Object.keys(item)[0] === datatemp.id) {
+          checkstate = true;
+          itemstate = item;
+        }
+      });
+      if (checkstate) {
+        dataSource.data[0].data = itemstate[datatemp.id].mapDataBeanList;
+        let chartConfigs = {
+          type: datatemp.label.replace(/ /g, "").toLowerCase(),
           width: "100%",
           height: 600,
           dataFormat: "json",
@@ -277,16 +267,123 @@ class Farmer extends Component {
           events: {
             entityClick: function(evt, data) {
               self.handletable(data);
+            },entityRollOver:function(evt,data){
+              self.dataplotrollover(evt,data)
+            },
+            entityRollOut:function(evt,data){
+              self.dataplotrollout(evt,data)
             }
           }
         };
-        document.getElementById("drillUp").style.display = "none";
-        self.setState({backbutton:[]})
-        self.forceUpdate();
+
+        this.setState({
+          backbutton: ["india"],
+          farmers: itemstate[datatemp.id].totalNoOfFarmers,
+          states: null,
+          chart: chartConfigs,
+          district: itemstate[datatemp.id].totalNoOfDistricts
+        });
+        document.getElementById("drillUp").style.display = "block";
+      } else {
+        axios({
+          url: config.farmerdistrict + datatemp.id,
+          method: "POST",
+          data: {},
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(res => {
+            dataSource.data[0].data = res.data.data.mapDataBeanList;
+            let chartConfigs = {
+              type: datatemp.label.replace(/ /g, "").toLowerCase(),
+              width: "100%",
+              height: 600,
+              dataFormat: "json",
+              dataSource: dataSource,
+              events: {
+                entityClick: function(evt, data) {
+                  self.handletable(data);
+                },entityRollOver:function(evt,data){
+                  self.dataplotrollover(evt,data)
+                },
+                entityRollOut:function(evt,data){
+                  self.dataplotrollout(evt,data)
+                }
+              }
+            };
+            let statetemp = {};
+            statetemp[datatemp.id] = res.data.data;
+            let tempstatedata = self.state.statedata;
+            tempstatedata.push(statetemp);
+
+            this.setState({
+              backbutton: ["india"],
+              statedata: tempstatedata,
+              farmers: res.data.data.totalNoOfFarmers,
+              states: null,
+              chart: chartConfigs,
+              district: res.data.data.totalNoOfDistricts
+            });
+            document.getElementById("drillUp").style.display = "block";
+          })
+          .catch(e => {
+            console.log(e);
+          });
       }
-      else if(self.state.backbutton.length===1){
-        dataSource.data[0].data = self.state.indiadata;
-        chartConfigs = {
+    }
+  };
+  renderComplete = ch => {
+    this.setState({ ch });
+  };
+  dataplotrollover=(eventObj, dataObj)=> {
+    if(dataObj.dataValue!==null){
+      this.setState({
+        message: [
+          "You are currently hovering over ",
+          <strong>{dataObj.label}</strong>,
+          " whose value is ",
+          <strong>{dataObj.dataValue}</strong>
+        ]
+      });
+    }
+    
+    
+  }
+
+  // Event callback handler for 'dataplotRollOut'.
+  // Resets to the original message.
+  dataplotrollout=(eventObj, dataObj)=> {
+    this.setState({
+      message: this.state.actualValue
+    });
+  }
+  componentDidMount() {
+    let self = this;
+
+    $("#drillUp").click(function() {
+      if (self.state.backbutton.length === 2) {
+        // // console.log(dataSource)
+        // // console.log(self.state.statedata[0][Object.keys(self.state.statedata[0])[0]].mapDataBeanList)
+        // // dataSource.data[0].data = self.state.statedata[0][Object.keys(self.state.statedata[0])[0]].mapDataBeanList;
+        // let chartConfigss = {
+        //   type: "india",
+        //   width: "100%",
+        //   height: 600,
+        //   dataFormat: "json",
+        //   dataSource: dataSource,
+        //   events: {
+        //     entityClick: function(evt, data) {
+        //       self.handletable(data);
+        //     }
+        //   }
+        // };
+        document.getElementById("chartmap").style.display = "block";
+        self.setState({ backbutton: ["india"] });
+        self.forceUpdate();
+      } else if (self.state.backbutton.length === 1) {
+        dataSource.data[0].data = self.state.indiadata.mapDataBeanList;
+        let chartConfigs = {
           type: "india",
           width: "100%",
           height: 600,
@@ -295,15 +392,26 @@ class Farmer extends Component {
           events: {
             entityClick: function(evt, data) {
               self.handlechartclik(data);
+            },entityRollOver:function(evt,data){
+              self.dataplotrollover(evt,data)
+            },
+            entityRollOut:function(evt,data){
+              self.dataplotrollout(evt,data)
             }
           }
         };
         document.getElementById("drillUp").style.display = "none";
-        self.setState({backbutton:[]})
+        self.setState({
+          backbutton: [],
+          farmers: self.state.indiadata.totalNoOfFarmers,
+          states: self.state.indiadata.totalNoOfStates,
+          chart: chartConfigs,
+          district: null
+        });
         self.forceUpdate();
       }
-    })
-    chartConfigs = {
+    });
+    let chartConfigs = {
       type: "india",
       width: "100%",
       height: 600,
@@ -312,6 +420,12 @@ class Farmer extends Component {
       events: {
         entityClick: function(evt, data) {
           self.handlechartclik(data);
+        },
+        entityRollOver:function(evt,data){
+          self.dataplotrollover(evt,data)
+        },
+        entityRollOut:function(evt,data){
+          self.dataplotrollout(evt,data)
         }
       }
     };
@@ -323,12 +437,12 @@ class Farmer extends Component {
         "Content-Type": "application/json"
       }
     }).then(res => {
-      console.log(res);
       if (res.data.data != null) {
         this.setState({
           farmer: res.data.data.totalNoOfFarmers,
           states: res.data.data.totalNoOfStates,
-          indiadata:res.data.data.mapDataBeanList
+          indiadata: res.data.data,
+          chart: chartConfigs
         });
         dataSource.data[0].data = res.data.data.mapDataBeanList;
       } else if (res.data.error !== undefined) {
@@ -350,28 +464,43 @@ class Farmer extends Component {
             <div style={{ marginLeft: "0" }} className="row">
               <FarmerSidebar
                 farmers={this.state.farmer}
+                district={this.state.district}
                 states={this.state.states}
               />
               <div
                 style={{ paddingLeft: "0" }}
                 className="col-xs-10 table-responsive"
-              > <button
-                id="drillUp"
-                style={{
-                  display: "none",
-                  float: "right",
-                  marginRight: "30px",
-                  backgroundColor: "#f2f2f2"
-                }}
               >
-                <span
-                  className="glyphicon glyphicon-menu-left"
-                  style={{ marginRight: "6px" }}
-                  aria-hidden="true"
-                />
-                Back
-              </button>
-                <ReactFC {...chartConfigs} />
+                {" "}
+                <button
+                  className="btn btn-outline-secondary btn-sm"
+                  id="drillUp"
+                  style={{
+                    display: "none",
+                    float: "right",
+                    marginRight: "30px",
+                    marginTop: "10px",
+                    color: "blue"
+                    // backgroundColor: "#f2f2f2"
+                  }}
+                >
+                  <span
+                    className="glyphicon glyphicon-menu-left"
+                    style={{ marginRight: "6px" }}
+                    aria-hidden="true"
+                  />
+                  Back
+                </button>
+                <p style={{ padding: "10px", background: "#f5f2f0",textAlign:'center' }}>
+                    {this.state.message}
+                  </p>
+                <div id="chartmap">
+                  <ReactFC
+                    {...this.state.chart}
+                    
+                  />
+                  
+                </div>
               </div>
             </div>
           </div>
