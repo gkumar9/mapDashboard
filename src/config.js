@@ -43,7 +43,8 @@ let config={
 	"iaasstats":"http://staging.clarolabs.in:7060/iaas/api/rs/widget/home",
 	"transactionlist":"http://staging.clarolabs.in:7060/iaas/api/rs/transactionlist",
 	"farmerstate":"http://staging.clarolabs.in:7060/farmerinfo/farmerstats/india",
-	"farmerdistrict":"http://staging.clarolabs.in:7060/farmerinfo/farmerstats/india/"
+	"farmerdistrict":"http://staging.clarolabs.in:7060/farmerinfo/farmerstats/india/",
+	"farmertable":'http://staging.clarolabs.in:7060/farmerinfo/farmerstats/india/'
 }
 
 export default config;
