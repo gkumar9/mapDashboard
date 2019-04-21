@@ -213,22 +213,32 @@ class Farmer extends Component {
       chart: null,
       tabledata: [],
       ch: {},
-      actualValue: "Hover on the plot to see the value along with the label",
-      message: "Hover on the plot to see the value along with the label"
+      actualValue: <strong>India</strong>,
+      message: <strong>India</strong>,
+      scrollcount: 0,
+      hasMore: true,
+      blockid: ""
+      // isLoading: false
+      // users: [],
     };
   }
   tableshow = data => {
-    let number = 1;
+    let count = this.state.scrollcount + 1;
     axios({
-      url: config.farmertable + data.id + "/farmerlist/" + number,
+      url: config.farmertable + data.id + "/farmerlist/" + count,
       method: "POST",
       data: {},
       headers: {
         "Content-Type": "application/json"
       }
     }).then(res => {
-      console.log(res);
-      this.setState({ tabledata: res.data.data.list });
+      // console.log(res);
+      this.setState({
+        blockid: data.id,
+        tabledata: res.data.data.list,
+        scrollcount: count,
+        hasMore: res.data.data.hasMore
+      });
     });
   };
   handletable = data => {
@@ -244,7 +254,12 @@ class Farmer extends Component {
       }
     });
     if (check) {
-      this.setState({ backbutton: ["india", "state"] });
+      let backvalue=this.state.actualValue
+      this.setState({
+        backbutton: ["india", backvalue],
+        actualValue: <strong>{data.label}</strong>,
+        message: <strong>{data.label}</strong>
+      });
 
       document.getElementById("chartmap").style.display = "none";
       document.getElementById("farmersidebar").style.display = "none";
@@ -295,11 +310,13 @@ class Farmer extends Component {
         };
 
         this.setState({
-          backbutton: ["india"],
+          backbutton: ["India"],
           farmers: itemstate[datatemp.id].totalNoOfFarmers,
           states: null,
           chart: chartConfigs,
-          district: itemstate[datatemp.id].totalNoOfDistricts
+          district: itemstate[datatemp.id].totalNoOfDistricts,
+          actualValue: <strong>{datatemp.label}</strong>,
+          message: <strong>{datatemp.label}</strong>
         });
         document.getElementById("drillUp").style.display = "block";
       } else {
@@ -337,11 +354,13 @@ class Farmer extends Component {
             tempstatedata.push(statetemp);
 
             this.setState({
-              backbutton: ["india"],
+              backbutton: ["India"],
               statedata: tempstatedata,
               farmers: res.data.data.totalNoOfFarmers,
               states: null,
               chart: chartConfigs,
+              actualValue: <strong>{datatemp.label}</strong>,
+              message: <strong>{datatemp.label}</strong>,
               district: res.data.data.totalNoOfDistricts
             });
             document.getElementById("drillUp").style.display = "block";
@@ -359,11 +378,16 @@ class Farmer extends Component {
     if (dataObj.dataValue !== null) {
       this.setState({
         message: [
-          "You are currently hovering over ",
+          " ",
           <strong>{dataObj.label}</strong>,
-          " whose value is ",
-          <strong>{dataObj.dataValue}</strong>
+          " has ",
+          <strong>{dataObj.dataValue}</strong>,
+          " farmers"
         ]
+      });
+    } else {
+      this.setState({
+        message: [" ", <strong>{dataObj.label}</strong>]
       });
     }
   };
@@ -377,14 +401,40 @@ class Farmer extends Component {
   };
   componentDidMount() {
     let self = this;
+    $("#maptable").scroll(function() {
+      // console.log("scroll.......");
+      if (
+        $(this).scrollTop() + $(this).innerHeight() >=
+          $(this)[0].scrollHeight &&
+        self.state.hasMore
+      ) {
+        let count = self.state.scrollcount + 1;
+        let tabledatanow = self.state.tabledata;
+        axios({
+          url: config.farmertable + self.state.blockid + "/farmerlist/" + count,
+          method: "POST",
+          data: {},
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then(res => {
+          // console.log(res);
 
+          self.setState({
+            tabledata: tabledatanow.concat(res.data.data.list),
+            scrollcount: count,
+            hasMore: res.data.data.hasMore
+          });
+        });
+      }
+    });
     $("#drillUp").click(function() {
       if (self.state.backbutton.length === 2) {
         // // console.log(dataSource)
         // // console.log(self.state.statedata[0][Object.keys(self.state.statedata[0])[0]].mapDataBeanList)
         // // dataSource.data[0].data = self.state.statedata[0][Object.keys(self.state.statedata[0])[0]].mapDataBeanList;
         // let chartConfigss = {
-        //   type: "india",
+        //   type: "India",
         //   width: "100%",
         //   height: 600,
         //   dataFormat: "json",
@@ -395,15 +445,18 @@ class Farmer extends Component {
         //     }
         //   }
         // };
+        let backlast=self.state.backbutton[self.state.backbutton.length-1]
         document.getElementById("chartmap").style.display = "block";
         document.getElementById("farmersidebar").style.display = "block";
         document.getElementById("maptable").style.display = "none";
-        self.setState({ backbutton: ["india"] });
+        self.setState({ backbutton: ["India"], tabledata: [], scrollcount: 0,
+        actualValue: <strong>{backlast}</strong>,
+        message: <strong>{backlast}</strong> });
         self.forceUpdate();
       } else if (self.state.backbutton.length === 1) {
         dataSource.data[0].data = self.state.indiadata.mapDataBeanList;
         let chartConfigs = {
-          type: "india",
+          type: "India",
           width: "100%",
           height: 550,
           dataFormat: "json",
@@ -421,18 +474,21 @@ class Farmer extends Component {
           }
         };
         document.getElementById("drillUp").style.display = "none";
+        let backlast=self.state.backbutton[self.state.backbutton.length-1]
         self.setState({
           backbutton: [],
           farmers: self.state.indiadata.totalNoOfFarmers,
           states: self.state.indiadata.totalNoOfStates,
           chart: chartConfigs,
+          actualValue: <strong>{backlast}</strong>,
+          message: <strong>{backlast}</strong>,
           district: null
         });
         self.forceUpdate();
       }
     });
     let chartConfigs = {
-      type: "india",
+      type: "India",
       width: "100%",
       height: 550,
       dataFormat: "json",
@@ -513,7 +569,7 @@ class Farmer extends Component {
                 <p
                   style={{
                     padding: "10px",
-                    background: "#f5f2f0",
+                    background: "rgb(242, 242, 242)",
                     textAlign: "center"
                   }}
                 >
@@ -527,7 +583,9 @@ class Farmer extends Component {
                   style={{
                     display: "none",
                     overflow: "scroll",
-                    maxHeight: "80vh"
+                    maxHeight: "80vh",
+                    paddingLeft: "6px",
+                    paddingRight: "21px"
                   }}
                 >
                   {this.state.tabledata.map((item, number) => {
