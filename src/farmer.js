@@ -278,7 +278,7 @@ class Farmer extends Component {
         let chartConfigs = {
           type: datatemp.label.replace(/ /g, "").toLowerCase(),
           width: "100%",
-          height: 600,
+          height: 550,
           dataFormat: "json",
           dataSource: dataSource,
           events: {
@@ -316,7 +316,7 @@ class Farmer extends Component {
             let chartConfigs = {
               type: datatemp.label.replace(/ /g, "").toLowerCase(),
               width: "100%",
-              height: 600,
+              height: 550,
               dataFormat: "json",
               dataSource: dataSource,
               events: {
@@ -405,7 +405,7 @@ class Farmer extends Component {
         let chartConfigs = {
           type: "india",
           width: "100%",
-          height: 600,
+          height: 550,
           dataFormat: "json",
           dataSource: dataSource,
           events: {
@@ -434,7 +434,7 @@ class Farmer extends Component {
     let chartConfigs = {
       type: "india",
       width: "100%",
-      height: 600,
+      height: 550,
       dataFormat: "json",
       dataSource: dataSource,
       events: {
@@ -530,74 +530,75 @@ class Farmer extends Component {
                     maxHeight: "80vh"
                   }}
                 >
-                  {this.state.tabledata.map(item,number => {
+                  {this.state.tabledata.map((item, number) => {
+                    let mod = number % 2;
                     return (
-                      {number % 2 === 0?(
+                      <div>
                         <div
-                        style={{ padding: "2px",marginBottom:'5px',backgroundColor:'lightgray' }}
-                        class="panel panel-default"
-                      >
-                      ):(
-                        <div
-                        style={{ padding: "2px",marginBottom:'5px' }}
-                        class="panel panel-default"
-                      >
-                      )}
-                      
-                        <div
-                          class="panel-heading"
-                          style={{ backgroundColor: "transparent" }}
+                          className={
+                            mod === 0
+                              ? "panel panel-default graycolortable"
+                              : "panel panel-default"
+                          }
+                          style={{ padding: "2px", marginBottom: "5px" }}
+                          // className="panel panel-default"
                         >
-                          <div className="row">
-                            <div className="col-md-10">
-                              <span style={{ fontSize: "large" }}>
-                                <b>{item.name}</b>,{" "}
-                                <small>{item.contactNo}</small>
-                              </span>
-                            </div>
-                            <div className="col-md-2">
-                              <div>
-                                <span>Last Update:{item.lastUpdate}</span>
+                          <div
+                            className="panel-heading"
+                            style={{ backgroundColor: "transparent" }}
+                          >
+                            <div className="row">
+                              <div className="col-md-10">
+                                <span style={{ fontSize: "large" }}>
+                                  <b>{item.name}</b>,{" "}
+                                  <small>{item.contactNo}</small>
+                                </span>
+                              </div>
+                              <div className="col-md-2">
+                                <div>
+                                  <span>Last Update:{item.lastUpdate}</span>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="panel-body">
-                          <div className="row">
-                            <div className="col-md-4">
-                              <span>S/O {item.fatherName}</span>
-                              <br />
-                              <span>
-                                DOB: {item.dob},{" "}
-                                {item.gender === "M" ? "Male" : "Female"}
-                              </span>
-                              <br />
-                              <span>
-                                Farmer registration date: {item.farmerRegDate}
-                              </span>
-                            </div>
-                            <div className="col-md-4">
-                              <span>
-                                Community: {item.community}, {item.subCommunity}
-                              </span>
-                              <br />
-                              <span>
-                                Govt. card Holder: {item.govtCardHolder}
-                              </span>
-                              <br />
-                              <span>Land Size: {item.totalLandSize}</span>
-                              <br />
-                            </div>
-                            <div className="col-md-4">
-                              <span>House type: {item.houseType}</span>
-                              <br />
-                              <span>
-                                {item.block}, {item.district}, {item.village}
-                              </span>
-                              <br />
-                              <span>
-                                {item.state}, PIN: {item.pincode}
-                              </span>
+                          <div className="panel-body">
+                            <div className="row">
+                              <div className="col-md-4">
+                                <span>S/O {item.fatherName}</span>
+                                <br />
+                                <span>
+                                  DOB: {item.dob},{" "}
+                                  {item.gender === "M" ? "Male" : "Female"}
+                                </span>
+                                <br />
+                                <span>
+                                  Farmer registration date: {item.farmerRegDate}
+                                </span>
+                              </div>
+                              <div className="col-md-4">
+                                <span>
+                                  Community: {item.community},{" "}
+                                  {item.subCommunity}
+                                </span>
+                                <br />
+                                <span>
+                                  Govt. card Holder: {item.govtCardHolder}
+                                </span>
+                                <br />
+                                <span>Land Size: {item.totalLandSize}</span>
+                                <br />
+                              </div>
+                              <div className="col-md-4">
+                                <span>House type: {item.houseType}</span>
+                                <br />
+                                <span>
+                                  {item.block}, {item.district}, {item.village}
+                                </span>
+                                <br />
+                                <span>
+                                  {item.state}, PIN: {item.pincode}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>

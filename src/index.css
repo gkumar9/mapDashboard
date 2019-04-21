@@ -9,7 +9,9 @@ body {
 a {
   cursor: pointer;
 }
-
+.graycolortable{
+  background: lightgrey
+}
 .table-hover>tbody>tr:hover{
   background-color: #ffffff;
 }
