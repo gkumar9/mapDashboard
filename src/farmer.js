@@ -94,6 +94,57 @@ class FarmerSidebar extends Component {
             </li>
           )}
         </ul>
+        <hr />
+        {this.props.statename !== null && (
+          <div>
+            <h4
+              style={{ marginRight: "38%", color: "gray", fontSize: "large" }}
+            >
+              States
+            </h4>
+            <ul style={{ marginTop: "20px", color: "black" }}>
+              {this.props.statename.map((item, number) => {
+                return (
+                  <li key={number} style={{ marginBottom: "10px" }}>
+                    <div className="row">
+                      <div className="col-xs-9">
+                        <span>
+                          {number + 1}. {item}
+                        </span>
+                      </div>
+                      <div className="col-xs-3" />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+        {this.props.districtname !== null && (
+          <div>
+            <h4
+              style={{ marginRight: "32%", color: "gray", fontSize: "large" }}
+            >
+              Districts
+            </h4>
+            <ul style={{ marginTop: "20px", color: "black" }}>
+              {this.props.districtname.map((item, number) => {
+                return (
+                  <li key={number} style={{ marginBottom: "10px" }}>
+                    <div className="row">
+                      <div className="col-xs-9">
+                        <span>
+                          {number + 1}. {item}
+                        </span>
+                      </div>
+                      <div className="col-xs-3" />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </div>
     );
   }
@@ -208,6 +259,8 @@ class Farmer extends Component {
     super(props);
     this.state = {
       farmers: "",
+      statename: null,
+      districtname: null,
       states: null,
       district: null,
       backbutton: [],
@@ -313,11 +366,17 @@ class Farmer extends Component {
             }
           }
         };
-
+        let districtnames = itemstate[datatemp.id].mapDataBeanList.map(
+          items => {
+            return items.label;
+          }
+        );
         this.setState({
           backbutton: ["India"],
           farmers: itemstate[datatemp.id].totalNoOfFarmers,
           states: null,
+          districtname: districtnames,
+          statename: null,
           chart: chartConfigs,
           district: itemstate[datatemp.id].totalNoOfDistricts,
           actualValue: <strong>{datatemp.label}</strong>,
@@ -357,11 +416,15 @@ class Farmer extends Component {
             statetemp[datatemp.id] = res.data.data;
             let tempstatedata = self.state.statedata;
             tempstatedata.push(statetemp);
-
+            let districtnames = res.data.data.mapDataBeanList.map(items => {
+              return items.label;
+            });
             this.setState({
               backbutton: ["India"],
               statedata: tempstatedata,
               farmers: res.data.data.totalNoOfFarmers,
+              districtname: districtnames,
+              statename: null,
               states: null,
               chart: chartConfigs,
               actualValue: <strong>{datatemp.label}</strong>,
@@ -397,8 +460,6 @@ class Farmer extends Component {
     }
   };
 
-  // Event callback handler for 'dataplotRollOut'.
-  // Resets to the original message.
   dataplotrollout = (eventObj, dataObj) => {
     this.setState({
       message: this.state.actualValue
@@ -484,6 +545,9 @@ class Farmer extends Component {
             }
           }
         };
+        let statenames = self.state.indiadata.mapDataBeanList.map(item => {
+          return item.label;
+        });
         document.getElementById("drillUp").style.display = "none";
         let backlast = self.state.backbutton[self.state.backbutton.length - 1];
         self.setState({
@@ -491,6 +555,8 @@ class Farmer extends Component {
           farmers: self.state.indiadata.totalNoOfFarmers,
           states: self.state.indiadata.totalNoOfStates,
           chart: chartConfigs,
+          statename: statenames,
+          districtname: null,
           actualValue: <strong>{backlast}</strong>,
           message: <strong>{backlast}</strong>,
           district: null
@@ -524,11 +590,17 @@ class Farmer extends Component {
         "Content-Type": "application/json"
       }
     }).then(res => {
+      // console.log(res.data.data)
+      let statenames = res.data.data.mapDataBeanList.map(item => {
+        return item.label;
+      });
+      // console.log(statename)
       if (res.data.data != null) {
         this.setState({
           farmer: res.data.data.totalNoOfFarmers,
           states: res.data.data.totalNoOfStates,
           indiadata: res.data.data,
+          statename: statenames,
           chart: chartConfigs
         });
         dataSource.data[0].data = res.data.data.mapDataBeanList;
@@ -554,6 +626,8 @@ class Farmer extends Component {
                   farmers={this.state.farmer}
                   district={this.state.district}
                   states={this.state.states}
+                  statename={this.state.statename}
+                  districtname={this.state.districtname}
                 />
               </div>
               <div

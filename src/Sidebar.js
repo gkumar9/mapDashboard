@@ -5,14 +5,23 @@ import IAAS from "./pins/IAAS.png";
 import MINIGRID from "./pins/Minigrid(2).png";
 import HOME from "./pins/ROOFTOP.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
-import farmer from "./pins/user.png";
-class Sidebar extends Component { 
+import FARMER from "./pins/user.png";
+class Sidebar extends Component {
   render() {
     return (
       <aside className="main_sidebar">
-        <ul  >
-          <Link key='home'  to="/">
-            <li title="Home"  className={this.props.history.location.pathname.search('rms')===-1 && this.props.history.location.pathname.search('iaas')===-1? 'active':''}>
+        <ul>
+          <Link key="home" to="/">
+            <li
+              title="Home"
+              className={
+                this.props.history.location.pathname.search("rms") === -1 &&
+                this.props.history.location.pathname.search("iaas") === -1 &&
+                this.props.history.location.pathname.search("farmer") === -1
+                  ? "active"
+                  : ""
+              }
+            >
               <i>
                 <img
                   alt="home"
@@ -22,31 +31,43 @@ class Sidebar extends Component {
               </i>
             </li>
           </Link>
-          <Link key="rms"  to="/rms">
-          <li title="RMS" className= {this.props.history.location.pathname.search('rms')!==-1? 'active':''}>
-            
+          <Link key="rms" to="/rms">
+            <li
+              title="RMS"
+              className={
+                this.props.history.location.pathname.search("rms") !== -1
+                  ? "active"
+                  : ""
+              }
+            >
               <i>
                 <img alt="rms" src={RMS} />
               </i>
-          </li>
+            </li>
           </Link>
-          <Link key="iaas"  to="/iaas">
-          <li title="IAAS" className= {this.props.history.location.pathname.search('iaas')!==-1? 'active':''}>
-            
+          <Link key="iaas" to="/iaas">
+            <li
+              title="IAAS"
+              className={
+                this.props.history.location.pathname.search("iaas") !== -1
+                  ? "active"
+                  : ""
+              }
+            >
               <i>
                 <img alt="IAAS" src={IAAS} />
               </i>
-          </li>
+            </li>
           </Link>
-          
+
           <li title="Solar Rooftop">
             <a className="disabled">
               <i>
                 <img alt="Rooftop" src={ROOFTOP} />
               </i>
             </a>
-            </li>
-          
+          </li>
+
           <li title="Minigrid">
             <a className="disabled">
               <i>
@@ -54,14 +75,20 @@ class Sidebar extends Component {
               </i>
             </a>
           </li>
-          <Link key="farmer"  to="/farmer">
-          <li title="Farmers">
-            
+          <Link key="farmer" to="/farmer">
+            <li
+              title="Farmers"
+              className={
+                this.props.history.location.pathname.search("farmer") !== -1
+                  ? "active"
+                  : ""
+              }
+            >
               <i>
-                <img alt="farmer" src={farmer} />
+                <img alt="farmer" src={FARMER} />
               </i>
-            
-          </li></Link>
+            </li>
+          </Link>
         </ul>
       </aside>
     );

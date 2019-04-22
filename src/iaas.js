@@ -25,7 +25,12 @@ class iaas extends Component {
       }
     })
     .then((res)=>{
-      console.log('res',res.data.data)
+      // console.log('res',res.data.data)
+      res.data.data.co2Saved=parseInt(res.data.data.co2Saved).toLocaleString("en-IN")
+      res.data.data.landIrrigated=parseInt(res.data.data.landIrrigated).toLocaleString("en-IN")
+      res.data.data.noOfFarmers=parseInt(res.data.data.noOfFarmers).toLocaleString("en-IN")
+      res.data.data.noOfPatvans=parseInt(res.data.data.noOfPatvans).toLocaleString("en-IN")
+      res.data.data.waterDischarged=parseInt(res.data.data.waterDischarged).toLocaleString("en-IN")
       this.setState({
         statsdata:res.data.data
       })
