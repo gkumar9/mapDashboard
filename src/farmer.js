@@ -145,11 +145,11 @@ const dataSource = {
     showLabels: "0",
     usehovercolor: "1",
     showToolTip: "0",
-    toolTipBorderColor: "#666666",
-    toolTipBgColor: "#efefef",
-    toolTipBgAlpha: "80",
-    showToolTipShadow: "1",
-    canvasbordercolor: "#F2F2F2",
+    // toolTipBorderColor: "#666666",
+    // toolTipBgColor: "#efefef",
+    // toolTipBgAlpha: "80",
+    // showToolTipShadow: "1",
+    canvasbordercolor: "#EDEEF0",
     bordercolor: "#aaa",
     showlegend: "0",
     showshadow: "0",
@@ -159,8 +159,11 @@ const dataSource = {
     // legendallowdrag: "0",
     // legendshadow: "0",
     // caption: "State-wise Cash In-flow of India",
-    hoverFillalpha: "20",
-    hovercolor: "#b3ffec",
+    // hoverFillalpha: "20",
+    useHoverColor: "1",
+    hoverColor: "#5454d7",
+    // nullEntityColor:'white',
+    nullEntityColor: "#ffffff",
     showborder: "1"
     // borderColor:'#ffffff',
     // theme: "gammel"
@@ -169,20 +172,20 @@ const dataSource = {
     minvalue: "0",
     startlabel: "Low",
     endlabel: "High",
-    code: "#e65c00",
+    code: "#BDBEEE",
     gradient: "1",
     color: [
       {
         maxvalue: "100",
-        code: "#ffc34d"
+        code: "#BDBEEE"
       },
       {
         maxvalue: "800",
-        code: "#80bfff"
+        code: "#BDBEEE"
       },
       {
         maxvalue: "1000",
-        code: "#00b386"
+        code: "#BDBEEE"
       }
     ],
     maxvalue: 0
@@ -254,7 +257,7 @@ class Farmer extends Component {
       }
     });
     if (check) {
-      let backvalue=this.state.actualValue
+      let backvalue = this.state.actualValue;
       this.setState({
         backbutton: ["india", backvalue],
         actualValue: <strong>{data.label}</strong>,
@@ -262,6 +265,8 @@ class Farmer extends Component {
       });
 
       document.getElementById("chartmap").style.display = "none";
+      document.getElementById("first").style.display = "none";
+      document.getElementById("second").style.display = "block";
       document.getElementById("farmersidebar").style.display = "none";
       document.getElementById("maptable").style.display = "block";
       this.tableshow(data);
@@ -387,7 +392,7 @@ class Farmer extends Component {
       });
     } else {
       this.setState({
-        message: [" ", <strong>{dataObj.label}</strong>]
+        message: <strong>{dataObj.label}</strong>
       });
     }
   };
@@ -445,13 +450,19 @@ class Farmer extends Component {
         //     }
         //   }
         // };
-        let backlast=self.state.backbutton[self.state.backbutton.length-1]
+        let backlast = self.state.backbutton[self.state.backbutton.length - 1];
         document.getElementById("chartmap").style.display = "block";
+        document.getElementById("first").style.display = "block";
+        document.getElementById("second").style.display = "none";
         document.getElementById("farmersidebar").style.display = "block";
         document.getElementById("maptable").style.display = "none";
-        self.setState({ backbutton: ["India"], tabledata: [], scrollcount: 0,
-        actualValue: <strong>{backlast}</strong>,
-        message: <strong>{backlast}</strong> });
+        self.setState({
+          backbutton: ["India"],
+          tabledata: [],
+          scrollcount: 0,
+          actualValue: <strong>{backlast}</strong>,
+          message: <strong>{backlast}</strong>
+        });
         self.forceUpdate();
       } else if (self.state.backbutton.length === 1) {
         dataSource.data[0].data = self.state.indiadata.mapDataBeanList;
@@ -474,7 +485,7 @@ class Farmer extends Component {
           }
         };
         document.getElementById("drillUp").style.display = "none";
-        let backlast=self.state.backbutton[self.state.backbutton.length-1]
+        let backlast = self.state.backbutton[self.state.backbutton.length - 1];
         self.setState({
           backbutton: [],
           farmers: self.state.indiadata.totalNoOfFarmers,
@@ -545,7 +556,10 @@ class Farmer extends Component {
                   states={this.state.states}
                 />
               </div>
-              <div style={{ paddingLeft: "0" }} className=" table-responsive">
+              <div
+                style={{ paddingLeft: "0", overflowX: "hidden" }}
+                className=" table-responsive"
+              >
                 {" "}
                 <button
                   className="btn btn-outline-secondary btn-sm"
@@ -567,10 +581,25 @@ class Farmer extends Component {
                   Back
                 </button>
                 <p
+                  id="first"
                   style={{
                     padding: "10px",
+                    display: "block",
                     background: "rgb(242, 242, 242)",
-                    textAlign: "center"
+                    textAlign: "center",
+                    marginRight: "20%"
+                  }}
+                >
+                  {this.state.message}
+                </p>
+                <p
+                  id="second"
+                  style={{
+                    padding: "10px",
+                    display: "none",
+                    background: "rgb(242, 242, 242)",
+                    textAlign: "center",
+                    marginLeft: "5%"
                   }}
                 >
                   {this.state.message}
@@ -585,7 +614,7 @@ class Farmer extends Component {
                     overflow: "scroll",
                     maxHeight: "80vh",
                     paddingLeft: "6px",
-                    paddingRight: "21px"
+                    paddingRight: "6px"
                   }}
                 >
                   {this.state.tabledata.map((item, number) => {
@@ -594,14 +623,14 @@ class Farmer extends Component {
                       <div>
                         <div
                           className={
-                            mod === 0
+                            mod !== 0
                               ? "panel panel-default graycolortable"
                               : "panel panel-default"
                           }
                           style={{ padding: "2px", marginBottom: "5px" }}
                           // className="panel panel-default"
                         >
-                          <div
+                          {/* <div
                             className="panel-heading"
                             style={{ backgroundColor: "transparent" }}
                           >
@@ -618,44 +647,208 @@ class Farmer extends Component {
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                           <div className="panel-body">
+                            <div
+                              className="row"
+                              style={{ marginBottom: "6px" }}
+                            >
+                              <div className="col-md-10">
+                                <span style={{ fontSize: "large" }}>
+                                  {number + 1}.
+                                  {item.name !== null && item.name !== "N.A" && (
+                                    <b>
+                                      {" "}
+                                      {"  "} {item.name}
+                                    </b>
+                                  )}
+                                  {item.contactNo !== null &&
+                                    item.contactNo !== "N.A" && (
+                                      <span>
+                                        , <small>{item.contactNo}</small>
+                                      </span>
+                                    )}
+                                </span>
+                              </div>
+                              <div className="col-md-2">
+                                {item.lastUpdate !== null &&
+                                  item.lastUpdate !== "N.A" && (
+                                    <div>
+                                      <span>Last Update:</span>
+                                      <span style={{ color: "#777" }}>
+                                        {item.lastUpdate}
+                                      </span>
+                                    </div>
+                                  )}
+                              </div>
+                            </div>
                             <div className="row">
                               <div className="col-md-4">
-                                <span>S/O {item.fatherName}</span>
+                                {item.fatherName !== null &&
+                                  item.fatherName !== "N.A" && (
+                                    <span>
+                                      <span>S/O </span>
+                                      <span style={{ color: "#777" }}>
+                                        {item.fatherName}
+                                      </span>
+                                    </span>
+                                  )}
                                 <br />
-                                <span>
-                                  DOB: {item.dob},{" "}
-                                  {item.gender === "M" ? "Male" : "Female"}
-                                </span>
+                                {item.dob !== null && item.dob !== "N.A" && (
+                                  <span>
+                                    <span>DOB:</span>{" "}
+                                    <span style={{ color: "#777" }}>
+                                      {item.dob}
+                                    </span>
+                                  </span>
+                                )}
+                                {item.dob !== null &&
+                                  item.dob !== "N.A" &&
+                                  item.gender !== null &&
+                                  item.gender !== "N.A" && (
+                                    <span style={{ color: "#777" }}>
+                                      ,{" "}
+                                      {item.gender === "M" ? "Male" : "Female"}
+                                    </span>
+                                  )}
+                                {(item.dob === null || item.dob === "N.A") &&
+                                  (item.gender !== null &&
+                                    item.gender !== "N.A") && (
+                                    <span>
+                                      <span>Gender :</span>
+                                      <span style={{ color: "#777" }}>
+                                        {" "}
+                                        {item.gender === "M"
+                                          ? "Male"
+                                          : "Female"}
+                                      </span>
+                                    </span>
+                                  )}
+
                                 <br />
-                                <span>
-                                  Farmer registration date: {item.farmerRegDate}
-                                </span>
+                                {item.farmerRegDate !== null &&
+                                  item.farmerRegDate !== "N.A" && (
+                                    <span>
+                                      <span>Registered on: </span>
+                                      <span style={{ color: "#777" }}>
+                                        {" "}
+                                        {item.farmerRegDate}
+                                      </span>
+                                    </span>
+                                  )}
                               </div>
                               <div className="col-md-4">
-                                <span>
-                                  Community: {item.community},{" "}
-                                  {item.subCommunity}
-                                </span>
+                                {item.community !== null &&
+                                  item.community !== "N.A" && (
+                                    <span>
+                                      Community:{" "}
+                                      <span style={{ color: "#777" }}>
+                                        {" "}
+                                        {item.community}
+                                      </span>
+                                    </span>
+                                  )}
+                                {item.community !== null &&
+                                  item.community !== "N.A" &&
+                                  item.subCommunity !== null &&
+                                  item.subCommunity !== "N.A" && (
+                                    <span style={{ color: "#777" }}>
+                                      , {item.subCommunity}
+                                    </span>
+                                  )}
+                                {item.community === null &&
+                                  item.community === "N.A" &&
+                                  item.subCommunity !== null &&
+                                  item.subCommunity !== "N.A" && (
+                                    <span>
+                                      Sub-community:{" "}
+                                      <span style={{ color: "#777" }}>
+                                        {item.subCommunity}{" "}
+                                      </span>
+                                    </span>
+                                  )}
                                 <br />
-                                <span>
-                                  Govt. card Holder: {item.govtCardHolder}
-                                </span>
+                                {item.govtCardHolder !== null &&
+                                  item.govtCardHolder !== "N.A" && (
+                                    <span>
+                                      Govt. card Holder:{" "}
+                                      <span style={{ color: "#777" }}>
+                                        {item.govtCardHolder}
+                                      </span>
+                                    </span>
+                                  )}
+
                                 <br />
-                                <span>Land Size: {item.totalLandSize}</span>
-                                <br />
+                                {item.totalLandSize !== null &&
+                                  item.totalLandSize !== "N.A" && (
+                                    <span>
+                                      Land Size:{" "}
+                                      <span style={{ color: "#777" }}>
+                                        {item.totalLandSize}{" "}
+                                      </span>
+                                    </span>
+                                  )}
                               </div>
                               <div className="col-md-4">
-                                <span>House type: {item.houseType}</span>
+                                {item.houseType !== null &&
+                                  item.houseType !== "N.A" && (
+                                    <span>
+                                      House type:{" "}
+                                      <span style={{ color: "#777" }}>
+                                        {" "}
+                                        {item.houseType}
+                                      </span>
+                                    </span>
+                                  )}
+
                                 <br />
-                                <span>
-                                  {item.block}, {item.district}, {item.village}
-                                </span>
+                                {((item.block !== null &&
+                                  item.block !== "N.A") ||
+                                  (item.district !== null &&
+                                    item.district !== "N.A") ||
+                                  (item.village !== null &&
+                                    item.village !== "N.A")) && (
+                                  <span>Address: </span>
+                                )}
+
+                                {item.block !== null &&
+                                  item.block !== "N.A" && (
+                                    <span style={{ color: "#777" }}>
+                                      {item.block}
+                                    </span>
+                                  )}
+                                {item.district !== null &&
+                                  item.district !== "N.A" && (
+                                    <span style={{ color: "#777" }}>
+                                      , {item.district}
+                                    </span>
+                                  )}
+                                {item.village !== null &&
+                                  item.village !== "N.A" && (
+                                    <span style={{ color: "#777" }}>
+                                      , {item.village}
+                                    </span>
+                                  )}
+
                                 <br />
-                                <span>
-                                  {item.state}, PIN: {item.pincode}
-                                </span>
+                                {item.state !== null && item.state !== "N.A" && (
+                                  <span>
+                                    State:{" "}
+                                    <span style={{ color: "#777" }}>
+                                      {" "}
+                                      {item.state}
+                                    </span>
+                                  </span>
+                                )}
+                                {item.pincode !== null &&
+                                  item.pincode !== "N.A" && (
+                                    <span>
+                                      , PIN:{" "}
+                                      <span style={{ color: "#777" }}>
+                                        {item.pincode}
+                                      </span>
+                                    </span>
+                                  )}
                               </div>
                             </div>
                           </div>
