@@ -6,6 +6,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
+g[class^='raphael-group-'][class$='-creditgroup'] {
+    display:none !important;
+}
 a {
   cursor: pointer;
 }

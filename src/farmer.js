@@ -11,7 +11,9 @@ import user from "./pins/user.png";
 import states from "./pins/5.png";
 import axios from "axios";
 import config from "./config.js";
+import Swal from "sweetalert2";
 const $ = require("jquery");
+
 ReactFC.fcRoot(FusionCharts, Maps, India, Bihar, FusionTheme);
 
 class FarmerSidebar extends Component {
@@ -194,7 +196,6 @@ const dataSource = {
     // bgAlpha: "50",
     // animation: "0",
     showLabels: "0",
-    usehovercolor: "1",
     showToolTip: "0",
     // toolTipBorderColor: "#666666",
     // toolTipBgColor: "#efefef",
@@ -212,7 +213,7 @@ const dataSource = {
     // caption: "State-wise Cash In-flow of India",
     // hoverFillalpha: "20",
     useHoverColor: "1",
-    hoverColor: "#5454d7",
+    hoverColor: "#7b96d5",
     // nullEntityColor:'white',
     nullEntityColor: "#ffffff",
     showborder: "1"
@@ -223,20 +224,20 @@ const dataSource = {
     minvalue: "0",
     startlabel: "Low",
     endlabel: "High",
-    code: "#BDBEEE",
+    code: "#ced3ee",
     gradient: "1",
     color: [
       {
         maxvalue: "100",
-        code: "#BDBEEE"
+        code: "#ced3ee"
       },
       {
         maxvalue: "800",
-        code: "#BDBEEE"
+        code: "#ced3ee"
       },
       {
         maxvalue: "1000",
-        code: "#BDBEEE"
+        code: "#ced3ee"
       }
     ],
     maxvalue: 0
@@ -248,7 +249,8 @@ const dataSource = {
         // {
         //   id: "005",
         //   value: "245000",
-        //   link: "newchart-json-BI"
+        //   showLabel:'1',
+        //   displayValue:"Bihar",
         // }
       ]
     }
@@ -294,6 +296,13 @@ class Farmer extends Component {
         tabledata: res.data.data.list,
         scrollcount: count,
         hasMore: res.data.data.hasMore
+      });
+    })
+    .catch(e => {
+      Swal({
+        type: "error",
+        title: "Oops...",
+        text: e
       });
     });
   };
@@ -434,7 +443,11 @@ class Farmer extends Component {
             document.getElementById("drillUp").style.display = "block";
           })
           .catch(e => {
-            console.log(e);
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
           });
       }
     }
@@ -582,6 +595,7 @@ class Farmer extends Component {
         }
       }
     };
+
     axios({
       url: config.farmerstate,
       method: "POST",
@@ -589,28 +603,36 @@ class Farmer extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => {
-      // console.log(res.data.data)
-      let statenames = res.data.data.mapDataBeanList.map(item => {
-        return item.label;
-      });
-      // console.log(statename)
-      if (res.data.data != null) {
-        this.setState({
-          farmer: res.data.data.totalNoOfFarmers,
-          states: res.data.data.totalNoOfStates,
-          indiadata: res.data.data,
-          statename: statenames,
-          chart: chartConfigs
+    })
+      .then(res => {
+        // console.log(res.data.data)
+        let statenames = res.data.data.mapDataBeanList.map(item => {
+          return item.label;
         });
-        dataSource.data[0].data = res.data.data.mapDataBeanList;
-      } else if (res.data.error !== undefined) {
-        if (res.data.error.errorCode === 153) {
-          window.location.href = "../login.html?redirect=maps";
+        // console.log(statename)
+        if (res.data.data != null) {
+          this.setState({
+            farmer: res.data.data.totalNoOfFarmers,
+            states: res.data.data.totalNoOfStates,
+            indiadata: res.data.data,
+            statename: statenames,
+            chart: chartConfigs
+          });
+          dataSource.data[0].data = res.data.data.mapDataBeanList;
+        } else if (res.data.error !== undefined) {
+          if (res.data.error.errorCode === 153) {
+            window.location.href = "../login.html?redirect=maps";
+          }
         }
-      }
-      this.forceUpdate();
-    });
+        this.forceUpdate();
+      })
+      .catch(e => {
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
+      });
   }
   render() {
     return (
@@ -858,7 +880,7 @@ class Farmer extends Component {
                                     <span>
                                       Land Size:{" "}
                                       <span style={{ color: "#777" }}>
-                                        {item.totalLandSize}{" "}
+                                        {item.totalLandSize}{" Sq Ft"}
                                       </span>
                                     </span>
                                   )}
