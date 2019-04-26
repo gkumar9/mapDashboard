@@ -202,15 +202,22 @@ class Filter extends Component {
                       className="dropdown-menu"
                       aria-labelledby="dropdownMenu1"
                     >
-                      {this.props.states.map(item => {
-                        return (
-                          <li
+                      {this.props.states.map((item) => {
+                        if(item!==null){
+                          return (
+                           <li
                             onClick={this.handlestatefilter.bind(this, item)}
                             key={item.slice(0,1)+item.slice(1).toLowerCase()}
                           >
                             <a>{item.slice(0,1)+item.slice(1).toLowerCase()}</a>
                           </li>
+                         
                         );
+                        }
+                        else{
+                          return(null)
+                        }
+                        
                       })}
                     </ul>
                   </div>

@@ -7,7 +7,7 @@ import India from "./fusioncharts.india";
 import Bihar from "./fusioncharts.bihar";
 import FusionTheme from "fusioncharts/themes/fusioncharts.theme.gammel";
 import ReactFC from "react-fusioncharts";
-import user from "./pins/user.png";
+import user from "./pins/farmer.png";
 import states from "./pins/5.png";
 import axios from "axios";
 import config from "./config.js";
@@ -27,7 +27,14 @@ class FarmerSidebar extends Component {
         }}
         className="col-xs-2 rmssidebar"
       >
-        <h4 style={{ marginTop: "40px", color: "gray", fontSize: "large" }}>
+        <h4
+          style={{
+            marginRight: "32%",
+            marginTop: "40px",
+            color: "gray",
+            fontSize: "large"
+          }}
+        >
           Our Impact
         </h4>
         <ul style={{ marginTop: "40px", color: "black" }}>
@@ -38,7 +45,7 @@ class FarmerSidebar extends Component {
                   className="responsive"
                   alt="user"
                   src={user}
-                  style={{ width: "46px", marginLeft: "-11px" }}
+                  style={{ width: "32px", marginLeft: "-11px", opacity: "0.3" }}
                 />
               </div>
               <div className="col-xs-9">
@@ -98,9 +105,9 @@ class FarmerSidebar extends Component {
         </ul>
         <hr />
         {this.props.statename !== null && (
-          <div>
+          <div style={{ marginLeft: "-5%" }}>
             <h4
-              style={{ marginRight: "38%", color: "gray", fontSize: "large" }}
+              style={{ marginRight: "45%", color: "gray", fontSize: "large" }}
             >
               States
             </h4>
@@ -123,9 +130,9 @@ class FarmerSidebar extends Component {
           </div>
         )}
         {this.props.districtname !== null && (
-          <div>
+          <div style={{ marginLeft: "-5%" }}>
             <h4
-              style={{ marginRight: "32%", color: "gray", fontSize: "large" }}
+              style={{ marginRight: "38%", color: "gray", fontSize: "large" }}
             >
               Districts
             </h4>
@@ -181,8 +188,32 @@ class FarmerHeader extends Component {
                 />
                 Home{" "}
               </button>
-            </Link> */}
-            <span style={{ fontSize: "large", color: "blue" }}>Farmers</span>
+            </Link> */}{" "}
+            <button
+              type="button"
+              className="btn btn-default"
+              aria-label="Left Align"
+              id="drillUp"
+              style={{
+                display: "none",
+                float: "left",
+                // marginRight: "30px",
+                // marginTop: "10px",
+                // color: "blue",
+                outline: "none",
+                backgroundColor: "transparent"
+              }}
+            >
+              <span
+                className="glyphicon glyphicon-menu-left"
+                style={{ marginRight: "6px" }}
+                aria-hidden="true"
+              />
+              Back
+            </button>
+            <span style={{ fontSize: "large", color: "blue" }}>
+              Farmer database in {this.props.label}
+            </span>
           </div>
         </nav>
       </div>
@@ -271,8 +302,9 @@ class Farmer extends Component {
       chart: null,
       tabledata: [],
       ch: {},
-      actualValue: <strong>India</strong>,
-      message: <strong>India</strong>,
+      actualValue: " ",
+      message: " ",
+      label: "India",
       scrollcount: 0,
       hasMore: true,
       blockid: ""
@@ -281,6 +313,7 @@ class Farmer extends Component {
     };
   }
   tableshow = data => {
+    // console.log('table')
     let count = this.state.scrollcount + 1;
     axios({
       url: config.farmertable + data.id + "/farmerlist/" + count,
@@ -289,22 +322,23 @@ class Farmer extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => {
-      // console.log(res);
-      this.setState({
-        blockid: data.id,
-        tabledata: res.data.data.list,
-        scrollcount: count,
-        hasMore: res.data.data.hasMore
-      });
     })
-    .catch(e => {
-      Swal({
-        type: "error",
-        title: "Oops...",
-        text: e
+      .then(res => {
+        // console.log(res);
+        this.setState({
+          blockid: data.id,
+          tabledata: res.data.data.list,
+          scrollcount: count,
+          hasMore: res.data.data.hasMore
+        });
+      })
+      .catch(e => {
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
       });
-    });
   };
   handletable = data => {
     // this.state.ch.dispose();
@@ -314,21 +348,24 @@ class Farmer extends Component {
     let check = false;
     dataSource.data[0].data.map(item => {
       if (item.id === datatemp.originalId) {
-        console.log("found it");
+        // console.log("found it");
         check = true;
       }
     });
     if (check) {
-      let backvalue = this.state.actualValue;
+      // let backvalue = this.state.actualValue;
+      let backbuttontemp = this.state.backbutton;
+      backbuttontemp.push(data.label);
       this.setState({
-        backbutton: ["india", backvalue],
-        actualValue: <strong>{data.label}</strong>,
-        message: <strong>{data.label}</strong>
+        backbutton: backbuttontemp,
+        actualValue: "",
+        label: data.label,
+        message: ""
       });
 
       document.getElementById("chartmap").style.display = "none";
       document.getElementById("first").style.display = "none";
-      document.getElementById("second").style.display = "block";
+      // document.getElementById("second").style.display = "none";
       document.getElementById("farmersidebar").style.display = "none";
       document.getElementById("maptable").style.display = "block";
       this.tableshow(data);
@@ -341,7 +378,7 @@ class Farmer extends Component {
     let check = false;
     dataSource.data[0].data.map(item => {
       if (item.id === datatemp.id) {
-        console.log("found it");
+        // console.log("found it");
         check = true;
       }
     });
@@ -381,17 +418,19 @@ class Farmer extends Component {
           }
         );
         this.setState({
-          backbutton: ["India"],
+          backbutton: [datatemp.label],
           farmers: itemstate[datatemp.id].totalNoOfFarmers,
           states: null,
           districtname: districtnames,
           statename: null,
           chart: chartConfigs,
           district: itemstate[datatemp.id].totalNoOfDistricts,
-          actualValue: <strong>{datatemp.label}</strong>,
-          message: <strong>{datatemp.label}</strong>
+          actualValue: "",
+          label: datatemp.label,
+          message: ""
         });
         document.getElementById("drillUp").style.display = "block";
+        document.getElementById("drillUp").style.marginRight = "-4%";
       } else {
         axios({
           url: config.farmerdistrict + datatemp.id,
@@ -429,18 +468,20 @@ class Farmer extends Component {
               return items.label;
             });
             this.setState({
-              backbutton: ["India"],
+              backbutton: [datatemp.label],
               statedata: tempstatedata,
               farmers: res.data.data.totalNoOfFarmers,
               districtname: districtnames,
               statename: null,
               states: null,
               chart: chartConfigs,
-              actualValue: <strong>{datatemp.label}</strong>,
-              message: <strong>{datatemp.label}</strong>,
+              actualValue: "",
+              label: datatemp.label,
+              message: "",
               district: res.data.data.totalNoOfDistricts
             });
             document.getElementById("drillUp").style.display = "block";
+            document.getElementById("drillUp").style.marginRight = "-4%";
           })
           .catch(e => {
             Swal({
@@ -481,12 +522,12 @@ class Farmer extends Component {
   componentDidMount() {
     let self = this;
     $("#maptable").scroll(function() {
-      // console.log("scroll.......");
       if (
         $(this).scrollTop() + $(this).innerHeight() >=
           $(this)[0].scrollHeight &&
         self.state.hasMore
       ) {
+        // console.log("scroll.......");
         let count = self.state.scrollcount + 1;
         let tabledatanow = self.state.tabledata;
         axios({
@@ -524,18 +565,21 @@ class Farmer extends Component {
         //     }
         //   }
         // };
-        let backlast = self.state.backbutton[self.state.backbutton.length - 1];
+        let backbuttontemp = self.state.backbutton;
+        backbuttontemp.pop();
+        let backlast = backbuttontemp[backbuttontemp.length - 1];
         document.getElementById("chartmap").style.display = "block";
         document.getElementById("first").style.display = "block";
-        document.getElementById("second").style.display = "none";
+        // document.getElementById("second").style.display = "none";
         document.getElementById("farmersidebar").style.display = "block";
         document.getElementById("maptable").style.display = "none";
         self.setState({
-          backbutton: ["India"],
+          backbutton: [backlast],
           tabledata: [],
           scrollcount: 0,
-          actualValue: <strong>{backlast}</strong>,
-          message: <strong>{backlast}</strong>
+          label: backlast,
+          actualValue: "",
+          message: ""
         });
         self.forceUpdate();
       } else if (self.state.backbutton.length === 1) {
@@ -562,7 +606,7 @@ class Farmer extends Component {
           return item.label;
         });
         document.getElementById("drillUp").style.display = "none";
-        let backlast = self.state.backbutton[self.state.backbutton.length - 1];
+        // let backlast = self.state.backbutton[self.state.backbutton.length - 1];
         self.setState({
           backbutton: [],
           farmers: self.state.indiadata.totalNoOfFarmers,
@@ -570,8 +614,9 @@ class Farmer extends Component {
           chart: chartConfigs,
           statename: statenames,
           districtname: null,
-          actualValue: <strong>{backlast}</strong>,
-          message: <strong>{backlast}</strong>,
+          label: "India",
+          actualValue: "",
+          message: "",
           district: null
         });
         self.forceUpdate();
@@ -641,7 +686,7 @@ class Farmer extends Component {
         <div className="mainbody">
           <Sidebar history={this.props.history} />
           <div style={{ backgroundColor: "#F2F2F2" }} className="main">
-            <FarmerHeader />
+            <FarmerHeader label={this.state.label} />
             <div style={{ marginLeft: "0" }} className="row">
               <div id="farmersidebar">
                 <FarmerSidebar
@@ -656,7 +701,7 @@ class Farmer extends Component {
                 style={{ paddingLeft: "0", overflowX: "hidden" }}
                 className=" table-responsive"
               >
-                {" "}
+                {/* {" "}
                 <button
                   className="btn btn-outline-secondary btn-sm"
                   id="drillUp"
@@ -675,40 +720,43 @@ class Farmer extends Component {
                     aria-hidden="true"
                   />
                   Back
-                </button>
+                </button> */}
                 <p
                   id="first"
                   style={{
-                    padding: "10px",
+                    paddingTop: "4px",
                     display: "block",
                     background: "rgb(242, 242, 242)",
                     textAlign: "center",
-                    marginRight: "20%"
+                    marginRight: "20%",
+                    minHeight: "5vh"
                   }}
                 >
                   {this.state.message}
                 </p>
-                <p
+                {/* <p
                   id="second"
                   style={{
-                    padding: "10px",
+                    padding: "4px",
                     display: "none",
                     background: "rgb(242, 242, 242)",
                     textAlign: "center",
-                    marginLeft: "5%"
+                    // marginLeft: "5%",
+                    minHeight:'5vh'
                   }}
                 >
                   {this.state.message}
-                </p>
+                </p> */}
                 <div id="chartmap">
                   <ReactFC {...this.state.chart} />
                 </div>
                 <div
                   id="maptable"
                   style={{
+                    marginTop: "6px",
                     display: "none",
                     overflow: "scroll",
-                    maxHeight: "80vh",
+                    maxHeight: "85vh",
                     paddingLeft: "6px",
                     paddingRight: "6px"
                   }}
@@ -750,7 +798,7 @@ class Farmer extends Component {
                               style={{ marginBottom: "6px" }}
                             >
                               <div className="col-md-10">
-                                <span style={{ fontSize: "large" }}>
+                                <span style={{ fontSize: "inherit" }}>
                                   {number + 1}.
                                   {item.name !== null && item.name !== "N.A" && (
                                     <b>
@@ -880,7 +928,8 @@ class Farmer extends Component {
                                     <span>
                                       Land Size:{" "}
                                       <span style={{ color: "#777" }}>
-                                        {item.totalLandSize}{" Sq Ft"}
+                                        {item.totalLandSize}
+                                        {" Sq Ft"}
                                       </span>
                                     </span>
                                   )}

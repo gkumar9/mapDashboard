@@ -102,7 +102,7 @@ class Header extends Component {
                 
                 <li className="headerdivider" />
                 <li>
-                  <a>Welcome User</a>
+                  <a style={{cursor:'default'}}>Welcome User</a>
                 </li>
                 <li>
                   <a>

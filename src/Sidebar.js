@@ -5,7 +5,7 @@ import IAAS from "./pins/IAAS.png";
 import MINIGRID from "./pins/Minigrid(2).png";
 import HOME from "./pins/ROOFTOP.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
-import FARMER from "./pins/user.png";
+import FARMER from "./pins/user1.png";
 class Sidebar extends Component {
   render() {
     return (
