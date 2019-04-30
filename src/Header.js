@@ -14,6 +14,7 @@ import IAAS from "./pins/IAAS.png";
 import MINIGRID from "./pins/Minigrid(2).png";
 // import HOME from "./pins/ROOFTOP.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
+import FARMER from "./pins/user1.png";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -99,7 +100,12 @@ class Header extends Component {
                     <span className="verticalLine" />
                   </a>
                 </li>
-                
+                <li className="sidebarheader">
+                <Link to="/farmer">
+                    <img alt="Minigrid" src={FARMER} />
+                    Farmer
+                  </Link>
+                </li>
                 <li className="headerdivider" />
                 <li>
                   <a style={{cursor:'default'}}>Welcome User</a>
