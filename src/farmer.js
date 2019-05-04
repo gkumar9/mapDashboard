@@ -7,7 +7,7 @@ import India from "./fusioncharts.india";
 import Bihar from "./fusioncharts.bihar";
 import FusionTheme from "fusioncharts/themes/fusioncharts.theme.gammel";
 import ReactFC from "react-fusioncharts";
-import user from "./pins/farmer.png";
+import user from "./pins/newfarmer.png";
 import states from "./pins/5.png";
 import axios from "axios";
 import config from "./config.js";
