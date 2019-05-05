@@ -104,7 +104,7 @@ class FarmerSidebar extends Component {
           )}
         </ul>
         <hr />
-        {this.props.statename !== null && (
+        {/* {this.props.statename !== null && (
           <div style={{ marginLeft: "-5%" }}>
             <h4
               style={{ marginRight: "45%", color: "gray", fontSize: "large" }}
@@ -128,7 +128,7 @@ class FarmerSidebar extends Component {
               })}
             </ul>
           </div>
-        )}
+        )} */}
         {this.props.districtname !== null && (
           <div style={{ marginLeft: "-5%" }}>
             <h4
@@ -420,7 +420,7 @@ class Farmer extends Component {
         this.setState({
           backbutton: [datatemp.label],
           farmers: itemstate[datatemp.id].totalNoOfFarmers,
-          states: null,
+          // states: null,
           districtname: districtnames,
           statename: null,
           chart: chartConfigs,
@@ -473,7 +473,7 @@ class Farmer extends Component {
               farmers: res.data.data.totalNoOfFarmers,
               districtname: districtnames,
               statename: null,
-              states: null,
+              // states: null,
               chart: chartConfigs,
               actualValue: "",
               label: datatemp.label,
@@ -611,13 +611,14 @@ class Farmer extends Component {
           backbutton: [],
           farmers: self.state.indiadata.totalNoOfFarmers,
           states: self.state.indiadata.totalNoOfStates,
+          district: self.state.indiadata.totalNoOfDistricts,
           chart: chartConfigs,
           statename: statenames,
           districtname: null,
           label: "India",
           actualValue: "",
-          message: "",
-          district: null
+          message: ""
+          // district: null
         });
         self.forceUpdate();
       }
@@ -659,6 +660,7 @@ class Farmer extends Component {
           this.setState({
             farmer: res.data.data.totalNoOfFarmers,
             states: res.data.data.totalNoOfStates,
+            district: res.data.data.totalNoOfDistricts,
             indiadata: res.data.data,
             statename: statenames,
             chart: chartConfigs
@@ -793,13 +795,21 @@ class Farmer extends Component {
                             </div>
                           </div> */}
                           <div className="panel-body">
+                          <div className="row">
+                          <div className="col-md-1" style={{    width: '3.333333%'}}>
+                          {number + 1}.
+                          </div>
+                            <div className="col-md-1" >
+                              <img src={user} style={{width:'7em',opacity:'0.5'}} alt="user img" />
+                            </div>
+                            <div className="col-md-10">
                             <div
                               className="row"
                               style={{ marginBottom: "6px" }}
                             >
-                              <div className="col-md-10">
+                              <div className="col-md-10" style={{   textAlign:'center'}}>
                                 <span style={{ fontSize: "inherit" }}>
-                                  {number + 1}.
+                                  
                                   {item.name !== null && item.name !== "N.A" && (
                                     <b>
                                       {" "}
@@ -996,6 +1006,9 @@ class Farmer extends Component {
                                   )}
                               </div>
                             </div>
+                            </div>
+                          </div>
+                            
                           </div>
                         </div>
                       </div>
