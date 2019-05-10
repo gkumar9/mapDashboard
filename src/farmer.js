@@ -129,7 +129,7 @@ class FarmerSidebar extends Component {
             </ul>
           </div>
         )} */}
-        {this.props.districtname !== null && (
+        {/* {this.props.districtname !== null && (
           <div style={{ marginLeft: "-5%" }}>
             <h4
               style={{ marginRight: "38%", color: "gray", fontSize: "large" }}
@@ -153,7 +153,7 @@ class FarmerSidebar extends Component {
               })}
             </ul>
           </div>
-        )}
+        )} */}
       </div>
     );
   }
@@ -292,8 +292,8 @@ class Farmer extends Component {
     super(props);
     this.state = {
       farmers: "",
-      statename: null,
-      districtname: null,
+      // statename: null,
+      // districtname: null,
       states: null,
       district: null,
       backbutton: [],
@@ -306,7 +306,7 @@ class Farmer extends Component {
       message: " ",
       label: "India",
       scrollcount: 0,
-      hasMore: true,
+      hasMore: null,
       blockid: ""
       // isLoading: false
       // users: [],
@@ -314,6 +314,8 @@ class Farmer extends Component {
   }
   tableshow = data => {
     // console.log('table')
+    // document.getElementById("listendmessage").style.display = "none";
+    this.setState({ hasMore: null });
     let count = this.state.scrollcount + 1;
     axios({
       url: config.farmertable + data.id + "/farmerlist/" + count,
@@ -331,6 +333,34 @@ class Farmer extends Component {
           scrollcount: count,
           hasMore: res.data.data.hasMore
         });
+        if (res.data.data.hasMore) {
+          let count = this.state.scrollcount + 1;
+          let tabledatanow = this.state.tabledata;
+          axios({
+            url: config.farmertable + data.id + "/farmerlist/" + count,
+            method: "POST",
+            data: {},
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+            .then(res => {
+              // console.log(res);
+              this.setState({
+                blockid: data.id,
+                tabledata: tabledatanow.concat(res.data.data.list),
+                scrollcount: count,
+                hasMore: res.data.data.hasMore
+              });
+            })
+            .catch(e => {
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: e
+              });
+            });
+        }
       })
       .catch(e => {
         Swal({
@@ -412,17 +442,17 @@ class Farmer extends Component {
             }
           }
         };
-        let districtnames = itemstate[datatemp.id].mapDataBeanList.map(
-          items => {
-            return items.label;
-          }
-        );
+        // let districtnames = itemstate[datatemp.id].mapDataBeanList.map(
+        //   items => {
+        //     return items.label;
+        //   }
+        // );
         this.setState({
           backbutton: [datatemp.label],
           farmers: itemstate[datatemp.id].totalNoOfFarmers,
           // states: null,
-          districtname: districtnames,
-          statename: null,
+          // districtname: districtnames,
+          // statename: null,
           chart: chartConfigs,
           district: itemstate[datatemp.id].totalNoOfDistricts,
           actualValue: "",
@@ -464,15 +494,15 @@ class Farmer extends Component {
             statetemp[datatemp.id] = res.data.data;
             let tempstatedata = self.state.statedata;
             tempstatedata.push(statetemp);
-            let districtnames = res.data.data.mapDataBeanList.map(items => {
-              return items.label;
-            });
+            // let districtnames = res.data.data.mapDataBeanList.map(items => {
+            //   return items.label;
+            // });
             this.setState({
               backbutton: [datatemp.label],
               statedata: tempstatedata,
               farmers: res.data.data.totalNoOfFarmers,
-              districtname: districtnames,
-              statename: null,
+              // districtname: districtnames,
+              // statename: null,
               // states: null,
               chart: chartConfigs,
               actualValue: "",
@@ -521,15 +551,17 @@ class Farmer extends Component {
   };
   componentDidMount() {
     let self = this;
+
     $("#maptable").scroll(function() {
       if (
         $(this).scrollTop() + $(this).innerHeight() >=
           $(this)[0].scrollHeight &&
         self.state.hasMore
       ) {
-        // console.log("scroll.......");
+        // document.getElementById("listendmessage").style.display = "none";
         let count = self.state.scrollcount + 1;
         let tabledatanow = self.state.tabledata;
+
         axios({
           url: config.farmertable + self.state.blockid + "/farmerlist/" + count,
           method: "POST",
@@ -537,15 +569,33 @@ class Farmer extends Component {
           headers: {
             "Content-Type": "application/json"
           }
-        }).then(res => {
-          // console.log(res);
+        })
+          .then(res => {
+            // console.log(res);
 
-          self.setState({
-            tabledata: tabledatanow.concat(res.data.data.list),
-            scrollcount: count,
-            hasMore: res.data.data.hasMore
+            self.setState({
+              tabledata: tabledatanow.concat(res.data.data.list),
+              scrollcount: count,
+              hasMore: res.data.data.hasMore
+            });
+            if (!res.data.data.hasMore) {
+              // console.log('block')
+              document.getElementById("listendmessage").style.display = "block";
+            }
+          })
+          .catch(e => {
+            console.log(e);
           });
-        });
+      } else if (
+        $(this).scrollTop() + $(this).innerHeight() > $(this)[0].scrollHeight &&
+        self.state.hasMore !== null &&
+        !self.state.hasMore
+      ) {
+        // console.log('block',self.state.hasMore,($(this).scrollTop() + $(this).innerHeight() >
+        // $(this)[0].scrollHeight))
+        document.getElementById("listendmessage").style.display = "block";
+      } else {
+        document.getElementById("listendmessage").style.display = "none";
       }
     });
     $("#drillUp").click(function() {
@@ -572,6 +622,7 @@ class Farmer extends Component {
         document.getElementById("first").style.display = "block";
         // document.getElementById("second").style.display = "none";
         document.getElementById("farmersidebar").style.display = "block";
+        document.getElementById("listendmessage").style.display = "none";
         document.getElementById("maptable").style.display = "none";
         self.setState({
           backbutton: [backlast],
@@ -602,9 +653,9 @@ class Farmer extends Component {
             }
           }
         };
-        let statenames = self.state.indiadata.mapDataBeanList.map(item => {
-          return item.label;
-        });
+        // let statenames = self.state.indiadata.mapDataBeanList.map(item => {
+        //   return item.label;
+        // });
         document.getElementById("drillUp").style.display = "none";
         // let backlast = self.state.backbutton[self.state.backbutton.length - 1];
         self.setState({
@@ -613,8 +664,8 @@ class Farmer extends Component {
           states: self.state.indiadata.totalNoOfStates,
           district: self.state.indiadata.totalNoOfDistricts,
           chart: chartConfigs,
-          statename: statenames,
-          districtname: null,
+          // statename: statenames,
+          // districtname: null,
           label: "India",
           actualValue: "",
           message: ""
@@ -652,9 +703,9 @@ class Farmer extends Component {
     })
       .then(res => {
         // console.log(res.data.data)
-        let statenames = res.data.data.mapDataBeanList.map(item => {
-          return item.label;
-        });
+        // let statenames = res.data.data.mapDataBeanList.map(item => {
+        //   return item.label;
+        // });
         // console.log(statename)
         if (res.data.data != null) {
           this.setState({
@@ -662,7 +713,7 @@ class Farmer extends Component {
             states: res.data.data.totalNoOfStates,
             district: res.data.data.totalNoOfDistricts,
             indiadata: res.data.data,
-            statename: statenames,
+            // statename: statenames,
             chart: chartConfigs
           });
           dataSource.data[0].data = res.data.data.mapDataBeanList;
@@ -695,8 +746,8 @@ class Farmer extends Component {
                   farmers={this.state.farmer}
                   district={this.state.district}
                   states={this.state.states}
-                  statename={this.state.statename}
-                  districtname={this.state.districtname}
+                  // statename={this.state.statename}
+                  // districtname={this.state.districtname}
                 />
               </div>
               <div
@@ -758,11 +809,12 @@ class Farmer extends Component {
                     marginTop: "6px",
                     display: "none",
                     overflow: "scroll",
-                    maxHeight: "85vh",
+                    maxHeight: "80vh",
                     paddingLeft: "6px",
                     paddingRight: "6px"
                   }}
                 >
+                  <div style={{ minHeight: "101%" }} />
                   {this.state.tabledata.map((item, number) => {
                     let mod = number % 2;
                     return (
@@ -795,225 +847,248 @@ class Farmer extends Component {
                             </div>
                           </div> */}
                           <div className="panel-body">
-                          <div className="row">
-                          <div className="col-md-1" style={{    width: '3.333333%'}}>
-                          {number + 1}.
-                          </div>
-                            <div className="col-md-1" >
-                              <img src={user} style={{width:'7em',opacity:'0.5'}} alt="user img" />
-                            </div>
-                            <div className="col-md-10">
-                            <div
-                              className="row"
-                              style={{ marginBottom: "6px" }}
-                            >
-                              <div className="col-md-10" style={{   textAlign:'center'}}>
-                                <span style={{ fontSize: "inherit" }}>
-                                  
-                                  {item.name !== null && item.name !== "N.A" && (
-                                    <b>
-                                      {" "}
-                                      {"  "} {item.name}
-                                    </b>
-                                  )}
-                                  {item.contactNo !== null &&
-                                    item.contactNo !== "N.A" && (
+                            <div className="row">
+                              <div
+                                className="col-md-1"
+                                style={{ width: "3.333333%" }}
+                              >
+                                {number + 1}.
+                              </div>
+                              <div className="col-md-1">
+                                <img
+                                  src={user}
+                                  style={{ width: "6em", opacity: "0.5" }}
+                                  alt="user img"
+                                />
+                              </div>
+                              <div className="col-md-10">
+                                <div
+                                  className="row"
+                                  style={{ marginBottom: "6px" }}
+                                >
+                                  <div
+                                    className="col-md-10"
+                                    style={{ textAlign: "center" }}
+                                  >
+                                    <span style={{ fontSize: "inherit" }}>
+                                      {item.name !== null &&
+                                        item.name !== "N.A" && (
+                                          <b>
+                                            {" "}
+                                            {"  "} {item.name}
+                                          </b>
+                                        )}
+                                      {item.contactNo !== null &&
+                                        item.contactNo !== "N.A" && (
+                                          <span>
+                                            , <small>{item.contactNo}</small>
+                                          </span>
+                                        )}
+                                    </span>
+                                  </div>
+                                  <div className="col-md-2">
+                                    {item.lastUpdate !== null &&
+                                      item.lastUpdate !== "N.A" && (
+                                        <div>
+                                          <span>Last Update:</span>
+                                          <span style={{ color: "#777" }}>
+                                            {item.lastUpdate}
+                                          </span>
+                                        </div>
+                                      )}
+                                  </div>
+                                </div>
+                                <div className="row">
+                                  <div className="col-md-4">
+                                    {item.fatherName !== null &&
+                                      item.fatherName !== "N.A" && (
+                                        <span>
+                                          <span>S/O </span>
+                                          <span style={{ color: "#777" }}>
+                                            {item.fatherName}
+                                          </span>
+                                        </span>
+                                      )}
+                                    <br />
+                                    {item.dob !== null && item.dob !== "N.A" && (
                                       <span>
-                                        , <small>{item.contactNo}</small>
+                                        <span>DOB:</span>{" "}
+                                        <span style={{ color: "#777" }}>
+                                          {item.dob}
+                                        </span>
                                       </span>
                                     )}
-                                </span>
-                              </div>
-                              <div className="col-md-2">
-                                {item.lastUpdate !== null &&
-                                  item.lastUpdate !== "N.A" && (
-                                    <div>
-                                      <span>Last Update:</span>
-                                      <span style={{ color: "#777" }}>
-                                        {item.lastUpdate}
-                                      </span>
-                                    </div>
-                                  )}
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-md-4">
-                                {item.fatherName !== null &&
-                                  item.fatherName !== "N.A" && (
-                                    <span>
-                                      <span>S/O </span>
-                                      <span style={{ color: "#777" }}>
-                                        {item.fatherName}
-                                      </span>
-                                    </span>
-                                  )}
-                                <br />
-                                {item.dob !== null && item.dob !== "N.A" && (
-                                  <span>
-                                    <span>DOB:</span>{" "}
-                                    <span style={{ color: "#777" }}>
-                                      {item.dob}
-                                    </span>
-                                  </span>
-                                )}
-                                {item.dob !== null &&
-                                  item.dob !== "N.A" &&
-                                  item.gender !== null &&
-                                  item.gender !== "N.A" && (
-                                    <span style={{ color: "#777" }}>
-                                      ,{" "}
-                                      {item.gender === "M" ? "Male" : "Female"}
-                                    </span>
-                                  )}
-                                {(item.dob === null || item.dob === "N.A") &&
-                                  (item.gender !== null &&
-                                    item.gender !== "N.A") && (
-                                    <span>
-                                      <span>Gender :</span>
-                                      <span style={{ color: "#777" }}>
-                                        {" "}
-                                        {item.gender === "M"
-                                          ? "Male"
-                                          : "Female"}
-                                      </span>
-                                    </span>
-                                  )}
+                                    {item.dob !== null &&
+                                      item.dob !== "N.A" &&
+                                      item.gender !== null &&
+                                      item.gender !== "N.A" && (
+                                        <span style={{ color: "#777" }}>
+                                          ,{" "}
+                                          {item.gender === "M"
+                                            ? "Male"
+                                            : "Female"}
+                                        </span>
+                                      )}
+                                    {(item.dob === null ||
+                                      item.dob === "N.A") &&
+                                      (item.gender !== null &&
+                                        item.gender !== "N.A") && (
+                                        <span>
+                                          <span>Gender :</span>
+                                          <span style={{ color: "#777" }}>
+                                            {" "}
+                                            {item.gender === "M"
+                                              ? "Male"
+                                              : "Female"}
+                                          </span>
+                                        </span>
+                                      )}
 
-                                <br />
-                                {item.farmerRegDate !== null &&
-                                  item.farmerRegDate !== "N.A" && (
-                                    <span>
-                                      <span>Registered on: </span>
-                                      <span style={{ color: "#777" }}>
-                                        {" "}
-                                        {item.farmerRegDate}
-                                      </span>
-                                    </span>
-                                  )}
-                              </div>
-                              <div className="col-md-4">
-                                {item.community !== null &&
-                                  item.community !== "N.A" && (
-                                    <span>
-                                      Community:{" "}
-                                      <span style={{ color: "#777" }}>
-                                        {" "}
-                                        {item.community}
-                                      </span>
-                                    </span>
-                                  )}
-                                {item.community !== null &&
-                                  item.community !== "N.A" &&
-                                  item.subCommunity !== null &&
-                                  item.subCommunity !== "N.A" && (
-                                    <span style={{ color: "#777" }}>
-                                      , {item.subCommunity}
-                                    </span>
-                                  )}
-                                {item.community === null &&
-                                  item.community === "N.A" &&
-                                  item.subCommunity !== null &&
-                                  item.subCommunity !== "N.A" && (
-                                    <span>
-                                      Sub-community:{" "}
-                                      <span style={{ color: "#777" }}>
-                                        {item.subCommunity}{" "}
-                                      </span>
-                                    </span>
-                                  )}
-                                <br />
-                                {item.govtCardHolder !== null &&
-                                  item.govtCardHolder !== "N.A" && (
-                                    <span>
-                                      Govt. card Holder:{" "}
-                                      <span style={{ color: "#777" }}>
-                                        {item.govtCardHolder}
-                                      </span>
-                                    </span>
-                                  )}
+                                    <br />
+                                    {item.farmerRegDate !== null &&
+                                      item.farmerRegDate !== "N.A" && (
+                                        <span>
+                                          <span>Registered on: </span>
+                                          <span style={{ color: "#777" }}>
+                                            {" "}
+                                            {item.farmerRegDate}
+                                          </span>
+                                        </span>
+                                      )}
+                                  </div>
+                                  <div className="col-md-4">
+                                    {item.community !== null &&
+                                      item.community !== "N.A" && (
+                                        <span>
+                                          Community:{" "}
+                                          <span style={{ color: "#777" }}>
+                                            {" "}
+                                            {item.community}
+                                          </span>
+                                        </span>
+                                      )}
+                                    {item.community !== null &&
+                                      item.community !== "N.A" &&
+                                      item.subCommunity !== null &&
+                                      item.subCommunity !== "N.A" && (
+                                        <span style={{ color: "#777" }}>
+                                          , {item.subCommunity}
+                                        </span>
+                                      )}
+                                    {item.community === null &&
+                                      item.community === "N.A" &&
+                                      item.subCommunity !== null &&
+                                      item.subCommunity !== "N.A" && (
+                                        <span>
+                                          Sub-community:{" "}
+                                          <span style={{ color: "#777" }}>
+                                            {item.subCommunity}{" "}
+                                          </span>
+                                        </span>
+                                      )}
+                                    <br />
+                                    {item.govtCardHolder !== null &&
+                                      item.govtCardHolder !== "N.A" && (
+                                        <span>
+                                          Govt. card Holder:{" "}
+                                          <span style={{ color: "#777" }}>
+                                            {item.govtCardHolder}
+                                          </span>
+                                        </span>
+                                      )}
 
-                                <br />
-                                {item.totalLandSize !== null &&
-                                  item.totalLandSize !== "N.A" && (
-                                    <span>
-                                      Land Size:{" "}
-                                      <span style={{ color: "#777" }}>
-                                        {item.totalLandSize}
-                                        {" Sq Ft"}
-                                      </span>
-                                    </span>
-                                  )}
-                              </div>
-                              <div className="col-md-4">
-                                {item.houseType !== null &&
-                                  item.houseType !== "N.A" && (
-                                    <span>
-                                      House type:{" "}
-                                      <span style={{ color: "#777" }}>
-                                        {" "}
-                                        {item.houseType}
-                                      </span>
-                                    </span>
-                                  )}
+                                    <br />
+                                    {item.totalLandSize !== null &&
+                                      item.totalLandSize !== "N.A" && (
+                                        <span>
+                                          Land Size:{" "}
+                                          <span style={{ color: "#777" }}>
+                                            {item.totalLandSize}
+                                            {" Sq Ft"}
+                                          </span>
+                                        </span>
+                                      )}
+                                  </div>
+                                  <div className="col-md-4">
+                                    {item.houseType !== null &&
+                                      item.houseType !== "N.A" && (
+                                        <span>
+                                          House type:{" "}
+                                          <span style={{ color: "#777" }}>
+                                            {" "}
+                                            {item.houseType}
+                                          </span>
+                                        </span>
+                                      )}
 
-                                <br />
-                                {((item.block !== null &&
-                                  item.block !== "N.A") ||
-                                  (item.district !== null &&
-                                    item.district !== "N.A") ||
-                                  (item.village !== null &&
-                                    item.village !== "N.A")) && (
-                                  <span>Address: </span>
-                                )}
+                                    <br />
+                                    {((item.block !== null &&
+                                      item.block !== "N.A") ||
+                                      (item.district !== null &&
+                                        item.district !== "N.A") ||
+                                      (item.village !== null &&
+                                        item.village !== "N.A")) && (
+                                      <span>Address: </span>
+                                    )}
 
-                                {item.block !== null &&
-                                  item.block !== "N.A" && (
-                                    <span style={{ color: "#777" }}>
-                                      {item.block}
-                                    </span>
-                                  )}
-                                {item.district !== null &&
-                                  item.district !== "N.A" && (
-                                    <span style={{ color: "#777" }}>
-                                      , {item.district}
-                                    </span>
-                                  )}
-                                {item.village !== null &&
-                                  item.village !== "N.A" && (
-                                    <span style={{ color: "#777" }}>
-                                      , {item.village}
-                                    </span>
-                                  )}
+                                    {item.block !== null &&
+                                      item.block !== "N.A" && (
+                                        <span style={{ color: "#777" }}>
+                                          {item.block}
+                                        </span>
+                                      )}
+                                    {item.district !== null &&
+                                      item.district !== "N.A" && (
+                                        <span style={{ color: "#777" }}>
+                                          , {item.district}
+                                        </span>
+                                      )}
+                                    {item.village !== null &&
+                                      item.village !== "N.A" && (
+                                        <span style={{ color: "#777" }}>
+                                          , {item.village}
+                                        </span>
+                                      )}
 
-                                <br />
-                                {item.state !== null && item.state !== "N.A" && (
-                                  <span>
-                                    State:{" "}
-                                    <span style={{ color: "#777" }}>
-                                      {" "}
-                                      {item.state}
-                                    </span>
-                                  </span>
-                                )}
-                                {item.pincode !== null &&
-                                  item.pincode !== "N.A" && (
-                                    <span>
-                                      , PIN:{" "}
-                                      <span style={{ color: "#777" }}>
-                                        {item.pincode}
-                                      </span>
-                                    </span>
-                                  )}
+                                    <br />
+                                    {item.state !== null &&
+                                      item.state !== "N.A" && (
+                                        <span>
+                                          State:{" "}
+                                          <span style={{ color: "#777" }}>
+                                            {" "}
+                                            {item.state}
+                                          </span>
+                                        </span>
+                                      )}
+                                    {item.pincode !== null &&
+                                      item.pincode !== "N.A" && (
+                                        <span>
+                                          , PIN:{" "}
+                                          <span style={{ color: "#777" }}>
+                                            {item.pincode}
+                                          </span>
+                                        </span>
+                                      )}
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                            </div>
-                          </div>
-                            
                           </div>
                         </div>
                       </div>
                     );
                   })}
+                </div>
+                <div
+                  id="listendmessage"
+                  style={{
+                    display: "none",
+                    margin: "0 auto",
+                    textAlign: "center"
+                  }}
+                >
+                  You have come till the end of list.
                 </div>
               </div>
             </div>

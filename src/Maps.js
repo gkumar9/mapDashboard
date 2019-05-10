@@ -94,6 +94,7 @@ class MapContainer extends Component {
     };
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onClose = this.onClose.bind(this);
+    this.portalredirect=this.portalredirect.bind(this);
   }
   onMarkerClick(props, marker, e) {
     let url;
@@ -154,6 +155,9 @@ class MapContainer extends Component {
         activeMarker: null
       });
     }
+  }
+  portalredirect(id){
+    console.log('ddd')
   }
   render() {
     return (
@@ -353,20 +357,13 @@ class MapContainer extends Component {
                 {this.state.selectedPlace.assetType === "DRINKING_WATER_PUMP" ||
                 this.state.selectedPlace.assetType === "IRRIGATION_PUMP" ? (
                   <div>
-                    <span>Visit portal</span>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href={
-                        "../all_rms/rmspage.html?CID=" +
-                        this.state.selectedPlace.id
-                      }
-                    >
+                  <button onClick={this.portalredirect.bind(this, this.state.selectedPlace)}><span>Visit portal</span>
+                    
                       <i
                         className="fa fa-external-link-square"
                         aria-hidden="true"
                       />
-                    </a>
+                    </button>
                   </div>
                 ) : (
                   <div />

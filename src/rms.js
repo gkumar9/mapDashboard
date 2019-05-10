@@ -70,6 +70,7 @@ class Rmsdatatable extends Component {
     });
     $("#table_id").delegate("tr td:first-child", "click", function() {
       let rmssubdata = otable.row($(this).parents("tr")).data();
+      // console.log(rmssubdata)
       self.props.history.push({
         pathname: "/rms/" + rmssubdata.vfdSno,
         state: { detail: rmssubdata }

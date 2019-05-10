@@ -76,54 +76,58 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    axios({
-      url: config.allpins,
-      method: "POST",
-      data: {
-        temp: "temp"
-      },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => {
-        let tempstate = this.state.states;
-        if (res.data.data !== null) {
-          res.data.data.list.map(itemmap => {
-            let check = false;
-            tempstate.map(itemstate => {
-              if (itemmap.state === itemstate) {
-                check = true;
-              }
-            });
-            if (check === false) {
-              tempstate.push(itemmap.state);
-            }
-          });
-          this.setState({
-            allpins: res.data.data.list,
-            filteredpins: res.data.data.list,
-            states: tempstate
-          });
-        } else if (res.data.error !== undefined) {
-          if (res.data.error.errorCode === 153) {
-            window.location.href = "../login.html?redirect=maps";
-          } else {
-            Swal({
-              type: "error",
-              title: "Oops...",
-              text: res.data.error.errorMsg
-            });
-          }
+    console.log('ui')
+    if(this.state.allpins.length===0&&this.state.states.length===0&&this.state.filteredpins.length===0){
+      axios({
+        url: config.allpins,
+        method: "POST",
+        data: {
+          temp: "temp"
+        },
+        headers: {
+          "Content-Type": "application/json"
         }
       })
-      .catch(e => {
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
+        .then(res => {
+          let tempstate = this.state.states;
+          if (res.data.data !== null) {
+            res.data.data.list.map(itemmap => {
+              let check = false;
+              tempstate.map(itemstate => {
+                if (itemmap.state === itemstate) {
+                  check = true;
+                }
+              });
+              if (check === false) {
+                tempstate.push(itemmap.state);
+              }
+            });
+            this.setState({
+              allpins: res.data.data.list,
+              filteredpins: res.data.data.list,
+              states: tempstate
+            });
+          } else if (res.data.error !== undefined) {
+            if (res.data.error.errorCode === 153) {
+              window.location.href = "../login.html?redirect=maps";
+            } else {
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: res.data.error.errorMsg
+              });
+            }
+          }
+        })
+        .catch(e => {
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
         });
-      });
+    }
+    
   }
 
   render() {
