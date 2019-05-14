@@ -1,82 +1,93 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "Lato";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
-g[class^='raphael-group-'][class$='-creditgroup'] {
-    display:none !important;
+g[class^="raphael-group-"][class$="-creditgroup"] {
+  display: none !important;
+}
+table.dataTable tbody tr {
+  background-color: #f2f2f2;
 }
 a {
   cursor: pointer;
 }
-.graycolortable{
-  background: #F9F9F9
+.graycolortable {
+  background: #f9f9f9;
 }
-.table-hover>tbody>tr:hover{
+.table-hover > tbody > tr:hover {
   background-color: #ffffff;
 }
-.modal{
+.modal {
   display: content !important;
 }
-li.pvlist{
-  width:fit-content;
-  text-align:center;
-  }
-  a.pvlist{
+li.pvlist {
+  width: fit-content;
+  text-align: center;
+}
+a.pvlist {
   color: black;
-  }
-  .nav-pills>li.active.pvlist>a{
-  background:#666666 !important;
-  }
-  #sel{
+}
+.nav-pills > li.active.pvlist > a {
+  background: #666666 !important;
+}
+#sel {
   width: 100px;
-  
-  }
-.dataTables_filter{
+}
+.dataTables_filter {
   margin-right: 15px;
+  float: right;
+  display: inline-block;
 }
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
-  background-color:#f9f9f9 !important;
+.dataTables_length {
+  display: inline-block;
 }
-.btn-default{
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  background-color: #f9f9f9 !important;
+}
+.btn-default {
   border-color: transparent !important;
 }
-table.dataTable thead th, table.dataTable thead td{
+table.dataTable thead th,
+table.dataTable thead td {
   border-bottom: 0 !important;
 }
-.dataTables_wrapper .dataTables_filter input{
+.dataTables_wrapper .dataTables_filter input {
   border-radius: 5px;
-  background:transparent !important;
+  background: transparent !important;
   border-style: ridge !important;
 }
-input[type=search]:focus {
+input[type="search"]:focus {
   outline: none;
 }
-label{
+label {
   font-weight: 500 !important;
-  color:gray;
+  color: gray;
 }
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
-.rmssidebar{
-  margin-bottom: 35px 
+.rmssidebar {
+  margin-bottom: 35px;
 }
-.col-xs-9{
+.col-xs-9 {
   text-align: left;
 }
-ul{
- list-style-type: none;
+ul {
+  list-style-type: none;
 }
-.btn.disabled{
-  background:transparent !important;
+.btn.disabled {
+  background: transparent !important;
   border-color: gray !important;
-  color:black !important;
+  color: black !important;
 }
-.headerbutton{
+.headerbutton {
   float: left !important;
   margin-right: 0px !important;
 }
@@ -115,48 +126,48 @@ ul{
   display: none;
 }
 a.disabled {
- /*pointer-events: none;
+  /*pointer-events: none;
  */
   cursor: not-allowed;
 }
-.filterbuttonreset{
+.filterbuttonreset {
   margin-top: 8px;
   margin-right: -20px;
-  float:right;
-  border-radius:0;
+  float: right;
+  border-radius: 0;
   border-color: blue;
   /* border-width: 1.2px; */
   color: blue;
   outline: none !important;
-  width:8%;
+  width: 8%;
 }
-.filterbuttonapply{
-  margin-top:8px;
+.filterbuttonapply {
+  margin-top: 8px;
   margin-right: 18px;
   outline: none !important;
-  float:right;
-  background:#3A50FC !important;
-  border-radius:0;
-  width:8%;
+  float: right;
+  background: #3a50fc !important;
+  border-radius: 0;
+  width: 8%;
 }
-.btn-primary:hover{
-  background-color:#3A50FC;
+.btn-primary:hover {
+  background-color: #3a50fc;
 }
-.btn-primary:active{
-  background-color:#3A50FC;
+.btn-primary:active {
+  background-color: #3a50fc;
 }
-.btn-default:hover{
+.btn-default:hover {
   background: white;
-  border-color:blue;
-  color:blue;
+  border-color: blue;
+  color: blue;
 }
-.btn-default:active{
+.btn-default:active {
   background: white;
 }
-.sidebarheader{
+.sidebarheader {
   display: none !important;
 }
-.dropdown{
+.dropdown {
   margin: 7px;
 }
 .navbar-collapse {
@@ -164,54 +175,54 @@ a.disabled {
   overflow-y: auto !important;
   padding-left: 10px !important;
 }
-.filterIcon{
+.filterIcon {
   display: none;
- /*transform: rotate(90deg);
+  /*transform: rotate(90deg);
  */
 }
 .navbar-default {
   background-color: white;
 }
 .navbar-default1 {
-  background-color: #E3E1D2;
+  background-color: #e3e1d2;
 }
 .verticalLine {
-  border-right:1.5px solid #aab;
+  border-right: 1.5px solid #aab;
   margin: auto;
 }
 .container {
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
 }
-.navbar{
+.navbar {
   margin-bottom: 0px;
 }
-.headerdivider{
+.headerdivider {
   height: 2px;
   margin: 9px 0;
   overflow: hidden;
   background-color: #e5e5e5;
 }
-.filterImg{
+.filterImg {
   width: 14%;
   margin-top: -10px;
 }
-.filterText{
-  margin-left:10px 
+.filterText {
+  margin-left: 10px;
 }
-.filterItem{
+.filterItem {
   margin-left: 5px;
-  width:140px;
+  width: 140px;
 }
 .btn .caret {
   margin-left: 8px;
 }
-.gaurav{
+.gaurav {
   float: right;
 }
-.main{
+.main {
   -webkit-box-flex: 3;
- /*-ms-flex: 3;
+  /*-ms-flex: 3;
  */
   flex: 3;
   -webkit-box-ordinal-group: 3;
@@ -219,84 +230,100 @@ a.disabled {
   order: 2;
   position: relative;
   min-height: 100%;
-  width:-webkit-fill-available
+  width: -webkit-fill-available;
 }
-#filter{
+#filter {
   background-color: #edeef0;
   border-bottom-color: darkgray;
 }
-input[type=checkbox], input[type=radio]{
-  margin:18px 0 0;
+input[type="checkbox"],
+input[type="radio"] {
+  margin: 18px 0 0;
 }
 .main_sidebar {
- /*min-height:100vh;
+  /*min-height:100vh;
  */
-  position:relative;
- /*top:52px;
+  position: relative;
+  /*top:52px;
  */
-  left:0;
+  left: 0;
   background: #f9f9f9;
   order: 1;
- /*width:min-content;
+  /*width:min-content;
  */
   transition: all 300ms cubic-bezier(0.65, 0.05, 0.36, 1);
   box-shadow: inset -1px 0 5px rgba(0, 0, 0, 0.4);
 }
 .main_sidebar ul {
-  padding-left:69px;
+  padding-left: 69px;
 }
 .main_sidebar ul li {
-  padding:8px 1px 12px;
-  display:flex;
+  padding: 8px 1px 12px;
+  display: flex;
   width: min-content;
   opacity: 0.3;
 }
 .main_sidebar ul li a {
-  color:#777;
-  display:block;
+  color: #777;
+  display: block;
 }
 .main_sidebar ul li i {
-  float:left;
-  color:grey;
-  margin-left:-58px;
-  font-size:24px;
-  padding-left:7px;
+  float: left;
+  color: grey;
+  margin-left: -58px;
+  font-size: 24px;
+  padding-left: 7px;
 }
 .main_sidebar ul li i img {
   width: 54%;
 }
 .main_sidebar ul li:hover {
-  background:#3A50FC;
-  opacity: 1 
+  background: #3a50fc;
+  opacity: 1;
 }
 .main_sidebar ul li a {
-  color:#fff;
-  text-decoration:none;
+  color: #fff;
+  text-decoration: none;
 }
 .main_sidebar ul li a:hover {
-  color:#fff;
-  text-decoration:none;
+  color: #fff;
+  text-decoration: none;
 }
 .main_sidebar ul li i {
-  color:#aaa;
+  color: #aaa;
 }
 .main_sidebar ul li:hover i {
-  color:black;
+  color: black;
 }
 .main_sidebar ul li.active {
-  background:#3A50FC;
+  background: #3a50fc;
   opacity: 1;
 }
 .main_sidebar ul li.active i {
-  color:black;
+  color: black;
 }
 .main_sidebar ul li.active:hover {
-  background:#3A50FC;
+  background: #3a50fc;
 }
 .main_sidebar ul li.active:hover i {
-  color:black;
+  color: black;
 }
-#root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(1){
+#root
+  > div
+  > div.mainbody
+  > div
+  > div:nth-child(2)
+  > div:nth-child(1)
+  > div
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(3)
+  > div
+  > div:nth-child(4)
+  > div
+  > div:nth-child(1)
+  > div:nth-child(1) {
   border-top-width: 24px;
   position: absolute;
   left: 1px !important;
@@ -304,7 +331,23 @@ input[type=checkbox], input[type=radio]{
   top: 278px !important;
   text-shadow: 0 0 0px black;
 }
-#root > div > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(3){
+#root
+  > div
+  > div
+  > div.mainbody
+  > div
+  > div:nth-child(2)
+  > div:nth-child(1)
+  > div
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(3)
+  > div
+  > div:nth-child(4)
+  > div
+  > div:nth-child(1)
+  > div:nth-child(3) {
   border-top-width: 24px;
   position: absolute;
   left: 1px !important;
@@ -321,32 +364,92 @@ input[type=checkbox], input[type=radio]{
 }
 */
 
-#root > div > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(4){
+#root
+  > div
+  > div
+  > div.mainbody
+  > div
+  > div:nth-child(2)
+  > div:nth-child(1)
+  > div
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(3)
+  > div
+  > div:nth-child(4)
+  > div
+  > div:nth-child(1)
+  > div:nth-child(4) {
   width: 283px !important;
   height: 558px !important;
   overflow: auto !important;
 }
-#root > div > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(2){
+#root
+  > div
+  > div
+  > div.mainbody
+  > div
+  > div:nth-child(2)
+  > div:nth-child(1)
+  > div
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(3)
+  > div
+  > div:nth-child(4)
+  > div
+  > div:nth-child(1)
+  > div:nth-child(2) {
   width: 283px !important;
   height: 558px !important;
   overflow: auto !important;
 }
-#root > div > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > button{
-  top:11px !important;
-  right:46px !important;
-  width:46px !important;
+#root
+  > div
+  > div
+  > div.mainbody
+  > div
+  > div:nth-child(2)
+  > div:nth-child(1)
+  > div
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(3)
+  > div
+  > div:nth-child(4)
+  > div
+  > button {
+  top: 11px !important;
+  right: 46px !important;
+  width: 46px !important;
   margin-right: 10px !important;
 }
-#root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div{
+#root
+  > div
+  > div.mainbody
+  > div
+  > div:nth-child(2)
+  > div:nth-child(1)
+  > div
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(3)
+  > div
+  > div:nth-child(4)
+  > div {
   width: 283px !important;
   height: 580px !important;
- /*overflow: auto !important;
+  /*overflow: auto !important;
  */
 }
-.gm-style-iw{
-  top:0!important;
+.gm-style-iw {
+  top: 0 !important;
 }
-.mainbody{
+.mainbody {
   display: flex;
   flex-direction: row;
   position: relative;
@@ -354,17 +457,17 @@ input[type=checkbox], input[type=radio]{
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
 }
-.statefilter{
+.statefilter {
   width: 177px;
 }
-.infoWindowImg{
+.infoWindowImg {
   border-radius: 50%;
   box-shadow: 2px 4px 12px grey;
-  margin:44px;
-  width:150px;
-  height:150px;
+  margin: 44px;
+  width: 150px;
+  height: 150px;
 }
-.infoWindowDetail{
+.infoWindowDetail {
   list-style-type: none;
   margin-top: 50px;
   margin-left: -29px;
@@ -372,110 +475,153 @@ input[type=checkbox], input[type=radio]{
 .infoWindowDetail li {
   margin-bottom: 20px;
 }
-.infoWindowName{
+.infoWindowName {
   text-align: center;
 }
-.portal{
+.portal {
   margin-top: 20px;
   text-align: center;
 }
-.portal span{
+.portal span {
   margin-right: 10px;
 }
 /********************************** Responsive navbar-brand image CSS - Remove navbar-brand padding for firefox bug workaround - add 100% height and width auto ... similar to how bootstrap img-responsive class works ***********************************/
 .navbar-brand {
   padding: 0px;
 }
-.navbar-brand>img {
+.navbar-brand > img {
   margin-top: 2px;
   margin-left: 8px;
   padding: 5px;
   width: 60%;
 }
-@media (min-width: 200px){
+@media (min-width: 200px) {
   .container {
-      width: auto;
- }
-  @media (max-width: 1280px){
-      .filterbuttonreset{
-          width:6% 
-     }
-      .filterbuttonapply{
-          width:6%;
-     }
- }
+    width: auto;
+  }
+  @media (max-width: 1280px) {
+    .filterbuttonreset {
+      width: 6%;
+    }
+    .filterbuttonapply {
+      width: 6%;
+    }
+  }
 }
-@media (max-width: 770px){
-  .rmssidebar{
+@media (max-width: 770px) {
+  .rmssidebar {
     display: none;
   }
-  body{
+  body {
     overflow: scroll;
   }
-  .navbar-nav{
-      margin:0;
- }
-  .statefilter{
-      width: -webkit-fill-available !important;
- }
-  .btn .caret{
-      transform: rotate(180deg);
- }
-  .filterbuttonreset{
-      float: right;
-      width: 43% 
- }
-  .filterbuttonapply{
-      float: left;
-      width: 43% 
- }
-  .sidebarheader{
-      display: block !important;
- }
+  .navbar-nav {
+    margin: 0;
+  }
+  .statefilter {
+    width: -webkit-fill-available !important;
+  }
+  .btn .caret {
+    transform: rotate(180deg);
+  }
+  .filterbuttonreset {
+    float: right;
+    width: 43%;
+  }
+  .filterbuttonapply {
+    float: left;
+    width: 43%;
+  }
+  .sidebarheader {
+    display: block !important;
+  }
   .sidebarheader img {
-      width: 7%;
-      margin-right: 10px;
- }
-  #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(4){
-      width: 237px !important;
-      height: 580px !important;
-      overflow: auto !important;
- }
-  #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div:nth-child(1) > div:nth-child(2){
-      width: 237px !important;
-      height: 580px !important;
-      overflow: auto !important;
- }
-  #root > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div{
-      width: 237px !important;
-      height: 580px !important;
-     /*overflow: auto !important;
+    width: 7%;
+    margin-right: 10px;
+  }
+  #root
+    > div
+    > div.mainbody
+    > div
+    > div:nth-child(2)
+    > div:nth-child(1)
+    > div
+    > div
+    > div
+    > div:nth-child(1)
+    > div:nth-child(3)
+    > div
+    > div:nth-child(4)
+    > div
+    > div:nth-child(1)
+    > div:nth-child(4) {
+    width: 237px !important;
+    height: 580px !important;
+    overflow: auto !important;
+  }
+  #root
+    > div
+    > div.mainbody
+    > div
+    > div:nth-child(2)
+    > div:nth-child(1)
+    > div
+    > div
+    > div
+    > div:nth-child(1)
+    > div:nth-child(3)
+    > div
+    > div:nth-child(4)
+    > div
+    > div:nth-child(1)
+    > div:nth-child(2) {
+    width: 237px !important;
+    height: 580px !important;
+    overflow: auto !important;
+  }
+  #root
+    > div
+    > div.mainbody
+    > div
+    > div:nth-child(2)
+    > div:nth-child(1)
+    > div
+    > div
+    > div
+    > div:nth-child(1)
+    > div:nth-child(3)
+    > div
+    > div:nth-child(4)
+    > div {
+    width: 237px !important;
+    height: 580px !important;
+    /*overflow: auto !important;
      */
- }
-  .gm-style-iw{
-      left: 24px !important;
- }
+  }
+  .gm-style-iw {
+    left: 24px !important;
+  }
   .infoWindowImg {
-      width: 120px !important;
-      height: 120px !important;
-      margin:30px !important;
- }
-  .filterImg{
-      width: 15%;
- }
-  .main_sidebar{
-      display: none;
- }
-  .filterIcon{
-      display: block;
-      margin: 11px 0px 0px 6px;
- }
-  .gaurav{
-      float: none;
- }
-  .verticalLine{
-      display: none;
- }
+    width: 120px !important;
+    height: 120px !important;
+    margin: 30px !important;
+  }
+  .filterImg {
+    width: 15%;
+  }
+  .main_sidebar {
+    display: none;
+  }
+  .filterIcon {
+    display: block;
+    margin: 11px 0px 0px 6px;
+  }
+  .gaurav {
+    float: none;
+  }
+  .verticalLine {
+    display: none;
+  }
 }
 /* EXAMPLE 9 - Center with Flexbox and Text*/
 .brand-centered {
@@ -504,14 +650,22 @@ input[type=checkbox], input[type=radio]{
   display: block;
   position: relative;
   height: auto;
-  -webkit-transform: translate(0,-50%);
-  transform: translate(0,-50%);
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
   margin-right: 15px;
   margin-left: 15px;
 }
-.navbar-nav>li>.dropdown-menu {
+.navbar-nav > li > .dropdown-menu {
   z-index: 9999;
 }
-body {
+/* body {
   font-family: "Lato" !important;
+} */
+
+.rmsedithead{
+  margin-left: 1.5em;
+  margin-bottom: 3em
+}
+.rmseditbody{
+  margin:2em;
 }

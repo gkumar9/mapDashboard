@@ -8,7 +8,8 @@ import * as serviceWorker from "./serviceWorker";
 import rms from "./rms.js";
 import rmssub from "./rmssub.js";
 import iaas from './iaas.js'
-import farmer from './farmer.js'
+import farmer from './newfarmer.js'
+import rmsedit from './rmsedit.js';
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL
 });
@@ -18,6 +19,7 @@ ReactDOM.render(
     <div>
       <Route exact path="/" component={UI} />
       <Route exact path="/rms" component={rms} />
+      <Route exact path="/rmsedit" component={rmsedit} />
       <Route exact path="/farmer" component={farmer} />
       <Route exact path="/iaas" component={iaas} />
       <Route exact path="/rms/:id" component={rmssub} />

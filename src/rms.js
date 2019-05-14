@@ -12,7 +12,10 @@ class RmsHeader extends Component {
   render() {
     return (
       <div className="container ">
-        <nav style={{ backgroundColor: '#edeef0', borderBottomColor: 'darkgray' }} className="navbar navbar-default">
+        <nav
+          style={{ backgroundColor: "#edeef0", borderBottomColor: "darkgray" }}
+          className="navbar navbar-default"
+        >
           <div
             className="container-fluid"
             style={{ textAlign: "center", marginTop: "10px" }}
@@ -52,10 +55,10 @@ class Rmsdatatable extends Component {
     var otable = $("#table_id").DataTable({
       data: this.props.data,
       scrollY: 520,
-      destroy:true,
-      paging: false,
-      ordering:true,
-      responsive: false,
+      destroy: true,
+      paging: true,
+      ordering: true,
+      responsive: true,
       columns: [
         {
           data: "vfdSno",
@@ -63,16 +66,28 @@ class Rmsdatatable extends Component {
             return "<a style='color:blue'>" + data + "</a>";
           }
         },
+        { data: "customerId" },
         { data: "customerName" },
         { data: "district" },
-        { data: "state" }
+        { data: "state" },
+        {
+          render: function(data, type, row) {
+            return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
+          }
+        }
       ]
     });
     $("#table_id").delegate("tr td:first-child", "click", function() {
       let rmssubdata = otable.row($(this).parents("tr")).data();
-      // console.log(rmssubdata)
       self.props.history.push({
         pathname: "/rms/" + rmssubdata.vfdSno,
+        state: { detail: rmssubdata }
+      });
+    });
+    $("#table_id").delegate("tr td:last-child", "click", function() {
+      let rmssubdata = otable.row($(this).parents("tr")).data();
+      self.props.history.push({
+        pathname: "/rmsedit",
         state: { detail: rmssubdata }
       });
     });
@@ -80,14 +95,20 @@ class Rmsdatatable extends Component {
   render() {
     return (
       <div style={{ padding: "10px" }} className="col-xs-10 table-responsive">
-        <table id="table_id" className="table table-striped table-hover" width="100%">
+        <table
+          id="table_id"
+          className="table table-striped table-hover"
+          style={{width:'100%'}}
+        >
           {/* <table id="example" className="display" width="100%" ref={el=>this.el=el}> */}
           <thead>
             <tr>
-              <th>VFD/Controller No</th>
+              <th>Device ID</th>
+              <th>Customer ID</th>
               <th>Beneficiary</th>
               <th>District</th>
               <th>State</th>
+              <th>Edit</th>
             </tr>
           </thead>
         </table>
@@ -114,24 +135,28 @@ class Rms extends Component {
       }
     })
       .then(res => {
-        if(res.data.data !== null){
-          
+        if (res.data.data !== null) {
           allassetstattemp = res.data.data;
-          allassetstattemp.totalCo2Emission=parseInt(allassetstattemp.totalCo2Emission).toLocaleString("en-IN")
-          allassetstattemp.totalDischarge=parseInt(allassetstattemp.totalDischarge).toLocaleString("en-IN")
-          allassetstattemp.totalEnergy=parseInt(allassetstattemp.totalEnergy).toLocaleString("en-IN")
-
-      } else if (res.data.error !== undefined) {
-        if (res.data.error.errorCode === 153) {
-          window.location.href = "../login.html?redirect=maps";
-        } else {
-          Swal({
-            type: "error",
-            title: "Oops...",
-            text: res.data.error.errorMsg
-          });
+          allassetstattemp.totalCo2Emission = parseInt(
+            allassetstattemp.totalCo2Emission
+          ).toLocaleString("en-IN");
+          allassetstattemp.totalDischarge = parseInt(
+            allassetstattemp.totalDischarge
+          ).toLocaleString("en-IN");
+          allassetstattemp.totalEnergy = parseInt(
+            allassetstattemp.totalEnergy
+          ).toLocaleString("en-IN");
+        } else if (res.data.error !== undefined) {
+          if (res.data.error.errorCode === 153) {
+            window.location.href = "../login.html?redirect=maps";
+          } else {
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: res.data.error.errorMsg
+            });
+          }
         }
-      }
       })
       .catch(e => {
         console.log(e);
@@ -152,22 +177,21 @@ class Rms extends Component {
       }
     })
       .then(res => {
-        if(res.data.data!== null){
-        listtemp = res.data.data.list;
-        tempstate = [];
-        res.data.data.list.map(itemmap => {
-          let check = false;
-          tempstate.map(itemstate => {
-            if (itemmap.state === itemstate) {
-              check = true;
+        if (res.data.data !== null) {
+          listtemp = res.data.data.list;
+          tempstate = [];
+          res.data.data.list.map(itemmap => {
+            let check = false;
+            tempstate.map(itemstate => {
+              if (itemmap.state === itemstate) {
+                check = true;
+              }
+            });
+            if (check === false) {
+              tempstate.push(itemmap.state);
             }
           });
-          if (check === false) {
-            tempstate.push(itemmap.state);
-          }
-        });
-      }
-        else if (res.data.error !== undefined) {
+        } else if (res.data.error !== undefined) {
           if (res.data.error.errorCode === 153) {
             window.location.href = "../login.html?redirect=maps";
           } else {
