@@ -678,11 +678,11 @@ input[type="radio"] {
   padding: 0 !important;
   width: 850px;
   max-width: -webkit-fill-available !important;
-  background-color: #F4F4F4;
+  background-color: #FFFFFF;
   border: 1px solid #e6e6e6;
 }
 .gm-style .gm-style-iw-t::after{
-  background-color: #F4F4F4;
+  background-color: #FFFFFF;
   /* border: 1px solid #e6e6e6; */
 }
 .cwmap .infobox {
@@ -720,7 +720,7 @@ input[type="radio"] {
     padding: 15px;
     width: 850px;
     
-    font-family: Arial, sans-serif;
+    font-family: Gotham;
     color: #494949;
     
     border-top-color: #ffffff;
@@ -734,12 +734,12 @@ input[type="radio"] {
 }
 
 .infobox .image {
-  width: 35%;
+  width: 30%;
   float: left;
 }
 
 .infobox .column {
-  width: 64%;
+  width: 70%;
   float: right;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+  font-family: Gotham
 }
