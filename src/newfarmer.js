@@ -4,7 +4,8 @@ import Sidebar from "./Sidebar.js";
 import axios from "axios";
 import imgmapcluster from "./pins/iconmapcluster.png";
 import user from "./pins/user1copy.png";
-import { compose, withProps, withHandlers } from "recompose";
+import farmerimg from "./pins/user.png";
+import { compose, withProps, withHandlers, withStateHandlers } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
@@ -12,7 +13,6 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
-// const fetch = require("isomorphic-fetch");
 const {
   MarkerClusterer
 } = require("react-google-maps/lib/components/addons/MarkerClusterer");
@@ -25,16 +25,26 @@ const MapWithAMarkerClusterer = compose(
     containerElement: <div style={{ height: `90vh` }} />,
     mapElement: <div style={{ height: `100%` }} />
   }),
+  withStateHandlers(
+    { InfoWindowobject: null },
+    {
+      setInfoWindow: () => value => ({ InfoWindowobject: value })
+    }
+  ),
+  withStateHandlers(
+    { isOpen: false },
+    {
+      onToggleOpen: ({ isOpen }) => () => ({
+        isOpen: !isOpen
+      })
+    }
+  ),
   withHandlers({
     onMarkerClustererClick: () => markerClusterer => {
-      // console.log("markerCluster", markerClusterer);
       const clickedMarkers = markerClusterer.getMarkers();
-      // console.log(`Current clicked markers length: ${clickedMarkers.length}`);
-      // console.log(clickedMarkers);
     },
     onMarkerClick: props => markerss => {
-      // props.onToggleOpen(props.isOpen)
-
+      const { setInfoWindow, onToggleOpen } = props;
       axios({
         url: "http://staging.clarolabs.in:7060/farmerinfo/farmerinfo",
         method: "POST",
@@ -46,12 +56,13 @@ const MapWithAMarkerClusterer = compose(
           "Content-Type": "application/json"
         }
       }).then(res => {
-        console.log("resssss", res);
+        res.data.data["latitude"] = markerss.latitude+1.5;
+        res.data.data["longitude"] = markerss.longitude;
+        console.log(res.data.data);
+        setInfoWindow(res.data.data);
+        onToggleOpen();
       });
-    },
-    onToggleOpen: ({ isOpen }) => () => ({
-      isOpen: !isOpen
-    })
+    }
   }),
   withScriptjs,
   withGoogleMap
@@ -62,6 +73,7 @@ const MapWithAMarkerClusterer = compose(
   >
     <MarkerClusterer
       onClick={props.onMarkerClustererClick}
+      minimumClusterSize={10}
       averageCenter
       styles={[
         {
@@ -101,7 +113,7 @@ const MapWithAMarkerClusterer = compose(
         // },
       ]}
       enableRetinaIcons
-      gridSize={50}
+      gridSize={60}
     >
       {props.markers.map((marker, index) => (
         <Marker
@@ -113,10 +125,32 @@ const MapWithAMarkerClusterer = compose(
       ))}
       {props.isOpen && (
         <InfoWindow
-          // position={{ lat: props.infowindow.lat, lng: props.infowindow.lng }}
+          position={{
+            lat: props.InfoWindowobject.latitude,
+            lng: props.InfoWindowobject.longitude
+          }}
           onCloseClick={props.onToggleOpen}
         >
-          <h4>hello</h4>
+          {props.InfoWindowobject !== null && (
+            <div className="infobox clearfix" style={{ fontFamily: "Gotham" }}>
+              <div className="header clearfix">
+                <h3>
+                  {props.InfoWindowobject.name},{" "}
+                  <small>{props.InfoWindowobject.contactNo}</small>
+                </h3>
+              </div>
+              <div className="body clearfix ">
+                <div className="image">
+                  {props.InfoWindowobject.farmerImage !== null ? (
+                    <img src={farmerimg} width="40%" />
+                  ) : (
+                    <img src={farmerimg} width="40%" />
+                  )}
+                </div>
+                <div className="column" />
+              </div>
+            </div>
+          )}
         </InfoWindow>
       )}
     </MarkerClusterer>
@@ -144,6 +178,7 @@ class DemoApp extends React.PureComponent {
   }
 
   render() {
+    console.log("state", this.state);
     return (
       <MapWithAMarkerClusterer
         markers={this.state.markers}
