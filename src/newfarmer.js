@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import axios from "axios";
-import imgmapcluster from './pins/iconmapcluster.png'
+import imgmapcluster from "./pins/iconmapcluster.png";
 import user from "./pins/user1copy.png";
 import { compose, withProps, withHandlers } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker
+  Marker,
+  InfoWindow
 } from "react-google-maps";
-const fetch = require("isomorphic-fetch");
+// const fetch = require("isomorphic-fetch");
 const {
   MarkerClusterer
 } = require("react-google-maps/lib/components/addons/MarkerClusterer");
@@ -26,54 +27,50 @@ const MapWithAMarkerClusterer = compose(
   }),
   withHandlers({
     onMarkerClustererClick: () => markerClusterer => {
-        console.log('markerCluster',markerClusterer)
+      // console.log("markerCluster", markerClusterer);
       const clickedMarkers = markerClusterer.getMarkers();
-      console.log(`Current clicked markers length: ${clickedMarkers.length}`);
-      console.log(clickedMarkers);
+      // console.log(`Current clicked markers length: ${clickedMarkers.length}`);
+      // console.log(clickedMarkers);
     },
-    onMarkerClick:()=>markerClusterer=>{console.log('ffff',markerClusterer)}
+    onMarkerClick: props => markerss => {
+      // props.onToggleOpen(props.isOpen)
+
+      axios({
+        url: "http://staging.clarolabs.in:7060/farmerinfo/farmerinfo",
+        method: "POST",
+        data: {
+          uid: markerss.uid,
+          uidType: markerss.uidType
+        },
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => {
+        console.log("resssss", res);
+      });
+    },
+    onToggleOpen: ({ isOpen }) => () => ({
+      isOpen: !isOpen
+    })
   }),
   withScriptjs,
   withGoogleMap
 )(props => (
-  <GoogleMap defaultZoom={5} defaultCenter={{ lat: 22.845625996700075, lng: 78.9629 }}
-  options={{style:[
-    { elementType: "geometry.fill", stylers: [{ color: "#F2F2F2" }] },
-    {
-      featureType: "water",
-      elementType: "geometry",
-      // stylers: [{ color: "#E3E3E3" }]
-      stylers: [{ color: "#ACC8F2" }]
-    },
-    {
-      featureType: "transit.line",
-      elementType: "geometry",
-      stylers: [{ visibility: "off" }]
-    },
-    {
-      featureType: "road",
-      elementType: "labels",
-      stylers: [{ visibility: "off" }]
-    },
-    {
-      featureType: "road",
-      elementType: "geometry",
-      stylers: [{ visibility: "off" }]
-    }
-  ]}}
-  
+  <GoogleMap
+    defaultZoom={5}
+    defaultCenter={{ lat: 22.845625996700075, lng: 78.9629 }}
   >
     <MarkerClusterer
       onClick={props.onMarkerClustererClick}
       averageCenter
       styles={[
         {
-            // textColor: 'white',
+          textColor: "white",
           url: imgmapcluster,
-          height: 56,
-          lineHeight: 56,
-          width: 56,
-        },
+          height: 68,
+          lineHeight: 3,
+          width: 70
+        }
         // {
         //     textColor: 'white',
         //   url: imgmapcluster,
@@ -104,51 +101,56 @@ const MapWithAMarkerClusterer = compose(
         // },
       ]}
       enableRetinaIcons
-      gridSize={60}
+      gridSize={50}
     >
-      {props.markers.map(marker => (
+      {props.markers.map((marker, index) => (
         <Marker
-          key={marker.photo_id}
+          key={index}
           icon={user}
-          onClick={props.onMarkerClick.bind(props,marker)}
-          position={{ lat: marker.lat, lng: marker.lng }}
+          onClick={props.onMarkerClick.bind(props, marker)}
+          position={{ lat: marker.latitude, lng: marker.longitude }}
         />
       ))}
+      {props.isOpen && (
+        <InfoWindow
+          // position={{ lat: props.infowindow.lat, lng: props.infowindow.lng }}
+          onCloseClick={props.onToggleOpen}
+        >
+          <h4>hello</h4>
+        </InfoWindow>
+      )}
     </MarkerClusterer>
   </GoogleMap>
 ));
 
 class DemoApp extends React.PureComponent {
   componentWillMount() {
-    this.setState({ markers: [] });
+    this.setState({ markers: [], isOpen: false, InfoWindowobject: {} });
   }
-  
+
   componentDidMount() {
-    // const url = [
-    //   // Length issue
-    //   `https://gist.githubusercontent.com`,
-    //   `/farrrr/dfda7dd7fccfec5474d3`,
-    //   `/raw/758852bbc1979f6c4522ab4e92d1c92cba8fb0dc/data.json`
-    // ].join("");
-    const url='http://staging.clarolabs.in:7060/api/rs/claro/maps/all/pins'
     axios({
-        url: 'http://staging.clarolabs.in:7060/api/rs/claro/maps/all/pins',
-        method: "POST",
-        data: {
-          temp: "temp"
-        },
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(res => this.setState({ markers: res.data.data.list }))
-    //   .then(data => {
-    //     this.setState({ markers: data.photos });
-    //   });
+      url: "http://staging.clarolabs.in:7060/farmerinfo/farmercoordinates",
+      method: "POST",
+      data: {
+        temp: "temp"
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => {
+      this.setState({ markers: res.data.data.list });
+    });
   }
 
   render() {
-    return <MapWithAMarkerClusterer  markers={this.state.markers} />;
+    return (
+      <MapWithAMarkerClusterer
+        markers={this.state.markers}
+        isOpen={this.state.isOpen}
+        InfoWindowobject={this.state.InfoWindowobject}
+      />
+    );
   }
 }
 class FarmerHeader extends Component {
@@ -163,25 +165,6 @@ class FarmerHeader extends Component {
             className="container-fluid"
             style={{ textAlign: "center", marginTop: "10px" }}
           >
-            {/* <Link to="/">
-                <button
-                  style={{
-                    marginTop: "-2px",
-                    backgroundColor: "transparent",
-                    float: "left"
-                  }}
-                  type="button"
-                  className="btn btn-default"
-                  aria-label="Left Align"
-                >
-                  <span
-                    className="glyphicon glyphicon-menu-left"
-                    style={{ marginRight: "6px" }}
-                    aria-hidden="true"
-                  />
-                  Home{" "}
-                </button>
-              </Link> */}{" "}
             <button
               type="button"
               className="btn btn-default"
@@ -190,9 +173,6 @@ class FarmerHeader extends Component {
               style={{
                 display: "none",
                 float: "left",
-                // marginRight: "30px",
-                // marginTop: "10px",
-                // color: "blue",
                 outline: "none",
                 backgroundColor: "transparent"
               }}
@@ -204,9 +184,7 @@ class FarmerHeader extends Component {
               />
               Back
             </button>
-            <span style={{ fontSize: "large", color: "blue" }}>
-              Farmer database in {this.props.label}
-            </span>
+            <span style={{ fontSize: "large" }}>Farmer database in India</span>
           </div>
         </nav>
       </div>
