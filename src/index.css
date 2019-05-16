@@ -599,7 +599,7 @@ input[type="radio"] {
      */
   }
   .gm-style-iw {
-    left: 24px !important;
+    left: -76px !important;
   }
   .infoWindowImg {
     width: 120px !important;
@@ -669,21 +669,45 @@ input[type="radio"] {
 .rmseditbody{
   margin:2em;
 }
-.gm-style-iw-d{
+.gm-style .gm-style-iw-c{
+
+  width: min-content !important;
+  left: -40px;
+}
+.gauravwww  .gm-style-iw-d{
   overflow: hidden !important;
   width: -webkit-fill-available;
     max-width: -webkit-fill-available !important;
 }
-.gm-style .gm-style-iw-c{
+.gauravwww  .gm-style .gm-style-iw-c{
   padding: 0 !important;
   width: 800px;
   max-width: -webkit-fill-available !important;
   background-color: #FFFFFF;
   border: 1px solid #e6e6e6;
+  left: 0;
+  top: -32px
 }
+.gauravwww  .gm-style .gm-style-iw-t::after{
+  background-color: #FFFFFF;
+  top:0px ;
+  left: 0;
+}
+/* #root > div > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div > div > div > div{
+  overflow: hidden !important;
+  width: -webkit-fill-available;
+    max-width: -webkit-fill-available !important;
+}
+#root > div > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div > div > div{
+  padding: 0 !important;
+  width: 800px;
+  max-width: -webkit-fill-available !important;
+  background-color: #FFFFFF;
+  border: 1px solid #e6e6e6;
+  left: 0px
+} */
 .gm-style .gm-style-iw-t::after{
   background-color: #FFFFFF;
-  /* border: 1px solid #e6e6e6; */
 }
 .cwmap .infobox {
   box-shadow: 0 0 5px #000;
@@ -717,8 +741,13 @@ input[type="radio"] {
   padding: 7px;
 }
 .gm-ui-hover-effect{
-  top: -2px !important;
-  right: -2px !important;
+  top: 0px !important;
+  right: 1px !important;
+}
+.gm-style .gm-style-iw-t::after{
+  box-shadow:none !important;
+  top: -264px;
+  left: -174px;
 }
 .infobox .body {
     text-align: left;
@@ -747,4 +776,26 @@ input[type="radio"] {
   width: 70%;
   float: right;
   font-family: Gotham
+}
+@media (max-width: 770px) {
+  .infobox .body {
+    width: 250px;
+    overflow: scroll !important;
+    height: 330px;
+}
+.infobox .image {
+  width: auto;
+  margin-bottom: 15px;
+  float: none;
+}
+.infobox .column {
+  width: 100%;
+  float: none;
+}
+.gauravwww .gm-style-iw{
+  left: 0 !important;
+}
+.gauravwww .gm-style .gm-style-iw-c{
+  /* max-height: fit-content !important; */
+}
 }

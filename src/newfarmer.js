@@ -17,6 +17,7 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
+import config from "./config.js";
 const {
   MarkerClusterer
 } = require("react-google-maps/lib/components/addons/MarkerClusterer");
@@ -51,7 +52,7 @@ const MapWithAMarkerClusterer = compose(
       const { setInfoWindow, onToggleOpen } = props;
 
       axios({
-        url: "http://staging.clarolabs.in:7060/farmerinfo/farmerinfo",
+        url: config.farmerinfo,
         method: "POST",
         data: {
           uid: markerss.uid,
@@ -60,16 +61,17 @@ const MapWithAMarkerClusterer = compose(
         headers: {
           "Content-Type": "application/json"
         }
-      }).then(res => {
-        res.data.data["latitude"] = markerss.latitude;
-        res.data.data["longitude"] = markerss.longitude;
-        console.log(res.data.data);
-        setInfoWindow(res.data.data);
-        onToggleOpen();
       })
-      .catch((e)=>{
-        alert(e)
-      })
+        .then(res => {
+          res.data.data["latitude"] = markerss.latitude;
+          res.data.data["longitude"] = markerss.longitude;
+          console.log(res.data.data);
+          setInfoWindow(res.data.data);
+          onToggleOpen();
+        })
+        .catch(e => {
+          alert(e);
+        });
     }
   }),
   withScriptjs,
@@ -126,34 +128,34 @@ const MapWithAMarkerClusterer = compose(
           height: 68,
           lineHeight: 3,
           width: 70
-        },		
-        // {		
-        //   url: imgmapcluster1,		
-        //   height: 68,		
+        }
+        // {
+        //   url: imgmapcluster1,
+        //   height: 68,
         //   lineHeight: 3,
-        //   width: 70	,	
-        //   textColor:"white",		
+        //   width: 70	,
+        //   textColor:"white",
         // },
-        // {		
-        //   url: imgmapcluster2,		
-        //   height: 68,		
+        // {
+        //   url: imgmapcluster2,
+        //   height: 68,
         //   lineHeight: 3,
-        //   width: 70	,	
-        //   textColor:"white",		
+        //   width: 70	,
+        //   textColor:"white",
         // },
-        // {		
-        //   url: imgmapcluster3,		
-        //   height: 68,		
+        // {
+        //   url: imgmapcluster3,
+        //   height: 68,
         //   lineHeight: 3,
-        //   width: 70	,	
-        //   textColor:"white",		
+        //   width: 70	,
+        //   textColor:"white",
         // },
-        // {		
-        //   url: imgmapcluster4,		
-        //   height: 68,		
+        // {
+        //   url: imgmapcluster4,
+        //   height: 68,
         //   lineHeight: 3,
-        //   width: 70	,	
-        //   textColor:"white",		
+        //   width: 70	,
+        //   textColor:"white",
         // }
       ]}
       enableRetinaIcons
@@ -169,139 +171,149 @@ const MapWithAMarkerClusterer = compose(
       ))}
     </MarkerClusterer>
     {props.isOpen && props.InfoWindowobject !== null && (
-      <InfoWindow
-        position={{
-          lat: props.InfoWindowobject.latitude,
-          lng: props.InfoWindowobject.longitude
-        }}
-        onCloseClick={props.onToggleOpen}
-      >
-        {props.InfoWindowobject !== null && (
-          <div className="infobox clearfix" style={{ fontFamily: "Gotham" }}>
-            <div className="header clearfix">
-              <h3>
-                {props.InfoWindowobject.name},{" "}
-                <small style={{color:'#333131'}}>{props.InfoWindowobject.contactNo}</small>
-              </h3>
-            </div>
-            <div className="body clearfix ">
-              <div className="image">
-                {props.InfoWindowobject.farmerImage !== null ? (
-                  <img src={props.InfoWindowobject.farmerImage} width="55%" />
-                ) : (
-                  <img src={farmerimg} width="55%" />
-                )}
+      <div>
+        <InfoWindow
+          position={{
+            lat: props.InfoWindowobject.latitude,
+            lng: props.InfoWindowobject.longitude
+          }}
+          onCloseClick={props.onToggleOpen}
+        >
+          {props.InfoWindowobject !== null && (
+            <div className="infobox clearfix" style={{ fontFamily: "Gotham" }}>
+              <div className="header clearfix">
+                <h3>
+                  {props.InfoWindowobject.name},{" "}
+                  <small style={{ color: "#333131" }}>
+                    {props.InfoWindowobject.contactNo}
+                  </small>
+                </h3>
               </div>
-              <div className="column">
-                <div className="row">
-                  <div className="col-md-5">
-                    <div style={{ marginBottom: "1em" }} className="row">
-                      <div className="col-md-4">
-                        <span style={{ fontSize: "medium" }}>
-                          <b>Gender</b>
-                        </span>
+              <div className="body clearfix ">
+                <div className="image">
+                  {props.InfoWindowobject.farmerImage !== null ? (
+                    <img
+                      src={props.InfoWindowobject.farmerImage}
+                      width="65%"
+                      style={{
+                        transform: "rotate(270deg) translate(24px,22px)"
+                      }}
+                    />
+                  ) : (
+                    <img src={farmerimg} width="55%" />
+                  )}
+                </div>
+                <div className="column">
+                  <div className="row">
+                    <div className="col-md-5 ">
+                      <div style={{ marginBottom: "1em" }} className="row">
+                        <div className="col-md-4 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            <b>Gender</b>
+                          </span>
+                        </div>
+                        <div className="col-md-8 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            {props.InfoWindowobject.gender}
+                          </span>
+                        </div>
                       </div>
-                      <div className="col-md-8">
-                        <span style={{ fontSize: "medium" }}>
-                          {props.InfoWindowobject.gender}
-                        </span>
+                      <div style={{ marginBottom: "1em" }} className="row">
+                        <div className="col-md-4 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            <b>Village</b>
+                          </span>
+                        </div>
+                        <div className="col-md-8 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            {props.InfoWindowobject.village}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    <div style={{ marginBottom: "1em" }} className="row">
-                      <div className="col-md-4">
-                        <span style={{ fontSize: "medium" }}>
-                          <b>Village</b>
-                        </span>
+                      <div style={{ marginBottom: "1em" }} className="row">
+                        <div className="col-md-4 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            <b>District</b>
+                          </span>
+                        </div>
+                        <div className="col-md-8 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            {props.InfoWindowobject.district}
+                          </span>
+                        </div>
                       </div>
-                      <div className="col-md-8">
-                        <span style={{ fontSize: "medium" }}>
-                          {props.InfoWindowobject.village}
-                        </span>
-                      </div>
-                    </div>
-                    <div style={{ marginBottom: "1em" }} className="row">
-                      <div className="col-md-4">
-                        <span style={{ fontSize: "medium" }}>
-                          <b>District</b>
-                        </span>
-                      </div>
-                      <div className="col-md-8">
-                        <span style={{ fontSize: "medium" }}>
-                          {props.InfoWindowobject.district}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4">
-                        <span style={{ fontSize: "medium" }}>
-                          <b>State</b>
-                        </span>
-                      </div>
-                      <div className="col-md-8">
-                        <span style={{ fontSize: "medium" }}>
-                          {props.InfoWindowobject.state}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-7">
-                    <div style={{ marginBottom: "1em" }} className="row">
-                      <div className="col-md-6">
-                        <span style={{ fontSize: "medium" }}>
-                          <b>Intervention type</b>
-                        </span>
-                      </div>
-                      <div className="col-md-6">
-                        <span style={{ fontSize: "medium" }}>
-                          {props.InfoWindowobject.vertical}
-                        </span>
-                      </div>
-                    </div>
-                    <div style={{ marginBottom: "1em" }} className="row">
-                      <div className="col-md-6">
-                        <span style={{ fontSize: "medium" }}>
-                          <b>Intervention size</b>
-                        </span>
-                      </div>
-                      <div className="col-md-6">
-                        <span style={{ fontSize: "medium" }}>
-                          {props.InfoWindowobject.interventionSize}
-                        </span>
+                      <div style={{ marginBottom: "1em" }} className="row">
+                        <div className="col-md-4 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            <b>State</b>
+                          </span>
+                        </div>
+                        <div className="col-md-8 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            {props.InfoWindowobject.state}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div style={{ marginBottom: "1em" }} className="row">
-                      <div className="col-md-6">
-                        <span style={{ fontSize: "medium" }}>
-                          <b>Date of installation</b>
-                        </span>
+                    <div className="col-md-7 ">
+                      <div style={{ marginBottom: "1em" }} className="row">
+                        <div className="col-md-6 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            <b>Intervention type</b>
+                          </span>
+                        </div>
+                        <div className="col-md-6 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            {props.InfoWindowobject.vertical}
+                          </span>
+                        </div>
                       </div>
-                      <div className="col-md-6">
-                        <span style={{ fontSize: "medium" }}>
-                          {props.InfoWindowobject.registrationDate}
-                        </span>
+                      <div style={{ marginBottom: "1em" }} className="row">
+                        <div className="col-md-6 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            <b>Intervention size</b>
+                          </span>
+                        </div>
+                        <div className="col-md-6 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            {props.InfoWindowobject.interventionSize}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    
-                    <div className="row">
-                      <div className="col-md-6">
-                        <span style={{ fontSize: "medium" }}>
-                          <b>GPS</b>
-                        </span>
+                      <div style={{ marginBottom: "1em" }} className="row">
+                        <div className="col-md-6 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            <b>Date of installation</b>
+                          </span>
+                        </div>
+                        <div className="col-md-6 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            {props.InfoWindowobject.registrationDate}
+                          </span>
+                        </div>
                       </div>
-                      <div className="col-md-6">
-                        <span style={{ fontSize: "medium" }}>
-                          {props.InfoWindowobject.latitude} N,{" "}
-                          {props.InfoWindowobject.longitude} E
-                        </span>
+
+                      <div className="row">
+                        <div className="col-md-6 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            <b>GPS</b>
+                          </span>
+                        </div>
+                        <div className="col-md-6 col-xs-6">
+                          <span style={{ fontSize: "medium" }}>
+                            {props.InfoWindowobject.latitude} N,{" "}
+                            {props.InfoWindowobject.longitude} E
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </InfoWindow>
+          )}
+        </InfoWindow>
+      </div>
     )}
   </GoogleMap>
 ));
@@ -313,7 +325,7 @@ class DemoApp extends Component {
 
   componentDidMount() {
     axios({
-      url: "http://staging.clarolabs.in:7060/farmerinfo/farmercoordinates",
+      url: config.farmercoordinates,
       method: "POST",
       data: {
         temp: "temp"
@@ -327,7 +339,7 @@ class DemoApp extends Component {
   }
 
   render() {
-    console.log("state", this.state);
+    // console.log("state", this.state);
     return (
       <MapWithAMarkerClusterer
         markers={this.state.markers}
@@ -384,13 +396,13 @@ class Farmer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="gauravwww">
         <Header />
         <div className="mainbody">
           <Sidebar history={this.props.history} />
           <div style={{ backgroundColor: "#F2F2F2" }} className="main">
             <FarmerHeader label={this.state.label} />
-            <div style={{ marginLeft: "0" }} className="row" />
+            {/* <div style={{ marginLeft: "0" }} className="row gaurav" /> */}
             <DemoApp />
           </div>
         </div>
