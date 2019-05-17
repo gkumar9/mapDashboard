@@ -80,7 +80,11 @@ const MapWithAMarkerClusterer = compose(
   <GoogleMap
     defaultZoom={5}
     defaultCenter={{ lat: 22.845625996700075, lng: 78.9629 }}
+    // streetViewControl={false}
     options={{
+      gestureHandling:'greedy',
+      streetViewControl:false,
+      fullscreenControl:false,
       styles: [
         { elementType: "geometry.fill", stylers: [{ color: "#F2F2F2" }] },
         {
@@ -191,116 +195,116 @@ const MapWithAMarkerClusterer = compose(
               </div>
               <div className="body clearfix ">
                 <div className="image">
-                  {props.InfoWindowobject.farmerImage !== null ? (
+                  {(props.InfoWindowobject.farmerImage !== null&&props.InfoWindowobject.farmerImage!=='NA') ? (
                     <img
+                    className="famrerimggg"
+                    alt="famerimg"
                       src={props.InfoWindowobject.farmerImage}
                       width="65%"
-                      style={{
-                        transform: "rotate(270deg) translate(24px,22px)"
-                      }}
+                      
                     />
                   ) : (
-                    <img src={farmerimg} width="55%" />
+                    <img alt="placeholderfamerimg" src={farmerimg} width="55%" />
                   )}
                 </div>
                 <div className="column">
                   <div className="row">
                     <div className="col-md-5 ">
-                      <div style={{ marginBottom: "1em" }} className="row">
+                      <div  className="row farmerrow">
                         <div className="col-md-4 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             <b>Gender</b>
                           </span>
                         </div>
                         <div className="col-md-8 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont" >
                             {props.InfoWindowobject.gender}
                           </span>
                         </div>
                       </div>
-                      <div style={{ marginBottom: "1em" }} className="row">
+                      <div  className="row farmerrow">
                         <div className="col-md-4 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             <b>Village</b>
                           </span>
                         </div>
                         <div className="col-md-8 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             {props.InfoWindowobject.village}
                           </span>
                         </div>
                       </div>
-                      <div style={{ marginBottom: "1em" }} className="row">
+                      <div  className="row farmerrow">
                         <div className="col-md-4 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             <b>District</b>
                           </span>
                         </div>
                         <div className="col-md-8 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             {props.InfoWindowobject.district}
                           </span>
                         </div>
                       </div>
-                      <div style={{ marginBottom: "1em" }} className="row">
+                      <div  className="row farmerrow">
                         <div className="col-md-4 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             <b>State</b>
                           </span>
                         </div>
                         <div className="col-md-8 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             {props.InfoWindowobject.state}
                           </span>
                         </div>
                       </div>
                     </div>
                     <div className="col-md-7 ">
-                      <div style={{ marginBottom: "1em" }} className="row">
+                      <div  className="row farmerrow">
                         <div className="col-md-6 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             <b>Intervention type</b>
                           </span>
                         </div>
                         <div className="col-md-6 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             {props.InfoWindowobject.vertical}
                           </span>
                         </div>
                       </div>
-                      <div style={{ marginBottom: "1em" }} className="row">
+                      <div  className="row farmerrow">
                         <div className="col-md-6 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             <b>Intervention size</b>
                           </span>
                         </div>
                         <div className="col-md-6 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             {props.InfoWindowobject.interventionSize}
                           </span>
                         </div>
                       </div>
-                      <div style={{ marginBottom: "1em" }} className="row">
+                      <div  className="row farmerrow">
                         <div className="col-md-6 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             <b>Date of installation</b>
                           </span>
                         </div>
                         <div className="col-md-6 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             {props.InfoWindowobject.registrationDate}
                           </span>
                         </div>
                       </div>
 
-                      <div className="row">
+                      <div  className="row farmerrow">
                         <div className="col-md-6 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             <b>GPS</b>
                           </span>
                         </div>
                         <div className="col-md-6 col-xs-6">
-                          <span style={{ fontSize: "medium" }}>
+                          <span className="farmerportalfont">
                             {props.InfoWindowobject.latitude} N,{" "}
                             {props.InfoWindowobject.longitude} E
                           </span>

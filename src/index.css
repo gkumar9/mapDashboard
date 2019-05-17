@@ -766,10 +766,19 @@ input[type="radio"] {
     -webkit-border-bottom-right-radius: 6px;
     border-bottom-right-radius: 6px;
 }
+.farmerportalfont{
+  font-size: medium;
+}
+.farmerrow{
+  margin-bottom: 1em;
+}
 
 .infobox .image {
   width: 30%;
   float: left;
+}
+.famrerimggg{
+  transform: rotate(270deg) translate(24px,22px)
 }
 
 .infobox .column {
@@ -777,25 +786,42 @@ input[type="radio"] {
   float: right;
   font-family: Gotham
 }
+.famrerimggg{
+  margin-bottom: -3.2em;
+}
 @media (max-width: 770px) {
+  .farmerrow{
+    margin-bottom: 0.6em;
+  }
   .infobox .body {
-    width: 250px;
+    width: 220px;
     overflow: scroll !important;
-    height: 330px;
+    height: auto;
+}
+.famrerimggg{
+  transform: rotate(270deg) translate(19px,0);
+  
 }
 .infobox .image {
   width: auto;
+  text-align: center;
   margin-bottom: 15px;
   float: none;
 }
 .infobox .column {
   width: 100%;
   float: none;
+  
+}
+.infobox h3{
+  font-size: medium;
+}
+.farmerportalfont{
+  font-size: small !important;
 }
 .gauravwww .gm-style-iw{
   left: 0 !important;
 }
-.gauravwww .gm-style .gm-style-iw-c{
-  /* max-height: fit-content !important; */
+
 }
-}
+
