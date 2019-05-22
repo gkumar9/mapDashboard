@@ -85,7 +85,7 @@ const MapWithAMarkerClusterer = compose(
       // zoomControl:true,
       // disableDefaultUI:true,
       // mapTypeControlOptions:{position: 'TOP_CENTER'},
-      // zoomControlOptions: { position: 3, style: 4 },
+      zoomControlOptions: { position: 3, style: 4 },
       streetViewControl: false,
       fullscreenControl: false,
       styles: [
@@ -193,11 +193,11 @@ const MapWithAMarkerClusterer = compose(
             >
               <div className="header clearfix">
                 <h3>
-                  {props.InfoWindowobject.name}{" "}
+                  {props.InfoWindowobject.name}
                   <small style={{ color: "#333131" }}>
-                    
-                    ( {props.InfoWindowobject.vertical} )
-                    
+                    {"  ( "}
+                    {props.InfoWindowobject.vertical}
+                    {" )"}
                   </small>
                 </h3>
               </div>
@@ -222,7 +222,7 @@ const MapWithAMarkerClusterer = compose(
                 </div>
                 <div className="column">
                   <div className="row">
-                    <div className="col-md-5 ">
+                    <div className="col-md-6">
                       <div className="row farmerrow">
                         <div className="col-md-5 col-xs-6">
                           <span className="farmerportalfont">
@@ -241,6 +241,24 @@ const MapWithAMarkerClusterer = compose(
                           )}
                         </div>
                       </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="row farmerrow">
+                        <div className="col-md-7 col-xs-6">
+                          <span className="farmerportalfont">
+                            <b>Intervention Size</b>
+                          </span>
+                        </div>
+                        <div className="col-md-5 col-xs-6">
+                          <span className="farmerportalfont">
+                            {props.InfoWindowobject.interventionSize}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
                       <div className="row farmerrow">
                         <div className="col-md-5 col-xs-6">
                           <span className="farmerportalfont">
@@ -253,6 +271,24 @@ const MapWithAMarkerClusterer = compose(
                           </span>
                         </div>
                       </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="row farmerrow">
+                        <div className="col-md-7 col-xs-6">
+                          <span className="farmerportalfont">
+                            <b>Date Of Installation</b>
+                          </span>
+                        </div>
+                        <div className="col-md-5 col-xs-6">
+                          <span className="farmerportalfont">
+                            {props.InfoWindowobject.registrationDate}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
                       <div className="row farmerrow">
                         <div className="col-md-5 col-xs-6">
                           <span className="farmerportalfont">
@@ -265,6 +301,24 @@ const MapWithAMarkerClusterer = compose(
                           </span>
                         </div>
                       </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="row farmerrow">
+                        <div className="col-md-7 col-xs-6">
+                          <span className="farmerportalfont">
+                            <b>Latitude</b>
+                          </span>
+                        </div>
+                        <div className="col-md-5 col-xs-6">
+                          <span className="farmerportalfont">
+                            {props.InfoWindowobject.latitude}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
                       <div className="row farmerrow">
                         <div className="col-md-5 col-xs-6">
                           <span className="farmerportalfont">
@@ -278,58 +332,7 @@ const MapWithAMarkerClusterer = compose(
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-7 ">
-                      {/*
-      <div className="row farmerrow">
-        <div className="col-md-6 col-xs-6">
-          <span className="farmerportalfont">
-            <b>Intervention Type</b>
-          </span>
-        </div>
-        <div className="col-md-6 col-xs-6">
-          <span className="farmerportalfont">
-            {props.InfoWindowobject.vertical}
-          </span>
-        </div>
-      </div>
-      */}
-                      <div className="row farmerrow">
-                        <div className="col-md-7 col-xs-6">
-                          <span className="farmerportalfont">
-                            <b>Intervention Size</b>
-                          </span>
-                        </div>
-                        <div className="col-md-5 col-xs-6">
-                          <span className="farmerportalfont">
-                            {props.InfoWindowobject.interventionSize}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="row farmerrow">
-                        <div className="col-md-7 col-xs-6">
-                          <span className="farmerportalfont">
-                            <b>Date Of Installation</b>
-                          </span>
-                        </div>
-                        <div className="col-md-5 col-xs-6">
-                          <span className="farmerportalfont">
-                            {props.InfoWindowobject.registrationDate}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="row farmerrow">
-                        <div className="col-md-7 col-xs-6">
-                          <span className="farmerportalfont">
-                            <b>Latitude</b>
-                          </span>
-                        </div>
-                        <div className="col-md-5 col-xs-6">
-                          <span className="farmerportalfont">
-                            {props.InfoWindowobject.latitude}
-                          </span>
-                        </div>
-                      </div>
+                    <div className="col-md-6">
                       <div className="row farmerrow">
                         <div className="col-md-7 col-xs-6">
                           <span className="farmerportalfont">
