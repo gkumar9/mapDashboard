@@ -730,12 +730,16 @@ input[type="radio"] {
     -webkit-border-top-right-radius: 6px;
     border-top-right-radius: 6px;
 }
+.farmerportalfont b{
+  font-weight: 400;
+}
 .infobox h3 {
   /* font: 17px/21px Arial, sans-serif; */
+  font-size:20px;
   text-align: left;
   text-transform: none;
   color: #494949;
-  font-weight: 400;
+  font-weight: 500;
   margin: 0;
   margin-left: 7px;
   padding: 7px;
@@ -758,7 +762,7 @@ input[type="radio"] {
     padding: 12px;
     width: 800px;
     
-    font-family: Gotham;
+    /* font-family: Gotham; */
     color: #494949;
     
     border-top-color: #ffffff;
@@ -791,7 +795,7 @@ input[type="radio"] {
   float: right;
   padding: 0 5px;
   margin-top: 1em;
-  font-family: Gotham
+  /* font-family: Gotham */
 }
 .famrerimggg{
   margin-bottom: -3.2em;
