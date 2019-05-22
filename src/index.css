@@ -678,6 +678,7 @@ input[type="radio"] {
   overflow: hidden !important;
   width: -webkit-fill-available;
     max-width: -webkit-fill-available !important;
+    max-height: unset !important;
 }
 .gauravwww  .gm-style .gm-style-iw-c{
   padding: 0 !important;
@@ -718,7 +719,9 @@ input[type="radio"] {
   zoom: 1;
 }
 
-
+.breakline{
+  display: none;
+}
 .infobox .header {
     background: #e6e6e6;
     border-bottom: 1px solid #ccc;
@@ -801,6 +804,9 @@ input[type="radio"] {
   margin-bottom: -3.2em;
 }
 @media (max-width: 770px) {
+  .breakline{
+    display: block;
+  }
   .palceholder{
     margin-left: 0;
     margin-top: 0;
@@ -809,9 +815,10 @@ input[type="radio"] {
     margin-bottom: 0.6em;
   }
   .infobox .body {
-    width: 220px;
+    width: 235px;
     overflow: scroll !important;
     height: auto;
+    padding: 2px 12px !important;
 }
 .famrerimggg{
   transform: rotate(270deg) translate(19px,0);
@@ -820,7 +827,7 @@ input[type="radio"] {
 .infobox .image {
   width: auto;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
   float: none;
 }
 .infobox .column {
@@ -838,6 +845,7 @@ input[type="radio"] {
 }
 .gauravwww .gm-style-iw{
   left: 0 !important;
+  max-height: unset !important;
 }
 
 }

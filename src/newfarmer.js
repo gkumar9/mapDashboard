@@ -193,7 +193,7 @@ const MapWithAMarkerClusterer = compose(
             >
               <div className="header clearfix">
                 <h3>
-                  {props.InfoWindowobject.name}{" "}
+                  {props.InfoWindowobject.name}{" "}<br className="breakline"></br>
                   <small style={{ color: "#333131" }}>
                     
                     ( {props.InfoWindowobject.vertical} )
