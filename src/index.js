@@ -10,6 +10,7 @@ import rmssub from "./rmssub.js";
 import iaas from './iaas.js'
 import farmer from './newfarmer.js'
 import rmsedit from './rmsedit.js';
+import farmeredit from './farmeredit.js';
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL
 });
@@ -23,6 +24,7 @@ ReactDOM.render(
       <Route exact path="/farmer" component={farmer} />
       <Route exact path="/iaas" component={iaas} />
       <Route exact path="/rms/:id" component={rmssub} />
+      <Route exact path="/farmeredit" component={farmeredit} />
     </div>
   </HashRouter>,
   document.getElementById("root")

@@ -353,7 +353,7 @@ class MapContainer extends Component {
                   </div>
                 </li>
               </ul>
-              <div className="portal">
+              {/* <div className="portal">
                 {this.state.selectedPlace.assetType === "DRINKING_WATER_PUMP" ||
                 this.state.selectedPlace.assetType === "IRRIGATION_PUMP" ? (
                   <div>
@@ -368,7 +368,7 @@ class MapContainer extends Component {
                 ) : (
                   <div />
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </InfoWindow>

@@ -56,7 +56,7 @@ class Rmsdatatable extends Component {
       data: this.props.data,
       scrollY: 520,
       destroy: true,
-      paging: false,
+      paging: true,
       ordering: true,
       responsive: true,
       columns: [
@@ -66,15 +66,15 @@ class Rmsdatatable extends Component {
             return "<a style='color:blue'>" + data + "</a>";
           }
         },
-        // { data: "customerId" },
+        { data: "customerId" },
         { data: "customerName" },
         { data: "district" },
         { data: "state" },
-        // {
-        //   render: function(data, type, row) {
-        //     return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
-        //   }
-        // }
+        {
+          render: function(data, type, row) {
+            return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
+          }
+        }
       ]
     });
     $("#table_id").delegate("tr td:first-child", "click", function() {
@@ -104,11 +104,11 @@ class Rmsdatatable extends Component {
           <thead>
             <tr>
               <th>Device ID</th>
-              {/* <th>Customer ID</th> */}
+              <th>Customer ID</th>
               <th>Beneficiary</th>
               <th>District</th>
               <th>State</th>
-              {/* <th>Edit</th> */}
+              <th>Edit</th>
             </tr>
           </thead>
         </table>

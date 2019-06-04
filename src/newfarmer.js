@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import imgmapcluster from "./pins/iconmapcluster.png";
-import imgmapcluster1 from "./pins/iconmapclustercopy.png";
-import imgmapcluster2 from "./pins/iconmapclustercopy2.png";
-import imgmapcluster3 from "./pins/iconmapclustercopy3.png";
-import imgmapcluster4 from "./pins/iconmapclustercopy4.png";
+// import imgmapcluster1 from "./pins/iconmapclustercopy.png";
+// import imgmapcluster2 from "./pins/iconmapclustercopy2.png";
+// import imgmapcluster3 from "./pins/iconmapclustercopy3.png";
+// import imgmapcluster4 from "./pins/iconmapclustercopy4.png";
 import user from "./pins/user1copy.png";
 import farmerimg from "./pins/user.png";
-import { compose, withProps, withHandlers, withStateHandlers } from "recompose";
+import { compose, withProps, withHandlers, withStateHandlers,shouldUpdate } from "recompose";
 import {
   withScriptjs,
   withGoogleMap,
@@ -21,6 +22,29 @@ import config from "./config.js";
 const {
   MarkerClusterer
 } = require("react-google-maps/lib/components/addons/MarkerClusterer");
+
+
+const checkPropsChange = (props, nextProps) => {
+  return nextProps.markers.length !== props.markers.length;
+};
+
+const MyMarkerClusterer = shouldUpdate(checkPropsChange)(props => {
+  const {onMarkerClick,markers,...clusterProps}  = props;
+  return (
+    <MarkerClusterer
+    {...clusterProps} 
+    >
+      {props.markers.map((marker, index) => (
+        <Marker
+          key={index}
+          icon={user}
+          onClick={props.onMarkerClick.bind(props, marker)}
+          position={{ lat: marker.latitude, lng: marker.longitude }}
+        />
+      ))}
+    </MarkerClusterer>
+  );
+});
 
 const MapWithAMarkerClusterer = compose(
   withProps({
@@ -65,7 +89,7 @@ const MapWithAMarkerClusterer = compose(
         .then(res => {
           res.data.data["latitude"] = markerss.latitude;
           res.data.data["longitude"] = markerss.longitude;
-          console.log(res.data.data);
+          
           setInfoWindow(res.data.data);
           onToggleOpen();
         })
@@ -124,10 +148,12 @@ const MapWithAMarkerClusterer = compose(
       ]
     }}
   >
-    <MarkerClusterer
+    <MyMarkerClusterer
       onClick={props.onMarkerClustererClick}
       minimumClusterSize={10}
       averageCenter
+      onMarkerClick={props.onMarkerClick}
+      markers={props.markers}
       styles={[
         {
           textColor: "white",
@@ -167,16 +193,8 @@ const MapWithAMarkerClusterer = compose(
       ]}
       enableRetinaIcons
       gridSize={60}
-    >
-      {props.markers.map((marker, index) => (
-        <Marker
-          key={index}
-          icon={user}
-          onClick={props.onMarkerClick.bind(props, marker)}
-          position={{ lat: marker.latitude, lng: marker.longitude }}
-        />
-      ))}
-    </MarkerClusterer>
+    />
+    
     {props.isOpen && props.InfoWindowobject !== null && (
       <div>
         <InfoWindow
@@ -394,29 +412,31 @@ class FarmerHeader extends Component {
           className="navbar navbar-default"
         >
           <div
-            className="container-fluid"
+            className="container-fluid newfarmer"
             style={{ textAlign: "center", marginTop: "10px" }}
           >
+            <Link to="/farmeredit">
             <button
               type="button"
               className="btn btn-default"
-              aria-label="Left Align"
+              aria-label="Right Align"
               id="drillUp"
               style={{
-                display: "none",
-                float: "left",
+                // display: "none",
+                // borderColor: "darkgray",
+                float: "right",
                 outline: "none",
                 backgroundColor: "transparent"
               }}
             >
               <span
-                className="glyphicon glyphicon-menu-left"
+                className="glyphicon glyphicon-pencil"
                 style={{ marginRight: "6px" }}
                 aria-hidden="true"
               />
-              Back
-            </button>
-            <span style={{ fontSize: "large" }}>Farmer database in India</span>
+              Add/edit Farmer
+            </button></Link>
+            <span style={{ fontSize: "large", color: "blue"  }}>Farmer database in India</span>
           </div>
         </nav>
       </div>

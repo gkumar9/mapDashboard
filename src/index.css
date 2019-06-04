@@ -51,7 +51,14 @@ a.pvlist {
   background-color: #f9f9f9 !important;
 }
 .btn-default {
-  border-color: transparent !important;
+  border-color: transparent;
+}
+.newfarmer .btn-default {
+  border-color: darkgray;
+  margin-top: -3px;
+}
+.newfarmer .btn-default:hover {
+  border-color: blue;
 }
 table.dataTable thead th,
 table.dataTable thead td {
@@ -158,11 +165,12 @@ a.disabled {
 }
 .btn-default:hover {
   background: white;
-  border-color: blue;
+  border-color: transparent;
   color: blue;
 }
 .btn-default:active {
   background: white;
+  outline: none;
 }
 .sidebarheader {
   display: none !important;
@@ -662,36 +670,35 @@ input[type="radio"] {
   font-family: "Lato" !important;
 } */
 
-.rmsedithead{
+.rmsedithead {
   margin-left: 1.5em;
-  margin-bottom: 3em
+  margin-bottom: 3em;
 }
-.rmseditbody{
-  margin:2em;
+.rmseditbody {
+  margin: 2em;
 }
-.gm-style .gm-style-iw-c{
-
+.gm-style .gm-style-iw-c {
   width: min-content !important;
   left: -40px;
 }
-.gauravwww  .gm-style-iw-d{
+.gauravwww .gm-style-iw-d {
   overflow: hidden !important;
   width: -webkit-fill-available;
-    max-width: -webkit-fill-available !important;
-    max-height: unset !important;
+  max-width: -webkit-fill-available !important;
+  max-height: unset !important;
 }
-.gauravwww  .gm-style .gm-style-iw-c{
+.gauravwww .gm-style .gm-style-iw-c {
   padding: 0 !important;
   width: 800px;
   max-width: -webkit-fill-available !important;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid #e6e6e6;
   left: 0;
-  top: -32px
+  top: -32px;
 }
-.gauravwww  .gm-style .gm-style-iw-t::after{
-  background-color: #FFFFFF;
-  top:0px ;
+.gauravwww .gm-style .gm-style-iw-t::after {
+  background-color: #ffffff;
+  top: 0px;
   left: 0;
 }
 /* #root > div > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div > div > div > div{
@@ -707,8 +714,8 @@ input[type="radio"] {
   border: 1px solid #e6e6e6;
   left: 0px
 } */
-.gm-style .gm-style-iw-t::after{
-  background-color: #FFFFFF;
+.gm-style .gm-style-iw-t::after {
+  background-color: #ffffff;
 }
 .cwmap .infobox {
   box-shadow: 0 0 5px #000;
@@ -719,26 +726,26 @@ input[type="radio"] {
   zoom: 1;
 }
 
-.breakline{
+.breakline {
   display: none;
 }
 .infobox .header {
-    background: #e6e6e6;
-    border-bottom: 1px solid #ccc;
-    width: -webkit-fill-available;
-    -moz-border-radius-topleft: 6px;
-    -webkit-border-top-left-radius: 6px;
-    border-top-left-radius: 6px;
-    -moz-border-radius-topright: 6px;
-    -webkit-border-top-right-radius: 6px;
-    border-top-right-radius: 6px;
+  background: #e6e6e6;
+  border-bottom: 1px solid #ccc;
+  width: -webkit-fill-available;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
 }
-.farmerportalfont b{
+.farmerportalfont b {
   font-weight: 400;
 }
 .infobox h3 {
   /* font: 17px/21px Arial, sans-serif; */
-  font-size:20px;
+  font-size: 20px;
   text-align: left;
   text-transform: none;
   color: #494949;
@@ -747,50 +754,49 @@ input[type="radio"] {
   margin-left: 7px;
   padding: 7px;
 }
-.palceholder{
+.palceholder {
   margin-left: 2.5em;
   margin-top: 0.7em;
 }
-.gm-ui-hover-effect{
+.gm-ui-hover-effect {
   top: 0px !important;
   right: 1px !important;
 }
-.gm-style .gm-style-iw-t::after{
-  box-shadow:none !important;
+.gm-style .gm-style-iw-t::after {
+  box-shadow: none !important;
   top: -264px;
   left: -174px;
 }
 .infobox .body {
-    text-align: left;
-    padding: 12px;
-    width: 800px;
-    
-    /* font-family: Gotham; */
-    color: #494949;
-    
-    border-top-color: #ffffff;
-    text-shadow: #fff -1px 1px 0;
-    -moz-border-radius-bottomleft: 6px;
-    -webkit-border-bottom-left-radius: 6px;
-    border-bottom-left-radius: 6px;
-    -moz-border-radius-bottomright: 6px;
-    -webkit-border-bottom-right-radius: 6px;
-    border-bottom-right-radius: 6px;
+  text-align: left;
+  padding: 12px;
+  width: 800px;
+
+  /* font-family: Gotham; */
+  color: #494949;
+
+  border-top-color: #ffffff;
+  text-shadow: #fff -1px 1px 0;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
-.farmerportalfont{
+.farmerportalfont {
   font-size: medium;
 }
-.farmerrow{
+.farmerrow {
   margin-bottom: 1em;
 }
 
 .infobox .image {
   width: 30%;
   float: left;
-  
 }
-.famrerimggg{
-  transform: rotate(270deg) translate(24px,30px)
+.famrerimggg {
+  transform: rotate(270deg) translate(24px, 30px);
 }
 
 .infobox .column {
@@ -800,18 +806,18 @@ input[type="radio"] {
   margin-top: 1em;
   /* font-family: Gotham */
 }
-.famrerimggg{
+.famrerimggg {
   margin-bottom: -3.2em;
 }
 @media (max-width: 770px) {
-  .breakline{
+  .breakline {
     display: block;
   }
-  .palceholder{
+  .palceholder {
     margin-left: 0;
     margin-top: 0;
   }
-  .farmerrow{
+  .farmerrow {
     margin-bottom: 0.6em;
   }
   .infobox .body {
@@ -819,34 +825,46 @@ input[type="radio"] {
     overflow: scroll !important;
     height: auto;
     padding: 2px 12px !important;
+  }
+  .famrerimggg {
+    transform: rotate(270deg) translate(19px, 0);
+  }
+  .infobox .image {
+    width: auto;
+    text-align: center;
+    margin-bottom: 8px;
+    float: none;
+  }
+  .infobox .column {
+    width: 100%;
+    float: none;
+    margin-top: 0;
+  }
+  .infobox h3 {
+    font-size: medium;
+  }
+  .farmerportalfont {
+    font-size: small !important;
+  }
+  .gauravwww .gm-style-iw {
+    left: 0 !important;
+    max-height: unset !important;
+  }
 }
-.famrerimggg{
-  transform: rotate(270deg) translate(19px,0);
-  
+.famerinfobox{
+  padding-left:0px; 
+  font-size: 1.3em;
+  /* font-style: la; */
 }
-.infobox .image {
-  width: auto;
-  text-align: center;
-  margin-bottom: 8px;
-  float: none;
+.famerinfoheaderbox{
+  padding: 1em;
 }
-.infobox .column {
-  width: 100%;
-  float: none;
-  margin-top: 0;
-  
-  
+.farmerinfoheader{
+  padding: 1em;
+  /* border-top-left-radius: 4px;
+  border-top-right-radius: 4px; */
+  border: 1px solid #ddd;
 }
-.infobox h3{
-  font-size: medium;
+.list-group-item{
+  background-color:transparent;
 }
-.farmerportalfont{
-  font-size: small !important;
-}
-.gauravwww .gm-style-iw{
-  left: 0 !important;
-  max-height: unset !important;
-}
-
-}
-
