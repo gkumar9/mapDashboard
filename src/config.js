@@ -67,9 +67,14 @@ let config = {
   farmerinfo: "http://staging.clarolabs.in:7060/farmerinfo/farmerinfo",
   farmercoordinates:
     "http://staging.clarolabs.in:7060/farmerinfo/farmercoordinates",
-  rmseditget: "http://staging.clarolabs.in:7060/clarosupport/assets/rms/pump/",
+  rmseditget: "http://staging.clarolabs.in:7060/clarosupport/assets/rms/pump/details/",
+  updatermsedit:"http://staging.clarolabs.in:7060/clarosupport/assets/rms/pump/update/",
   farmerlist: "http://staging.clarolabs.in:7060/clarosupport/farmerinfo/list/",
-  getfarmer: "http://staging.clarolabs.in:7060/clarosupport/farmerinfo/details/"
+  getfarmer: "http://staging.clarolabs.in:7060/clarosupport/farmerinfo/details/",
+  updatefarmer:"http://staging.clarolabs.in:7060/clarosupport/farmerinfo/farmer/update/",
+  getfarmerschema:"http://staging.clarolabs.in:7060/clarosupport/farmerinfo/farmer/schema/",
+  addfarmernew:"http://staging.clarolabs.in:7060/clarosupport/farmerinfo/farmer/",
+  searchfarmer:"http://staging.clarolabs.in:7060/clarosupport/farmerinfo/search/list/"
 };
 
 export default config;

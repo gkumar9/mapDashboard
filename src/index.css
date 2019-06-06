@@ -853,18 +853,40 @@ input[type="radio"] {
 }
 .famerinfobox{
   padding-left:0px; 
-  font-size: 1.3em;
+  font-size: 1.1em;
   /* font-style: la; */
 }
 .famerinfoheaderbox{
-  padding: 1em;
+  padding: 2em;
 }
 .farmerinfoheader{
-  padding: 1em;
+  padding: 2em;
+  margin-left: 0;
+  /* color:#777; */
   /* border-top-left-radius: 4px;
   border-top-right-radius: 4px; */
   border: 1px solid #ddd;
 }
+.farmerinfobody{
+  /* font-size: 1.2em; */
+  padding: 2em;
+  color:#777;
+}
 .list-group-item{
   background-color:transparent;
+}
+.farmerinforow{
+  margin-bottom: 1em;
+}
+.farmerinforowtitle{
+  color:black
+}
+.farmerlists{
+  /* margin-top: 0.8em; */
+  max-height: 78vh;
+  overflow: scroll;
+}
+label {
+  /* font-weight: 500 !important; */
+  color: black;
 }
