@@ -426,7 +426,8 @@ class FarmerHeader extends Component {
                 // borderColor: "darkgray",
                 float: "right",
                 outline: "none",
-                backgroundColor: "transparent"
+                color:"white",
+                backgroundColor: "blue"
               }}
             >
               <span

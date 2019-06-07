@@ -61,7 +61,7 @@ class Rmsdatatable extends Component {
       responsive: true,
       columns: [
         {
-          data: "vfdSno",
+          data: "deviceId",
           render: function(data, type, row) {
             return "<a style='color:blue'>" + data + "</a>";
           }

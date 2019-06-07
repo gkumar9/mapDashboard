@@ -52,7 +52,7 @@ class FormLeft extends Component {
       <form className="form-horizontal">
         {this.props.rmsvalues.imei !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputimei" className="col-sm-6 ">
+            <label htmlFor="inputimei" className="col-sm-6 farmerinforowtitle ">
               Imei
             </label>
             <div className="col-sm-6">
@@ -70,7 +70,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.installationDate !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputinstallationDate" className="col-sm-6 ">
+            <label
+              htmlFor="inputinstallationDate"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Installation Date
             </label>
             <div className="col-sm-6">
@@ -89,7 +92,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.registrationSource !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputregsource" className="col-sm-6 ">
+            <label
+              htmlFor="inputregsource"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Regstration Source
             </label>
             <div className="col-sm-6">
@@ -108,7 +114,10 @@ class FormLeft extends Component {
 
         {this.props.rmsvalues.deviceId !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputdeviceid" className="col-sm-6 ">
+            <label
+              htmlFor="inputdeviceid"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Device Id
             </label>
             <div className="col-sm-6">
@@ -126,7 +135,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.projectCode !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputProjectCode" className="col-sm-6 ">
+            <label
+              htmlFor="inputProjectCode"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Project Code
             </label>
             <div className="col-sm-6">
@@ -144,7 +156,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.vfdMake !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputvfdMake" className="col-sm-6 ">
+            <label
+              htmlFor="inputvfdMake"
+              className="col-sm-6 farmerinforowtitle"
+            >
               VFD Make
             </label>
             <div className="col-sm-6">
@@ -162,7 +177,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.vfdSno !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputvfdSno" className="col-sm-6 ">
+            <label
+              htmlFor="inputvfdSno"
+              className="col-sm-6 farmerinforowtitle"
+            >
               VFD Sno
             </label>
             <div className="col-sm-6">
@@ -180,7 +198,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.powerType !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputpowerType" className="col-sm-6 ">
+            <label
+              htmlFor="inputpowerType"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Power Type
             </label>
             <div className="col-sm-6">
@@ -198,7 +219,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.pumpCapability !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputpumpCapability" className="col-sm-6 ">
+            <label
+              htmlFor="inputpumpCapability"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Pump Capability
             </label>
             <div className="col-sm-6">
@@ -216,7 +240,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.pumpType !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputpumpType" className="col-sm-6 ">
+            <label
+              htmlFor="inputpumpType"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Pump Type
             </label>
             <div className="col-sm-6">
@@ -234,7 +261,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.pumpMake !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputpumpMake" className="col-sm-6 ">
+            <label
+              htmlFor="inputpumpMake"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Pump Make
             </label>
             <div className="col-sm-6">
@@ -252,7 +282,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.pumpSno !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputpumpSno" className="col-sm-6 ">
+            <label
+              htmlFor="inputpumpSno"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Pump Sno
             </label>
             <div className="col-sm-6">
@@ -271,7 +304,10 @@ class FormLeft extends Component {
 
         {this.props.rmsvalues.panelMake !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputpanelMake" className="col-sm-6 ">
+            <label
+              htmlFor="inputpanelMake"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Panel Make
             </label>
             <div className="col-sm-6">
@@ -289,7 +325,10 @@ class FormLeft extends Component {
         )}
         {this.props.rmsvalues.panelWP !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputpanelWP" className="col-sm-6 ">
+            <label
+              htmlFor="inputpanelWP"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Panel WP
             </label>
             <div className="col-sm-6">
@@ -315,7 +354,10 @@ class FormRight extends Component {
       <form className="form-horizontal">
         {this.props.rmsvalues.rmsAvailability !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputrmsAvailability" className="col-sm-6 ">
+            <label
+              htmlFor="inputrmsAvailability"
+              className="col-sm-6 farmerinforowtitle"
+            >
               RMS Availability
             </label>
             <div className="col-sm-6">
@@ -333,7 +375,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.rmsVendorId !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputrmsVendorId" className="col-sm-6 ">
+            <label
+              htmlFor="inputrmsVendorId"
+              className="col-sm-6 farmerinforowtitle"
+            >
               RMS Vendor ID
             </label>
             <div className="col-sm-6">
@@ -351,7 +396,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.farmerId !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputfarmerId" className="col-sm-6">
+            <label
+              htmlFor="inputfarmerId"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Farmer ID
             </label>
             <div className="col-sm-6">
@@ -369,7 +417,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.state !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputinstate" className="col-sm-6">
+            <label
+              htmlFor="inputinstate"
+              className="col-sm-6 farmerinforowtitle"
+            >
               State
             </label>
             <div className="col-sm-6">
@@ -387,7 +438,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.district !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputdistrict" className="col-sm-6">
+            <label
+              htmlFor="inputdistrict"
+              className="col-sm-6 farmerinforowtitle"
+            >
               District
             </label>
             <div className="col-sm-6">
@@ -406,7 +460,7 @@ class FormRight extends Component {
 
         {this.props.rmsvalues.block !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputblock" className="col-sm-6">
+            <label htmlFor="inputblock" className="col-sm-6 farmerinforowtitle">
               Block
             </label>
             <div className="col-sm-6">
@@ -424,7 +478,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.village !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputvillage" className="col-sm-6">
+            <label
+              htmlFor="inputvillage"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Village
             </label>
             <div className="col-sm-6">
@@ -442,7 +499,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.habitation !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputhabitation" className="col-sm-6">
+            <label
+              htmlFor="inputhabitation"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Habitation
             </label>
             <div className="col-sm-6">
@@ -460,7 +520,7 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.depth !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputdepth" className="col-sm-6">
+            <label htmlFor="inputdepth" className="col-sm-6 farmerinforowtitle">
               Depth
             </label>
             <div className="col-sm-6">
@@ -478,7 +538,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.modifiedBy !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputmodifiedBy" className="col-sm-6">
+            <label
+              htmlFor="inputmodifiedBy"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Power Type
             </label>
             <div className="col-sm-6">
@@ -496,7 +559,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.application !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputapplication" className="col-sm-6">
+            <label
+              htmlFor="inputapplication"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Application
             </label>
             <div className="col-sm-6">
@@ -514,7 +580,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.application !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputlatitude" className="col-sm-6">
+            <label
+              htmlFor="inputlatitude"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Latitude
             </label>
             <div className="col-sm-6">
@@ -532,7 +601,10 @@ class FormRight extends Component {
         )}
         {this.props.rmsvalues.application !== undefined && (
           <div className="form-group">
-            <label htmlFor="inputlongitude" className="col-sm-6">
+            <label
+              htmlFor="inputlongitude"
+              className="col-sm-6 farmerinforowtitle"
+            >
               Longitude
             </label>
             <div className="col-sm-6">
@@ -567,50 +639,46 @@ class Rmsedit extends Component {
         headers: {
           "Content-Type": "application/json"
         }
-      }).then(res => {
-        if(res.data.data!==null){
-          this.setState({ rmsvalues: res.data.data });
-        }
-        else{
+      })
+        .then(res => {
+          if (res.data.data !== null) {
+            this.setState({ rmsvalues: res.data.data });
+          } else {
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: res.data.error.errorMsg
+            });
+            this.props.history.push({
+              pathname: "/rms"
+            });
+          }
+        })
+        .catch(e => {
           Swal({
             type: "error",
             title: "Oops...",
-            text: res.data.error.errorMsg
+            text: e
           });
-          this.props.history.push({
-            pathname: "/rms"
-          });
-        }
-        
-      })
-      .catch((e)=>{
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
         });
-      });
     } else {
-      
       this.props.history.push({
         pathname: "/rms"
       });
     }
   }
   handlesave = () => {
-    console.log("save called",this.state.rmsvalues);
+    console.log("save called", this.state.rmsvalues);
     axios({
-      url: config.updatermsedit ,
+      url: config.updatermsedit,
       method: "POST",
       data: this.state.rmsvalues,
       headers: {
         "Content-Type": "application/json"
       }
-    })
-    .then((res)=>{
+    }).then(res => {
       // console.log(res.data.data)
       if (res.data.data !== null && res.data.data.result) {
-        
         Swal({
           type: "success",
           title: "Successfully data updated"
@@ -623,14 +691,13 @@ class Rmsedit extends Component {
       } else {
         alert(res.data.error.errorMsg);
       }
-    })
-
+    });
   };
-  handlecancel=()=>{
+  handlecancel = () => {
     this.props.history.push({
       pathname: "/rms"
     });
-  }
+  };
   handleInputChange = event => {
     console.log(event.target.name);
     let temp = this.state.rmsvalues;
@@ -654,27 +721,15 @@ class Rmsedit extends Component {
                 }}
               >
                 <div className="form-group">
-                  <label htmlFor="" className="col-sm-6" />
-                  <div className="col-sm-6">
-                    <button
-                      style={{ float: "right", border: "1px solid #ccc" }}
-                      onClick={this.handlesave}
-                      type="button"
-                      className="btn btn-default"
-                      aria-label="Left Align"
-                    >
-                      <span
-                        className="glyphicon glyphicon-upload"
-                        style={{ marginRight: "6px" }}
-                        aria-hidden="true"
-                      />
-                      Save
-                    </button>
+                  <label htmlFor="" className="col-sm-10" />
+                  <div className="col-sm-2">
                     <button
                       style={{
-                        float: "right",
+                        float: "left",
                         marginRight: "2em",
-                        border: "1px solid #ccc"
+                        border: "1px solid #ccc",
+                        background: "white",
+                        color: "blue"
                       }}
                       onClick={this.handlecancel}
                       type="button"
@@ -688,6 +743,25 @@ class Rmsedit extends Component {
                       />
                       Cancel
                     </button>
+                    <button
+                      style={{
+                        float: "right",
+                        border: "1px solid #ccc",
+                        background: "blue",
+                        color: "white"
+                      }}
+                      onClick={this.handlesave}
+                      type="button"
+                      className="btn btn-default"
+                      aria-label="Left Align"
+                    >
+                      <span
+                        className="glyphicon glyphicon-upload"
+                        style={{ marginRight: "6px" }}
+                        aria-hidden="true"
+                      />
+                      Save
+                    </button>
                   </div>
                 </div>
               </div>
@@ -699,7 +773,8 @@ class Rmsedit extends Component {
                   padding: "0 3em"
                 }}
               >
-                <div className="col-md-5">
+                <div className="col-md-1" />
+                <div className="col-md-4">
                   <div className="rmseditbody">
                     <FormLeft
                       rmsvalues={this.state.rmsvalues}
@@ -707,8 +782,8 @@ class Rmsedit extends Component {
                     />
                   </div>
                 </div>
-                <div className="col-md-2" />
-                <div className="col-md-5">
+                <div className="col-md-1" />
+                <div className="col-md-4">
                   <div className="rmseditbody">
                     <FormRight
                       rmsvalues={this.state.rmsvalues}
@@ -716,6 +791,7 @@ class Rmsedit extends Component {
                     />
                   </div>
                 </div>
+                <div className="col-md-2" />
               </div>
             </div>
           </div>

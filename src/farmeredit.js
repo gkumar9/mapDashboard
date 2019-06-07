@@ -97,14 +97,15 @@ class Farmereditshow extends Component {
               this.props.famerinfo.farmerImage !== "NA" &&
               this.props.famerinfo.farmerImage !== "N.A" ? (
                 <img
-                  width="60%"
+                style={{ marginTop: "1em",borderRadius: "50%",height: '17vh' }}
+                  width="100%"
                   src={this.props.famerinfo.farmerImage}
                   alt="farmerimg"
                 />
               ) : (
                 <img
-                  width="80%"
-                  style={{ marginTop: "1.5em" }}
+                  width="100%"
+                  style={{ marginTop: "1em",height: '17vh' }}
                   src={farmerimg}
                   alt="placeholder farmerimg"
                 />
@@ -605,6 +606,7 @@ class Farmeredit extends Component {
                   Upload Image:
                   <input
                     type="file"
+                    onChange={ (e) => this.props.handleChangeimage(e.target.files) }
                     ref={this.props.fileInput}
                     style={{ width: "-webkit-fill-available" }}
                   />
@@ -929,6 +931,35 @@ class Farmeraddnew extends Component {
     temp[event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
   };
+  handleChangeimage=()=>{
+    var file = this.fileInput1.current.files[0];
+      var fileName = Date.now()+this.state.famerinfo.id;
+      // var albumPhotosKey = encodeURIComponent(albumName) + '//';
+      let self=this;
+      var photoKey = fileName;
+       s3.upload(
+        {
+          Key: photoKey,
+          Body: file,
+          ACL: "public-read"
+        },
+         function(err, data) {
+          if (err) {
+            return alert(
+              "There was an error uploading your photo: ",
+              err.message
+            );
+          } else {
+            let temp = self.state.famerinfo;
+            temp.farmerImage = data.Location;
+            self.setState({ famerinfo: temp });
+            alert(
+              "Img uploaded succesfully"
+            )
+          }
+        }
+      );
+  }
   handleeditfarmersave = () => {
     delete this.state.famerinfo["modificationTime"];
     delete this.state.famerinfo["id"];
@@ -952,30 +983,7 @@ class Farmeraddnew extends Component {
       this.state.famerinfo.modifiedBy &&
       this.state.famerinfo.modifiedBy.replace(/\s/g, "").length !== 0
     ) {
-      var file = this.fileInput1.current.files[0];
-      var fileName = file.name;
-      // var albumPhotosKey = encodeURIComponent(albumName) + '//';
 
-      var photoKey = fileName;
-      s3.upload(
-        {
-          Key: photoKey,
-          Body: file,
-          ACL: "public-read"
-        },
-        function(err, data) {
-          if (err) {
-            return alert(
-              "There was an error uploading your photo: ",
-              err.message
-            );
-          } else {
-            let temp = this.state.famerinfo;
-            temp.farmerImage = data.Location;
-            this.setState({ famerinfo: temp });
-          }
-        }
-      );
       axios({
         url: config.addfarmernew,
         method: "POST",
@@ -1288,6 +1296,7 @@ class Farmeraddnew extends Component {
                   <label>
                     Upload Image:
                     <input
+                    onChange={this.handleChangeimage}
                       type="file"
                       ref={this.fileInput1}
                       style={{ width: "-webkit-fill-available" }}
@@ -1749,7 +1758,7 @@ class Farmer extends Component {
     document.getElementById("showsidetab").style.display = "block";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
   };
-  handleeditfarmersave = () => {
+  handleeditfarmersave = async () => {
     delete this.state.famerinfo["modificationTime"];
     if (
       this.state.famerinfo.name &&
@@ -1770,30 +1779,7 @@ class Farmer extends Component {
       this.state.famerinfo.district.replace(/\s/g, "").length !== 0
     ) {
       // console.log(this.fileInput.current.files[0])
-      var file = this.fileInput.current.files[0];
-      var fileName = file.name;
-      // var albumPhotosKey = encodeURIComponent(albumName) + '//';
-
-      var photoKey = fileName;
-      s3.upload(
-        {
-          Key: photoKey,
-          Body: file,
-          ACL: "public-read"
-        },
-        function(err, data) {
-          if (err) {
-            return alert(
-              "There was an error uploading your photo: ",
-              err.message
-            );
-          } else {
-            let temp = this.state.famerinfo;
-            temp.farmerImage = data.Location;
-            this.setState({ famerinfo: temp });
-          }
-        }
-      );
+      
       axios({
         url: config.updatefarmer,
         method: "POST",
@@ -1836,6 +1822,35 @@ class Farmer extends Component {
       });
     }
   };
+  handleChangeimage=()=>{
+    var file = this.fileInput.current.files[0];
+    var fileName = Date.now()+this.state.famerinfo.id;
+      // var albumPhotosKey = encodeURIComponent(albumName) + '//';
+      let self=this;
+      var photoKey = fileName;
+       s3.upload(
+        {
+          Key: photoKey,
+          Body: file,
+          ACL: "public-read"
+        },
+         function(err, data) {
+          if (err) {
+            return alert(
+              "There was an error uploading your photo: ",
+              err.message
+            );
+          } else {
+            let temp = self.state.famerinfo;
+            temp.farmerImage = data.Location;
+            self.setState({ famerinfo: temp });
+            alert(
+              "Img uploaded succesfully"
+            )
+          }
+        }
+      );
+  }
   handlesearchselect = event => {
     this.setState({ searchvariantselected: event.target.value });
   };
@@ -1857,6 +1872,36 @@ class Farmer extends Component {
           scrollcount: count,
           hasMore: res.data.data.hasMore
         });
+        axios({
+          url: config.getfarmer + res.data.data.list[0].id,
+          method: "POST",
+          data: {
+            temp: "temp"
+          },
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(res => {
+            this.setState({
+              famerinfo: res.data.data,
+              backupinfo: Object.assign({}, res.data.data)
+            });
+            document.getElementById("showsidetab").style.display = "block";
+            document.getElementById("farmeraddnew").style.display = "none";
+            document.getElementById("showsidetabeditfarmer").style.display = "none";
+          })
+          .catch(e => {
+            console.log(e);
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
+            this.props.history.push({
+              pathname: "/farmer"
+            });
+          });
       })
       .catch(e => {
         console.log(e);
@@ -2019,14 +2064,12 @@ class Farmer extends Component {
                 </div>
               </div>
               <div className="col-xs-9 famerinfobox">
-                {/* <div id="templateimg" style={{display:'block',textAlign:'center'}}>
-                  <img src={templateimg} alt="templateimg"/>
-                </div> */}
                 <Farmereditshow
                   handleeditfarmer={this.handleeditfarmer}
                   famerinfo={this.state.famerinfo}
                 />
                 <Farmeredit
+                  handleChangeimage={this.handleChangeimage}
                   fileInput={this.fileInput}
                   famerinfo={this.state.famerinfo}
                   handlecancelfarmer={this.handlecancelfarmer}
