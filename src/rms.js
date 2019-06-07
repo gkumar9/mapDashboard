@@ -68,6 +68,7 @@ class Rmsdatatable extends Component {
         },
         { data: "customerId" },
         { data: "customerName" },
+        { data: "lastActive" },
         { data: "district" },
         { data: "state" },
         {
@@ -106,6 +107,7 @@ class Rmsdatatable extends Component {
               <th>Device ID</th>
               <th>Customer ID</th>
               <th>Beneficiary</th>
+              <th>Last Active</th>
               <th>District</th>
               <th>State</th>
               <th>Edit</th>

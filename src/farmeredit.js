@@ -92,84 +92,108 @@ class Farmereditshow extends Component {
       <div id="showsidetab" style={{ display: "none" }}>
         <div className="container">
           <div className="row farmerinfoheader">
-            <div className="col-xs-4">
+            <div className="col-xs-2">
               {this.props.famerinfo.farmerImage !== null &&
               this.props.famerinfo.farmerImage !== "NA" &&
               this.props.famerinfo.farmerImage !== "N.A" ? (
                 <img
-                  width="55%"
+                  width="60%"
                   src={this.props.famerinfo.farmerImage}
                   alt="farmerimg"
                 />
               ) : (
                 <img
-                  width="45%"
-                  style={{ margin: "1.5em" }}
+                  width="80%"
+                  style={{ marginTop: "1.5em" }}
                   src={farmerimg}
                   alt="placeholder farmerimg"
                 />
               )}
             </div>
-            <div className="col-xs-8 famerinfoheaderbox">
+            <div className="col-xs-10 famerinfoheaderbox">
               <div className="row">
-                <div className="col-xs-6">
-                  <span style={{ fontSize: "1.4em" }}>
-                    {this.props.famerinfo.name}
-                  </span>
+                <div className="col-sm-8">
+                  <div className="row">
+                    <div className="col-xs-8">
+                      <span style={{ fontSize: "1.4em" }}>
+                        {this.props.famerinfo.name}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div className="col-xs-6">
-                  <button
-                    onClick={this.props.handleeditfarmer}
-                    type="button"
-                    className="btn btn-default"
-                    aria-label="Right Align"
-                    id="drillUp"
-                    style={{
-                      // display: "none",
-                      borderColor: "darkgray",
-                      float: "right",
-                      outline: "none",
-                      backgroundColor: "transparent"
-                    }}
-                  >
-                    <span
-                      className="glyphicon glyphicon-pencil"
-                      style={{ marginRight: "6px" }}
-                      aria-hidden="true"
-                    />
-                    Edit
-                  </button>
+                <div className="col-sm-4">
+                  <div className="col-xs-6" />
+                  <div className="col-xs-6">
+                    <button
+                      onClick={this.props.handleeditfarmer}
+                      type="button"
+                      className="btn btn-default"
+                      aria-label="Right Align"
+                      // id="drillUp"
+                      style={{
+                        // display: "none",
+                        borderColor: "darkgray",
+                        float: "right",
+                        outline: "none",
+                        color: "white",
+                        backgroundColor: "blue"
+                      }}
+                    >
+                      <span
+                        className="glyphicon glyphicon-pencil"
+                        style={{ marginRight: "6px" }}
+                        aria-hidden="true"
+                      />
+                      Edit
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="row">
-                <div className="col-xs-6">
-                  <span>
-                    S/O {this.props.famerinfo.fatherName},{" "}
-                    {this.props.famerinfo.gender}
-                  </span>
+                <div className="col-sm-4">
+                  {/* <div className="row">
+                    <div className="col-xs-8">
+                      <span style={{ fontSize: "1.4em" }}>
+                        {this.props.famerinfo.name}
+                      </span>
+                    </div>
+                  </div> */}
+                  <div className="row">
+                    <div className="col-xs-8">
+                      <span>
+                        S/O {this.props.famerinfo.fatherName},{" "}
+                        {this.props.famerinfo.gender}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="row">
+                    {/* <div className="col-xs-6">Contact No</div> */}
+                    <div className="col-xs-8">
+                      {this.props.famerinfo.contactNo !== "N.A" && (
+                        <span>+91{this.props.famerinfo.contactNo}</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="row">
-                <div className="col-xs-6">
-                  <span>DOB:{this.props.famerinfo.dob}</span>
+                {/* <div className="col-sm-1" /> */}
+                <div className="col-sm-4">
+                  <div className="row"> </div>
+                  <div className="row">
+                    <div className="col-xs-12">
+                      {this.props.famerinfo.uidType} :{" "}
+                      {this.props.famerinfo.uid}
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-xs-12">
+                      <span>DOB:{this.props.famerinfo.dob}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="row">
-                <div className="col-xs-6">
-                  {this.props.famerinfo.uidType} : {this.props.famerinfo.uid}
-                </div>
-              </div>
-              <div className="row">
-                {/* <div className="col-xs-6">Contact No</div> */}
-                <div className="col-xs-6">
-                  {this.props.famerinfo.contactNo !== "N.A" && (
-                    <span>+91{this.props.famerinfo.contactNo}</span>
-                  )}
-                </div>
+                {/* <div className="col-sm-3" /> */}
               </div>
             </div>
           </div>
-
           <div className="row farmerinfobody">
             <div className="col-md-5">
               <div className="row farmerinforow">
@@ -297,7 +321,7 @@ class Farmeredit extends Component {
                 <div className="col-xs-6 farmerinforowtitle">
                   Name{" "}
                   <i
-                    title="Mandotory fields"
+                    title="Mandatory fields"
                     style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                     class="fa fa-info-circle"
                     aria-hidden="true"
@@ -321,26 +345,34 @@ class Farmeredit extends Component {
               </div>
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  <span>Father Name</span>
+                  Vertical{" "}
+                  <i
+                    title="Mandatory fields"
+                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                  />
                 </div>
                 <div className="col-xs-6">
                   <input
-                    name="fatherName"
+                    name="vertical"
                     type="text"
                     className="form-control"
-                    id="fathername"
-                    value={this.props.famerinfo.fatherName}
+                    id="vertical"
+                    value={this.props.famerinfo.vertical}
                     onChange={this.props.handleInputChange}
-                    placeholder="Father Name"
+                    placeholder="Vertical"
+                    required
                   />
                 </div>
               </div>
+
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
                   <span>
                     Gender{" "}
                     <i
-                      title="Mandotory fields"
+                      title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                       class="fa fa-info-circle"
                       aria-hidden="true"
@@ -376,7 +408,7 @@ class Farmeredit extends Component {
                 <div className="col-xs-6 farmerinforowtitle">
                   Status{" "}
                   <i
-                    title="Mandotory fields"
+                    title="Mandatory fields"
                     style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                     class="fa fa-info-circle"
                     aria-hidden="true"
@@ -423,86 +455,102 @@ class Farmeredit extends Component {
                 </div>
               </div> */}
             </div>
+            <div className="col-xs-1" />
             <div className="col-xs-4 ">
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  <span>UID Type</span>
+                  State{" "}
+                  <i
+                    title="Mandatory fields"
+                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                  />
                 </div>
                 <div className="col-xs-6">
-                  <div>
-                    <select
-                      name="uidType"
-                      onChange={this.props.handleInputChange}
-                      value={this.props.famerinfo.uidType}
-                      class="form-control"
-                      id="sel2"
-                    >
-                      <option value="AADHAAR">AADHAAR</option>
-                      <option value="VOTER ID">VOTER ID</option>
-                      <option value="LICENSE">LICENSE</option>
-                      <option value="PAYGO">PAYGO</option>
-                      <option value="CLARO ID">CLARO ID</option>
-                      <option value="OTHERS">OTHERS</option>
-                      <option value="NA">NA</option>
-                    </select>
-                  </div>
-                  {/* <input
-                    name="uidType"
+                  <input
+                    name="state"
                     type="text"
                     className="form-control"
-                    id="uidType"
-                    value={this.props.famerinfo.uidType}
+                    id="state"
+                    value={this.props.famerinfo.state}
                     onChange={this.props.handleInputChange}
-                    placeholder="UID Type"
-                  /> */}
+                    placeholder="State"
+                    required
+                  />
                 </div>
               </div>
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  <span>UID</span>
+                  District{" "}
+                  <i
+                    title="Mandatory fields"
+                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                  />
                 </div>
                 <div className="col-xs-6">
                   <input
-                    name="uid"
+                    name="district"
                     type="text"
                     className="form-control"
-                    id="uid"
-                    value={this.props.famerinfo.uid}
+                    id="district"
+                    value={this.props.famerinfo.district}
                     onChange={this.props.handleInputChange}
-                    placeholder="UID "
+                    placeholder="District"
+                    required
                   />
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6 farmerinforowtitle">Contact No</div>
+                <div className="col-xs-6 farmerinforowtitle">
+                  Latitude{" "}
+                  <i
+                    title="Mandatory fields"
+                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                  />
+                </div>
                 <div className="col-xs-6">
                   <input
-                    name="contactNo"
+                    name="latitude"
                     type="number"
                     className="form-control"
-                    id="contactno"
-                    value={this.props.famerinfo.contactNo}
+                    id="latitude"
+                    value={this.props.famerinfo.latitude}
                     onChange={this.props.handleInputChange}
-                    placeholder="Contact Number "
+                    placeholder="Latitude"
+                    required
                   />
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6 farmerinforowtitle">Modified By</div>
+                <div className="col-xs-6 farmerinforowtitle">
+                  Longitude{" "}
+                  <i
+                    title="Mandatory fields"
+                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                  />
+                </div>
                 <div className="col-xs-6">
                   <input
-                    name="modifiedBy"
-                    type="text"
+                    name="longitude"
+                    type="number"
                     className="form-control"
-                    id="modifiedBy"
-                    value={this.props.famerinfo.modifiedBy}
+                    id="longitude"
+                    value={this.props.famerinfo.longitude}
                     onChange={this.props.handleInputChange}
-                    placeholder="Modified By"
+                    placeholder="Longitude"
+                    required
                   />
                 </div>
               </div>
             </div>
-            <div className="col-xs-1" />
+
             <div className="col-xs-3">
               <div className="row">
                 <button
@@ -517,7 +565,8 @@ class Farmeredit extends Component {
                     borderColor: "darkgray",
                     float: "left",
                     outline: "none",
-                    backgroundColor: "transparent"
+                    color: "white",
+                    backgroundColor: "blue"
                   }}
                 >
                   <span
@@ -539,7 +588,8 @@ class Farmeredit extends Component {
                     borderColor: "darkgray",
                     float: "left",
                     outline: "none",
-                    backgroundColor: "transparent"
+                    color: "blue",
+                    backgroundColor: "white"
                   }}
                 >
                   <span
@@ -550,7 +600,7 @@ class Farmeredit extends Component {
                   Cancel
                 </button>
               </div>
-              {/* <div className="row" style={{ marginTop: "3em" }}>
+              <div className="row" style={{ marginTop: "3em" }}>
                 <label>
                   Upload Image:
                   <input
@@ -559,35 +609,29 @@ class Farmeredit extends Component {
                     style={{ width: "-webkit-fill-available" }}
                   />
                 </label>
-              </div> */}
+              </div>
             </div>
           </div>
 
           <div className="row farmerinfobody">
-            <div className="col-md-5">
+            <div className="col-md-4">
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  Vertical{" "}
-                  <i
-                    title="Mandotory fields"
-                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
-                    aria-hidden="true"
-                  />
+                  <span>Father Name</span>
                 </div>
                 <div className="col-xs-6">
                   <input
-                    name="vertical"
+                    name="fatherName"
                     type="text"
                     className="form-control"
-                    id="vertical"
-                    value={this.props.famerinfo.vertical}
+                    id="fathername"
+                    value={this.props.famerinfo.fatherName}
                     onChange={this.props.handleInputChange}
-                    placeholder="Vertical"
-                    required
+                    placeholder="Father Name"
                   />
                 </div>
               </div>
+
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
                   Intervention Size
@@ -667,48 +711,30 @@ class Farmeredit extends Component {
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6 farmerinforowtitle">
-                  Latitude{" "}
-                  <i
-                    title="Mandotory fields"
-                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
-                    aria-hidden="true"
-                  />
-                </div>
+                <div className="col-xs-6 farmerinforowtitle">Contact No</div>
                 <div className="col-xs-6">
                   <input
-                    name="latitude"
+                    name="contactNo"
                     type="number"
                     className="form-control"
-                    id="latitude"
-                    value={this.props.famerinfo.latitude}
+                    id="contactno"
+                    value={this.props.famerinfo.contactNo}
                     onChange={this.props.handleInputChange}
-                    placeholder="Latitude"
-                    required
+                    placeholder="Contact Number "
                   />
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6 farmerinforowtitle">
-                  Longitude{" "}
-                  <i
-                    title="Mandotory fields"
-                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
-                    aria-hidden="true"
-                  />
-                </div>
+                <div className="col-xs-6 farmerinforowtitle">Modified By</div>
                 <div className="col-xs-6">
                   <input
-                    name="longitude"
-                    type="number"
+                    name="modifiedBy"
+                    type="text"
                     className="form-control"
-                    id="longitude"
-                    value={this.props.famerinfo.longitude}
+                    id="modifiedBy"
+                    value={this.props.famerinfo.modifiedBy}
                     onChange={this.props.handleInputChange}
-                    placeholder="Longitude"
-                    required
+                    placeholder="Modified By"
                   />
                 </div>
               </div>
@@ -728,50 +754,53 @@ class Farmeredit extends Component {
               </div>
             </div>
             <div className="col-md-1" />
-            <div className="col-md-5">
+            <div className="col-md-4">
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  State{" "}
-                  <i
-                    title="Mandotory fields"
-                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
-                    aria-hidden="true"
-                  />
+                  <span>UID Type</span>
                 </div>
                 <div className="col-xs-6">
-                  <input
-                    name="state"
+                  <div>
+                    <select
+                      name="uidType"
+                      onChange={this.props.handleInputChange}
+                      value={this.props.famerinfo.uidType}
+                      class="form-control"
+                      id="sel2"
+                    >
+                      <option value="AADHAAR">AADHAAR</option>
+                      <option value="VOTER ID">VOTER ID</option>
+                      <option value="LICENSE">LICENSE</option>
+                      <option value="PAYGO">PAYGO</option>
+                      <option value="CLARO ID">CLARO ID</option>
+                      <option value="OTHERS">OTHERS</option>
+                      <option value="NA">NA</option>
+                    </select>
+                  </div>
+                  {/* <input
+                    name="uidType"
                     type="text"
                     className="form-control"
-                    id="state"
-                    value={this.props.famerinfo.state}
+                    id="uidType"
+                    value={this.props.famerinfo.uidType}
                     onChange={this.props.handleInputChange}
-                    placeholder="State"
-                    required
-                  />
+                    placeholder="UID Type"
+                  /> */}
                 </div>
               </div>
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  District{" "}
-                  <i
-                    title="Mandotory fields"
-                    style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
-                    aria-hidden="true"
-                  />
+                  <span>UID</span>
                 </div>
                 <div className="col-xs-6">
                   <input
-                    name="district"
+                    name="uid"
                     type="text"
                     className="form-control"
-                    id="district"
-                    value={this.props.famerinfo.district}
+                    id="uid"
+                    value={this.props.famerinfo.uid}
                     onChange={this.props.handleInputChange}
-                    placeholder="District"
-                    required
+                    placeholder="UID "
                   />
                 </div>
               </div>
@@ -886,6 +915,7 @@ class Farmeraddnew extends Component {
   constructor(props) {
     super(props);
     this.state = { famerinfo: {}, backupinfo: {} };
+    this.fileInput1 = React.createRef();
   }
   handlecancelfarmer = () => {
     this.setState({ famerinfo: Object.assign({}, this.state.backupinfo) });
@@ -902,7 +932,6 @@ class Farmeraddnew extends Component {
   handleeditfarmersave = () => {
     delete this.state.famerinfo["modificationTime"];
     delete this.state.famerinfo["id"];
-    // console.log(this.state.famerinfo.longitude,this.state.famerinfo.latitude,)
     if (
       this.state.famerinfo.name &&
       this.state.famerinfo.name.replace(/\s/g, "").length !== 0 &&
@@ -923,6 +952,30 @@ class Farmeraddnew extends Component {
       this.state.famerinfo.modifiedBy &&
       this.state.famerinfo.modifiedBy.replace(/\s/g, "").length !== 0
     ) {
+      var file = this.fileInput1.current.files[0];
+      var fileName = file.name;
+      // var albumPhotosKey = encodeURIComponent(albumName) + '//';
+
+      var photoKey = fileName;
+      s3.upload(
+        {
+          Key: photoKey,
+          Body: file,
+          ACL: "public-read"
+        },
+        function(err, data) {
+          if (err) {
+            return alert(
+              "There was an error uploading your photo: ",
+              err.message
+            );
+          } else {
+            let temp = this.state.famerinfo;
+            temp.farmerImage = data.Location;
+            this.setState({ famerinfo: temp });
+          }
+        }
+      );
       axios({
         url: config.addfarmernew,
         method: "POST",
@@ -998,7 +1051,7 @@ class Farmeraddnew extends Component {
                   <div className="col-xs-6 farmerinforowtitle">
                     Name{" "}
                     <i
-                      title="Mandotory fields"
+                      title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                       class="fa fa-info-circle"
                       aria-hidden="true"
@@ -1020,19 +1073,27 @@ class Farmeraddnew extends Component {
                     </span>
                   </div>
                 </div>
+
                 <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">
-                    <span>Father Name</span>
+                    Vertical{" "}
+                    <i
+                      title="Mandatory fields"
+                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                      class="fa fa-info-circle"
+                      aria-hidden="true"
+                    />
                   </div>
                   <div className="col-xs-6">
                     <input
-                      name="fatherName"
+                      name="vertical"
                       type="text"
                       className="form-control"
-                      id="fathername"
-                      value={this.state.famerinfo.fatherName}
+                      id="vertical"
+                      value={this.state.famerinfo.vertical}
                       onChange={this.handleInputChange}
-                      placeholder="Father Name"
+                      placeholder="Vertical"
+                      required
                     />
                   </div>
                 </div>
@@ -1041,7 +1102,7 @@ class Farmeraddnew extends Component {
                     <span>
                       Gender{" "}
                       <i
-                        title="Mandotory fields"
+                        title="Mandatory fields"
                         style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                         class="fa fa-info-circle"
                         aria-hidden="true"
@@ -1070,7 +1131,7 @@ class Farmeraddnew extends Component {
                   <div className="col-xs-6 farmerinforowtitle">
                     Status{" "}
                     <i
-                      title="Mandotory fields"
+                      title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                       class="fa fa-info-circle"
                       aria-hidden="true"
@@ -1096,41 +1157,47 @@ class Farmeraddnew extends Component {
               <div className="col-sm-4 ">
                 <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">
-                    <span>UID Type</span>
+                    State{" "}
+                    <i
+                      title="Mandatory fields"
+                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                      class="fa fa-info-circle"
+                      aria-hidden="true"
+                    />
                   </div>
                   <div className="col-xs-6">
-                    <div>
-                      <select
-                        name="uidType"
-                        onChange={this.handleInputChange}
-                        value={this.state.famerinfo.uidType}
-                        class="form-control"
-                        id="sel2"
-                      >
-                        <option value="AADHAAR">AADHAAR</option>
-                        <option value="VOTER ID">VOTER ID</option>
-                        <option value="LICENSE">LICENSE</option>
-                        <option value="PAYGO">PAYGO</option>
-                        <option value="CLARO ID">CLARO ID</option>
-                        <option value="OTHERS">OTHERS</option>
-                        <option value="NA">NA</option>
-                      </select>
-                    </div>
+                    <input
+                      name="state"
+                      type="text"
+                      className="form-control"
+                      id="state"
+                      value={this.state.famerinfo.state}
+                      onChange={this.handleInputChange}
+                      placeholder="State"
+                      required
+                    />
                   </div>
                 </div>
                 <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">
-                    <span>UID</span>
+                    District{" "}
+                    <i
+                      title="Mandatory fields"
+                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                      class="fa fa-info-circle"
+                      aria-hidden="true"
+                    />
                   </div>
                   <div className="col-xs-6">
                     <input
-                      name="uid"
+                      name="district"
                       type="text"
                       className="form-control"
-                      id="uid"
-                      value={this.state.famerinfo.uid}
+                      id="district"
+                      value={this.state.famerinfo.district}
                       onChange={this.handleInputChange}
-                      placeholder="UID "
+                      placeholder="District"
+                      required
                     />
                   </div>
                 </div>
@@ -1152,7 +1219,7 @@ class Farmeraddnew extends Component {
                   <div className="col-xs-6 farmerinforowtitle">
                     Created By{" "}
                     <i
-                      title="Mandotory fields"
+                      title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                       class="fa fa-info-circle"
                       aria-hidden="true"
@@ -1172,57 +1239,71 @@ class Farmeraddnew extends Component {
                 </div>
               </div>
               <div className="col-sm-3">
-                <button
-                  onClick={this.handleeditfarmersave}
-                  type="submit"
-                  className=" btn btn-default"
-                  aria-label="Right Align"
-                  style={{
-                    // display: "none",
-                    borderColor: "darkgray",
-                    float: "left",
-                    outline: "none",
-                    backgroundColor: "transparent"
-                  }}
-                >
-                  <span
-                    className="glyphicon glyphicon-upload"
-                    style={{ marginRight: "6px" }}
-                    aria-hidden="true"
-                  />
-                  Save
-                </button>
-                <button
-                  onClick={this.handlecancelfarmer}
-                  type="button"
-                  className="cancelbutton btn btn-default"
-                  aria-label="Right Align"
-                  style={{
-                    // display: "none",
-                    marginLeft: "1em",
-                    borderColor: "darkgray",
-                    // float: "right",
-                    outline: "none",
-                    backgroundColor: "transparent"
-                  }}
-                >
-                  <span
-                    className="glyphicon glyphicon-remove"
-                    style={{ marginRight: "6px" }}
-                    aria-hidden="true"
-                  />
-                  Cancel
-                </button>
+                <div className="row">
+                  <button
+                    onClick={this.handleeditfarmersave}
+                    type="submit"
+                    className=" btn btn-default"
+                    aria-label="Right Align"
+                    style={{
+                      // display: "none",
+                      borderColor: "darkgray",
+                      float: "left",
+                      outline: "none",
+                      backgroundColor: "blue",
+                      color: "white"
+                    }}
+                  >
+                    <span
+                      className="glyphicon glyphicon-upload"
+                      style={{ marginRight: "6px" }}
+                      aria-hidden="true"
+                    />
+                    Save
+                  </button>
+                  <button
+                    onClick={this.handlecancelfarmer}
+                    type="button"
+                    className="cancelbutton btn btn-default"
+                    aria-label="Right Align"
+                    style={{
+                      // display: "none",
+                      marginLeft: "1em",
+                      borderColor: "darkgray",
+                      // float: "right",
+                      outline: "none",
+                      backgroundColor: "white",
+                      color: "blue"
+                    }}
+                  >
+                    <span
+                      className="glyphicon glyphicon-remove"
+                      style={{ marginRight: "6px" }}
+                      aria-hidden="true"
+                    />
+                    Cancel
+                  </button>
+                </div>
+                <div className="row" style={{ marginTop: "3em" }}>
+                  <label>
+                    Upload Image:
+                    <input
+                      type="file"
+                      ref={this.fileInput1}
+                      style={{ width: "-webkit-fill-available" }}
+                    />
+                  </label>
+                </div>
               </div>
             </div>
 
             <div className="row farmerinfobody">
-              <div className="col-md-5">
+              <div className="col-md-4">
                 <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">
-                    Vertical{" "}
+                    Latitude{" "}
                     <i
-                      title="Mandotory fields"
+                      title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                       class="fa fa-info-circle"
                       aria-hidden="true"
@@ -1230,14 +1311,53 @@ class Farmeraddnew extends Component {
                   </div>
                   <div className="col-xs-6">
                     <input
-                      name="vertical"
+                      name="latitude"
+                      type="number"
+                      className="form-control"
+                      id="latitude"
+                      value={this.state.famerinfo.latitude}
+                      onChange={this.handleInputChange}
+                      placeholder="Latitude"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="row farmerinforow">
+                  <div className="col-xs-6 farmerinforowtitle">
+                    Longitude{" "}
+                    <i
+                      title="Mandatory fields"
+                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                      class="fa fa-info-circle"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div className="col-xs-6">
+                    <input
+                      name="longitude"
+                      type="number"
+                      className="form-control"
+                      id="longitude"
+                      value={this.state.famerinfo.longitude}
+                      onChange={this.handleInputChange}
+                      placeholder="Longitude"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="row farmerinforow">
+                  <div className="col-xs-6 farmerinforowtitle">
+                    <span>Father Name</span>
+                  </div>
+                  <div className="col-xs-6">
+                    <input
+                      name="fatherName"
                       type="text"
                       className="form-control"
-                      id="vertical"
-                      value={this.state.famerinfo.vertical}
+                      id="fathername"
+                      value={this.state.famerinfo.fatherName}
                       onChange={this.handleInputChange}
-                      placeholder="Vertical"
-                      required
+                      placeholder="Father Name"
                     />
                   </div>
                 </div>
@@ -1319,52 +1439,7 @@ class Farmeraddnew extends Component {
                     />
                   </div>
                 </div>
-                <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
-                    Latitude{" "}
-                    <i
-                      title="Mandotory fields"
-                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <div className="col-xs-6">
-                    <input
-                      name="latitude"
-                      type="number"
-                      className="form-control"
-                      id="latitude"
-                      value={this.state.famerinfo.latitude}
-                      onChange={this.handleInputChange}
-                      placeholder="Latitude"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
-                    Longitude{" "}
-                    <i
-                      title="Mandotory fields"
-                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <div className="col-xs-6">
-                    <input
-                      name="longitude"
-                      type="number"
-                      className="form-control"
-                      id="longitude"
-                      value={this.state.famerinfo.longitude}
-                      onChange={this.handleInputChange}
-                      placeholder="Longitude"
-                      required
-                    />
-                  </div>
-                </div>
+
                 <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">
                     Informer Name
@@ -1383,12 +1458,53 @@ class Farmeraddnew extends Component {
                 </div>
               </div>
               <div className="col-md-1" />
-              <div className="col-md-5">
+              <div className="col-md-4">
                 <div className="row farmerinforow">
+                  <div className="col-xs-6 farmerinforowtitle">
+                    <span>UID Type</span>
+                  </div>
+                  <div className="col-xs-6">
+                    <div>
+                      <select
+                        name="uidType"
+                        onChange={this.handleInputChange}
+                        value={this.state.famerinfo.uidType}
+                        class="form-control"
+                        id="sel2"
+                      >
+                        <option value="AADHAAR">AADHAAR</option>
+                        <option value="VOTER ID">VOTER ID</option>
+                        <option value="LICENSE">LICENSE</option>
+                        <option value="PAYGO">PAYGO</option>
+                        <option value="CLARO ID">CLARO ID</option>
+                        <option value="OTHERS">OTHERS</option>
+                        <option value="NA">NA</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="row farmerinforow">
+                  <div className="col-xs-6 farmerinforowtitle">
+                    <span>UID</span>
+                  </div>
+                  <div className="col-xs-6">
+                    <input
+                      name="uid"
+                      type="text"
+                      className="form-control"
+                      id="uid"
+                      value={this.state.famerinfo.uid}
+                      onChange={this.handleInputChange}
+                      placeholder="UID "
+                    />
+                  </div>
+                </div>
+
+                {/* <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">
                     State{" "}
                     <i
-                      title="Mandotory fields"
+                      title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                       class="fa fa-info-circle"
                       aria-hidden="true"
@@ -1411,7 +1527,7 @@ class Farmeraddnew extends Component {
                   <div className="col-xs-6 farmerinforowtitle">
                     District{" "}
                     <i
-                      title="Mandotory fields"
+                      title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
                       class="fa fa-info-circle"
                       aria-hidden="true"
@@ -1429,7 +1545,7 @@ class Farmeraddnew extends Component {
                       required
                     />
                   </div>
-                </div>
+                </div> */}
                 <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">Block</div>
                   <div className="col-xs-6">
@@ -1538,7 +1654,6 @@ class Farmeraddnew extends Component {
     );
   }
 }
-
 class Farmer extends Component {
   constructor(props) {
     super(props);
@@ -1567,18 +1682,19 @@ class Farmer extends Component {
         headers: {
           "Content-Type": "application/json"
         }
-      }).then(res => {
-        if (res.data.data.list.length > 0) {
-          this.setState({ farmerlist: res.data.data.list });
-        }
       })
-      .catch((e)=>{
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
+        .then(res => {
+          if (res.data.data.list.length > 0) {
+            this.setState({ farmerlist: res.data.data.list });
+          }
+        })
+        .catch(e => {
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
         });
-      });
     } else {
       this.getfarmerlist();
     }
@@ -1630,7 +1746,6 @@ class Farmer extends Component {
   };
   handlecancelfarmer = () => {
     this.setState({ famerinfo: Object.assign({}, this.state.backupinfo) });
-    // this.fileInput=new React.createRef();
     document.getElementById("showsidetab").style.display = "block";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
   };
@@ -1655,22 +1770,30 @@ class Farmer extends Component {
       this.state.famerinfo.district.replace(/\s/g, "").length !== 0
     ) {
       // console.log(this.fileInput.current.files[0])
-      // var file = this.fileInput.current.files[0];
-      // var fileName = file.name;
-      // // var albumPhotosKey = encodeURIComponent(albumName) + '//';
+      var file = this.fileInput.current.files[0];
+      var fileName = file.name;
+      // var albumPhotosKey = encodeURIComponent(albumName) + '//';
 
-      // var photoKey =   fileName;
-      // s3.upload({
-      //   Key: photoKey,
-      //   Body: file,
-      //   ACL: 'public-read'
-      // }, function(err, data) {
-      //   if (err) {
-      //     return alert('There was an error uploading your photo: ', err.message);
-      //   }
-      //   alert('Successfully uploaded photo.');
-      //   // viewAlbum(albumName);
-      // });
+      var photoKey = fileName;
+      s3.upload(
+        {
+          Key: photoKey,
+          Body: file,
+          ACL: "public-read"
+        },
+        function(err, data) {
+          if (err) {
+            return alert(
+              "There was an error uploading your photo: ",
+              err.message
+            );
+          } else {
+            let temp = this.state.famerinfo;
+            temp.farmerImage = data.Location;
+            this.setState({ famerinfo: temp });
+          }
+        }
+      );
       axios({
         url: config.updatefarmer,
         method: "POST",
@@ -1708,7 +1831,7 @@ class Farmer extends Component {
     } else {
       Swal({
         type: "error",
-        title: "Fill valid input in all mandatoryfields"
+        title: "Fill valid input in all mandatory fields"
         // text: res.data.error.errorMsg
       });
     }
@@ -1727,21 +1850,22 @@ class Farmer extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => {
-      this.setState({
-        farmerlist: res.data.data.list,
-        scrollcount: count,
-        hasMore: res.data.data.hasMore
-      });
     })
-    .catch(e => {
-      console.log(e);
-      Swal({
-        type: "error",
-        title: "Oops...",
-        text: e
+      .then(res => {
+        this.setState({
+          farmerlist: res.data.data.list,
+          scrollcount: count,
+          hasMore: res.data.data.hasMore
+        });
+      })
+      .catch(e => {
+        console.log(e);
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
       });
-    });
   };
   componentDidMount() {
     let self = this;
@@ -1825,7 +1949,7 @@ class Farmer extends Component {
                     className="list-group-item "
                   >
                     <h4
-                      style={{ textAlign: "right", fontSize: "14px" }}
+                      style={{ textAlign: "right", fontSize: "13px" }}
                       className="list-group-item-heading"
                     >
                       <span
