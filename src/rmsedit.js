@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { MyMapComponent } from "./rmseditmap.js";
 import axios from "axios";
 import config from "./config.js";
+import Swal from "sweetalert2";
 class RmsHeader extends Component {
   render() {
     return (
@@ -586,7 +587,21 @@ class Rmsedit extends Component {
       }
     })
     .then((res)=>{
-      console.log(res.data.data)
+      // console.log(res.data.data)
+      if (res.data.data !== null && res.data.data.result) {
+        
+        Swal({
+          type: "success",
+          title: "Successfully data updated"
+          // text: res.data.error.errorMsg
+        });
+        this.props.history.push({
+          pathname: "/rms"
+        });
+        // this.forceUpdate();
+      } else {
+        alert(res.data.error.errorMsg);
+      }
     })
 
   };

@@ -7,6 +7,7 @@ import farmerimg from "./pins/user.png";
 import config from "./config.js";
 import Swal from "sweetalert2";
 import AWS from "aws-sdk";
+// import templateimg from './pins/doc.jpeg'
 const $ = require("jquery");
 
 AWS.config.region = "ap-south-1";
@@ -101,7 +102,12 @@ class Farmereditshow extends Component {
                   alt="farmerimg"
                 />
               ) : (
-                <img width="45%" src={farmerimg} alt="placeholder farmerimg" />
+                <img
+                  width="45%"
+                  style={{ margin: "2em" }}
+                  src={farmerimg}
+                  alt="placeholder farmerimg"
+                />
               )}
             </div>
             <div className="col-xs-8 famerinfoheaderbox">
@@ -288,7 +294,7 @@ class Farmeredit extends Component {
           <div className="row farmerinfoheader ">
             <div className="col-xs-4">
               <div className="row farmerinforow">
-                <div className="col-xs-6">
+                <div className="col-xs-6 farmerinforowtitle">
                   Name{" "}
                   <i
                     title="Mandotory fields"
@@ -314,7 +320,7 @@ class Farmeredit extends Component {
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6">
+                <div className="col-xs-6 farmerinforowtitle">
                   <span>Father Name</span>
                 </div>
                 <div className="col-xs-6">
@@ -330,7 +336,7 @@ class Farmeredit extends Component {
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6">
+                <div className="col-xs-6 farmerinforowtitle">
                   <span>
                     Gender{" "}
                     <i
@@ -367,7 +373,7 @@ class Farmeredit extends Component {
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6">
+                <div className="col-xs-6 farmerinforowtitle">
                   Status{" "}
                   <i
                     title="Mandotory fields"
@@ -417,10 +423,9 @@ class Farmeredit extends Component {
                 </div>
               </div> */}
             </div>
-            <div className="col-xs-1" />
             <div className="col-xs-4 ">
               <div className="row farmerinforow">
-                <div className="col-xs-6">
+                <div className="col-xs-6 farmerinforowtitle">
                   <span>UID Type</span>
                 </div>
                 <div className="col-xs-6">
@@ -453,7 +458,7 @@ class Farmeredit extends Component {
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6">
+                <div className="col-xs-6 farmerinforowtitle">
                   <span>UID</span>
                 </div>
                 <div className="col-xs-6">
@@ -469,7 +474,7 @@ class Farmeredit extends Component {
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6">Contact No</div>
+                <div className="col-xs-6 farmerinforowtitle">Contact No</div>
                 <div className="col-xs-6">
                   <input
                     name="contactNo"
@@ -483,7 +488,7 @@ class Farmeredit extends Component {
                 </div>
               </div>
               <div className="row farmerinforow">
-                <div className="col-xs-6">Modified By</div>
+                <div className="col-xs-6 farmerinforowtitle">Modified By</div>
                 <div className="col-xs-6">
                   <input
                     name="modifiedBy"
@@ -497,51 +502,64 @@ class Farmeredit extends Component {
                 </div>
               </div>
             </div>
+            <div className="col-xs-1" />
             <div className="col-xs-3">
-              <button
-                onClick={this.props.handleeditfarmersave}
-                type="submit"
-                className="btn btn-default"
-                aria-label="Right Align"
-                id="drillUp"
-                style={{
-                  // display: "none",
-                  borderColor: "darkgray",
-                  float: "left",
-                  outline: "none",
-                  backgroundColor: "transparent"
-                }}
-              >
-                <span
-                  className="glyphicon glyphicon-upload"
-                  style={{ marginRight: "6px" }}
-                  aria-hidden="true"
-                />
-                Save
-              </button>
-
-              <button
-                onClick={this.props.handlecancelfarmer}
-                type="button"
-                className="btn btn-default"
-                aria-label="Right Align"
-                id="drillUp"
-                style={{
-                  // display: "none",
-                  marginLeft: "1em",
-                  borderColor: "darkgray",
-                  // float: "right",
-                  outline: "none",
-                  backgroundColor: "transparent"
-                }}
-              >
-                <span
-                  className="glyphicon glyphicon-remove"
-                  style={{ marginRight: "6px" }}
-                  aria-hidden="true"
-                />
-                Cancel
-              </button>
+              <div className="row">
+                <button
+                  onClick={this.props.handleeditfarmersave}
+                  type="submit"
+                  className="btn btn-default"
+                  aria-label="Right Align"
+                  id="drillUp"
+                  style={{
+                    // display: "none",
+                    marginBottom: "1em",
+                    borderColor: "darkgray",
+                    float: "left",
+                    outline: "none",
+                    backgroundColor: "transparent"
+                  }}
+                >
+                  <span
+                    className="glyphicon glyphicon-upload"
+                    style={{ marginRight: "6px" }}
+                    aria-hidden="true"
+                  />
+                  Save
+                </button>
+                <button
+                  onClick={this.props.handlecancelfarmer}
+                  type="button"
+                  className="cancelbutton btn btn-default"
+                  aria-label="Right Align"
+                  id="drillUp"
+                  style={{
+                    // display: "none",
+                    marginLeft: "1em",
+                    borderColor: "darkgray",
+                    float: "left",
+                    outline: "none",
+                    backgroundColor: "transparent"
+                  }}
+                >
+                  <span
+                    className="glyphicon glyphicon-remove"
+                    style={{ marginRight: "6px" }}
+                    aria-hidden="true"
+                  />
+                  Cancel
+                </button>
+              </div>
+              <div className="row" style={{ marginTop: "3em" }}>
+                <label>
+                  Upload Image:
+                  <input
+                    type="file"
+                    ref={this.props.fileInput}
+                    style={{ width: "-webkit-fill-available" }}
+                  />
+                </label>
+              </div>
             </div>
           </div>
 
@@ -884,7 +902,7 @@ class Farmeraddnew extends Component {
   handleeditfarmersave = () => {
     delete this.state.famerinfo["modificationTime"];
     delete this.state.famerinfo["id"];
-    // console.log(this.state.famerinfo.name,this.state.famerinfo.gender,this.state.famerinfo.entryStatus,this.state.famerinfo.vertical)
+    // console.log(this.state.famerinfo.longitude,this.state.famerinfo.latitude,)
     if (
       this.state.famerinfo.name &&
       this.state.famerinfo.name.replace(/\s/g, "").length !== 0 &&
@@ -901,7 +919,9 @@ class Farmeraddnew extends Component {
       this.state.famerinfo.state &&
       this.state.famerinfo.state.replace(/\s/g, "").length !== 0 &&
       this.state.famerinfo.district &&
-      this.state.famerinfo.district.replace(/\s/g, "").length !== 0
+      this.state.famerinfo.district.replace(/\s/g, "").length !== 0 &&
+      this.state.famerinfo.modifiedBy &&
+      this.state.famerinfo.modifiedBy.replace(/\s/g, "").length !== 0
     ) {
       axios({
         url: config.addfarmernew,
@@ -912,7 +932,7 @@ class Farmeraddnew extends Component {
         }
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.data.data !== null && res.data.data.result) {
             this.setState({
               famerinfo: Object.assign({}, this.state.backupinfo)
@@ -922,7 +942,7 @@ class Farmeraddnew extends Component {
               title: "Successfully data updated"
               // text: res.data.error.errorMsg
             });
-            this.forceUpdate();
+            window.location.reload();
           } else {
             alert(res.data.error.errorMsg);
           }
@@ -973,9 +993,9 @@ class Farmeraddnew extends Component {
         >
           <div className="container">
             <div className="row farmerinfoheader ">
-              <div className="col-xs-4">
+              <div className="col-sm-4">
                 <div className="row farmerinforow">
-                  <div className="col-xs-6">
+                  <div className="col-xs-6 farmerinforowtitle">
                     Name{" "}
                     <i
                       title="Mandotory fields"
@@ -1001,7 +1021,7 @@ class Farmeraddnew extends Component {
                   </div>
                 </div>
                 <div className="row farmerinforow">
-                  <div className="col-xs-6">
+                  <div className="col-xs-6 farmerinforowtitle">
                     <span>Father Name</span>
                   </div>
                   <div className="col-xs-6">
@@ -1017,7 +1037,7 @@ class Farmeraddnew extends Component {
                   </div>
                 </div>
                 <div className="row farmerinforow">
-                  <div className="col-xs-6">
+                  <div className="col-xs-6 farmerinforowtitle">
                     <span>
                       Gender{" "}
                       <i
@@ -1047,7 +1067,7 @@ class Farmeraddnew extends Component {
                   </div>
                 </div>
                 <div className="row farmerinforow">
-                  <div className="col-xs-6">
+                  <div className="col-xs-6 farmerinforowtitle">
                     Status{" "}
                     <i
                       title="Mandotory fields"
@@ -1072,10 +1092,10 @@ class Farmeraddnew extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-xs-1" />
-              <div className="col-xs-4 ">
+              <div className="col-sm-1" />
+              <div className="col-sm-4 ">
                 <div className="row farmerinforow">
-                  <div className="col-xs-6">
+                  <div className="col-xs-6 farmerinforowtitle">
                     <span>UID Type</span>
                   </div>
                   <div className="col-xs-6">
@@ -1099,7 +1119,7 @@ class Farmeraddnew extends Component {
                   </div>
                 </div>
                 <div className="row farmerinforow">
-                  <div className="col-xs-6">
+                  <div className="col-xs-6 farmerinforowtitle">
                     <span>UID</span>
                   </div>
                   <div className="col-xs-6">
@@ -1115,7 +1135,7 @@ class Farmeraddnew extends Component {
                   </div>
                 </div>
                 <div className="row farmerinforow">
-                  <div className="col-xs-6">Contact No</div>
+                  <div className="col-xs-6 farmerinforowtitle">Contact No</div>
                   <div className="col-xs-6">
                     <input
                       name="contactNo"
@@ -1129,7 +1149,15 @@ class Farmeraddnew extends Component {
                   </div>
                 </div>
                 <div className="row farmerinforow">
-                  <div className="col-xs-6">Modified By</div>
+                  <div className="col-xs-6 farmerinforowtitle">
+                    Created By{" "}
+                    <i
+                      title="Mandotory fields"
+                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                      class="fa fa-info-circle"
+                      aria-hidden="true"
+                    />
+                  </div>
                   <div className="col-xs-6">
                     <input
                       name="modifiedBy"
@@ -1138,18 +1166,17 @@ class Farmeraddnew extends Component {
                       id="modifiedBy"
                       value={this.state.famerinfo.modifiedBy}
                       onChange={this.handleInputChange}
-                      placeholder="Modified By"
+                      placeholder="Created By"
                     />
                   </div>
                 </div>
               </div>
-              <div className="col-xs-3">
+              <div className="col-sm-3">
                 <button
                   onClick={this.handleeditfarmersave}
                   type="submit"
                   className=" btn btn-default"
                   aria-label="Right Align"
-                  id="drillUp"
                   style={{
                     // display: "none",
                     borderColor: "darkgray",
@@ -1168,9 +1195,8 @@ class Farmeraddnew extends Component {
                 <button
                   onClick={this.handlecancelfarmer}
                   type="button"
-                  className="btn btn-default"
+                  className="cancelbutton btn btn-default"
                   aria-label="Right Align"
-                  id="drillUp"
                   style={{
                     // display: "none",
                     marginLeft: "1em",
@@ -1518,6 +1544,7 @@ class Farmer extends Component {
     super(props);
     this.state = {
       farmerlist: [],
+
       searchvariantselected: "name",
       famerinfo: {},
       searchtext: "",
@@ -1525,6 +1552,7 @@ class Farmer extends Component {
       scrollcount: 0,
       hasMore: null
     };
+    this.fileInput = React.createRef();
   }
   handlesearch = event => {
     this.setState({ searchtext: event.target.value });
@@ -1583,13 +1611,14 @@ class Farmer extends Component {
     document.getElementById("farmeraddnew").style.display = "none";
   };
   handleInputChange = event => {
-    console.log(event.target.name);
+    // console.log(event.target.name);
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
   };
   handlecancelfarmer = () => {
     this.setState({ famerinfo: Object.assign({}, this.state.backupinfo) });
+    // this.fileInput=new React.createRef();
     document.getElementById("showsidetab").style.display = "block";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
   };
@@ -1613,6 +1642,23 @@ class Farmer extends Component {
       this.state.famerinfo.district &&
       this.state.famerinfo.district.replace(/\s/g, "").length !== 0
     ) {
+      // console.log(this.fileInput.current.files[0])
+      // var file = this.fileInput.current.files[0];
+      // var fileName = file.name;
+      // // var albumPhotosKey = encodeURIComponent(albumName) + '//';
+
+      // var photoKey =   fileName;
+      // s3.upload({
+      //   Key: photoKey,
+      //   Body: file,
+      //   ACL: 'public-read'
+      // }, function(err, data) {
+      //   if (err) {
+      //     return alert('There was an error uploading your photo: ', err.message);
+      //   }
+      //   alert('Successfully uploaded photo.');
+      //   // viewAlbum(albumName);
+      // });
       axios({
         url: config.updatefarmer,
         method: "POST",
@@ -1695,7 +1741,7 @@ class Farmer extends Component {
           }
         })
           .then(res => {
-            console.log(res);
+            // console.log(res);
 
             self.setState({
               farmerlist: tabledatanow.concat(res.data.data.list),
@@ -1819,11 +1865,15 @@ class Farmer extends Component {
                 </div>
               </div>
               <div className="col-xs-9 famerinfobox">
+                {/* <div id="templateimg" style={{display:'block',textAlign:'center'}}>
+                  <img src={templateimg} alt="templateimg"/>
+                </div> */}
                 <Farmereditshow
                   handleeditfarmer={this.handleeditfarmer}
                   famerinfo={this.state.famerinfo}
                 />
                 <Farmeredit
+                  fileInput={this.fileInput}
                   famerinfo={this.state.famerinfo}
                   handlecancelfarmer={this.handlecancelfarmer}
                   handleInputChange={this.handleInputChange}
