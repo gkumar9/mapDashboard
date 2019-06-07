@@ -104,7 +104,7 @@ class Farmereditshow extends Component {
               ) : (
                 <img
                   width="45%"
-                  style={{ margin: "2em" }}
+                  style={{ margin: "1.5em" }}
                   src={farmerimg}
                   alt="placeholder farmerimg"
                 />
@@ -550,7 +550,7 @@ class Farmeredit extends Component {
                   Cancel
                 </button>
               </div>
-              <div className="row" style={{ marginTop: "3em" }}>
+              {/* <div className="row" style={{ marginTop: "3em" }}>
                 <label>
                   Upload Image:
                   <input
@@ -559,7 +559,7 @@ class Farmeredit extends Component {
                     style={{ width: "-webkit-fill-available" }}
                   />
                 </label>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -953,7 +953,7 @@ class Farmeraddnew extends Component {
     } else {
       Swal({
         type: "error",
-        title: "Fill valid input in all mandotary fields"
+        title: "Fill valid input in all mandatory fields"
         // text: res.data.error.errorMsg
       });
     }
@@ -1571,6 +1571,13 @@ class Farmer extends Component {
         if (res.data.data.list.length > 0) {
           this.setState({ farmerlist: res.data.data.list });
         }
+      })
+      .catch((e)=>{
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
       });
     } else {
       this.getfarmerlist();
@@ -1598,6 +1605,11 @@ class Farmer extends Component {
       })
       .catch(e => {
         console.log(e);
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
       });
   };
   handleclickaddfarmer = () => {
@@ -1687,11 +1699,16 @@ class Farmer extends Component {
         })
         .catch(e => {
           console.log(e);
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
         });
     } else {
       Swal({
         type: "error",
-        title: "Fill valid input in all mandotary fields"
+        title: "Fill valid input in all mandatoryfields"
         // text: res.data.error.errorMsg
       });
     }
@@ -1715,6 +1732,14 @@ class Farmer extends Component {
         farmerlist: res.data.data.list,
         scrollcount: count,
         hasMore: res.data.data.hasMore
+      });
+    })
+    .catch(e => {
+      console.log(e);
+      Swal({
+        type: "error",
+        title: "Oops...",
+        text: e
       });
     });
   };
@@ -1755,6 +1780,11 @@ class Farmer extends Component {
           })
           .catch(e => {
             console.log(e);
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
           });
       } else if (
         $(this).scrollTop() + $(this).innerHeight() > $(this)[0].scrollHeight &&
@@ -1784,8 +1814,8 @@ class Farmer extends Component {
               <div
                 className="col-xs-3"
                 style={{
-                  height: "90vh",
-                  overflow: "scroll",
+                  // height: "90vh",
+                  // overflow: "scroll",
                   paddingRight: "0"
                 }}
               >

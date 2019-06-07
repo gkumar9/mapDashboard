@@ -860,7 +860,7 @@ input[type="radio"] {
   padding: 2em;
 }
 .farmerinfoheader{
-  padding: 2em;
+  padding: 1.5em;
   margin-left: 0; 
   /* color:#777; */
   /* border-top-left-radius: 4px;
@@ -869,7 +869,7 @@ input[type="radio"] {
 }
 .farmerinfobody{
   /* font-size: 1.2em; */
-  padding: 3em;
+  padding: 2em;
   color:#777;
 }
 .list-group-item{

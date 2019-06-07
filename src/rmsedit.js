@@ -568,9 +568,30 @@ class Rmsedit extends Component {
           "Content-Type": "application/json"
         }
       }).then(res => {
-        this.setState({ rmsvalues: res.data.data });
+        if(res.data.data!==null){
+          this.setState({ rmsvalues: res.data.data });
+        }
+        else{
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: res.data.error.errorMsg
+          });
+          this.props.history.push({
+            pathname: "/rms"
+          });
+        }
+        
+      })
+      .catch((e)=>{
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
       });
     } else {
+      
       this.props.history.push({
         pathname: "/rms"
       });
