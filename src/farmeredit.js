@@ -7,6 +7,7 @@ import farmerimg from "./pins/user.png";
 import config from "./config.js";
 import Swal from "sweetalert2";
 import AWS from "aws-sdk";
+import statedistrict from "./state_json.js";
 // import templateimg from './pins/doc.jpeg'
 const $ = require("jquery");
 
@@ -97,7 +98,11 @@ class Farmereditshow extends Component {
               this.props.famerinfo.farmerImage !== "NA" &&
               this.props.famerinfo.farmerImage !== "N.A" ? (
                 <img
-                style={{ marginTop: "1em",borderRadius: "50%",height: '17vh' }}
+                  style={{
+                    marginTop: "1em",
+                    borderRadius: "50%",
+                    height: "17vh"
+                  }}
                   width="100%"
                   src={this.props.famerinfo.farmerImage}
                   alt="farmerimg"
@@ -105,7 +110,7 @@ class Farmereditshow extends Component {
               ) : (
                 <img
                   width="100%"
-                  style={{ marginTop: "1em",height: '17vh' }}
+                  style={{ marginTop: "1em", height: "17vh" }}
                   src={farmerimg}
                   alt="placeholder farmerimg"
                 />
@@ -170,9 +175,10 @@ class Farmereditshow extends Component {
                   <div className="row">
                     {/* <div className="col-xs-6">Contact No</div> */}
                     <div className="col-xs-8">
-                      {this.props.famerinfo.contactNo !== "N.A" && (
-                        <span>+91{this.props.famerinfo.contactNo}</span>
-                      )}
+                      {this.props.famerinfo.contactNo !== "N.A" &&
+                        this.props.famerinfo.contactNo !== "" && (
+                          <span>+91{this.props.famerinfo.contactNo}</span>
+                        )}
                     </div>
                   </div>
                 </div>
@@ -355,16 +361,24 @@ class Farmeredit extends Component {
                   />
                 </div>
                 <div className="col-xs-6">
-                  <input
+                  <select
                     name="vertical"
-                    type="text"
-                    className="form-control"
-                    id="vertical"
-                    value={this.props.famerinfo.vertical}
                     onChange={this.props.handleInputChange}
-                    placeholder="Vertical"
-                    required
-                  />
+                    value={this.props.famerinfo.vertical}
+                    class="form-control"
+                    id="vertical"
+                  >
+                    <option value="Solar Irrigation Pump">
+                      Solar Irrigation Pump
+                    </option>
+                    <option value="Solar Drinking Water Pump">
+                      Solar Drinking Water Pump
+                    </option>
+                    <option value="Solar Mini Grid">Solar Mini Grid</option>
+                    <option value="Solar Irrigation Service">
+                      Solar Irrigation Service
+                    </option>
+                  </select>
                 </div>
               </div>
 
@@ -469,16 +483,17 @@ class Farmeredit extends Component {
                   />
                 </div>
                 <div className="col-xs-6">
-                  <input
+                  <select
                     name="state"
-                    type="text"
-                    className="form-control"
-                    id="state"
-                    value={this.props.famerinfo.state}
                     onChange={this.props.handleInputChange}
-                    placeholder="State"
-                    required
-                  />
+                    value={this.props.famerinfo.state}
+                    class="form-control"
+                    id="state"
+                  >
+                    {Object.keys(statedistrict).map(item => (
+                      <option value={item}>{item}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <div className="row farmerinforow">
@@ -492,7 +507,22 @@ class Farmeredit extends Component {
                   />
                 </div>
                 <div className="col-xs-6">
-                  <input
+                  {this.props.famerinfo.state !== null &&
+                    this.props.famerinfo.state !== undefined && (
+                      <select
+                        name="district"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.famerinfo.district}
+                        class="form-control"
+                        id="district"
+                      >
+                        {statedistrict[this.props.famerinfo.state].map(item => (
+                          <option value={item}>{item}</option>
+                        ))}
+                      </select>
+                    )}
+
+                  {/* <input
                     name="district"
                     type="text"
                     className="form-control"
@@ -501,7 +531,7 @@ class Farmeredit extends Component {
                     onChange={this.props.handleInputChange}
                     placeholder="District"
                     required
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="row farmerinforow">
@@ -517,6 +547,8 @@ class Farmeredit extends Component {
                 <div className="col-xs-6">
                   <input
                     name="latitude"
+                    max="8"
+                    min="36"
                     type="number"
                     className="form-control"
                     id="latitude"
@@ -603,10 +635,10 @@ class Farmeredit extends Component {
               </div>
               <div className="row" style={{ marginTop: "3em" }}>
                 <label>
-                  Upload Image:
+                  <b>Upload Image:</b>
                   <input
                     type="file"
-                    onChange={ (e) => this.props.handleChangeimage(e.target.files) }
+                    onChange={e => this.props.handleChangeimage(e.target.files)}
                     ref={this.props.fileInput}
                     style={{ width: "-webkit-fill-available" }}
                   />
@@ -635,18 +667,21 @@ class Farmeredit extends Component {
               </div>
 
               <div className="row farmerinforow">
-                <div className="col-xs-6 farmerinforowtitle">
+                <div
+                  className="col-xs-6 farmerinforowtitle"
+                  title="Please fill values in Wp"
+                >
                   Intervention Size
                 </div>
                 <div className="col-xs-6">
                   <input
                     name="interventionSize"
-                    type="text"
+                    type="number"
                     className="form-control"
                     id="interventionSize"
                     value={this.props.famerinfo.interventionSize}
                     onChange={this.props.handleInputChange}
-                    placeholder="Intervention Size"
+                    placeholder="Size in Wp"
                   />
                 </div>
               </div>
@@ -924,42 +959,41 @@ class Farmeraddnew extends Component {
     document.getElementById("showsidetab").style.display = "none";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
     document.getElementById("farmeraddnew").style.display = "none";
-    this.forceUpdate();
+    this.props.getfarmer()
+    
   };
   handleInputChange = event => {
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
   };
-  handleChangeimage=()=>{
+  handleChangeimage = () => {
     var file = this.fileInput1.current.files[0];
-      var fileName = Date.now()+this.state.famerinfo.id;
-      // var albumPhotosKey = encodeURIComponent(albumName) + '//';
-      let self=this;
-      var photoKey = fileName;
-       s3.upload(
-        {
-          Key: photoKey,
-          Body: file,
-          ACL: "public-read"
-        },
-         function(err, data) {
-          if (err) {
-            return alert(
-              "There was an error uploading your photo: ",
-              err.message
-            );
-          } else {
-            let temp = self.state.famerinfo;
-            temp.farmerImage = data.Location;
-            self.setState({ famerinfo: temp });
-            alert(
-              "Img uploaded succesfully"
-            )
-          }
+    var fileName = +this.state.famerinfo.id + "-" + Date.now();
+    // var albumPhotosKey = encodeURIComponent(albumName) + '//';
+    let self = this;
+    var photoKey = fileName;
+    s3.upload(
+      {
+        Key: photoKey,
+        Body: file,
+        ACL: "public-read"
+      },
+      function(err, data) {
+        if (err) {
+          return alert(
+            "There was an error uploading your photo: ",
+            err.message
+          );
+        } else {
+          let temp = self.state.famerinfo;
+          temp.farmerImage = data.Location;
+          self.setState({ famerinfo: temp });
+          alert("Img uploaded succesfully");
         }
-      );
-  }
+      }
+    );
+  };
   handleeditfarmersave = () => {
     delete this.state.famerinfo["modificationTime"];
     delete this.state.famerinfo["id"];
@@ -979,11 +1013,45 @@ class Farmeraddnew extends Component {
       this.state.famerinfo.state &&
       this.state.famerinfo.state.replace(/\s/g, "").length !== 0 &&
       this.state.famerinfo.district &&
-      this.state.famerinfo.district.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.modifiedBy &&
-      this.state.famerinfo.modifiedBy.replace(/\s/g, "").length !== 0
+      this.state.famerinfo.district.replace(/\s/g, "").length !== 0
     ) {
-
+      if (
+        this.state.famerinfo.latitude > 37 ||
+        this.state.famerinfo.latitude < 8
+      ) {
+        alert("Please set valid Latitude value.(Lattitude - 8′N to 37′N)");
+        let temp = this.state.famerinfo;
+        temp["latitude"] = 0;
+        this.setState({ famerinfo: temp });
+        return;
+      }
+      if (
+        this.state.famerinfo.longitude > 97 ||
+        this.state.famerinfo.longitude < 68
+      ) {
+        alert("Please set valid Longitude value.(Longitude - 68′E to 97′E)");
+        let temp = this.state.famerinfo;
+        temp["longitude"] = 0;
+        this.setState({ famerinfo: temp });
+        return;
+      }
+      if (this.state.famerinfo.contactNo !== "") {
+        if (
+          this.state.famerinfo.contactNo.length !== 10 ||
+          (this.state.famerinfo.contactNo.charAt(0) !== "9" &&
+            this.state.famerinfo.contactNo.charAt(0) !== "8" &&
+            this.state.famerinfo.contactNo.charAt(0) !== "7" &&
+            this.state.famerinfo.contactNo.charAt(0) !== "6")
+        ) {
+          alert(
+            "Please set valid Contact Number.(10 digit starting with 9/8/7)"
+          );
+          // let temp = this.state.famerinfo;
+          // temp['conta'] = 0;
+          // this.setState({ famerinfo: temp });
+          return;
+        }
+      }
       axios({
         url: config.addfarmernew,
         method: "POST",
@@ -1034,6 +1102,9 @@ class Farmeraddnew extends Component {
         // console.log(res.data);
         res.data.data.gender = "M";
         res.data.data.entryStatus = "ACTIVE";
+        res.data.data.state = "Tripura";
+        res.data.data.district = "Unakoti";
+        res.data.data.vertical = "Solar Irrigation Pump";
         this.setState({
           famerinfo: res.data.data,
           backupinfo: Object.assign({}, res.data.data)
@@ -1093,16 +1164,24 @@ class Farmeraddnew extends Component {
                     />
                   </div>
                   <div className="col-xs-6">
-                    <input
+                    <select
                       name="vertical"
-                      type="text"
-                      className="form-control"
-                      id="vertical"
-                      value={this.state.famerinfo.vertical}
                       onChange={this.handleInputChange}
-                      placeholder="Vertical"
-                      required
-                    />
+                      value={this.state.famerinfo.vertical}
+                      class="form-control"
+                      id="vertical"
+                    >
+                      <option value="Solar Irrigation Pump">
+                        Solar Irrigation Pump
+                      </option>
+                      <option value="Solar Drinking Water Pump">
+                        Solar Drinking Water Pump
+                      </option>
+                      <option value="Solar Mini Grid">Solar Mini Grid</option>
+                      <option value="Solar Irrigation Service">
+                        Solar Irrigation Service
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div className="row farmerinforow">
@@ -1174,16 +1253,17 @@ class Farmeraddnew extends Component {
                     />
                   </div>
                   <div className="col-xs-6">
-                    <input
+                    <select
                       name="state"
-                      type="text"
-                      className="form-control"
-                      id="state"
-                      value={this.state.famerinfo.state}
                       onChange={this.handleInputChange}
-                      placeholder="State"
-                      required
-                    />
+                      value={this.state.famerinfo.state}
+                      class="form-control"
+                      id="state"
+                    >
+                      {Object.keys(statedistrict).map(item => (
+                        <option value={item}>{item}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
                 <div className="row farmerinforow">
@@ -1197,19 +1277,72 @@ class Farmeraddnew extends Component {
                     />
                   </div>
                   <div className="col-xs-6">
+                    {this.state.famerinfo.state !== null &&
+                      this.state.famerinfo.state !== undefined && (
+                        <select
+                          name="district"
+                          onChange={this.handleInputChange}
+                          value={this.state.famerinfo.district}
+                          class="form-control"
+                          id="district"
+                        >
+                          {statedistrict[this.state.famerinfo.state].map(
+                            item => (
+                              <option value={item}>{item}</option>
+                            )
+                          )}
+                        </select>
+                      )}
+                  </div>
+                </div>
+                <div className="row farmerinforow">
+                  <div className="col-xs-6 farmerinforowtitle">
+                    Latitude{" "}
+                    <i
+                      title="Mandatory fields"
+                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                      class="fa fa-info-circle"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div className="col-xs-6">
                     <input
-                      name="district"
-                      type="text"
+                      name="latitude"
+                      type="number"
                       className="form-control"
-                      id="district"
-                      value={this.state.famerinfo.district}
+                      id="latitude"
+                      value={this.state.famerinfo.latitude}
                       onChange={this.handleInputChange}
-                      placeholder="District"
+                      placeholder="Latitude"
                       required
                     />
                   </div>
                 </div>
                 <div className="row farmerinforow">
+                  <div className="col-xs-6 farmerinforowtitle">
+                    Longitude{" "}
+                    <i
+                      title="Mandatory fields"
+                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                      class="fa fa-info-circle"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div className="col-xs-6">
+                    <input
+                      name="longitude"
+                      type="number"
+                      className="form-control"
+                      id="longitude"
+                      value={this.state.famerinfo.longitude}
+                      onChange={this.handleInputChange}
+                      placeholder="Longitude"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">Contact No</div>
                   <div className="col-xs-6">
                     <input
@@ -1222,8 +1355,8 @@ class Farmeraddnew extends Component {
                       placeholder="Contact Number "
                     />
                   </div>
-                </div>
-                <div className="row farmerinforow">
+                </div> */}
+                {/* <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">
                     Created By{" "}
                     <i
@@ -1244,7 +1377,7 @@ class Farmeraddnew extends Component {
                       placeholder="Created By"
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="col-sm-3">
                 <div className="row">
@@ -1294,9 +1427,9 @@ class Farmeraddnew extends Component {
                 </div>
                 <div className="row" style={{ marginTop: "3em" }}>
                   <label>
-                    Upload Image:
+                    <b>Upload Image:</b>
                     <input
-                    onChange={this.handleChangeimage}
+                      onChange={this.handleChangeimage}
                       type="file"
                       ref={this.fileInput1}
                       style={{ width: "-webkit-fill-available" }}
@@ -1309,48 +1442,16 @@ class Farmeraddnew extends Component {
             <div className="row farmerinfobody">
               <div className="col-md-4">
                 <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
-                    Latitude{" "}
-                    <i
-                      title="Mandatory fields"
-                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
-                      aria-hidden="true"
-                    />
-                  </div>
+                  <div className="col-xs-6 farmerinforowtitle">Contact No</div>
                   <div className="col-xs-6">
                     <input
-                      name="latitude"
+                      name="contactNo"
                       type="number"
                       className="form-control"
-                      id="latitude"
-                      value={this.state.famerinfo.latitude}
+                      id="contactno"
+                      value={this.state.famerinfo.contactNo}
                       onChange={this.handleInputChange}
-                      placeholder="Latitude"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
-                    Longitude{" "}
-                    <i
-                      title="Mandatory fields"
-                      style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <div className="col-xs-6">
-                    <input
-                      name="longitude"
-                      type="number"
-                      className="form-control"
-                      id="longitude"
-                      value={this.state.famerinfo.longitude}
-                      onChange={this.handleInputChange}
-                      placeholder="Longitude"
-                      required
+                      placeholder="Contact Number "
                     />
                   </div>
                 </div>
@@ -1371,18 +1472,21 @@ class Farmeraddnew extends Component {
                   </div>
                 </div>
                 <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
+                  <div
+                    className="col-xs-6 farmerinforowtitle"
+                    title="Please fill values in Wp"
+                  >
                     Intervention Size
                   </div>
                   <div className="col-xs-6">
                     <input
                       name="interventionSize"
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="interventionSize"
                       value={this.state.famerinfo.interventionSize}
                       onChange={this.handleInputChange}
-                      placeholder="Intervention Size"
+                      placeholder="Size in Wp"
                     />
                   </div>
                 </div>
@@ -1448,8 +1552,21 @@ class Farmeraddnew extends Component {
                     />
                   </div>
                 </div>
-
                 <div className="row farmerinforow">
+                  <div className="col-xs-6 farmerinforowtitle">DOB</div>
+                  <div className="col-xs-6">
+                    <input
+                      name="dob"
+                      type="date"
+                      className="form-control"
+                      id="dob"
+                      value={this.state.famerinfo.dob}
+                      onChange={this.handleInputChange}
+                      placeholder="DOB"
+                    />
+                  </div>
+                </div>
+                {/* <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">
                     Informer Name
                   </div>
@@ -1464,7 +1581,7 @@ class Farmeraddnew extends Component {
                       placeholder="Farmer Info Informer Name"
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="col-md-1" />
               <div className="col-md-4">
@@ -1641,7 +1758,7 @@ class Farmeraddnew extends Component {
                     />
                   </div>
                 </div>
-                <div className="row farmerinforow">
+                {/* <div className="row farmerinforow">
                   <div className="col-xs-6 farmerinforowtitle">DOB</div>
                   <div className="col-xs-6">
                     <input
@@ -1654,7 +1771,7 @@ class Farmeraddnew extends Component {
                       placeholder="DOB"
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -1668,25 +1785,30 @@ class Farmer extends Component {
     super(props);
     this.state = {
       farmerlist: [],
-
       searchvariantselected: "name",
       famerinfo: {},
       searchtext: "",
       backupinfo: {},
       scrollcount: 0,
-      hasMore: null
+      searchscrollcount: 0,
+      searchhasmore: false,
+      hasMore: false
     };
     this.fileInput = React.createRef();
   }
   handlesearch = event => {
-    this.setState({ searchtext: event.target.value });
-    if (event.target.value.length > 3) {
+    if (
+      this.state.searchtext === event.target.value &&
+      event.target.value.length > 3
+    ) {
+      this.setState({ searchtext: event.target.value });
+      let tempsearchscrollcount = this.state.searchscrollcount + 1;
       axios({
         url: config.searchfarmer,
         method: "POST",
         data: {
           [this.state.searchvariantselected]: event.target.value,
-          pageNo: 1
+          pageNo: tempsearchscrollcount
         },
         headers: {
           "Content-Type": "application/json"
@@ -1694,7 +1816,18 @@ class Farmer extends Component {
       })
         .then(res => {
           if (res.data.data.list.length > 0) {
-            this.setState({ farmerlist: res.data.data.list });
+            this.setState({
+              farmerlist: res.data.data.list,
+              searchscrollcount: tempsearchscrollcount,
+              searchhasmore: res.data.data.hasMore
+            });
+          } else {
+            let temp = [{ name: "No result found", id: null }];
+            this.setState({
+              farmerlist: temp,
+              searchscrollcount: 0,
+              searchhasmore: res.data.data.hasMore
+            });
           }
         })
         .catch(e => {
@@ -1704,38 +1837,87 @@ class Farmer extends Component {
             text: e
           });
         });
-    } else {
+    } else if (
+      this.state.searchtext !== event.target.value &&
+      event.target.value.length > 3
+    ) {
+      this.setState({ searchtext: event.target.value });
+      let tempsearchscrollcount = 1;
+      axios({
+        url: config.searchfarmer,
+        method: "POST",
+        data: {
+          [this.state.searchvariantselected]: event.target.value,
+          pageNo: tempsearchscrollcount
+        },
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => {
+          if (res.data.data.list.length > 0) {
+            this.setState({
+              farmerlist: res.data.data.list,
+              searchscrollcount: tempsearchscrollcount,
+              searchhasmore: res.data.data.hasMore
+            });
+          } else {
+            let temp = [{ name: "No result found", id: null }];
+            this.setState({
+              farmerlist: temp,
+              searchscrollcount: 0,
+              searchhasmore: res.data.data.hasMore
+            });
+          }
+        })
+        .catch(e => {
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
+        });
+    } else if (
+      this.state.searchtext !== event.target.value &&
+      event.target.value.length <= 3
+    ) {
+      this.setState({ searchtext: event.target.value });
+    }
+    if (event.target.value.length === 0) {
       this.getfarmerlist();
     }
   };
   handleclick = item => {
-    axios({
-      url: config.getfarmer + item.id,
-      method: "POST",
-      data: {
-        temp: "temp"
-      },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => {
-        this.setState({
-          famerinfo: res.data.data,
-          backupinfo: Object.assign({}, res.data.data)
-        });
-        document.getElementById("showsidetab").style.display = "block";
-        document.getElementById("farmeraddnew").style.display = "none";
-        document.getElementById("showsidetabeditfarmer").style.display = "none";
+    if (item.id !== null) {
+      axios({
+        url: config.getfarmer + item.id,
+        method: "POST",
+        data: {
+          temp: "temp"
+        },
+        headers: {
+          "Content-Type": "application/json"
+        }
       })
-      .catch(e => {
-        console.log(e);
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
+        .then(res => {
+          this.setState({
+            famerinfo: res.data.data,
+            backupinfo: Object.assign({}, res.data.data)
+          });
+          document.getElementById("showsidetab").style.display = "block";
+          document.getElementById("farmeraddnew").style.display = "none";
+          document.getElementById("showsidetabeditfarmer").style.display =
+            "none";
+        })
+        .catch(e => {
+          console.log(e);
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
         });
-      });
+    }
   };
   handleclickaddfarmer = () => {
     document.getElementById("showsidetab").style.display = "none";
@@ -1748,7 +1930,6 @@ class Farmer extends Component {
     document.getElementById("farmeraddnew").style.display = "none";
   };
   handleInputChange = event => {
-    // console.log(event.target.name);
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
@@ -1779,7 +1960,45 @@ class Farmer extends Component {
       this.state.famerinfo.district.replace(/\s/g, "").length !== 0
     ) {
       // console.log(this.fileInput.current.files[0])
-      
+
+      if (
+        this.state.famerinfo.latitude > 37 ||
+        this.state.famerinfo.latitude < 8
+      ) {
+        alert("Please set valid Latitude value.(Lattitude - 8′N to 37′N)");
+        //  let temp = this.state.famerinfo;
+        // temp['latitude'] = 0;
+        // this.setState({ famerinfo: temp });
+        return;
+      }
+      if (
+        this.state.famerinfo.longitude > 97 ||
+        this.state.famerinfo.longitude < 68
+      ) {
+        alert("Please set valid Longitude value.(Longitude - 68′E to 97′E)");
+        //  let temp = this.state.famerinfo;
+        // temp['longitude'] = 0;
+        // this.setState({ famerinfo: temp });
+        return;
+      }
+      if (this.state.famerinfo.contactNo !== "") {
+        if (
+          this.state.famerinfo.contactNo.length !== 10 ||
+          (this.state.famerinfo.contactNo.charAt(0) !== "9" &&
+            this.state.famerinfo.contactNo.charAt(0) !== "8" &&
+            this.state.famerinfo.contactNo.charAt(0) !== "7" &&
+            this.state.famerinfo.contactNo.charAt(0) !== "6")
+        ) {
+          alert(
+            "Please set valid Contact Number.(10 digit starting with 9/8/7)"
+          );
+          // let temp = this.state.famerinfo;
+          // temp['conta'] = 0;
+          // this.setState({ famerinfo: temp });
+          return;
+        }
+      }
+
       axios({
         url: config.updatefarmer,
         method: "POST",
@@ -1822,35 +2041,33 @@ class Farmer extends Component {
       });
     }
   };
-  handleChangeimage=()=>{
+  handleChangeimage = () => {
     var file = this.fileInput.current.files[0];
-    var fileName = Date.now()+this.state.famerinfo.id;
-      // var albumPhotosKey = encodeURIComponent(albumName) + '//';
-      let self=this;
-      var photoKey = fileName;
-       s3.upload(
-        {
-          Key: photoKey,
-          Body: file,
-          ACL: "public-read"
-        },
-         function(err, data) {
-          if (err) {
-            return alert(
-              "There was an error uploading your photo: ",
-              err.message
-            );
-          } else {
-            let temp = self.state.famerinfo;
-            temp.farmerImage = data.Location;
-            self.setState({ famerinfo: temp });
-            alert(
-              "Img uploaded succesfully"
-            )
-          }
+    var fileName = +this.state.famerinfo.id + "-" + Date.now();
+    // var albumPhotosKey = encodeURIComponent(albumName) + '//';
+    let self = this;
+    var photoKey = fileName;
+    s3.upload(
+      {
+        Key: photoKey,
+        Body: file,
+        ACL: "public-read"
+      },
+      function(err, data) {
+        if (err) {
+          return alert(
+            "There was an error uploading your photo: ",
+            err.message
+          );
+        } else {
+          let temp = self.state.famerinfo;
+          temp.farmerImage = data.Location;
+          self.setState({ famerinfo: temp });
+          alert("Img uploaded succesfully");
         }
-      );
-  }
+      }
+    );
+  };
   handlesearchselect = event => {
     this.setState({ searchvariantselected: event.target.value });
   };
@@ -1870,7 +2087,9 @@ class Farmer extends Component {
         this.setState({
           farmerlist: res.data.data.list,
           scrollcount: count,
-          hasMore: res.data.data.hasMore
+          hasMore: res.data.data.hasMore,
+          searchhasmore: false,
+          searchscrollcount: 0
         });
         axios({
           url: config.getfarmer + res.data.data.list[0].id,
@@ -1889,7 +2108,8 @@ class Farmer extends Component {
             });
             document.getElementById("showsidetab").style.display = "block";
             document.getElementById("farmeraddnew").style.display = "none";
-            document.getElementById("showsidetabeditfarmer").style.display = "none";
+            document.getElementById("showsidetabeditfarmer").style.display =
+              "none";
           })
           .catch(e => {
             console.log(e);
@@ -1914,14 +2134,16 @@ class Farmer extends Component {
   };
   componentDidMount() {
     let self = this;
+
     $("#maptable").scroll(function() {
-      // console.log('ooooooo',self.state.hasMore,$(this).scrollTop() + $(this).innerHeight() >=
-      // $(this)[0].scrollHeight)
       if (
         $(this).scrollTop() + $(this).innerHeight() >=
           $(this)[0].scrollHeight &&
-        self.state.hasMore
+        self.state.hasMore &&
+        !self.state.searchhasmore &&
+        self.state.searchscrollcount === 0
       ) {
+        console.log("in list");
         document.getElementById("listendmessage").style.display = "none";
         let count = self.state.scrollcount + 1;
         let tabledatanow = self.state.farmerlist;
@@ -1956,12 +2178,58 @@ class Farmer extends Component {
             });
           });
       } else if (
+        $(this).scrollTop() + $(this).innerHeight() >=
+          $(this)[0].scrollHeight &&
+        self.state.searchscrollcount >= 0 &&
+        self.state.searchhasmore
+      ) {
+        console.log("in search");
+        let tempsearchscrollcount = self.state.searchscrollcount + 1;
+        let tabledatanow = self.state.farmerlist;
+        axios({
+          url: config.searchfarmer,
+          method: "POST",
+          data: {
+            [self.state.searchvariantselected]: self.state.searchtext,
+            pageNo: tempsearchscrollcount
+          },
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(res => {
+            if (res.data.data.list.length > 0) {
+              self.setState({
+                farmerlist: tabledatanow.concat(res.data.data.list),
+                searchscrollcount: tempsearchscrollcount,
+                searchhasmore: res.data.data.hasMore
+              });
+            } else {
+              let temp = [{ name: "No result found", id: null }];
+              self.setState({
+                farmerlist: temp,
+                searchscrollcount: 0,
+                searchhasmore: res.data.data.hasMore
+              });
+            }
+          })
+          .catch(e => {
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
+          });
+      } else if (
         $(this).scrollTop() + $(this).innerHeight() > $(this)[0].scrollHeight &&
         self.state.hasMore !== null &&
         !self.state.hasMore
       ) {
         // console.log('block',self.state.hasMore,($(this).scrollTop() + $(this).innerHeight() >
         // $(this)[0].scrollHeight))
+        // let templist=this.state.farmerlist
+        // templist.push({name:'You have come till the end of list.'})
+        // this.setState({farmerlist:templist})
         document.getElementById("listendmessage").style.display = "block";
       } else {
         document.getElementById("listendmessage").style.display = "none";
@@ -2042,12 +2310,17 @@ class Farmer extends Component {
                           <h4 className="list-group-item-heading">
                             {item.name}
                           </h4>
-                          <p className="list-group-item-text">
-                            {item.uidType}: {item.uid}
-                            <span style={{ float: "right" }}>
-                              {item.contactNo}
-                            </span>
-                          </p>
+                          {item.uid && item.uidType && (
+                            <p className="list-group-item-text">
+                              {item.uidType}: {item.uid}
+                              {item.contactNo && (
+                                <span style={{ float: "right" }}>
+                                  {item.contactNo}
+                                </span>
+                              )}
+                              
+                            </p>
+                          )}
                         </a>
                       ))}
                     <div
@@ -2076,7 +2349,7 @@ class Farmer extends Component {
                   handleInputChange={this.handleInputChange}
                   handleeditfarmersave={this.handleeditfarmersave}
                 />
-                <Farmeraddnew />
+                <Farmeraddnew getfarmer={this.getfarmerlist}/>
               </div>
             </div>
           </div>

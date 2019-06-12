@@ -68,9 +68,10 @@ class Rmsdatatable extends Component {
         },
         { data: "customerId" },
         { data: "customerName" },
-        { data: "lastActive" },
+       
         { data: "district" },
         { data: "state" },
+        { data: "lastActive" },
         {
           render: function(data, type, row) {
             return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
@@ -107,9 +108,10 @@ class Rmsdatatable extends Component {
               <th>Device ID</th>
               <th>Customer ID</th>
               <th>Beneficiary</th>
-              <th>Last Active</th>
+              
               <th>District</th>
               <th>State</th>
+              <th>Last Active</th>
               <th>Edit</th>
             </tr>
           </thead>

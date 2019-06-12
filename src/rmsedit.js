@@ -721,28 +721,9 @@ class Rmsedit extends Component {
                 }}
               >
                 <div className="form-group">
-                  <label htmlFor="" className="col-sm-10" />
-                  <div className="col-sm-2">
-                    <button
-                      style={{
-                        float: "left",
-                        marginRight: "2em",
-                        border: "1px solid #ccc",
-                        background: "white",
-                        color: "blue"
-                      }}
-                      onClick={this.handlecancel}
-                      type="button"
-                      className="btn btn-default"
-                      aria-label="Left Align"
-                    >
-                      <span
-                        className="glyphicon glyphicon-remove"
-                        style={{ marginRight: "6px" }}
-                        aria-hidden="true"
-                      />
-                      Cancel
-                    </button>
+                  <label htmlFor="" className="col-sm-9" />
+                  <div className="col-sm-3">
+                    
                     <button
                       style={{
                         float: "right",
@@ -761,6 +742,26 @@ class Rmsedit extends Component {
                         aria-hidden="true"
                       />
                       Save
+                    </button>
+                    <button
+                      style={{
+                        float: "right",
+                        marginRight: "2em",
+                        border: "1px solid #ccc",
+                        background: "white",
+                        color: "blue"
+                      }}
+                      onClick={this.handlecancel}
+                      type="button"
+                      className="btn btn-default"
+                      aria-label="Left Align"
+                    >
+                      <span
+                        className="glyphicon glyphicon-remove"
+                        style={{ marginRight: "6px" }}
+                        aria-hidden="true"
+                      />
+                      Cancel
                     </button>
                   </div>
                 </div>
