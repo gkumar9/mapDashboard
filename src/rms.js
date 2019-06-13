@@ -54,7 +54,7 @@ class Rmsdatatable extends Component {
     let self = this;
     var otable = $("#table_id").DataTable({
       data: this.props.data,
-      scrollY: 520,
+      scrollY: 480,
       destroy: true,
       paging: true,
       ordering: true,

@@ -167,7 +167,11 @@ class Farmereditshow extends Component {
                   <div className="row">
                     <div className="col-xs-8">
                       <span>
-                        S/O {this.props.famerinfo.fatherName},{" "}
+                      {this.props.famerinfo.fatherName&&(
+                        <span>S/O {this.props.famerinfo.fatherName},{" "}</span>
+                        
+                      )}
+
                         {this.props.famerinfo.gender}
                       </span>
                     </div>
@@ -1044,7 +1048,7 @@ class Farmeraddnew extends Component {
             this.state.famerinfo.contactNo.charAt(0) !== "6")
         ) {
           alert(
-            "Please set valid Contact Number.(10 digit starting with 9/8/7)"
+            "Please set valid Contact Number(10 digit starting with 9/8/7)"
           );
           // let temp = this.state.famerinfo;
           // temp['conta'] = 0;
@@ -1105,6 +1109,7 @@ class Farmeraddnew extends Component {
         res.data.data.state = "Tripura";
         res.data.data.district = "Unakoti";
         res.data.data.vertical = "Solar Irrigation Pump";
+        res.data.data.contactNo = "";
         this.setState({
           famerinfo: res.data.data,
           backupinfo: Object.assign({}, res.data.data)
@@ -1900,6 +1905,8 @@ class Farmer extends Component {
         }
       })
         .then(res => {
+          // console.log(res.data.data.state)
+          console.log(res.data.data.state.charAt(0).toUpperCase() + res.data.data.state.slice(1))
           this.setState({
             famerinfo: res.data.data,
             backupinfo: Object.assign({}, res.data.data)
@@ -2134,7 +2141,12 @@ class Farmer extends Component {
   };
   componentDidMount() {
     let self = this;
-
+  //   $(".list-group").click(function(e) {
+  //     console.log('list clicked')
+  //     // $('.list-group').removeClass("active");
+  //     console.log(e.target)
+  //     // $(e.target).addClass("active");
+  //  });
     $("#maptable").scroll(function() {
       if (
         $(this).scrollTop() + $(this).innerHeight() >=
@@ -2256,7 +2268,7 @@ class Farmer extends Component {
                   paddingRight: "0"
                 }}
               >
-                <div className="list-group list-group-flush">
+                <div className="list-group">
                   <a
                     onClick={this.handleclickaddfarmer}
                     className="list-group-item "
