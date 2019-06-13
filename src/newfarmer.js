@@ -424,17 +424,14 @@ class FarmerHeader extends Component {
               style={{
                 // display: "none",
                 // borderColor: "darkgray",
+                borderRadius:'0px',
                 float: "right",
                 outline: "none",
                 color:"white",
                 backgroundColor: "blue"
               }}
             >
-              <span
-                className="glyphicon glyphicon-pencil"
-                style={{ marginRight: "6px" }}
-                aria-hidden="true"
-              />
+              
               Add/edit Farmer
             </button></Link>
             <span style={{ fontSize: "large", color: "blue"  }}>Farmer database in India</span>

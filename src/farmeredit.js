@@ -128,16 +128,18 @@ class Farmereditshow extends Component {
                   </div>
                 </div>
                 <div className="col-sm-4">
-                  <div className="col-xs-6" />
-                  <div className="col-xs-6">
+                  {/* <div className="col-xs-6" /> */}
+                  <div className="col-xs-12">
                     <button
                       onClick={this.props.handleeditfarmer}
                       type="button"
-                      className="btn btn-default"
+                      className="btn btn-default "
                       aria-label="Right Align"
                       // id="drillUp"
                       style={{
                         // display: "none",
+                        width: "40%",
+                        borderRadius: "0px",
                         borderColor: "darkgray",
                         float: "right",
                         outline: "none",
@@ -145,11 +147,6 @@ class Farmereditshow extends Component {
                         backgroundColor: "blue"
                       }}
                     >
-                      <span
-                        className="glyphicon glyphicon-pencil"
-                        style={{ marginRight: "6px" }}
-                        aria-hidden="true"
-                      />
                       Edit
                     </button>
                   </div>
@@ -330,7 +327,7 @@ class Farmeredit extends Component {
                   <i
                     title="Mandatory fields"
                     style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
+                    className="fa fa-info-circle"
                     aria-hidden="true"
                   />
                 </div>
@@ -342,7 +339,7 @@ class Farmeredit extends Component {
                       type="text"
                       className="form-control"
                       id="name"
-                      value={this.props.famerinfo.name}
+                      value={this.props.famerinfo.name || ""}
                       onChange={this.props.handleInputChange}
                       placeholder="Name"
                       required
@@ -356,7 +353,7 @@ class Farmeredit extends Component {
                   <i
                     title="Mandatory fields"
                     style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
+                    className="fa fa-info-circle"
                     aria-hidden="true"
                   />
                 </div>
@@ -365,7 +362,7 @@ class Farmeredit extends Component {
                     name="vertical"
                     onChange={this.props.handleInputChange}
                     value={this.props.famerinfo.vertical}
-                    class="form-control"
+                    className="form-control"
                     id="vertical"
                   >
                     <option value="Solar Irrigation Pump">
@@ -389,7 +386,7 @@ class Farmeredit extends Component {
                     <i
                       title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
+                      className="fa fa-info-circle"
                       aria-hidden="true"
                     />
                   </span>
@@ -400,7 +397,7 @@ class Farmeredit extends Component {
                       name="gender"
                       onChange={this.props.handleInputChange}
                       value={this.props.famerinfo.gender}
-                      class="form-control"
+                      className="form-control"
                       id="sel1"
                     >
                       <option value="M">M</option>
@@ -425,7 +422,7 @@ class Farmeredit extends Component {
                   <i
                     title="Mandatory fields"
                     style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
+                    className="fa fa-info-circle"
                     aria-hidden="true"
                   />
                 </div>
@@ -435,7 +432,7 @@ class Farmeredit extends Component {
                       name="entryStatus"
                       onChange={this.props.handleInputChange}
                       value={this.props.famerinfo.entryStatus}
-                      class="form-control"
+                      className="form-control"
                       id="sel3"
                     >
                       <option value="ACTIVE">ACTIVE</option>
@@ -478,7 +475,7 @@ class Farmeredit extends Component {
                   <i
                     title="Mandatory fields"
                     style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
+                    className="fa fa-info-circle"
                     aria-hidden="true"
                   />
                 </div>
@@ -487,11 +484,13 @@ class Farmeredit extends Component {
                     name="state"
                     onChange={this.props.handleInputChange}
                     value={this.props.famerinfo.state}
-                    class="form-control"
+                    className="form-control"
                     id="state"
                   >
                     {Object.keys(statedistrict).map(item => (
-                      <option value={item}>{item}</option>
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -502,7 +501,7 @@ class Farmeredit extends Component {
                   <i
                     title="Mandatory fields"
                     style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
+                    className="fa fa-info-circle"
                     aria-hidden="true"
                   />
                 </div>
@@ -513,11 +512,13 @@ class Farmeredit extends Component {
                         name="district"
                         onChange={this.props.handleInputChange}
                         value={this.props.famerinfo.district}
-                        class="form-control"
+                        className="form-control"
                         id="district"
                       >
                         {statedistrict[this.props.famerinfo.state].map(item => (
-                          <option value={item}>{item}</option>
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
                         ))}
                       </select>
                     )}
@@ -540,7 +541,7 @@ class Farmeredit extends Component {
                   <i
                     title="Mandatory fields"
                     style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
+                    className="fa fa-info-circle"
                     aria-hidden="true"
                   />
                 </div>
@@ -552,7 +553,7 @@ class Farmeredit extends Component {
                     type="number"
                     className="form-control"
                     id="latitude"
-                    value={this.props.famerinfo.latitude}
+                    value={this.props.famerinfo.latitude || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Latitude"
                     required
@@ -565,7 +566,7 @@ class Farmeredit extends Component {
                   <i
                     title="Mandatory fields"
                     style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                    class="fa fa-info-circle"
+                    className="fa fa-info-circle"
                     aria-hidden="true"
                   />
                 </div>
@@ -575,7 +576,7 @@ class Farmeredit extends Component {
                     type="number"
                     className="form-control"
                     id="longitude"
-                    value={this.props.famerinfo.longitude}
+                    value={this.props.famerinfo.longitude || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Longitude"
                     required
@@ -594,6 +595,8 @@ class Farmeredit extends Component {
                   id="drillUp"
                   style={{
                     // display: "none",
+                    width: "35%",
+                    borderRadius: "0px",
                     marginBottom: "1em",
                     borderColor: "darkgray",
                     float: "left",
@@ -602,11 +605,6 @@ class Farmeredit extends Component {
                     backgroundColor: "blue"
                   }}
                 >
-                  <span
-                    className="glyphicon glyphicon-upload"
-                    style={{ marginRight: "6px" }}
-                    aria-hidden="true"
-                  />
                   Save
                 </button>
                 <button
@@ -617,19 +615,16 @@ class Farmeredit extends Component {
                   id="drillUp"
                   style={{
                     // display: "none",
+                    width: "35%",
                     marginLeft: "1em",
-                    borderColor: "darkgray",
+                    borderRadius: "0px",
+                    borderColor: "blue",
                     float: "left",
                     outline: "none",
                     color: "blue",
                     backgroundColor: "white"
                   }}
                 >
-                  <span
-                    className="glyphicon glyphicon-remove"
-                    style={{ marginRight: "6px" }}
-                    aria-hidden="true"
-                  />
                   Cancel
                 </button>
               </div>
@@ -659,7 +654,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="fathername"
-                    value={this.props.famerinfo.fatherName}
+                    value={this.props.famerinfo.fatherName || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Father Name"
                   />
@@ -679,7 +674,7 @@ class Farmeredit extends Component {
                     type="number"
                     className="form-control"
                     id="interventionSize"
-                    value={this.props.famerinfo.interventionSize}
+                    value={this.props.famerinfo.interventionSize || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Size in Wp"
                   />
@@ -709,7 +704,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="govtCardHolder"
-                    value={this.props.famerinfo.govtCardHolder}
+                    value={this.props.famerinfo.govtCardHolder || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Govt. Card Holder (Y/N)"
                   />
@@ -722,10 +717,10 @@ class Farmeredit extends Component {
                 <div className="col-xs-6">
                   <input
                     name="totalLandSize"
-                    type="text"
+                    type="number"
                     className="form-control"
                     id="totalLandSize"
-                    value={this.props.famerinfo.totalLandSize}
+                    value={this.props.famerinfo.totalLandSize || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Land Size in Sq. Ft."
                   />
@@ -738,10 +733,10 @@ class Farmeredit extends Component {
                 <div className="col-xs-6">
                   <input
                     name="incomeFromLand"
-                    type="text"
+                    type="number"
                     className="form-control"
                     id="incomeFromLand"
-                    value={this.props.famerinfo.incomeFromLand}
+                    value={this.props.famerinfo.incomeFromLand || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Income From Land in rupee"
                   />
@@ -755,7 +750,7 @@ class Farmeredit extends Component {
                     type="number"
                     className="form-control"
                     id="contactno"
-                    value={this.props.famerinfo.contactNo}
+                    value={this.props.famerinfo.contactNo || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Contact Number "
                   />
@@ -769,7 +764,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="modifiedBy"
-                    value={this.props.famerinfo.modifiedBy}
+                    value={this.props.famerinfo.modifiedBy || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Modified By"
                   />
@@ -783,7 +778,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="farmerInfoInformerName"
-                    value={this.props.famerinfo.farmerInfoInformerName}
+                    value={this.props.famerinfo.farmerInfoInformerName || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Farmer Info Informer Name"
                   />
@@ -802,7 +797,7 @@ class Farmeredit extends Component {
                       name="uidType"
                       onChange={this.props.handleInputChange}
                       value={this.props.famerinfo.uidType}
-                      class="form-control"
+                      className="form-control"
                       id="sel2"
                     >
                       <option value="AADHAAR">AADHAAR</option>
@@ -810,6 +805,7 @@ class Farmeredit extends Component {
                       <option value="LICENSE">LICENSE</option>
                       <option value="PAYGO">PAYGO</option>
                       <option value="CLARO ID">CLARO ID</option>
+                      <option value="SYSTEM_GENERATED">SYSTEM_GENERATED</option>
                       <option value="OTHERS">OTHERS</option>
                       <option value="NA">NA</option>
                     </select>
@@ -835,7 +831,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="uid"
-                    value={this.props.famerinfo.uid}
+                    value={this.props.famerinfo.uid || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="UID "
                   />
@@ -849,7 +845,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="block"
-                    value={this.props.famerinfo.block}
+                    value={this.props.famerinfo.block || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Block"
                   />
@@ -863,7 +859,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="community"
-                    value={this.props.famerinfo.community}
+                    value={this.props.famerinfo.community || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Community"
                   />
@@ -877,7 +873,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="subCommunity"
-                    value={this.props.famerinfo.subCommunity}
+                    value={this.props.famerinfo.subCommunity || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Sub Community"
                   />
@@ -891,7 +887,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="village"
-                    value={this.props.famerinfo.village}
+                    value={this.props.famerinfo.village || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Village"
                   />
@@ -905,7 +901,7 @@ class Farmeredit extends Component {
                     type="number"
                     className="form-control"
                     id="pincode"
-                    value={this.props.famerinfo.pincode}
+                    value={this.props.famerinfo.pincode || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="Pincode"
                   />
@@ -919,7 +915,7 @@ class Farmeredit extends Component {
                     type="text"
                     className="form-control"
                     id="houseType"
-                    value={this.props.famerinfo.houseType}
+                    value={this.props.famerinfo.houseType || ""}
                     onChange={this.props.handleInputChange}
                     placeholder="House Type"
                   />
@@ -959,10 +955,10 @@ class Farmeraddnew extends Component {
     document.getElementById("showsidetab").style.display = "none";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
     document.getElementById("farmeraddnew").style.display = "none";
-    this.props.getfarmer()
-    
+    this.props.getfarmer();
   };
   handleInputChange = event => {
+    event.persist();
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
@@ -1132,7 +1128,7 @@ class Farmeraddnew extends Component {
                     <i
                       title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
+                      className="fa fa-info-circle"
                       aria-hidden="true"
                     />
                   </div>
@@ -1159,7 +1155,7 @@ class Farmeraddnew extends Component {
                     <i
                       title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
+                      className="fa fa-info-circle"
                       aria-hidden="true"
                     />
                   </div>
@@ -1168,7 +1164,7 @@ class Farmeraddnew extends Component {
                       name="vertical"
                       onChange={this.handleInputChange}
                       value={this.state.famerinfo.vertical}
-                      class="form-control"
+                      className="form-control"
                       id="vertical"
                     >
                       <option value="Solar Irrigation Pump">
@@ -1191,7 +1187,7 @@ class Farmeraddnew extends Component {
                       <i
                         title="Mandatory fields"
                         style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                        class="fa fa-info-circle"
+                        className="fa fa-info-circle"
                         aria-hidden="true"
                       />
                     </span>
@@ -1202,12 +1198,10 @@ class Farmeraddnew extends Component {
                         name="gender"
                         onChange={this.handleInputChange}
                         value={this.state.famerinfo.gender}
-                        class="form-control"
+                        className="form-control"
                         id="sel1"
                       >
-                        <option selected value="M">
-                          M
-                        </option>
+                        <option value="M">M</option>
                         <option value="F">F</option>
                         <option value="NA">NA</option>
                       </select>
@@ -1220,7 +1214,7 @@ class Farmeraddnew extends Component {
                     <i
                       title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
+                      className="fa fa-info-circle"
                       aria-hidden="true"
                     />
                   </div>
@@ -1230,7 +1224,7 @@ class Farmeraddnew extends Component {
                         name="entryStatus"
                         onChange={this.handleInputChange}
                         value={this.state.famerinfo.entryStatus}
-                        class="form-control"
+                        className="form-control"
                         id="sel3"
                       >
                         <option value="ACTIVE">ACTIVE</option>
@@ -1248,7 +1242,7 @@ class Farmeraddnew extends Component {
                     <i
                       title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
+                      className="fa fa-info-circle"
                       aria-hidden="true"
                     />
                   </div>
@@ -1257,11 +1251,13 @@ class Farmeraddnew extends Component {
                       name="state"
                       onChange={this.handleInputChange}
                       value={this.state.famerinfo.state}
-                      class="form-control"
+                      className="form-control"
                       id="state"
                     >
                       {Object.keys(statedistrict).map(item => (
-                        <option value={item}>{item}</option>
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -1272,7 +1268,7 @@ class Farmeraddnew extends Component {
                     <i
                       title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
+                      className="fa fa-info-circle"
                       aria-hidden="true"
                     />
                   </div>
@@ -1283,12 +1279,14 @@ class Farmeraddnew extends Component {
                           name="district"
                           onChange={this.handleInputChange}
                           value={this.state.famerinfo.district}
-                          class="form-control"
+                          className="form-control"
                           id="district"
                         >
                           {statedistrict[this.state.famerinfo.state].map(
                             item => (
-                              <option value={item}>{item}</option>
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
                             )
                           )}
                         </select>
@@ -1301,7 +1299,7 @@ class Farmeraddnew extends Component {
                     <i
                       title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
+                      className="fa fa-info-circle"
                       aria-hidden="true"
                     />
                   </div>
@@ -1324,7 +1322,7 @@ class Farmeraddnew extends Component {
                     <i
                       title="Mandatory fields"
                       style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
-                      class="fa fa-info-circle"
+                      className="fa fa-info-circle"
                       aria-hidden="true"
                     />
                   </div>
@@ -1388,6 +1386,8 @@ class Farmeraddnew extends Component {
                     aria-label="Right Align"
                     style={{
                       // display: "none",
+                      width: "35%",
+                      borderRadius: "0px",
                       borderColor: "darkgray",
                       float: "left",
                       outline: "none",
@@ -1395,11 +1395,6 @@ class Farmeraddnew extends Component {
                       color: "white"
                     }}
                   >
-                    <span
-                      className="glyphicon glyphicon-upload"
-                      style={{ marginRight: "6px" }}
-                      aria-hidden="true"
-                    />
                     Save
                   </button>
                   <button
@@ -1409,19 +1404,16 @@ class Farmeraddnew extends Component {
                     aria-label="Right Align"
                     style={{
                       // display: "none",
+                      width: "35%",
+                      borderRadius: "0px",
                       marginLeft: "1em",
-                      borderColor: "darkgray",
+                      borderColor: "blue",
                       // float: "right",
                       outline: "none",
                       backgroundColor: "white",
                       color: "blue"
                     }}
                   >
-                    <span
-                      className="glyphicon glyphicon-remove"
-                      style={{ marginRight: "6px" }}
-                      aria-hidden="true"
-                    />
                     Cancel
                   </button>
                 </div>
@@ -1595,7 +1587,7 @@ class Farmeraddnew extends Component {
                         name="uidType"
                         onChange={this.handleInputChange}
                         value={this.state.famerinfo.uidType}
-                        class="form-control"
+                        className="form-control"
                         id="sel2"
                       >
                         <option value="AADHAAR">AADHAAR</option>
@@ -1930,6 +1922,7 @@ class Farmer extends Component {
     document.getElementById("farmeraddnew").style.display = "none";
   };
   handleInputChange = event => {
+    event.persist();
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
@@ -2110,6 +2103,20 @@ class Farmer extends Component {
             document.getElementById("farmeraddnew").style.display = "none";
             document.getElementById("showsidetabeditfarmer").style.display =
               "none";
+              $(".list-group-item").click(function(){
+                console.log('click event')
+                var listItems = $(".list-group-item"); //Select all list items
+              
+                //Remove 'active' tag for all list items
+                for (let i = 0; i < listItems.length; i++) {                    
+                  listItems[i].classList.remove("active");
+                }
+              
+                //Add 'active' tag for currently selected item
+                this.classList.add("active");
+              });
+              var listItems = $(".list-group-item");
+              listItems[1].classList.add("active");
           })
           .catch(e => {
             console.log(e);
@@ -2134,7 +2141,8 @@ class Farmer extends Component {
   };
   componentDidMount() {
     let self = this;
-
+    
+    
     $("#maptable").scroll(function() {
       if (
         $(this).scrollTop() + $(this).innerHeight() >=
@@ -2238,6 +2246,9 @@ class Farmer extends Component {
 
     this.getfarmerlist();
   }
+  handlelistactive = event => {
+    // console.log(event)
+  };
 
   render() {
     return (
@@ -2256,10 +2267,12 @@ class Farmer extends Component {
                   paddingRight: "0"
                 }}
               >
-                <div className="list-group list-group-flush">
-                  <a
+                <div
+                  className="list-group"
+                >
+                  <a 
                     onClick={this.handleclickaddfarmer}
-                    className="list-group-item "
+                    className="list-group-item list-group-item-action flex-column align-items-start  "
                   >
                     <h4
                       style={{ textAlign: "right", fontSize: "13px" }}
@@ -2280,7 +2293,7 @@ class Farmer extends Component {
                         name="selectkey"
                         onChange={this.handlesearchselect}
                         value={this.state.searchvariantselected}
-                        class="form-control"
+                        className="form-control"
                         id="sel1"
                       >
                         <option value="name">Name</option>
@@ -2300,12 +2313,14 @@ class Farmer extends Component {
                     </div>
                   </div>
                   <div id="maptable" className="farmerlists">
+                 
                     {this.state.farmerlist !== [] &&
                       this.state.farmerlist.map((item, index) => (
                         <a
+                          
                           key={index}
                           onClick={this.handleclick.bind(this, item)}
-                          className="list-group-item "
+                          className="list-group-item list-group-item-action flex-column align-items-start "
                         >
                           <h4 className="list-group-item-heading">
                             {item.name}
@@ -2318,7 +2333,6 @@ class Farmer extends Component {
                                   {item.contactNo}
                                 </span>
                               )}
-                              
                             </p>
                           )}
                         </a>
@@ -2349,7 +2363,7 @@ class Farmer extends Component {
                   handleInputChange={this.handleInputChange}
                   handleeditfarmersave={this.handleeditfarmersave}
                 />
-                <Farmeraddnew getfarmer={this.getfarmerlist}/>
+                <Farmeraddnew getfarmer={this.getfarmerlist} />
               </div>
             </div>
           </div>
