@@ -54,8 +54,9 @@ class Rmsdatatable extends Component {
     let self = this;
     var otable = $("#table_id").DataTable({
       data: this.props.data,
-      scrollY: 520,
+      scrollY: 480,
       destroy: true,
+      order: [[ 5, "asc" ]],
       paging: true,
       ordering: true,
       responsive: true,
@@ -71,7 +72,17 @@ class Rmsdatatable extends Component {
        
         { data: "district" },
         { data: "state" },
-        { data: "lastActive" },
+        { data: "lastActive",
+        render: function(data, type, row) {
+          console.log(data)
+          if(data==='0'){
+            return "<span>No Data</span>"
+          }
+          else{
+            return "<span>"+data+"</span>";
+          }
+          
+        } },
         {
           render: function(data, type, row) {
             return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
@@ -108,7 +119,6 @@ class Rmsdatatable extends Component {
               <th>Device ID</th>
               <th>Customer ID</th>
               <th>Beneficiary</th>
-              
               <th>District</th>
               <th>State</th>
               <th>Last Active</th>

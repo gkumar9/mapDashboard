@@ -927,3 +927,15 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 .list-group-item.active .list-group-item-text, .list-group-item.active:focus .list-group-item-text, .list-group-item.active:hover .list-group-item-text{
   color:black;
 }
+#maptable::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+/* #maptable::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+} */
+
+#maptable::-webkit-scrollbar-thumb {
+background-color: darkgrey;
+outline: 1px solid slategrey;
+}
