@@ -39,17 +39,17 @@ class Iaaspatvan extends Component{
             }
         }
         
-        var month_name = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        var month=["1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
-        var month_n= [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        var days= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+        // var month_name = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        // var month=["1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+        // var month_n= [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        // var days= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
         
-        var curr_date = new Date();
-        var curr_year = curr_date.getFullYear();
+        // var curr_date = new Date();
+        // var curr_year = curr_date.getFullYear();
         
         var series_array=[];
 
-        var month_yet_found=0;
+        // var month_yet_found=0;
 
         var Patvan_Lists = [];
 

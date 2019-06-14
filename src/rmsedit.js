@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import { Link } from "react-router-dom";
-import { MyMapComponent } from "./rmseditmap.js";
+// import { MyMapComponent } from "./rmseditmap.js";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
@@ -631,7 +631,7 @@ class Rmsedit extends Component {
   }
   componentDidMount() {
     if (this.props.location.state !== undefined) {
-      console.log(this.props.location.state.detail);
+      // console.log(this.props.location.state.detail);
       axios({
         url: config.rmseditget + this.props.location.state.detail.id + "/",
         method: "POST",

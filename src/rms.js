@@ -56,7 +56,7 @@ class Rmsdatatable extends Component {
       data: this.props.data,
       scrollY: 480,
       destroy: true,
-      order: [[ 5, "asc" ]],
+      order: [[ 5, "desc" ]],
       paging: true,
       ordering: true,
       responsive: true,
@@ -72,17 +72,7 @@ class Rmsdatatable extends Component {
        
         { data: "district" },
         { data: "state" },
-        { data: "lastActive",
-        render: function(data, type, row) {
-          console.log(data)
-          if(data==='0'){
-            return "<span>No Data</span>"
-          }
-          else{
-            return "<span>"+data+"</span>";
-          }
-          
-        } },
+        { data: "lastActive" },
         {
           render: function(data, type, row) {
             return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
@@ -92,13 +82,18 @@ class Rmsdatatable extends Component {
     });
     $("#table_id").delegate("tr td:first-child", "click", function() {
       let rmssubdata = otable.row($(this).parents("tr")).data();
-      self.props.history.push({
-        pathname: "/rms/" + rmssubdata.vfdSno,
-        state: { detail: rmssubdata }
-      });
+      if(rmssubdata&&rmssubdata.deviceId!=='0'){
+        self.props.history.push({
+          pathname: "/rms/" + rmssubdata.deviceId,
+          state: { detail: rmssubdata }
+        });
+      }
+      
     });
     $("#table_id").delegate("tr td:last-child", "click", function() {
+      
       let rmssubdata = otable.row($(this).parents("tr")).data();
+      
       self.props.history.push({
         pathname: "/rmsedit",
         state: { detail: rmssubdata }

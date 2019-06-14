@@ -11,7 +11,7 @@ import config from "./config.js";
 import RmsSidebardata from "./RmsSidebardata.js";
 import nodata from "./pins/nodata.png";
 // import fvc from "./fvc.json";
-const $ = require("jquery");
+// const $ = require("jquery");
 Highcharts.setOptions({
   time: {
     timezone: "Asia/Kolkata"
@@ -79,7 +79,7 @@ class Rms extends Component {
         url: config.singleassetstat,
         method: "POST",
         data: {
-          customerId: this.props.location.state.detail.customerId,
+          deviceId: this.props.location.state.detail.deviceId,
           rmsVendorId: this.props.location.state.detail.rmsVendorId
         },
         headers: {
@@ -120,12 +120,15 @@ class Rms extends Component {
             title: "Oops...",
             text: e
           });
+          self.props.history.push({
+            pathname: "/rms"
+          });
         });
       await axios({
         url: config.highchartdata,
         method: "POST",
         data: {
-          customerId: this.props.location.state.detail.customerId,
+          deviceId: this.props.location.state.detail.deviceId,
           rmsVendorId: this.props.location.state.detail.rmsVendorId
         },
         headers: {
@@ -595,17 +598,13 @@ class Rms extends Component {
                           ("0" + (new Date(this.x).getMonth() + 1)).slice(-2) +
                           "-" +
                           ("0" + new Date(this.x).getDate()).slice(-2);
-                        // console.log(dayOfYear)
-
-                        // if($('.chart')){
-                        //   $('.chart').remove();
-                        // }
+                        
                         axios({
                           url: config.fvcstat,
                           method: "POST",
                           data: {
-                            customerId:
-                              self.props.location.state.detail.customerId,
+                            deviceId:
+                              self.props.location.state.detail.deviceId,
                             rmsVendorId:
                               self.props.location.state.detail.rmsVendorId,
                             date: dayOfYear,
@@ -618,7 +617,8 @@ class Rms extends Component {
                         }).then(res => {
                           // console.log(res.data.data)
                           // let activity = fvc.data;
-                          let activity = res.data.data;
+                          if(res.data.data){
+                            let activity = res.data.data;
                           // createDrillDownCharts(activity);
                           if (activity.datasets.length !== 0) {
                             if (Highcharts.charts.length === 1) {
@@ -635,8 +635,21 @@ class Rms extends Component {
                             document.getElementById("drillUp").style.display =
                               "block";
                           } else {
-                            console.log("no data", res.data);
+                            // console.log("no data", res.data);
+                            Swal({
+                              type: "info",
+                              title: "No Data Found",
+                              // text: res.data.error.errorMsg
+                            });
                           }
+                          }else{
+                            Swal({
+                              type: "error",
+                              title: "Oops...",
+                              text: res.data.error.errorMsg
+                            });
+                          }
+                          
                         });
                       }
                     }

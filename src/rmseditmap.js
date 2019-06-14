@@ -27,7 +27,7 @@ import {
         },
 
         onPositionChanged: () => {
-          const position = refs.marker.getPosition();
+          // const position = refs.marker.getPosition();
           // console.log(position.toString());
         }
       });
@@ -36,7 +36,6 @@ import {
   withScriptjs,
   withGoogleMap
 )(props => (
-    console.log(props),
   <GoogleMap
     defaultZoom={8}
     defaultCenter={{ lat: 22.845625996700075, lng: 78.9629 }}

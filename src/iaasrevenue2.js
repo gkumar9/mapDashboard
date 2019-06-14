@@ -14,8 +14,8 @@ class IaasRevenue extends Component {
   componentDidMount() {
     drilldown(Highcharts);
     var arr1 = [];
-    var arr2 = [];
-    var arr3 = [];
+    // var arr2 = [];
+    // var arr3 = [];
     let self = this;
     let stateiaas = [];
     axios({
@@ -93,7 +93,7 @@ class IaasRevenue extends Component {
         });
       }
       $("#drillUp").click(function() {
-        console.log("back");
+        // console.log("back");
         document.getElementById("tablerevenue").style.display = "none";
         document.getElementById("iaas").style.display = "block";
         let removed = stateiaas.pop();
