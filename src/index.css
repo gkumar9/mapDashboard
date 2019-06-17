@@ -867,12 +867,13 @@ input[type="radio"] {
   /* border-top-left-radius: 4px;
   border-top-right-radius: 4px; */
   border: 1px solid #ddd;
+  border-bottom:0;
 }
 .farmerinfobody{
   /* font-size: 1.2em; */
-  max-height: 60vh;
+  /* max-height: 60vh; */
   overflow: scroll;
-  padding: 1em;
+  /* padding: 1em; */
   margin-left: 0; 
   color:#777;
 }
@@ -940,4 +941,28 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 #maptable::-webkit-scrollbar-thumb {
 background-color: darkgrey;
 outline: 1px solid slategrey;
+}
+
+.kycbody{
+  padding: 1em;
+}
+.farmerinfobody  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
+  background-color: transparent !important;
+}
+.farmerinfobody .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+  /* color: #555; */
+  cursor: default;
+  background-color: transparent;
+  border: 0;
+  /* border-bottom-color: blue; */
+  border-bottom: 0.1em solid blue;
+}
+.farmerinfobody .nav-tabs>li>a:hover{
+  background-color: transparent;
+  border-bottom: 0.1em solid gray;
+  /* border: 0; */
+  /* border-color:transparent; */
+}
+.farmerinfobody .nav-tabs>li>a{
+  border:0;
 }

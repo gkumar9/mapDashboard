@@ -206,14 +206,45 @@ class Farmer extends Component {
         }
       })
         .then(res => {
-          this.setState({
-            famerinfo: res.data.data,
-            backupinfo: Object.assign({}, res.data.data)
-          });
-          document.getElementById("showsidetab").style.display = "block";
-          document.getElementById("farmeraddnew").style.display = "none";
-          document.getElementById("showsidetabeditfarmer").style.display =
-            "none";
+          // this.setState({
+          //   famerinfo: res.data.data,
+          //   backupinfo: Object.assign({}, res.data.data)
+          // });
+          axios({
+            url: config.getfarmerpumplist + item.id,
+            method: "POST",
+            data: {
+              temp: "temp"
+            },
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+            .then(Response => {
+              // console.log(Response);
+              let tmp = res.data.data;
+              tmp["pumplist"] = Response.data.data.list;
+              this.setState({
+                famerinfo: tmp,
+                backupinfo: Object.assign({}, res.data.data)
+              });
+              document.getElementById("showsidetab").style.display = "block";
+              document.getElementById("farmeraddnew").style.display = "none";
+              document.getElementById("showsidetabeditfarmer").style.display =
+                "none";
+            })
+            .catch(e => {
+              console.log(e);
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: e
+              });
+            });
+          // document.getElementById("showsidetab").style.display = "block";
+          // document.getElementById("farmeraddnew").style.display = "none";
+          // document.getElementById("showsidetabeditfarmer").style.display =
+          //   "none";
         })
         .catch(e => {
           console.log(e);
@@ -408,29 +439,59 @@ class Farmer extends Component {
             "Content-Type": "application/json"
           }
         })
-          .then(res => {
-            this.setState({
-              famerinfo: res.data.data,
-              backupinfo: Object.assign({}, res.data.data)
-            });
-            document.getElementById("showsidetab").style.display = "block";
-            document.getElementById("farmeraddnew").style.display = "none";
-            document.getElementById("showsidetabeditfarmer").style.display =
-              "none";
-            $(".list-group-item").click(function() {
-              
-              var listItems = $(".list-group-item"); //Select all list items
-
-              //Remove 'active' tag for all list items
-              for (let i = 0; i < listItems.length; i++) {
-                listItems[i].classList.remove("active");
+          .then(resp => {
+            // this.setState({
+            //   famerinfo: res.data.data,
+            //   backupinfo: Object.assign({}, res.data.data)
+            // });
+            // document.getElementById("showsidetab").style.display = "block";
+            // document.getElementById("farmeraddnew").style.display = "none";
+            // document.getElementById("showsidetabeditfarmer").style.display =
+            //   "none";
+            axios({
+              url: config.getfarmerpumplist + res.data.data.list[0].id,
+              method: "POST",
+              data: {
+                temp: "temp"
+              },
+              headers: {
+                "Content-Type": "application/json"
               }
+            })
+              .then(Response => {
+                // console.log(Response);
+                let tmp = resp.data.data;
+                tmp["pumplist"] = Response.data.data.list;
+                this.setState({
+                  famerinfo: tmp,
+                  backupinfo: Object.assign({}, res.data.data)
+                });
+                document.getElementById("showsidetab").style.display = "block";
+                document.getElementById("farmeraddnew").style.display = "none";
+                document.getElementById("showsidetabeditfarmer").style.display =
+                  "none";
+                $(".list-group-item").click(function() {
+                  var listItems = $(".list-group-item"); //Select all list items
 
-              //Add 'active' tag for currently selected item
-              this.classList.add("active");
-            });
-            var listItems = $(".list-group-item");
-            listItems[1].classList.add("active");
+                  //Remove 'active' tag for all list items
+                  for (let i = 0; i < listItems.length; i++) {
+                    listItems[i].classList.remove("active");
+                  }
+
+                  //Add 'active' tag for currently selected item
+                  this.classList.add("active");
+                });
+                var listItems = $(".list-group-item");
+                listItems[1].classList.add("active");
+              })
+              .catch(e => {
+                console.log(e);
+                Swal({
+                  type: "error",
+                  title: "Oops...",
+                  text: e
+                });
+              });
           })
           .catch(e => {
             console.log(e);
@@ -464,7 +525,6 @@ class Farmer extends Component {
         !self.state.searchhasmore &&
         self.state.searchscrollcount === 0
       ) {
-        
         document.getElementById("listendmessage").style.display = "none";
         let count = self.state.scrollcount + 1;
         let tabledatanow = self.state.farmerlist;
@@ -516,7 +576,6 @@ class Farmer extends Component {
         self.state.searchscrollcount >= 0 &&
         self.state.searchhasmore
       ) {
-        
         let tempsearchscrollcount = self.state.searchscrollcount + 1;
         let tabledatanow = self.state.farmerlist;
         axios({

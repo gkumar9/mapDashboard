@@ -486,6 +486,7 @@ class Rms extends Component {
               spacingTop: 10,
               spacingLeft: 10,
               spacingRight: 10,
+              // height:200,
               backgroundColor: "#f2f2f2",
               events: {
                 load: function() {
@@ -565,10 +566,14 @@ class Rms extends Component {
             xAxis: {
               type: "datetime",
               labels: {
-                step: 1
+                step: 2
               },
               dateTimeLabelFormats: {
-                day: "%e"
+                
+                day: '%e',
+                
+                month: '%b \'%y',
+                year: '%Y'
               }
             },
             yAxis: {
@@ -598,13 +603,12 @@ class Rms extends Component {
                           ("0" + (new Date(this.x).getMonth() + 1)).slice(-2) +
                           "-" +
                           ("0" + new Date(this.x).getDate()).slice(-2);
-                        
+
                         axios({
                           url: config.fvcstat,
                           method: "POST",
                           data: {
-                            deviceId:
-                              self.props.location.state.detail.deviceId,
+                            deviceId: self.props.location.state.detail.deviceId,
                             rmsVendorId:
                               self.props.location.state.detail.rmsVendorId,
                             date: dayOfYear,
@@ -617,39 +621,38 @@ class Rms extends Component {
                         }).then(res => {
                           // console.log(res.data.data)
                           // let activity = fvc.data;
-                          if(res.data.data){
+                          if (res.data.data) {
                             let activity = res.data.data;
-                          // createDrillDownCharts(activity);
-                          if (activity.datasets.length !== 0) {
-                            if (Highcharts.charts.length === 1) {
-                              createDrillDownCharts(activity);
+                            // createDrillDownCharts(activity);
+                            if (activity.datasets.length !== 0) {
+                              if (Highcharts.charts.length === 1) {
+                                createDrillDownCharts(activity);
+                              } else {
+                                updateDrillDownCharts(activity);
+                              }
+                              document.getElementById(
+                                "energy_chart"
+                              ).style.display = "none";
+                              document.getElementById(
+                                "drilldownContainer"
+                              ).style.display = "block";
+                              document.getElementById("drillUp").style.display =
+                                "block";
                             } else {
-                              updateDrillDownCharts(activity);
+                              // console.log("no data", res.data);
+                              Swal({
+                                type: "info",
+                                title: "No Data Found"
+                                // text: res.data.error.errorMsg
+                              });
                             }
-                            document.getElementById(
-                              "energy_chart"
-                            ).style.display = "none";
-                            document.getElementById(
-                              "drilldownContainer"
-                            ).style.display = "block";
-                            document.getElementById("drillUp").style.display =
-                              "block";
                           } else {
-                            // console.log("no data", res.data);
-                            Swal({
-                              type: "info",
-                              title: "No Data Found",
-                              // text: res.data.error.errorMsg
-                            });
-                          }
-                          }else{
                             Swal({
                               type: "error",
                               title: "Oops...",
                               text: res.data.error.errorMsg
                             });
                           }
-                          
                         });
                       }
                     }
@@ -772,7 +775,7 @@ class Rms extends Component {
                     rmscapacity={"NA"}
                   />
                 )}
-                <div style={{ paddingLeft: "30px" }} className="col-xs-10">
+                <div  className="col-xs-10">
                   {this.props.location.state !== undefined ? (
                     <div>
                       <h4>{this.props.location.state.detail.customerName}</h4>
