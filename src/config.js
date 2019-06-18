@@ -92,7 +92,9 @@ let config = {
     "http://staging.clarolabs.in:7060/clarosupport/farmerinfo/search/list/",
     getfarmerpumplist:"http://staging.clarolabs.in:7060/clarosupport/assets/rms/pump/farmer/list/",
     getfarmercroplist:"http://staging.clarolabs.in:7060/clarosupport/crop/list/",
-    getfarmerimg:"http://staging.clarolabs.in:7060/clarosupport/media/list/"
+    getfarmerimg:"http://staging.clarolabs.in:7060/clarosupport/media/list/",
+    getcropschema:"http://staging.clarolabs.in:7060/clarosupport/crop/schema/",
+    getdeviceschema:"http://staging.clarolabs.in:7060/clarosupport/asset/rms/pump/schema/"
 };
 
 export default config;

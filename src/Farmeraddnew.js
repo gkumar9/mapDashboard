@@ -155,32 +155,35 @@ class Farmeraddnew extends Component {
     }
   };
   componentDidMount() {
-    axios({
-      url: config.getfarmerschema,
-      method: "POST",
-      data: {
-        temp: "temp"
-      },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => {
-        // console.log(res.data);
-        res.data.data.gender = "M";
-        res.data.data.entryStatus = "ACTIVE";
-        res.data.data.state = "Tripura";
-        res.data.data.district = "Unakoti";
-        res.data.data.vertical = "Solar Irrigation Pump";
-        res.data.data.contactNo = "";
-        this.setState({
-          famerinfo: res.data.data,
-          backupinfo: Object.assign({}, res.data.data)
-        });
+    if(this.state.famerinfo==={}){
+      axios({
+        url: config.getfarmerschema,
+        method: "POST",
+        data: {
+          temp: "temp"
+        },
+        headers: {
+          "Content-Type": "application/json"
+        }
       })
-      .catch(e => {
-        console.log(e);
-      });
+        .then(res => {
+          // console.log(res.data);
+          res.data.data.gender = "M";
+          res.data.data.entryStatus = "ACTIVE";
+          res.data.data.state = "Tripura";
+          res.data.data.district = "Unakoti";
+          res.data.data.vertical = "Solar Irrigation Pump";
+          res.data.data.contactNo = "";
+          this.setState({
+            famerinfo: res.data.data,
+            backupinfo: Object.assign({}, res.data.data)
+          });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+    
   }
   render() {
     return (

@@ -89,7 +89,7 @@ class Farmereditshow extends Component {
           </div>
           <div className="row farmerinfobody">
             <div>
-              <ul className="nav nav-tabs" role="tablist">
+              <ul className=" nav nav-tabs" role="tablist">
                 <li role="presentation" className="active">
                   <a
                     style={{ color: "rgb(102, 102, 102)" }}
@@ -220,7 +220,7 @@ class Farmereditshow extends Component {
                       </div>
                       <div className="row farmerinforow">
                         <div className="col-xs-6 farmerinforowtitle">
-                          Toatal Land Size
+                          Total Land Size
                         </div>
                         <div className="col-xs-6">
                           {this.props.famerinfo.totalLandSize || "NA"}
@@ -567,7 +567,7 @@ class Farmereditshow extends Component {
                     </div>
                   </div>
                 </div>
-                <div role="tabpanel" className="tab-pane" id="crop">
+                <div role="tabpanel" className="vertical tab-pane" id="crop">
                   {this.props.famerinfo !== undefined &&
                   this.props.famerinfo.croplist !== undefined &&
                   this.props.famerinfo.croplist.length !== 0 ? (
@@ -692,46 +692,32 @@ class Farmereditshow extends Component {
                   )}
                 </div>
                 <div role="tabpanel" className="tab-pane" id="images">
-                  {(this.props.famerinfo !== undefined &&
-                    this.props.famerinfo.imglist !== undefined &&
-                    this.props.famerinfo.imglist.length !== 0) ? (
-                      <div>
+                  {this.props.famerinfo !== undefined &&
+                  this.props.famerinfo.imglist !== undefined &&
+                  this.props.famerinfo.imglist.length !== 0 ? (
+                    <div style={{ padding: "1em" }}>
+                      <div className="row">
                         {this.props.famerinfo.imglist.map((item, number) => (
-                          <div>
-                            {number % 2 === 0 ? (
-                              <div>
-                                <div className="row">
-                                  <div className="col-xs-6">
-                                    <div className="imglistheading">
-                                      <h3>{item.mediaType}</h3>
-                                    </div>
-                                    <div className="imglistbody">
-                                      <img
-                                        src={item.link}
-                                        alt={item.mediaType}
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="col-xs-6">
-                                <div className="imglistheading">
-                                  <h3>{item.mediaType}</h3>
-                                </div>
-                                <div className="imglistbody">
-                                  <img src={item.link} alt={item.mediaType} />
-                                </div>
-                              </div>
-                            )}
+                          <div className="col-xs-6">
+                            <div className="imglistheading">
+                              <h3>{item.mediaType}</h3>
+                            </div>
+                            <div className="imglistbody">
+                              <img
+                                class="img-rounded"
+                                src={item.link}
+                                alt={item.mediaType}
+                              />
+                            </div>
                           </div>
                         ))}
                       </div>
-                    ):(
-                      <center style={{ marginTop: "2em" }}>
+                    </div>
+                  ) : (
+                    <center style={{ marginTop: "2em" }}>
                       <h4>No data found !!!</h4>
                     </center>
-                    )}
+                  )}
                 </div>
               </div>
             </div>

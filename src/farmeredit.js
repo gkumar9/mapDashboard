@@ -98,6 +98,8 @@ class Farmer extends Component {
       scrollcount: 0,
       searchscrollcount: 0,
       searchhasmore: false,
+      cropschema: undefined,
+      deviceschema: undefined,
       hasMore: false
     };
     this.fileInput = React.createRef();
@@ -224,6 +226,10 @@ class Farmer extends Component {
               // console.log(Response);
               let tmp = res.data.data;
               tmp["pumplist"] = Response.data.data.list;
+              if (Response.data.data.list.length === 0) {
+                // console.log(temporary)
+                tmp.pumplist.push(Object.assign({}, this.state.deviceschema));
+              }
               this.setState({
                 famerinfo: tmp,
                 backupinfo: Object.assign({}, res.data.data)
@@ -240,6 +246,12 @@ class Farmer extends Component {
               }).then(ress => {
                 let temporary = this.state.famerinfo;
                 temporary["croplist"] = ress.data.data.list;
+                if (ress.data.data.list.length === 0) {
+                  // console.log(temporary)
+                  temporary.croplist.push(
+                    Object.assign({}, this.state.cropschema)
+                  );
+                }
                 this.setState({
                   famerinfo: temporary,
                   backupinfo: Object.assign({}, temporary)
@@ -316,6 +328,18 @@ class Farmer extends Component {
     event.persist();
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
+    this.setState({ famerinfo: temp });
+  };
+  pumphandleInputChange = (index, event) => {
+    event.persist();
+    let temp = this.state.famerinfo;
+    temp.pumplist[index][event.target.name] = event.target.value;
+    this.setState({ famerinfo: temp });
+  };
+  crophandleInputChange = (index, event) => {
+    event.persist();
+    let temp = this.state.famerinfo;
+    temp.croplist[index][event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
   };
   handlecancelfarmer = () => {
@@ -499,9 +523,13 @@ class Farmer extends Component {
               .then(Response => {
                 let tmp = resp.data.data;
                 tmp["pumplist"] = Response.data.data.list;
+                if (Response.data.data.list.length === 0) {
+                  // console.log(temporary)
+                  tmp.pumplist.push(Object.assign({}, this.state.deviceschema));
+                }
                 this.setState({
                   famerinfo: tmp,
-                  backupinfo: Object.assign({}, res.data.data)
+                  backupinfo: Object.assign({}, tmp)
                 });
 
                 axios({
@@ -517,6 +545,14 @@ class Farmer extends Component {
                   .then(resp => {
                     let temporary = this.state.famerinfo;
                     temporary["croplist"] = resp.data.data.list;
+                    // console.log(this.state.cropschema)
+                    if (resp.data.data.list.length === 0) {
+                      // console.log(temporary)
+                      temporary.croplist.push(
+                        Object.assign({}, this.state.cropschema)
+                      );
+                    }
+
                     this.setState({
                       famerinfo: temporary,
                       backupinfo: Object.assign({}, temporary)
@@ -534,6 +570,22 @@ class Farmer extends Component {
                       .then(rreess => {
                         let temporaryy = this.state.famerinfo;
                         temporaryy["imglist"] = rreess.data.data.list;
+                        if(rreess.data.data.list.length===0){
+                          let imgobject=[{
+                            "mediaType": "Profile Pic",
+                            "link": "https://via.placeholder.com/600x200"},
+                            {
+                              "mediaType": "Public Pic",
+                              "link": "https://via.placeholder.com/600x200"},
+                              {
+                                "mediaType": "Farm Pic",
+                                "link": "https://via.placeholder.com/600x200"},
+                                {
+                                  "mediaType": "Crop Pic",
+                                  "link": "https://via.placeholder.com/600x200"}]
+
+                          temporaryy["imglist"]=imgobject
+                        }
                         this.setState({
                           famerinfo: temporaryy,
                           backupinfo: Object.assign({}, temporaryy)
@@ -720,6 +772,34 @@ class Farmer extends Component {
         document.getElementById("listendmessage").style.display = "none";
       }
     });
+    if (this.state.cropschema === undefined) {
+      axios({
+        url: config.getcropschema,
+        method: "POST",
+        data: {
+          temp: "temp"
+        },
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => {
+        this.setState({ cropschema: res.data.data });
+      });
+    }
+    if (this.state.deviceschema === undefined) {
+      axios({
+        url: config.getdeviceschema,
+        method: "POST",
+        data: {
+          temp: "temp"
+        },
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => {
+        this.setState({ deviceschema: res.data.data });
+      });
+    }
 
     this.getfarmerlist();
   }
@@ -829,6 +909,8 @@ class Farmer extends Component {
                   famerinfo={this.state.famerinfo}
                 />
                 <Farmeredit
+                  pumphandleInputChange={this.pumphandleInputChange}
+                  crophandleInputChange={this.crophandleInputChange}
                   handleChangeimage={this.handleChangeimage}
                   fileInput={this.fileInput}
                   famerinfo={this.state.famerinfo}

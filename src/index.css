@@ -944,7 +944,8 @@ outline: 1px solid slategrey;
 }
 
 .kycbody{
-  padding: 0.5em;
+  padding-left: 0.5em;
+  padding-top: 0.5em;
 /* padding-left: 1em; */
 }
 .farmerinfobody  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
@@ -973,3 +974,14 @@ outline: 1px solid slategrey;
 /* .vertical .farmerinfobody .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
   border-bottom:0.1em solid #9c7766
 } */
+.imglistbody{
+  width:95%;
+  height: 20vh;
+  overflow: hidden;
+  display: flex;
+  margin: 0 auto;
+}
+.imglistbody img {
+  width: 100%;
+  min-height: 100%;
+}
