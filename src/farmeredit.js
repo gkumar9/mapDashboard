@@ -228,10 +228,56 @@ class Farmer extends Component {
                 famerinfo: tmp,
                 backupinfo: Object.assign({}, res.data.data)
               });
-              document.getElementById("showsidetab").style.display = "block";
-              document.getElementById("farmeraddnew").style.display = "none";
-              document.getElementById("showsidetabeditfarmer").style.display =
-                "none";
+              axios({
+                url: config.getfarmercroplist + item.id,
+                method: "POST",
+                data: {
+                  temp: "temp"
+                },
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              }).then(ress => {
+                let temporary = this.state.famerinfo;
+                temporary["croplist"] = ress.data.data.list;
+                this.setState({
+                  famerinfo: temporary,
+                  backupinfo: Object.assign({}, temporary)
+                });
+                axios({
+                  url: config.getfarmerimg + item.id,
+                  method: "POST",
+                  data: {
+                    temp: "temp"
+                  },
+                  headers: {
+                    "Content-Type": "application/json"
+                  }
+                })
+                  .then(rress => {
+                    let temporaryy = this.state.famerinfo;
+                    temporaryy["imglist"] = rress.data.data.list;
+                    this.setState({
+                      famerinfo: temporaryy,
+                      backupinfo: Object.assign({}, temporaryy)
+                    });
+                    document.getElementById("showsidetab").style.display =
+                      "block";
+                    document.getElementById("farmeraddnew").style.display =
+                      "none";
+                    document.getElementById(
+                      "showsidetabeditfarmer"
+                    ).style.display = "none";
+                  })
+                  .catch(e => {
+                    console.log(e);
+                    Swal({
+                      type: "error",
+                      title: "Oops...",
+                      text: e
+                    });
+                  });
+              });
             })
             .catch(e => {
               console.log(e);
@@ -440,14 +486,6 @@ class Farmer extends Component {
           }
         })
           .then(resp => {
-            // this.setState({
-            //   famerinfo: res.data.data,
-            //   backupinfo: Object.assign({}, res.data.data)
-            // });
-            // document.getElementById("showsidetab").style.display = "block";
-            // document.getElementById("farmeraddnew").style.display = "none";
-            // document.getElementById("showsidetabeditfarmer").style.display =
-            //   "none";
             axios({
               url: config.getfarmerpumplist + res.data.data.list[0].id,
               method: "POST",
@@ -459,30 +497,85 @@ class Farmer extends Component {
               }
             })
               .then(Response => {
-                // console.log(Response);
                 let tmp = resp.data.data;
                 tmp["pumplist"] = Response.data.data.list;
                 this.setState({
                   famerinfo: tmp,
                   backupinfo: Object.assign({}, res.data.data)
                 });
-                document.getElementById("showsidetab").style.display = "block";
-                document.getElementById("farmeraddnew").style.display = "none";
-                document.getElementById("showsidetabeditfarmer").style.display =
-                  "none";
-                $(".list-group-item").click(function() {
-                  var listItems = $(".list-group-item"); //Select all list items
 
-                  //Remove 'active' tag for all list items
-                  for (let i = 0; i < listItems.length; i++) {
-                    listItems[i].classList.remove("active");
+                axios({
+                  url: config.getfarmercroplist + res.data.data.list[0].id,
+                  method: "POST",
+                  data: {
+                    temp: "temp"
+                  },
+                  headers: {
+                    "Content-Type": "application/json"
                   }
+                })
+                  .then(resp => {
+                    let temporary = this.state.famerinfo;
+                    temporary["croplist"] = resp.data.data.list;
+                    this.setState({
+                      famerinfo: temporary,
+                      backupinfo: Object.assign({}, temporary)
+                    });
+                    axios({
+                      url: config.getfarmerimg + res.data.data.list[0].id,
+                      method: "POST",
+                      data: {
+                        temp: "temp"
+                      },
+                      headers: {
+                        "Content-Type": "application/json"
+                      }
+                    })
+                      .then(rreess => {
+                        let temporaryy = this.state.famerinfo;
+                        temporaryy["imglist"] = rreess.data.data.list;
+                        this.setState({
+                          famerinfo: temporaryy,
+                          backupinfo: Object.assign({}, temporaryy)
+                        });
+                        document.getElementById("showsidetab").style.display =
+                          "block";
+                        document.getElementById("farmeraddnew").style.display =
+                          "none";
+                        document.getElementById(
+                          "showsidetabeditfarmer"
+                        ).style.display = "none";
+                        $(".list-group-item").click(function() {
+                          var listItems = $(".list-group-item"); //Select all list items
 
-                  //Add 'active' tag for currently selected item
-                  this.classList.add("active");
-                });
-                var listItems = $(".list-group-item");
-                listItems[1].classList.add("active");
+                          //Remove 'active' tag for all list items
+                          for (let i = 0; i < listItems.length; i++) {
+                            listItems[i].classList.remove("active");
+                          }
+
+                          //Add 'active' tag for currently selected item
+                          this.classList.add("active");
+                        });
+                        var listItems = $(".list-group-item");
+                        listItems[1].classList.add("active");
+                      })
+                      .catch(e => {
+                        console.log(e);
+                        Swal({
+                          type: "error",
+                          title: "Oops...",
+                          text: e
+                        });
+                      });
+                  })
+                  .catch(e => {
+                    console.log(e);
+                    Swal({
+                      type: "error",
+                      title: "Oops...",
+                      text: e
+                    });
+                  });
               })
               .catch(e => {
                 console.log(e);

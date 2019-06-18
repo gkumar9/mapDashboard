@@ -944,7 +944,8 @@ outline: 1px solid slategrey;
 }
 
 .kycbody{
-  padding: 1em;
+  padding: 0.5em;
+/* padding-left: 1em; */
 }
 .farmerinfobody  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
   background-color: transparent !important;
@@ -966,3 +967,9 @@ outline: 1px solid slategrey;
 .farmerinfobody .nav-tabs>li>a{
   border:0;
 }
+.vertical .nav-tabs{
+  border-bottom:0;
+}
+/* .vertical .farmerinfobody .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+  border-bottom:0.1em solid #9c7766
+} */
