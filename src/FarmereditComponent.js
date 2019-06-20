@@ -36,18 +36,7 @@ class Farmeredit extends Component {
               Family
             </a>
           </li>
-          <li role="presentation">
-            <a
-              style={{ color: "black" }}
-              href="#vertical1"
-              aria-controls="vertical1"
-              role="tab"
-              data-toggle="tab"
-            >
-              {/* {this.props.famerinfo.vertical}  */}
-              Tech specs
-            </a>
-          </li>
+          
           <li role="presentation">
             <a
               style={{ color: "black" }}
@@ -70,50 +59,6 @@ class Farmeredit extends Component {
               Multimedia
             </a>
           </li>
-          {/* <li role="presentation" style={{ float: "right", padding: "0.2em" }}>
-            <button
-              onClick={this.props.handleeditfarmersave}
-              type="submit"
-              className="btn btn-default"
-              aria-label="Right Align"
-              id="drillUp"
-              style={{
-                // display: "none",
-                width: "40%",
-                borderRadius: "0px",
-                // marginBottom: "1em",
-                borderColor: "darkgray",
-                float: "left",
-                outline: "none",
-                color: "white",
-                backgroundColor: "blue"
-              }}
-            >
-              Save
-            </button>
-            <button
-              onClick={this.props.handlecancelfarmer}
-              type="button"
-              className="cancelbutton btn btn-default"
-              aria-label="Right Align"
-              id="drillUp"
-              style={{
-                // display: "none",
-                // width: "35%",
-                marginLeft: "1em",
-
-                borderRadius: "0px",
-                borderColor: "blue",
-                float: "left",
-                outline: "none",
-                color: "blue",
-                backgroundColor: "white"
-              }}
-            >
-              Cancel
-            </button>
-          </li>
-          <li /> */}
         </ul>
 
         <div
@@ -125,12 +70,13 @@ class Farmeredit extends Component {
           }}
         >
           <div role="tabpanel" className="tab-pane active" id="profile1">
-            <div className="row kycbody">
-              <div className="row" style={{ margin: "0.7em 0" }}>
+            <div className="row kycbody" style={{ margin: "0.7em 0.1em" }}>
+              {/* <div className="row" style={{marginBottom: '0.7em',marginLeft: '0.3em' }}> */}
                 <div className="col-xs-9">
-                  <span style={{ fontSize: "24px" }}>Primary</span>
+                  
+                  <h3 style={{marginTop:'5px'}}>Primary</h3>
                 </div>
-                <div className="col-xs-3">
+                <div className="col-xs-3" style={{display:'flex',justifyContent:'flex-end'}}>
                   <button
                     onClick={this.props.handleeditfarmersave}
                     type="submit"
@@ -139,7 +85,7 @@ class Farmeredit extends Component {
                     id="drillUp"
                     style={{
                       // display: "none",
-                      width: "40%",
+                      width: "28%",
                       borderRadius: "0px",
                       // marginBottom: "1em",
                       borderColor: "darkgray",
@@ -159,7 +105,7 @@ class Farmeredit extends Component {
                     id="drillUp"
                     style={{
                       // display: "none",
-                      // width: "35%",
+                      width: "28%",
                       marginLeft: "1em",
 
                       borderRadius: "0px",
@@ -174,6 +120,7 @@ class Farmeredit extends Component {
                   </button>
                 </div>
               </div>
+              <div className="row kycbody" style={{ margin: "0.7em 0.1em" }}>
               <div className="col-md-5">
                 <div className="kycbody">
                   <div className="row farmerinforow">
@@ -363,8 +310,9 @@ class Farmeredit extends Component {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row kycbody">
+              </div>
+            {/* </div> */}
+            <div className="row kycbody" style={{ margin: "0.7em 0.1em" }}>
               <div className="col-md-5">
                 <div className="kycheading">
                   <h3>Personal</h3>
@@ -712,514 +660,6 @@ class Farmeredit extends Component {
               </div>
             </div>
           </div>
-          <div role="tabpanel" className="vertical tab-pane" id="vertical1">
-            {this.props.famerinfo !== undefined &&
-            this.props.famerinfo.pumplist !== undefined &&
-            this.props.famerinfo.pumplist.length !== 0 ? (
-              <div>
-                <ul className=" nav nav-tabs" role="tablist">
-                  {this.props.famerinfo.pumplist !== undefined &&
-                    this.props.famerinfo.pumplist.map((item, index) =>
-                      index === 0 ? (
-                        <li key={item} role="presentation" className="active">
-                          <a
-                            href={`#` + item.deviceId}
-                            aria-controls={item.deviceId}
-                            role="tab"
-                            data-toggle="tab"
-                          >
-                            Device {index + 1}
-                          </a>
-                        </li>
-                      ) : (
-                        <li key={item} role="presentation">
-                          <a
-                            href={`#` + item.deviceId}
-                            aria-controls={item.deviceId}
-                            role="tab"
-                            data-toggle="tab"
-                          >
-                            Device {index + 1}
-                          </a>
-                        </li>
-                      )
-                    )}
-                  <li
-                    role="presentation"
-                    style={{ float: "right", padding: "0.2em" }}
-                  >
-                    <button
-                      onClick={this.props.handleeditfarmersavepumplist}
-                      type="submit"
-                      className="btn btn-default"
-                      aria-label="Right Align"
-                      id="drillUp"
-                      style={{
-                        // display: "none",
-                        width: "40%",
-                        borderRadius: "0px",
-                        // marginBottom: "1em",
-                        borderColor: "darkgray",
-                        float: "left",
-                        outline: "none",
-                        color: "white",
-                        backgroundColor: "blue"
-                      }}
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={this.props.handlecancelfarmer}
-                      type="button"
-                      className="cancelbutton btn btn-default"
-                      aria-label="Right Align"
-                      id="drillUp"
-                      style={{
-                        // display: "none",
-                        // width: "35%",
-                        marginLeft: "1em",
-
-                        borderRadius: "0px",
-                        borderColor: "blue",
-                        float: "left",
-                        outline: "none",
-                        color: "blue",
-                        backgroundColor: "white"
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </li>
-                  <li />
-                </ul>
-                <div className="tab-content">
-                  {this.props.famerinfo.pumplist !== undefined &&
-                    this.props.famerinfo.pumplist.map((item, index) => (
-                      <div
-                        key={item}
-                        role="tabpanel"
-                        className="tab-pane active"
-                        id={item.deviceId}
-                      >
-                        <div className="col-md-5">
-                          <div className="kycbody">
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Installation date
-                              </div>
-                              <div className="col-xs-6">
-                                <input
-                                  name="installationDate"
-                                  type="date"
-                                  data-date-format="DD-MM-YYYY"
-                                  className="form-control"
-                                  id="pumplist.installationDate"
-                                  value={item.installationDate || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Installation date"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Project code
-                              </div>
-                              <div className="col-xs-6">
-                                <input
-                                  name="projectCode"
-                                  type="text"
-                                  className="form-control"
-                                  id="projectCode"
-                                  value={item.projectCode || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Project code"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Habitation
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.habitation || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="habitation"
-                                  type="text"
-                                  className="form-control"
-                                  id="habitation"
-                                  value={item.habitation || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Habitation"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Application
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.application || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="application"
-                                  type="text"
-                                  className="form-control"
-                                  id="application"
-                                  value={item.application || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Application"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                VFD make
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.vfdMake || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="vfdMake"
-                                  type="text"
-                                  className="form-control"
-                                  id="vfdMake"
-                                  value={item.vfdMake || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="VFD Make"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                VFD sno
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.vfdSno || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="vfdSno"
-                                  type="text"
-                                  className="form-control"
-                                  id="vfdSno"
-                                  value={item.vfdSno || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="VFD Sno"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                VFD vendor id
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.vfdVendorId || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="vfdVendorId"
-                                  type="text"
-                                  className="form-control"
-                                  id="vfdVendorId"
-                                  value={item.vfdVendorId || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="VFD Vendor Id"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                IMEI
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.imei || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="imei"
-                                  type="text"
-                                  className="form-control"
-                                  id="imei"
-                                  value={item.imei || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="IMEI"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Depth
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.depth || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="depth"
-                                  type="text"
-                                  className="form-control"
-                                  id="depth"
-                                  value={item.depth || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Depth"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-md-1" />
-                        <div className="col-md-5">
-                          <div className="kycbody">
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Device id{" "}
-                                <i
-                                  title="Mandatory fields"
-                                  style={{
-                                    marginTop: "0.5em",
-                                    marginLeft: "0.5em"
-                                  }}
-                                  className="fa fa-info-circle"
-                                  aria-hidden="true"
-                                />
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.deviceId || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="deviceId"
-                                  type="text"
-                                  className="form-control"
-                                  id="deviceId"
-                                  value={item.deviceId || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Device Id"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Panel make
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.panelMake || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="panelMake"
-                                  type="text"
-                                  className="form-control"
-                                  id="panelMake"
-                                  value={item.panelMake || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Device Id"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Panel WP
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.panelWp || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="panelWp"
-                                  type="text"
-                                  className="form-control"
-                                  id="panelWp"
-                                  value={item.panelWp || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Panel Wp"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Pump make
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.pumpMake || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="pumpMake"
-                                  type="text"
-                                  className="form-control"
-                                  id="pumpMake"
-                                  value={item.pumpMake || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Pump Make"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Pump sno
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.pumpSno || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="pumpSno"
-                                  type="text"
-                                  className="form-control"
-                                  id="pumpSno"
-                                  value={item.pumpSno || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Pump Sno"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Pump type
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.pumpType || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="pumpType"
-                                  type="text"
-                                  className="form-control"
-                                  id="pumpType"
-                                  value={item.pumpType || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Pump Type"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Pump capability
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.pumpCapability || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="pumpCapability"
-                                  type="text"
-                                  className="form-control"
-                                  id="pumpCapability"
-                                  value={item.pumpCapability || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Pump Capability"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Power type
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.powerType || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="powerType"
-                                  type="text"
-                                  className="form-control"
-                                  id="powerType"
-                                  value={item.powerType || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Power Type"
-                                />
-                              </div>
-                            </div>
-                            <div className="row farmerinforow">
-                              <div className="col-xs-6 farmerinforowtitle">
-                                Registration source
-                              </div>
-                              {/* <div className="col-xs-6">
-                                {item.registrationSource || "NA"}
-                              </div> */}
-                              <div className="col-xs-6">
-                                <input
-                                  name="registrationSource"
-                                  type="text"
-                                  className="form-control"
-                                  id="registrationSource"
-                                  value={item.registrationSource || ""}
-                                  onChange={this.props.pumphandleInputChange.bind(
-                                    this,
-                                    index
-                                  )}
-                                  placeholder="Registration Source"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            ) : (
-              <center style={{ marginTop: "2em" }}>
-                <h4>No data found !!!</h4>
-              </center>
-            )}
-          </div>
           <div role="tabpanel" className="tab-pane" id="family1">
             <div className="row kycbody" style={{ margin: "0.7em 0" }}>
               <div className="col-xs-5">
@@ -1311,7 +751,7 @@ class Farmeredit extends Component {
                 </div>
               </div>
               <div className="col-xs-4" />
-              <div className="col-xs-3">
+              <div className="col-xs-3" style={{display:'flex',justifyContent:'flex-end'}}>
                 <button
                   onClick={this.props.handleeditfarmersave}
                   type="submit"
@@ -1320,7 +760,7 @@ class Farmeredit extends Component {
                   id="drillUp"
                   style={{
                     // display: "none",
-                    width: "40%",
+                    width: "28%",
                     borderRadius: "0px",
                     // marginBottom: "1em",
                     borderColor: "darkgray",
@@ -1340,7 +780,7 @@ class Farmeredit extends Component {
                   id="drillUp"
                   style={{
                     // display: "none",
-                    // width: "35%",
+                    width: "28%",
                     marginLeft: "1em",
 
                     borderRadius: "0px",
@@ -1361,7 +801,7 @@ class Farmeredit extends Component {
             this.props.famerinfo.croplist !== undefined &&
             this.props.famerinfo.croplist.length !== 0 ? (
               <div>
-                <ul className=" nav nav-tabs" role="tablist">
+                <ul className=" nav nav-tabs" role="tablist" style={{marginTop:"8px"}}>
                   {this.props.famerinfo.croplist !== undefined &&
                     this.props.famerinfo.croplist.map((item, index) =>
                       index === 0 ? (
@@ -1372,7 +812,7 @@ class Farmeredit extends Component {
                             role="tab"
                             data-toggle="tab"
                           >
-                            Crop {index + 1}
+                            Crop
                           </a>
                         </li>
                       ) : (
@@ -1383,14 +823,15 @@ class Farmeredit extends Component {
                             role="tab"
                             data-toggle="tab"
                           >
-                            Crop {index + 1}
+                            Crop 
                           </a>
                         </li>
                       )
                     )}
                     <li
                     role="presentation"
-                    style={{ float: "right", padding: "0.2em" }}
+                    
+                    style={{ display:'flex',justifyContent:'flex-end',float: "right", padding: "0.2em 1.5em" }}
                   >
                     <button
                       onClick={this.props.handleeditfarmersavecroplist}
@@ -1400,7 +841,7 @@ class Farmeredit extends Component {
                       id="drillUp"
                       style={{
                         // display: "none",
-                        width: "40%",
+                        width: "50%",
                         borderRadius: "0px",
                         // marginBottom: "1em",
                         borderColor: "darkgray",
@@ -1420,7 +861,7 @@ class Farmeredit extends Component {
                       id="drillUp"
                       style={{
                         // display: "none",
-                        // width: "35%",
+                        width: "45%",
                         marginLeft: "1em",
 
                         borderRadius: "0px",
@@ -1434,7 +875,7 @@ class Farmeredit extends Component {
                       Cancel
                     </button>
                   </li>
-                  <li />
+                  <li style={{float:"right"}}/>
                 </ul>
                 <div className="tab-content">
                   {this.props.famerinfo.croplist !== undefined &&

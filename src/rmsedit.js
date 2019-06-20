@@ -80,7 +80,6 @@ class FormLeft extends Component {
               <input
                 name="installationDate"
                 type="date"
-                data-date-format="DD-MM-YYYY"
                 className="form-control"
                 id="inputinstallationDate"
                 value={this.props.rmsvalues.installationDate}
@@ -102,6 +101,7 @@ class FormLeft extends Component {
               <input
                 name="registrationSource"
                 type="text"
+                disabled
                 className="form-control"
                 id="inputregsource"
                 value={this.props.rmsvalues.registrationSource}
@@ -205,7 +205,7 @@ class FormLeft extends Component {
               Power Type
             </label>
             <div className="col-sm-6">
-              <input
+              {/* <input
                 name="powerType"
                 type="text"
                 className="form-control"
@@ -213,7 +213,18 @@ class FormLeft extends Component {
                 value={this.props.rmsvalues.powerType}
                 onChange={this.props.handleInputChange}
                 placeholder="Power Type"
-              />
+              /> */}
+              <select
+              name="powerType"
+              onChange={this.props.handleInputChange}
+              value={this.props.rmsvalues.powerType ||"AC"}
+              className="form-control"
+              id="sel221"
+            >
+              <option value="AC">AC</option>
+              <option value="DC">DC</option>
+              
+            </select>
             </div>
           </div>
         )}
@@ -226,15 +237,23 @@ class FormLeft extends Component {
               Pump Capability
             </label>
             <div className="col-sm-6">
-              <input
-                name="pumpCapability"
-                type="text"
-                className="form-control"
-                id="inputpumpCapability"
-                value={this.props.rmsvalues.pumpCapability}
-                onChange={this.props.handleInputChange}
-                placeholder="Pump Capability"
-              />
+            <select
+              name="pumpCapability"
+              onChange={this.props.handleInputChange}
+              value={this.props.rmsvalues.pumpCapability ||"AC"}
+              className="form-control"
+              id="sel221"
+            >
+              <option value="1HP">1HP</option>
+              <option value="2HP">2HP</option>
+              <option value="5HP">2HP</option>
+              <option value="7.5HP">7.5HP</option>
+              <option value="10HP">10HP</option>
+              <option value="NA">NA</option>
+              
+            </select>
+              
+              
             </div>
           </div>
         )}
@@ -250,6 +269,7 @@ class FormLeft extends Component {
               <input
                 name="pumpType"
                 type="text"
+                disabled
                 className="form-control"
                 id="inputpumpType"
                 value={this.props.rmsvalues.pumpType}
@@ -364,6 +384,7 @@ class FormRight extends Component {
               <input
                 name="rmsAvailability"
                 type="text"
+                disabled
                 className="form-control"
                 id="inputrmsAvailability"
                 value={this.props.rmsvalues.rmsAvailability}
@@ -406,6 +427,7 @@ class FormRight extends Component {
               <input
                 name="farmerId"
                 type="text"
+                disabled
                 className="form-control"
                 id="inputfarmerId"
                 value={this.props.rmsvalues.farmerId}
@@ -536,7 +558,7 @@ class FormRight extends Component {
             </div>
           </div>
         )}
-        {this.props.rmsvalues.modifiedBy !== undefined && (
+        {/* {this.props.rmsvalues.modifiedBy !== undefined && (
           <div className="form-group">
             <label
               htmlFor="inputmodifiedBy"
@@ -545,18 +567,20 @@ class FormRight extends Component {
               Power Type
             </label>
             <div className="col-sm-6">
-              <input
-                name="modifiedBy"
-                type="text"
-                className="form-control"
-                id="inputmodifiedBy"
-                value={this.props.rmsvalues.modifiedBy}
-                onChange={this.props.handleInputChange}
-                placeholder="Modified By"
-              />
+            <select
+              name="powerType"
+              onChange={this.props.handleInputChange}
+              value={this.props.rmsvalues ||"AC"}
+              className="form-control"
+              id="sel1"
+            >
+              <option value="name">AC</option>
+              <option value="uid">DC</option>
+              
+            </select>
             </div>
           </div>
-        )}
+        )} */}
         {this.props.rmsvalues.application !== undefined && (
           <div className="form-group">
             <label
@@ -578,7 +602,7 @@ class FormRight extends Component {
             </div>
           </div>
         )}
-        {this.props.rmsvalues.application !== undefined && (
+        {this.props.rmsvalues.latitude !== undefined && (
           <div className="form-group">
             <label
               htmlFor="inputlatitude"
@@ -599,7 +623,7 @@ class FormRight extends Component {
             </div>
           </div>
         )}
-        {this.props.rmsvalues.application !== undefined && (
+        {this.props.rmsvalues.longitude !== undefined && (
           <div className="form-group">
             <label
               htmlFor="inputlongitude"

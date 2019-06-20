@@ -52,7 +52,7 @@ class Farmereditshow extends Component {
                       // id="drillUp"
                       style={{
                         // display: "none",
-                        width: "40%",
+                        width: "30%",
                         borderRadius: "0px",
                         borderColor: "darkgray",
                         float: "right",
@@ -124,18 +124,7 @@ class Farmereditshow extends Component {
                     Family
                   </a>
                 </li>
-                <li role="presentation">
-                  <a
-                    style={{ color: "black" }}
-                    href="#vertical"
-                    aria-controls="vertical"
-                    role="tab"
-                    data-toggle="tab"
-                  >
-                    {/* {this.props.famerinfo.vertical}  */}
-                    Tech specs
-                  </a>
-                </li>
+
                 <li role="presentation">
                   <a
                     style={{ color: "black" }}
@@ -164,7 +153,7 @@ class Farmereditshow extends Component {
                 className="tab-content"
                 style={{
                   // padding: "1em",
-                  maxHeight: "50vh",
+                  maxHeight: "60vh",
                   overflow: "scroll"
                 }}
               >
@@ -323,221 +312,8 @@ class Farmereditshow extends Component {
                     </div>
                   </div>
                 </div>
-                <div
-                  role="tabpanel"
-                  className="vertical tab-pane"
-                  id="vertical"
-                >
-                  {this.props.famerinfo !== undefined &&
-                  this.props.famerinfo.pumplist !== undefined &&
-                  this.props.famerinfo.pumplist.length !== 0 ? (
-                    <div>
-                      <ul className=" nav nav-tabs" role="tablist">
-                        {this.props.famerinfo.pumplist !== undefined &&
-                          this.props.famerinfo.pumplist.map((item, index) =>
-                            index === 0 ? (
-                              <li
-                                key={index}
-                                role="presentation"
-                                className="active"
-                              >
-                                <a
-                                  href={`#` + item.deviceId}
-                                  aria-controls={item.deviceId}
-                                  role="tab"
-                                  data-toggle="tab"
-                                >
-                                  Device {index + 1}
-                                </a>
-                              </li>
-                            ) : (
-                              <li key={index} role="presentation">
-                                <a
-                                  href={`#` + item.deviceId}
-                                  aria-controls={item.deviceId}
-                                  role="tab"
-                                  data-toggle="tab"
-                                >
-                                  Device {index + 1}
-                                </a>
-                              </li>
-                            )
-                          )}
-                      </ul>
-                      <div className="tab-content">
-                        {this.props.famerinfo.pumplist !== undefined &&
-                          this.props.famerinfo.pumplist.map((item, index) => (
-                            <div
-                              key={index}
-                              role="tabpanel"
-                              className="tab-pane active"
-                              id={item.deviceId}
-                            >
-                              <div className="col-md-5">
-                                <div className="kycbody">
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Installation date
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.installationDate || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Project code
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.projectCode || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Habitation
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.habitation || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Application
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.application || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      VFD make
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.vfdMake || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      VFD sno
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.vfdSno || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      VFD vendor id
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.vfdVendorId || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      IMEI
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.imei || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Depth
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.depth || "NA"}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-md-1" />
-                              <div className="col-md-5">
-                                <div className="kycbody">
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Device id
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.deviceId || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Panel make
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.panelMake || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Panel WP
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.panelWp || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Pump make
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.pumpMake || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Pump sno
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.pumpSno || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Pump type
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.pumpType || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Pump capability
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.pumpCapability || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Power type
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.powerType || "NA"}
-                                    </div>
-                                  </div>
-                                  <div className="row farmerinforow">
-                                    <div className="col-xs-6 farmerinforowtitle">
-                                      Registration source
-                                    </div>
-                                    <div className="col-xs-6">
-                                      {item.registrationSource || "NA"}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <center style={{ marginTop: "2em" }}>
-                      <h4>No data found !!!</h4>
-                    </center>
-                  )}
-                </div>
                 <div role="tabpanel" className="tab-pane" id="family">
-                  <div className="col-md-5">
+                  <div style={{marginTop:'20px'}} className="col-md-5">
                     <div className="kycbody">
                       <div className="row farmerinforow">
                         <div className="col-xs-6 farmerinforowtitle">
@@ -602,7 +378,7 @@ class Farmereditshow extends Component {
                                   role="tab"
                                   data-toggle="tab"
                                 >
-                                  Crop {index + 1}
+                                  Crop
                                 </a>
                               </li>
                             ) : (
@@ -613,7 +389,7 @@ class Farmereditshow extends Component {
                                   role="tab"
                                   data-toggle="tab"
                                 >
-                                  Crop {index + 1}
+                                  Crop
                                 </a>
                               </li>
                             )
@@ -724,7 +500,7 @@ class Farmereditshow extends Component {
                         >
                           <div className="col-xs-2">
                             <div className="imglistheading">
-                              <h4>{item.mediaType}</h4>
+                              <span style={{fontSize:'1.1em'}}>{item.mediaType}</span>
                             </div>
                           </div>
                           <div className="col-xs-3">

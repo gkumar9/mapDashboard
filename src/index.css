@@ -945,7 +945,7 @@ outline: 1px solid slategrey;
 
 .kycbody{
   padding-left: 0.5em;
-  padding-top: 0.5em;
+  /* padding-top: 0.5em; */
 /* padding-left: 1em; */
 }
 .farmerinfobody  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
@@ -997,4 +997,7 @@ outline: 1px solid slategrey;
 }
 .imglistheading{
   color:black;
+}
+.farmerinfobody h3{
+  font-size: 1.4em;
 }

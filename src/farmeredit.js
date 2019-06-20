@@ -92,6 +92,7 @@ class Farmer extends Component {
     this.state = {
       farmerlist: [],
       searchvariantselected: "name",
+      verticalsearchvariantselected:"NA",
       famerinfo: {},
       searchtext: "",
       backupinfo: {},
@@ -763,8 +764,29 @@ class Farmer extends Component {
     );
   };
   handlesearchselect = event => {
-    this.setState({ searchvariantselected: event.target.value });
+    this.setState({ searchvariantselected: event.target.value,searchtext:" " });
+    this.handlesearch({["target"]:{["value"]:""}})
   };
+  // handlesearchselect = event => {
+  //   if(event.target.value==='vertical'){
+  //     document.getElementById("normaltextsearch").style.display="none";
+  //     document.getElementById("verticaldropdownsearch").style.display="block";
+  //     this.setState({ searchvariantselected: event.target.value });
+  //     // this.handlesearch({['target']:{["value"]:"vertical"}})
+  //   }
+  //   else{
+  //     document.getElementById("normaltextsearch").style.display="block";
+  //     document.getElementById("verticaldropdownsearch").style.display="none";
+  //     this.setState({ searchvariantselected: event.target.value,searchtext:"" });
+  //     this.handlesearch(event)
+  //   }
+    
+  // };
+  // handleverticalsearchselect=(event)=>{
+  //   this.setState({ searchtext: event.target.value,verticalsearchvariantselected:event.target.value });
+  //   this.handlesearch(event)
+    
+  // }
   getfarmerlist = () => {
     let count = 1;
     axios({
@@ -1180,7 +1202,7 @@ class Farmer extends Component {
                         <option value="vertical">Vertical</option>
                       </select>
                     </div>
-                    <div className="col-xs-8" style={{ paddingLeft: "0" }}>
+                    <div id="normaltextsearch" className="col-xs-8" style={{ display:'block',paddingLeft: "0" }}>
                       <input
                         value={this.state.searchtext}
                         onChange={this.handlesearch}
@@ -1189,6 +1211,35 @@ class Farmer extends Component {
                         placeholder="Search"
                         aria-label="..."
                       />
+                    </div>
+                    <div id="verticaldropdownsearch" className="col-xs-8" style={{ paddingLeft: "0",display:'none' }}>
+                      {/* <input
+                        value={this.state.searchtext}
+                        onChange={this.handlesearch}
+                        type="search"
+                        className="form-control "
+                        placeholder="Search"
+                        aria-label="..."
+                      /> */}
+                      <select
+                        name="verticalselectkey"
+                        onChange={this.handleverticalsearchselect}
+                        value={this.state.verticalsearchvariantselected}
+                        className="form-control"
+                        id="sel111"
+                      >
+                        <option value="Solar Irrigation Pump">
+                          Solar Irrigation Pump
+                        </option>
+                        <option value="Solar Drinking Water Pump">
+                          Solar Drinking Water Pump
+                        </option>
+                        <option value="Solar Mini Grid">Solar Mini Grid</option>
+                        <option value="Solar Irrigation Service">
+                          Solar Irrigation Service
+                        </option>
+                        <option value="NA">NA</option>
+                      </select>
                     </div>
                   </div>
                   <div id="maptable" className="farmerlists">
