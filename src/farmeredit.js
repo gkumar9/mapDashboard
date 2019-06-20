@@ -763,7 +763,8 @@ class Farmer extends Component {
     );
   };
   handlesearchselect = event => {
-    this.setState({ searchvariantselected: event.target.value });
+    this.setState({ searchvariantselected: event.target.value,searchtext:" " });
+    this.getfarmerlist();
   };
   getfarmerlist = () => {
     let count = 1;
