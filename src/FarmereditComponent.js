@@ -70,7 +70,7 @@ class Farmeredit extends Component {
               Multimedia
             </a>
           </li>
-          <li role="presentation" style={{ float: "right", padding: "0.2em" }}>
+          {/* <li role="presentation" style={{ float: "right", padding: "0.2em" }}>
             <button
               onClick={this.props.handleeditfarmersave}
               type="submit"
@@ -113,7 +113,7 @@ class Farmeredit extends Component {
               Cancel
             </button>
           </li>
-          <li />
+          <li /> */}
         </ul>
 
         <div
@@ -126,8 +126,53 @@ class Farmeredit extends Component {
         >
           <div role="tabpanel" className="tab-pane active" id="profile1">
             <div className="row kycbody">
-              <div style={{ paddingLeft: "1em" }}>
-                <h3>Primary</h3>
+              <div className="row" style={{ margin: "0.7em 0" }}>
+                <div className="col-xs-9">
+                  <span style={{ fontSize: "24px" }}>Primary</span>
+                </div>
+                <div className="col-xs-3">
+                  <button
+                    onClick={this.props.handleeditfarmersave}
+                    type="submit"
+                    className="btn btn-default"
+                    aria-label="Right Align"
+                    id="drillUp"
+                    style={{
+                      // display: "none",
+                      width: "40%",
+                      borderRadius: "0px",
+                      // marginBottom: "1em",
+                      borderColor: "darkgray",
+                      float: "left",
+                      outline: "none",
+                      color: "white",
+                      backgroundColor: "blue"
+                    }}
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={this.props.handlecancelfarmer}
+                    type="button"
+                    className="cancelbutton btn btn-default"
+                    aria-label="Right Align"
+                    id="drillUp"
+                    style={{
+                      // display: "none",
+                      // width: "35%",
+                      marginLeft: "1em",
+
+                      borderRadius: "0px",
+                      borderColor: "blue",
+                      float: "left",
+                      outline: "none",
+                      color: "blue",
+                      backgroundColor: "white"
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
               <div className="col-md-5">
                 <div className="kycbody">
@@ -672,7 +717,7 @@ class Farmeredit extends Component {
             this.props.famerinfo.pumplist !== undefined &&
             this.props.famerinfo.pumplist.length !== 0 ? (
               <div>
-                <ul class=" nav nav-tabs" role="tablist">
+                <ul className=" nav nav-tabs" role="tablist">
                   {this.props.famerinfo.pumplist !== undefined &&
                     this.props.famerinfo.pumplist.map((item, index) =>
                       index === 0 ? (
@@ -699,14 +744,61 @@ class Farmeredit extends Component {
                         </li>
                       )
                     )}
+                  <li
+                    role="presentation"
+                    style={{ float: "right", padding: "0.2em" }}
+                  >
+                    <button
+                      onClick={this.props.handleeditfarmersavepumplist}
+                      type="submit"
+                      className="btn btn-default"
+                      aria-label="Right Align"
+                      id="drillUp"
+                      style={{
+                        // display: "none",
+                        width: "40%",
+                        borderRadius: "0px",
+                        // marginBottom: "1em",
+                        borderColor: "darkgray",
+                        float: "left",
+                        outline: "none",
+                        color: "white",
+                        backgroundColor: "blue"
+                      }}
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={this.props.handlecancelfarmer}
+                      type="button"
+                      className="cancelbutton btn btn-default"
+                      aria-label="Right Align"
+                      id="drillUp"
+                      style={{
+                        // display: "none",
+                        // width: "35%",
+                        marginLeft: "1em",
+
+                        borderRadius: "0px",
+                        borderColor: "blue",
+                        float: "left",
+                        outline: "none",
+                        color: "blue",
+                        backgroundColor: "white"
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </li>
+                  <li />
                 </ul>
-                <div class="tab-content">
+                <div className="tab-content">
                   {this.props.famerinfo.pumplist !== undefined &&
                     this.props.famerinfo.pumplist.map((item, index) => (
                       <div
                         key={item}
                         role="tabpanel"
-                        class="tab-pane active"
+                        className="tab-pane active"
                         id={item.deviceId}
                       >
                         <div className="col-md-5">
@@ -1129,92 +1221,138 @@ class Farmeredit extends Component {
             )}
           </div>
           <div role="tabpanel" className="tab-pane" id="family1">
-            <div className="col-md-5">
-              <div className="kycbody">
-                <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
-                    No of dependants
+            <div className="row kycbody" style={{ margin: "0.7em 0" }}>
+              <div className="col-xs-5">
+                <div className="">
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      No of dependants
+                    </div>
+                    <div className="col-xs-6">
+                      <input
+                        name="numberOfDependents"
+                        type="number"
+                        className="form-control"
+                        id="numberOfDependents"
+                        value={this.props.famerinfo.numberOfDependents || ""}
+                        onChange={this.props.handleInputChange}
+                        placeholder="Number Of Dependents"
+                      />
+                    </div>
                   </div>
-                  <div className="col-xs-6">
-                    <input
-                      name="numberOfDependents"
-                      type="number"
-                      className="form-control"
-                      id="numberOfDependents"
-                      value={this.props.famerinfo.numberOfDependents || ""}
-                      onChange={this.props.handleInputChange}
-                      placeholder="Number Of Dependents"
-                    />
-                  </div>
-                </div>
-                <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
-                    No of siblings
-                  </div>
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      No of siblings
+                    </div>
 
-                  <div className="col-xs-6">
-                    <input
-                      name="numberOfSiblings"
-                      type="number"
-                      className="form-control"
-                      id="numberOfSiblings"
-                      value={this.props.famerinfo.numberOfSiblings || ""}
-                      onChange={this.props.handleInputChange}
-                      placeholder="Number Of Siblings"
-                    />
+                    <div className="col-xs-6">
+                      <input
+                        name="numberOfSiblings"
+                        type="number"
+                        className="form-control"
+                        id="numberOfSiblings"
+                        value={this.props.famerinfo.numberOfSiblings || ""}
+                        onChange={this.props.handleInputChange}
+                        placeholder="Number Of Siblings"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
-                    Profession of father
-                  </div>
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      Profession of father
+                    </div>
 
-                  <div className="col-xs-6">
-                    <input
-                      name="fathersProfession"
-                      type="text"
-                      className="form-control"
-                      id="fathersProfession"
-                      value={this.props.famerinfo.fathersProfession || ""}
-                      onChange={this.props.handleInputChange}
-                      placeholder="Profession of father"
-                    />
+                    <div className="col-xs-6">
+                      <input
+                        name="fathersProfession"
+                        type="text"
+                        className="form-control"
+                        id="fathersProfession"
+                        value={this.props.famerinfo.fathersProfession || ""}
+                        onChange={this.props.handleInputChange}
+                        placeholder="Profession of father"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
-                    Education level of farmer
-                  </div>
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      Education level of farmer
+                    </div>
 
-                  <div className="col-xs-6">
-                    <input
-                      name="highestEducation"
-                      type="text"
-                      className="form-control"
-                      id="highestEducation"
-                      value={this.props.famerinfo.highestEducation || ""}
-                      onChange={this.props.handleInputChange}
-                      placeholder="Education level of farmer"
-                    />
+                    <div className="col-xs-6">
+                      <input
+                        name="highestEducation"
+                        type="text"
+                        className="form-control"
+                        id="highestEducation"
+                        value={this.props.famerinfo.highestEducation || ""}
+                        onChange={this.props.handleInputChange}
+                        placeholder="Education level of farmer"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="row farmerinforow">
-                  <div className="col-xs-6 farmerinforowtitle">
-                    Age when started farming
-                  </div>
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      Age when started farming
+                    </div>
 
-                  <div className="col-xs-6">
-                    <input
-                      name="farmingStartedAt"
-                      type="number"
-                      className="form-control"
-                      id="farmingStartedAt"
-                      value={this.props.famerinfo.farmingStartedAt || ""}
-                      onChange={this.props.handleInputChange}
-                      placeholder="Age when started farming"
-                    />
+                    <div className="col-xs-6">
+                      <input
+                        name="farmingStartedAt"
+                        type="number"
+                        className="form-control"
+                        id="farmingStartedAt"
+                        value={this.props.famerinfo.farmingStartedAt || ""}
+                        onChange={this.props.handleInputChange}
+                        placeholder="Age when started farming"
+                      />
+                    </div>
                   </div>
                 </div>
+              </div>
+              <div className="col-xs-4" />
+              <div className="col-xs-3">
+                <button
+                  onClick={this.props.handleeditfarmersave}
+                  type="submit"
+                  className="btn btn-default"
+                  aria-label="Right Align"
+                  id="drillUp"
+                  style={{
+                    // display: "none",
+                    width: "40%",
+                    borderRadius: "0px",
+                    // marginBottom: "1em",
+                    borderColor: "darkgray",
+                    float: "left",
+                    outline: "none",
+                    color: "white",
+                    backgroundColor: "blue"
+                  }}
+                >
+                  Save
+                </button>
+                <button
+                  onClick={this.props.handlecancelfarmer}
+                  type="button"
+                  className="cancelbutton btn btn-default"
+                  aria-label="Right Align"
+                  id="drillUp"
+                  style={{
+                    // display: "none",
+                    // width: "35%",
+                    marginLeft: "1em",
+
+                    borderRadius: "0px",
+                    borderColor: "blue",
+                    float: "left",
+                    outline: "none",
+                    color: "blue",
+                    backgroundColor: "white"
+                  }}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
@@ -1223,7 +1361,7 @@ class Farmeredit extends Component {
             this.props.famerinfo.croplist !== undefined &&
             this.props.famerinfo.croplist.length !== 0 ? (
               <div>
-                <ul class=" nav nav-tabs" role="tablist">
+                <ul className=" nav nav-tabs" role="tablist">
                   {this.props.famerinfo.croplist !== undefined &&
                     this.props.famerinfo.croplist.map((item, index) =>
                       index === 0 ? (
@@ -1250,14 +1388,61 @@ class Farmeredit extends Component {
                         </li>
                       )
                     )}
+                    <li
+                    role="presentation"
+                    style={{ float: "right", padding: "0.2em" }}
+                  >
+                    <button
+                      onClick={this.props.handleeditfarmersavecroplist}
+                      type="submit"
+                      className="btn btn-default"
+                      aria-label="Right Align"
+                      id="drillUp"
+                      style={{
+                        // display: "none",
+                        width: "40%",
+                        borderRadius: "0px",
+                        // marginBottom: "1em",
+                        borderColor: "darkgray",
+                        float: "left",
+                        outline: "none",
+                        color: "white",
+                        backgroundColor: "blue"
+                      }}
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={this.props.handlecancelfarmer}
+                      type="button"
+                      className="cancelbutton btn btn-default"
+                      aria-label="Right Align"
+                      id="drillUp"
+                      style={{
+                        // display: "none",
+                        // width: "35%",
+                        marginLeft: "1em",
+
+                        borderRadius: "0px",
+                        borderColor: "blue",
+                        float: "left",
+                        outline: "none",
+                        color: "blue",
+                        backgroundColor: "white"
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </li>
+                  <li />
                 </ul>
-                <div class="tab-content">
+                <div className="tab-content">
                   {this.props.famerinfo.croplist !== undefined &&
                     this.props.famerinfo.croplist.map((item, index) => (
                       <div
                         key={item}
                         role="tabpanel"
-                        class="vertical tab-pane active"
+                        className="vertical tab-pane active"
                         id={item.creationTime}
                       >
                         <div className="col-md-5">

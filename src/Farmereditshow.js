@@ -332,7 +332,7 @@ class Farmereditshow extends Component {
                   this.props.famerinfo.pumplist !== undefined &&
                   this.props.famerinfo.pumplist.length !== 0 ? (
                     <div>
-                      <ul class=" nav nav-tabs" role="tablist">
+                      <ul className=" nav nav-tabs" role="tablist">
                         {this.props.famerinfo.pumplist !== undefined &&
                           this.props.famerinfo.pumplist.map((item, index) =>
                             index === 0 ? (
@@ -364,13 +364,13 @@ class Farmereditshow extends Component {
                             )
                           )}
                       </ul>
-                      <div class="tab-content">
+                      <div className="tab-content">
                         {this.props.famerinfo.pumplist !== undefined &&
                           this.props.famerinfo.pumplist.map((item, index) => (
                             <div
                               key={index}
                               role="tabpanel"
-                              class="tab-pane active"
+                              className="tab-pane active"
                               id={item.deviceId}
                             >
                               <div className="col-md-5">
@@ -587,7 +587,7 @@ class Farmereditshow extends Component {
                   this.props.famerinfo.croplist !== undefined &&
                   this.props.famerinfo.croplist.length !== 0 ? (
                     <div>
-                      <ul class=" nav nav-tabs" role="tablist">
+                      <ul className=" nav nav-tabs" role="tablist">
                         {this.props.famerinfo.croplist !== undefined &&
                           this.props.famerinfo.croplist.map((item, index) =>
                             index === 0 ? (
@@ -619,13 +619,13 @@ class Farmereditshow extends Component {
                             )
                           )}
                       </ul>
-                      <div class="tab-content">
+                      <div className="tab-content">
                         {this.props.famerinfo.croplist !== undefined &&
                           this.props.famerinfo.croplist.map((item, index) => (
                             <div
                               key={index}
                               role="tabpanel"
-                              class="tab-pane active"
+                              className="tab-pane active"
                               id={item.creationTime}
                             >
                               <div className="col-md-5">
