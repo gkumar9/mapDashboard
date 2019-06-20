@@ -69,6 +69,14 @@ class Farmereditshow extends Component {
               <div className="row">
                 <div className="col-sm-4">
                   <div className="row">
+                    <div className="col-xs-8">
+                      {this.props.famerinfo.contactNo !== "N.A" &&
+                        this.props.famerinfo.contactNo !== "" && (
+                          <span>+91{this.props.famerinfo.contactNo}</span>
+                        )}
+                    </div>
+                  </div>
+                  <div className="row">
                     <div className="col-xs-12">
                       {this.props.famerinfo.uidType} :{" "}
                       {this.props.famerinfo.uid}
@@ -76,11 +84,13 @@ class Farmereditshow extends Component {
                   </div>
 
                   <div className="row">
-                    <div className="col-xs-8">
-                      {this.props.famerinfo.contactNo !== "N.A" &&
-                        this.props.famerinfo.contactNo !== "" && (
-                          <span>+91{this.props.famerinfo.contactNo}</span>
-                        )}
+                    <div className="col-xs-12">
+                      Status : {this.props.famerinfo.entryStatus || "NA"}
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-xs-12">
+                      Vertical : {this.props.famerinfo.vertical || "NA"}
                     </div>
                   </div>
                 </div>
@@ -92,7 +102,7 @@ class Farmereditshow extends Component {
               <ul className=" nav nav-tabs" role="tablist">
                 <li role="presentation" className="active">
                   <a
-                    style={{ color: "rgb(102, 102, 102)" }}
+                    style={{ color: "black" }}
                     href="#profile"
                     aria-controls="profile"
                     role="tab"
@@ -104,7 +114,7 @@ class Farmereditshow extends Component {
 
                 <li role="presentation">
                   <a
-                    style={{ color: "rgb(102, 102, 102)" }}
+                    style={{ color: "black" }}
                     href="#family"
                     aria-controls="family"
                     role="tab"
@@ -116,7 +126,7 @@ class Farmereditshow extends Component {
                 </li>
                 <li role="presentation">
                   <a
-                    style={{ color: "rgb(102, 102, 102)" }}
+                    style={{ color: "black" }}
                     href="#vertical"
                     aria-controls="vertical"
                     role="tab"
@@ -128,7 +138,7 @@ class Farmereditshow extends Component {
                 </li>
                 <li role="presentation">
                   <a
-                    style={{ color: "rgb(102, 102, 102)" }}
+                    style={{ color: "black" }}
                     href="#crop"
                     aria-controls="crop"
                     role="tab"
@@ -139,7 +149,7 @@ class Farmereditshow extends Component {
                 </li>
                 <li role="presentation">
                   <a
-                    style={{ color: "rgb(102, 102, 102)" }}
+                    style={{ color: "black" }}
                     href="#images"
                     aria-controls="images"
                     role="tab"
@@ -154,7 +164,7 @@ class Farmereditshow extends Component {
                 className="tab-content"
                 style={{
                   // padding: "1em",
-                  maxHeight: "60vh",
+                  maxHeight: "50vh",
                   overflow: "scroll"
                 }}
               >
@@ -326,7 +336,11 @@ class Farmereditshow extends Component {
                         {this.props.famerinfo.pumplist !== undefined &&
                           this.props.famerinfo.pumplist.map((item, index) =>
                             index === 0 ? (
-                              <li role="presentation" className="active">
+                              <li
+                                key={index}
+                                role="presentation"
+                                className="active"
+                              >
                                 <a
                                   href={`#` + item.deviceId}
                                   aria-controls={item.deviceId}
@@ -337,7 +351,7 @@ class Farmereditshow extends Component {
                                 </a>
                               </li>
                             ) : (
-                              <li role="presentation">
+                              <li key={index} role="presentation">
                                 <a
                                   href={`#` + item.deviceId}
                                   aria-controls={item.deviceId}
@@ -354,6 +368,7 @@ class Farmereditshow extends Component {
                         {this.props.famerinfo.pumplist !== undefined &&
                           this.props.famerinfo.pumplist.map((item, index) => (
                             <div
+                              key={index}
                               role="tabpanel"
                               class="tab-pane active"
                               id={item.deviceId}
@@ -576,7 +591,11 @@ class Farmereditshow extends Component {
                         {this.props.famerinfo.croplist !== undefined &&
                           this.props.famerinfo.croplist.map((item, index) =>
                             index === 0 ? (
-                              <li role="presentation" className="active">
+                              <li
+                                key={index}
+                                role="presentation"
+                                className="active"
+                              >
                                 <a
                                   href={`#` + item.creationTime}
                                   aria-controls={item.deviceId}
@@ -604,6 +623,7 @@ class Farmereditshow extends Component {
                         {this.props.famerinfo.croplist !== undefined &&
                           this.props.famerinfo.croplist.map((item, index) => (
                             <div
+                              key={index}
                               role="tabpanel"
                               class="tab-pane active"
                               id={item.creationTime}
@@ -696,22 +716,28 @@ class Farmereditshow extends Component {
                   this.props.famerinfo.imglist !== undefined &&
                   this.props.famerinfo.imglist.length !== 0 ? (
                     <div style={{ padding: "1em" }}>
-                      <div className="row">
-                        {this.props.famerinfo.imglist.map((item, number) => (
-                          <div className="col-xs-6">
+                      {this.props.famerinfo.imglist.map((item, number) => (
+                        <div
+                          key={number}
+                          className="row"
+                          style={{ marginBottom: "2em" }}
+                        >
+                          <div className="col-xs-2">
                             <div className="imglistheading">
-                              <h3>{item.mediaType}</h3>
+                              <h4>{item.mediaType}</h4>
                             </div>
+                          </div>
+                          <div className="col-xs-3">
                             <div className="imglistbody">
                               <img
-                                class="img-rounded"
+                                // class="img-rounded"
                                 src={item.link}
                                 alt={item.mediaType}
                               />
                             </div>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   ) : (
                     <center style={{ marginTop: "2em" }}>

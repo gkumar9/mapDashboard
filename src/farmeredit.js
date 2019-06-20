@@ -96,13 +96,19 @@ class Farmer extends Component {
       searchtext: "",
       backupinfo: {},
       scrollcount: 0,
+      backupimglist: [],
       searchscrollcount: 0,
       searchhasmore: false,
       cropschema: undefined,
       deviceschema: undefined,
       hasMore: false
     };
-    this.fileInput = React.createRef();
+    this.fileInput = [
+      React.createRef(),
+      React.createRef(),
+      React.createRef(),
+      React.createRef()
+    ];
   }
   handlesearch = event => {
     if (
@@ -232,7 +238,7 @@ class Farmer extends Component {
               }
               this.setState({
                 famerinfo: tmp,
-                backupinfo: Object.assign({}, res.data.data)
+                backupinfo: Object.assign({}, tmp)
               });
               axios({
                 url: config.getfarmercroplist + item.id,
@@ -269,6 +275,28 @@ class Farmer extends Component {
                   .then(rress => {
                     let temporaryy = this.state.famerinfo;
                     temporaryy["imglist"] = rress.data.data.list;
+                    if (rress.data.data.list.length === 0) {
+                      let imgobject = [
+                        {
+                          mediaType: "Profile Pic",
+                          link: "https://via.placeholder.com/600x200"
+                        },
+                        {
+                          mediaType: "Public Pic",
+                          link: "https://via.placeholder.com/600x200"
+                        },
+                        {
+                          mediaType: "Farm Pic",
+                          link: "https://via.placeholder.com/600x200"
+                        },
+                        {
+                          mediaType: "Crop Pic",
+                          link: "https://via.placeholder.com/600x200"
+                        }
+                      ];
+
+                      temporaryy["imglist"] = imgobject;
+                    }
                     this.setState({
                       famerinfo: temporaryy,
                       backupinfo: Object.assign({}, temporaryy)
@@ -365,18 +393,20 @@ class Farmer extends Component {
       this.state.famerinfo.state &&
       this.state.famerinfo.state.replace(/\s/g, "").length !== 0 &&
       this.state.famerinfo.district &&
-      this.state.famerinfo.district.replace(/\s/g, "").length !== 0
+      this.state.famerinfo.district.replace(/\s/g, "").length !== 0 &&
+      this.state.famerinfo.uid &&
+      this.state.famerinfo.uid.replace(/\s/g, "").length !== 0 &&
+      this.state.famerinfo.uidType &&
+      this.state.famerinfo.uidType.replace(/\s/g, "").length !== 0 &&
+      this.state.famerinfo.contactNo &&
+      this.state.famerinfo.contactNo.replace(/\s/g, "").length !== 0
     ) {
-      // console.log(this.fileInput.current.files[0])
-
       if (
         this.state.famerinfo.latitude > 37 ||
         this.state.famerinfo.latitude < 8
       ) {
         alert("Please set valid Latitude value.(Lattitude - 8′N to 37′N)");
-        //  let temp = this.state.famerinfo;
-        // temp['latitude'] = 0;
-        // this.setState({ famerinfo: temp });
+
         return;
       }
       if (
@@ -384,9 +414,7 @@ class Farmer extends Component {
         this.state.famerinfo.longitude < 68
       ) {
         alert("Please set valid Longitude value.(Longitude - 68′E to 97′E)");
-        //  let temp = this.state.famerinfo;
-        // temp['longitude'] = 0;
-        // this.setState({ famerinfo: temp });
+
         return;
       }
       if (this.state.famerinfo.contactNo !== "") {
@@ -400,9 +428,7 @@ class Farmer extends Component {
           alert(
             "Please set valid Contact Number.(10 digit starting with 9/8/7)"
           );
-          // let temp = this.state.famerinfo;
-          // temp['conta'] = 0;
-          // this.setState({ famerinfo: temp });
+
           return;
         }
       }
@@ -417,6 +443,55 @@ class Farmer extends Component {
       })
         .then(res => {
           if (res.data.data !== null && res.data.data.result) {
+            this.state.famerinfo.pumplist.map(item =>
+              axios({
+                url: config.updatermsedit,
+                method: "POST",
+                data: item,
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              })
+                .then(res => {
+                  if (res.data.data !== null && res.data.data.result) {
+                  } else {
+                    alert(res.data.error.errorMsg);
+                    return;
+                  }
+                })
+                .catch(e => {
+                  Swal({
+                    type: "error",
+                    title: "Oops...",
+                    text: e
+                  });
+                })
+            );
+            this.state.famerinfo.croplist.map(item =>
+              axios({
+                url: config.updatecrop,
+                method: "POST",
+                data: item,
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              })
+                .then(res => {
+                  if (res.data.data !== null && res.data.data.result) {
+                  } else {
+                    alert(res.data.error.errorMsg);
+                    return;
+                  }
+                })
+                .catch(e => {
+                  Swal({
+                    type: "error",
+                    title: "Oops...",
+                    text: e
+                  });
+                })
+            );
+
             Swal({
               type: "success",
               title: "Successfully data updated"
@@ -431,6 +506,7 @@ class Farmer extends Component {
             this.getfarmerlist();
           } else {
             alert(res.data.error.errorMsg);
+            return;
           }
         })
         .catch(e => {
@@ -449,8 +525,10 @@ class Farmer extends Component {
       });
     }
   };
-  handleChangeimage = () => {
-    var file = this.fileInput.current.files[0];
+  handleChangeimage = (index, mediaType) => {
+    // console.log(event)
+    // let refname=`fileInput${index}`
+    var file = this.fileInput[index].current.files[0];
     var fileName = +this.state.famerinfo.id + "-" + Date.now();
     // var albumPhotosKey = encodeURIComponent(albumName) + '//';
     let self = this;
@@ -469,9 +547,61 @@ class Farmer extends Component {
           );
         } else {
           let temp = self.state.famerinfo;
-          temp.farmerImage = data.Location;
-          self.setState({ famerinfo: temp });
-          alert("Img uploaded succesfully");
+          if (temp.imglist[index].mediaType === mediaType) {
+            temp.imglist[index].link = data.Location;
+            if (
+              self.state.backupimglist.length !== 0 &&
+              temp.imglist[index] !== undefined
+            ) {
+              axios({
+                url: config.updateimg,
+                method: "POST",
+                data: temp.imglist[index],
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              })
+                .then(res => {
+                  if (res.data.data !== null && res.data.data.result) {
+                    self.setState({ famerinfo: temp });
+                    alert("Img uploaded succesfully");
+                  } else {
+                    alert(res.data.error.errorMsg);
+                  }
+                })
+                .catch(e => {
+                  Swal({
+                    type: "error",
+                    title: "Oops...",
+                    text: e
+                  });
+                });
+            } else {
+              axios({
+                url: config.addimg,
+                method: "POST",
+                data: temp.imglist[index],
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              })
+                .then(res => {
+                  if (res.data.data !== null && res.data.data.result) {
+                    self.setState({ famerinfo: temp });
+                    alert("Img uploaded succesfully");
+                  } else {
+                    alert(res.data.error.errorMsg);
+                  }
+                })
+                .catch(e => {
+                  Swal({
+                    type: "error",
+                    title: "Oops...",
+                    text: e
+                  });
+                });
+            }
+          }
         }
       }
     );
@@ -570,24 +700,39 @@ class Farmer extends Component {
                       .then(rreess => {
                         let temporaryy = this.state.famerinfo;
                         temporaryy["imglist"] = rreess.data.data.list;
-                        if(rreess.data.data.list.length===0){
-                          let imgobject=[{
-                            "mediaType": "Profile Pic",
-                            "link": "https://via.placeholder.com/600x200"},
+                        if (rreess.data.data.list.length === 0) {
+                          let imgobject = [
                             {
-                              "mediaType": "Public Pic",
-                              "link": "https://via.placeholder.com/600x200"},
-                              {
-                                "mediaType": "Farm Pic",
-                                "link": "https://via.placeholder.com/600x200"},
-                                {
-                                  "mediaType": "Crop Pic",
-                                  "link": "https://via.placeholder.com/600x200"}]
+                              mediaType: "Profile Pic",
+                              link: "https://via.placeholder.com/900",
+                              farmer_id: this.state.famerinfo.id,
+                              type: "image"
+                            },
+                            {
+                              mediaType: "Public Pic",
+                              link: "https://via.placeholder.com/700",
+                              farmer_id: this.state.famerinfo.id,
+                              type: "image"
+                            },
+                            {
+                              mediaType: "Farm Pic",
+                              link: "https://via.placeholder.com/500",
+                              farmer_id: this.state.famerinfo.id,
+                              type: "image"
+                            },
+                            {
+                              mediaType: "Crop Pic",
+                              link: "https://via.placeholder.com/200",
+                              farmer_id: this.state.famerinfo.id,
+                              type: "image"
+                            }
+                          ];
 
-                          temporaryy["imglist"]=imgobject
+                          temporaryy["imglist"] = imgobject;
                         }
                         this.setState({
                           famerinfo: temporaryy,
+                          backupimglist: rreess.data.data.list,
                           backupinfo: Object.assign({}, temporaryy)
                         });
                         document.getElementById("showsidetab").style.display =
@@ -741,6 +886,18 @@ class Farmer extends Component {
                 searchscrollcount: tempsearchscrollcount,
                 searchhasmore: res.data.data.hasMore
               });
+              $(".list-group-item").click(function() {
+                console.log("click event");
+                var listItems = $(".list-group-item"); //Select all list items
+
+                //Remove 'active' tag for all list items
+                for (let i = 0; i < listItems.length; i++) {
+                  listItems[i].classList.remove("active");
+                }
+
+                //Add 'active' tag for currently selected item
+                this.classList.add("active");
+              });
             } else {
               let temp = [{ name: "No result found", id: null }];
               self.setState({
@@ -772,6 +929,7 @@ class Farmer extends Component {
         document.getElementById("listendmessage").style.display = "none";
       }
     });
+
     if (this.state.cropschema === undefined) {
       axios({
         url: config.getcropschema,
@@ -803,9 +961,6 @@ class Farmer extends Component {
 
     this.getfarmerlist();
   }
-  handlelistactive = event => {
-    // console.log(event)
-  };
 
   render() {
     return (
@@ -854,6 +1009,8 @@ class Farmer extends Component {
                         <option value="name">Name</option>
                         <option value="uid">Uid</option>
                         <option value="contactNo">Contact no.</option>
+                        <option value="state">State</option>
+                        <option value="vertical">Vertical</option>
                       </select>
                     </div>
                     <div className="col-xs-8" style={{ paddingLeft: "0" }}>

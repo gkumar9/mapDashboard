@@ -15,7 +15,7 @@ class Farmeredit extends Component {
         <ul className="nav nav-tabs" role="tablist">
           <li role="presentation" className="active">
             <a
-              style={{ color: "rgb(102, 102, 102)" }}
+              style={{ color: "black" }}
               href="#profile1"
               aria-controls="profile1"
               role="tab"
@@ -26,7 +26,7 @@ class Farmeredit extends Component {
           </li>
           <li role="presentation">
             <a
-              style={{ color: "rgb(102, 102, 102)" }}
+              style={{ color: "black" }}
               href="#family1"
               aria-controls="family1"
               role="tab"
@@ -38,7 +38,7 @@ class Farmeredit extends Component {
           </li>
           <li role="presentation">
             <a
-              style={{ color: "rgb(102, 102, 102)" }}
+              style={{ color: "black" }}
               href="#vertical1"
               aria-controls="vertical1"
               role="tab"
@@ -50,7 +50,7 @@ class Farmeredit extends Component {
           </li>
           <li role="presentation">
             <a
-              style={{ color: "rgb(102, 102, 102)" }}
+              style={{ color: "black" }}
               href="#crop1"
               aria-controls="crop1"
               role="tab"
@@ -61,7 +61,7 @@ class Farmeredit extends Component {
           </li>
           <li role="presentation">
             <a
-              style={{ color: "rgb(102, 102, 102)" }}
+              style={{ color: "black" }}
               href="#images1"
               aria-controls="images"
               role="tab"
@@ -133,7 +133,15 @@ class Farmeredit extends Component {
                 <div className="kycbody">
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
-                      <span>Name</span>
+                      <span>
+                        Name{" "}
+                        <i
+                          title="Mandatory fields"
+                          style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                          className="fa fa-info-circle"
+                          aria-hidden="true"
+                        />
+                      </span>
                     </div>
                     <div className="col-xs-6">
                       <input
@@ -149,7 +157,47 @@ class Farmeredit extends Component {
                   </div>
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
-                      Contact No
+                      Status{" "}
+                      <i
+                        title="Mandatory fields"
+                        style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="col-xs-6">
+                      <div>
+                        <select
+                          name="entryStatus"
+                          onChange={this.props.handleInputChange}
+                          value={this.props.famerinfo.entryStatus || "ACTIVE"}
+                          className="form-control"
+                          id="sel3"
+                        >
+                          <option value="ACTIVE">ACTIVE</option>
+                          <option value="INACTIVE">INACTIVE</option>
+                        </select>
+                      </div>
+                      {/* <input
+                      name="entryStatus"
+                      type="text"
+                      className="form-control"
+                      id="entryStatus"
+                      value={this.props.famerinfo.entryStatus}
+                      onChange={this.props.handleInputChange}
+                      placeholder="Status"
+                    /> */}
+                    </div>
+                  </div>
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      Contact No{" "}
+                      <i
+                        title="Mandatory fields"
+                        style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                      />
                     </div>
                     <div className="col-xs-6">
                       <input
@@ -170,7 +218,15 @@ class Farmeredit extends Component {
                 <div className="kycbody">
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
-                      <span>UID Type</span>
+                      <span>
+                        UID Type{" "}
+                        <i
+                          title="Mandatory fields"
+                          style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                          className="fa fa-info-circle"
+                          aria-hidden="true"
+                        />
+                      </span>
                     </div>
                     <div className="col-xs-6">
                       <div>
@@ -206,7 +262,15 @@ class Farmeredit extends Component {
                   </div>
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
-                      <span>UID</span>
+                      <span>
+                        UID{" "}
+                        <i
+                          title="Mandatory fields"
+                          style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                          className="fa fa-info-circle"
+                          aria-hidden="true"
+                        />
+                      </span>
                     </div>
                     <div className="col-xs-6">
                       <input
@@ -220,6 +284,38 @@ class Farmeredit extends Component {
                       />
                     </div>
                   </div>
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      Vertical{" "}
+                      <i
+                        title="Mandatory fields"
+                        style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="col-xs-6">
+                      <select
+                        name="vertical"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.famerinfo.vertical || "NA"}
+                        className="form-control"
+                        id="vertical"
+                      >
+                        <option value="Solar Irrigation Pump">
+                          Solar Irrigation Pump
+                        </option>
+                        <option value="Solar Drinking Water Pump">
+                          Solar Drinking Water Pump
+                        </option>
+                        <option value="Solar Mini Grid">Solar Mini Grid</option>
+                        <option value="Solar Irrigation Service">
+                          Solar Irrigation Service
+                        </option>
+                        <option value="NA">NA</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -229,6 +325,33 @@ class Farmeredit extends Component {
                   <h3>Personal</h3>
                 </div>
                 <div className="kycbody">
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      Gender{" "}
+                      <i
+                        title="Mandatory fields"
+                        style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="col-xs-6">
+                      <div>
+                        <select
+                          name="gender"
+                          onChange={this.props.handleInputChange}
+                          value={this.props.famerinfo.gender || "NA"}
+                          className="form-control"
+                          id="sel1"
+                        >
+                          <option value="M">M</option>
+                          <option value="F">F</option>
+                          <option value="NA">NA</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
                       <span>Father Name</span>
@@ -247,22 +370,6 @@ class Farmeredit extends Component {
                   </div>
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
-                      Contact No
-                    </div>
-                    <div className="col-xs-6">
-                      <input
-                        name="contactNo"
-                        type="number"
-                        className="form-control"
-                        id="contactno"
-                        value={this.props.famerinfo.contactNo || ""}
-                        onChange={this.props.handleInputChange}
-                        placeholder="Contact Number "
-                      />
-                    </div>
-                  </div>
-                  <div className="row farmerinforow">
-                    <div className="col-xs-6 farmerinforowtitle">
                       Alternate Number
                     </div>
                     <div className="col-xs-6">
@@ -275,24 +382,6 @@ class Farmeredit extends Component {
                         onChange={this.props.handleInputChange}
                         placeholder="Alternate Number"
                       />
-                    </div>
-                  </div>
-                  <div className="row farmerinforow">
-                    <div className="col-xs-6 farmerinforowtitle">Gender</div>
-                    <div className="col-xs-6">
-                      <div>
-                        <select
-                          name="gender"
-                          onChange={this.props.handleInputChange}
-                          value={this.props.famerinfo.gender || "NA"}
-                          className="form-control"
-                          id="sel1"
-                        >
-                          <option value="M">M</option>
-                          <option value="F">F</option>
-                          <option value="NA">NA</option>
-                        </select>
-                      </div>
                     </div>
                   </div>
                   <div className="row farmerinforow">
@@ -396,7 +485,15 @@ class Farmeredit extends Component {
                 </div>
                 <div className="kycbody">
                   <div className="row farmerinforow">
-                    <div className="col-xs-6 farmerinforowtitle">State</div>
+                    <div className="col-xs-6 farmerinforowtitle">
+                      State{" "}
+                      <i
+                        title="Mandatory fields"
+                        style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                      />
+                    </div>
                     <div className="col-xs-6">
                       <select
                         name="state"
@@ -415,7 +512,15 @@ class Farmeredit extends Component {
                     </div>
                   </div>
                   <div className="row farmerinforow">
-                    <div className="col-xs-6 farmerinforowtitle">District</div>
+                    <div className="col-xs-6 farmerinforowtitle">
+                      District{" "}
+                      <i
+                        title="Mandatory fields"
+                        style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                      />
+                    </div>
                     <div className="col-xs-6">
                       {this.props.famerinfo.state !== null &&
                         this.props.famerinfo.state !== undefined && (
@@ -511,7 +616,15 @@ class Farmeredit extends Component {
                     </div>
                   </div>
                   <div className="row farmerinforow">
-                    <div className="col-xs-6 farmerinforowtitle">Latitude</div>
+                    <div className="col-xs-6 farmerinforowtitle">
+                      Latitude{" "}
+                      <i
+                        title="Mandatory fields"
+                        style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                      />
+                    </div>
                     <div className="col-xs-6">
                       <input
                         name="latitude"
@@ -528,7 +641,15 @@ class Farmeredit extends Component {
                     </div>
                   </div>
                   <div className="row farmerinforow">
-                    <div className="col-xs-6 farmerinforowtitle">Longitude</div>
+                    <div className="col-xs-6 farmerinforowtitle">
+                      Longitude{" "}
+                      <i
+                        title="Mandatory fields"
+                        style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                      />
+                    </div>
                     <div className="col-xs-6">
                       <input
                         name="longitude"
@@ -555,7 +676,7 @@ class Farmeredit extends Component {
                   {this.props.famerinfo.pumplist !== undefined &&
                     this.props.famerinfo.pumplist.map((item, index) =>
                       index === 0 ? (
-                        <li role="presentation" className="active">
+                        <li key={item} role="presentation" className="active">
                           <a
                             href={`#` + item.deviceId}
                             aria-controls={item.deviceId}
@@ -566,7 +687,7 @@ class Farmeredit extends Component {
                           </a>
                         </li>
                       ) : (
-                        <li role="presentation">
+                        <li key={item} role="presentation">
                           <a
                             href={`#` + item.deviceId}
                             aria-controls={item.deviceId}
@@ -583,6 +704,7 @@ class Farmeredit extends Component {
                   {this.props.famerinfo.pumplist !== undefined &&
                     this.props.famerinfo.pumplist.map((item, index) => (
                       <div
+                        key={item}
                         role="tabpanel"
                         class="tab-pane active"
                         id={item.deviceId}
@@ -789,7 +911,16 @@ class Farmeredit extends Component {
                           <div className="kycbody">
                             <div className="row farmerinforow">
                               <div className="col-xs-6 farmerinforowtitle">
-                                Device id
+                                Device id{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
                               </div>
                               {/* <div className="col-xs-6">
                                 {item.deviceId || "NA"}
@@ -1096,7 +1227,7 @@ class Farmeredit extends Component {
                   {this.props.famerinfo.croplist !== undefined &&
                     this.props.famerinfo.croplist.map((item, index) =>
                       index === 0 ? (
-                        <li role="presentation" className="active">
+                        <li key={item} role="presentation" className="active">
                           <a
                             href={`#` + item.creationTime}
                             aria-controls={item.deviceId}
@@ -1107,7 +1238,7 @@ class Farmeredit extends Component {
                           </a>
                         </li>
                       ) : (
-                        <li role="presentation">
+                        <li key={item} role="presentation">
                           <a
                             href={`#` + item.creationTime}
                             aria-controls={item.deviceId}
@@ -1124,6 +1255,7 @@ class Farmeredit extends Component {
                   {this.props.famerinfo.croplist !== undefined &&
                     this.props.famerinfo.croplist.map((item, index) => (
                       <div
+                        key={item}
                         role="tabpanel"
                         class="vertical tab-pane active"
                         id={item.creationTime}
@@ -1132,7 +1264,16 @@ class Farmeredit extends Component {
                           <div className="kycbody">
                             <div className="row farmerinforow">
                               <div className="col-xs-6 farmerinforowtitle">
-                                Name
+                                Name{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
                               </div>
                               {/* <div className="col-xs-6">
                                       {item.name || "NA"}
@@ -1154,7 +1295,16 @@ class Farmeredit extends Component {
                             </div>
                             <div className="row farmerinforow">
                               <div className="col-xs-6 farmerinforowtitle">
-                                Crop season
+                                Crop season{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
                               </div>
                               {/* <div className="col-xs-6">
                                       {item.cropSeason || "NA"}
@@ -1176,7 +1326,16 @@ class Farmeredit extends Component {
                             </div>
                             <div className="row farmerinforow">
                               <div className="col-xs-6 farmerinforowtitle">
-                                Crop variety
+                                Crop variety{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
                               </div>
                               {/* <div className="col-xs-6">
                                       {item.cropVariety || "NA"}
@@ -1198,7 +1357,16 @@ class Farmeredit extends Component {
                             </div>
                             <div className="row farmerinforow">
                               <div className="col-xs-6 farmerinforowtitle">
-                                Sowing month
+                                Sowing month{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
                               </div>
                               {/* <div className="col-xs-6">
                                       {item.sowingMonth || "NA"}
@@ -1225,7 +1393,16 @@ class Farmeredit extends Component {
                           <div className="kycbody">
                             <div className="row farmerinforow">
                               <div className="col-xs-6 farmerinforowtitle">
-                                Harvesting time
+                                Harvesting time{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
                               </div>
                               {/* <div className="col-xs-6">
                                       {item.harvestingTime || "NA"}
@@ -1269,7 +1446,16 @@ class Farmeredit extends Component {
                             </div>
                             <div className="row farmerinforow">
                               <div className="col-xs-6 farmerinforowtitle">
-                                Grown area
+                                Grown area{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
                               </div>
                               {/* <div className="col-xs-6">
                                       {item.grownArea || "NA"}
@@ -1323,33 +1509,54 @@ class Farmeredit extends Component {
               </center>
             )}
           </div>
-          <div role="tabpanel" className="tab-pane" id="images1" >
-          {this.props.famerinfo !== undefined &&
-                  this.props.famerinfo.imglist !== undefined &&
-                  this.props.famerinfo.imglist.length !== 0 ? (
-                    <div style={{ padding: "1em" }}>
-                      <div className="row">
-                        {this.props.famerinfo.imglist.map((item, number) => (
-                          <div className="col-xs-6">
-                            <div className="imglistheading">
-                              <h3>{item.mediaType}</h3>
-                            </div>
-                            <div className="imglistbody">
-                              <img
-                                class="img-rounded"
-                                src={item.link}
-                                alt={item.mediaType}
-                              />
-                            </div>
-                          </div>
-                        ))}
+          <div role="tabpanel" className="tab-pane" id="images1">
+            {this.props.famerinfo !== undefined &&
+            this.props.famerinfo.imglist !== undefined &&
+            this.props.famerinfo.imglist.length !== 0 ? (
+              <div style={{ padding: "1em" }}>
+                {this.props.famerinfo.imglist.map((item, number) => (
+                  <div
+                    key={number}
+                    className="row"
+                    style={{ marginBottom: "2em" }}
+                  >
+                    <div className="col-xs-2">
+                      <div className="imglistheading">
+                        <h4>{item.mediaType}</h4>
                       </div>
                     </div>
-                  ) : (
-                    <center style={{ marginTop: "2em" }}>
-                      <h4>No data found !!!</h4>
-                    </center>
-                  )}
+                    <div className="col-xs-3">
+                      <div className="imglistbody">
+                        <img
+                          // class="img-rounded"
+                          src={item.link}
+                          alt={item.mediaType}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-xs-4">
+                      <label>
+                        <b>Upload Image:</b>
+                        <input
+                          onChange={this.props.handleChangeimage.bind(
+                            this,
+                            number,
+                            item.mediaType
+                          )}
+                          type="file"
+                          ref={this.props.fileInput[number]}
+                          style={{ width: "-webkit-fill-available" }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <center style={{ marginTop: "2em" }}>
+                <h4>No data found !!!</h4>
+              </center>
+            )}
           </div>
         </div>
       </div>

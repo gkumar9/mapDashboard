@@ -90,11 +90,19 @@ let config = {
     "http://staging.clarolabs.in:7060/clarosupport/farmerinfo/farmer/",
   searchfarmer:
     "http://staging.clarolabs.in:7060/clarosupport/farmerinfo/search/list/",
-    getfarmerpumplist:"http://staging.clarolabs.in:7060/clarosupport/assets/rms/pump/farmer/list/",
-    getfarmercroplist:"http://staging.clarolabs.in:7060/clarosupport/crop/list/",
-    getfarmerimg:"http://staging.clarolabs.in:7060/clarosupport/media/list/",
-    getcropschema:"http://staging.clarolabs.in:7060/clarosupport/crop/schema/",
-    getdeviceschema:"http://staging.clarolabs.in:7060/clarosupport/asset/rms/pump/schema/"
+  getfarmerpumplist:
+    "http://staging.clarolabs.in:7060/clarosupport/assets/rms/pump/farmer/list/",
+  getfarmercroplist: "http://staging.clarolabs.in:7060/clarosupport/crop/list/",
+  getfarmerimg: "http://staging.clarolabs.in:7060/clarosupport/media/list/",
+  getcropschema: "http://staging.clarolabs.in:7060/clarosupport/crop/schema/",
+  getdeviceschema:
+    "http://staging.clarolabs.in:7060/clarosupport/asset/rms/pump/schema/",
+  updatecrop: "http://staging.clarolabs.in:7060/clarosupport/crop/update/",
+  updateimg: "http://staging.clarolabs.in:7060/clarosupport/media/update/",
+  addrms: "http://staging.clarolabs.in:7060/clarosupport/assets/rms/pump/",
+  addcrop: "http://staging.clarolabs.in:7060/clarosupport/crop/add/",
+  updateimg: "http://staging.clarolabs.in:7060/clarosupport/media/update/",
+  addimg: "http://staging.clarolabs.in:7060/clarosupport/media/add"
 };
 
 export default config;
