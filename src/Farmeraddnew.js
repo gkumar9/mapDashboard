@@ -4,6 +4,8 @@ import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
 import AWS from "aws-sdk";
+const $ = require("jquery");
+// import { stat } from "fs";
 // const $ = require("jquery");
 
 AWS.config.region = "ap-south-1";
@@ -35,12 +37,29 @@ class Farmeraddnew extends Component {
     document.getElementById("showsidetab").style.display = "none";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
     document.getElementById("farmeraddnew").style.display = "none";
-    this.state.getfarmer();
+    
+    var listItems = $(".list-group-item"); //Select all list items
+
+      //Remove 'active' tag for all list items
+      for (let i = 0; i < listItems.length; i++) {
+        listItems[i].classList.remove("active");
+      }
+      this.fileInput = [
+        React.createRef(),
+        React.createRef(),
+        React.createRef(),
+        React.createRef()
+      ];
+      this.props.getfarmer();
   };
   handleInputChange = event => {
     event.persist();
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
+    if(event.target.name==='state'){
+      temp.district=statedistrict[event.target.value][0]
+    }
+    
     this.setState({ famerinfo: temp });
   };
   crophandleInputChange = (index, event) => {
@@ -108,7 +127,8 @@ class Farmeraddnew extends Component {
     );
   };
   handleeditfarmersavecroplist = async () => {
-    this.state.famerinfo.croplist.map((item, number) => {
+    let check=this.handleeditfarmersave();
+    if(check){this.state.famerinfo.croplist.map((item, number) => {
       if (
         item.name &&
         item.name.replace(/\s/g, "").length !== 0 &&
@@ -197,7 +217,8 @@ class Farmeraddnew extends Component {
           // text: res.data.error.errorMsg
         });
       }
-    });
+    });}
+    
   };
   handleeditfarmersave = () => {
     delete this.state.famerinfo["modificationTime"];
@@ -228,7 +249,7 @@ class Farmeraddnew extends Component {
         let temp = this.state.famerinfo;
         temp["latitude"] = 0;
         this.setState({ famerinfo: temp });
-        return;
+        return false;
       }
       if (
         this.state.famerinfo.longitude > 97 ||
@@ -238,7 +259,7 @@ class Farmeraddnew extends Component {
         let temp = this.state.famerinfo;
         temp["longitude"] = 0;
         this.setState({ famerinfo: temp });
-        return;
+        return false;
       }
       if (this.state.famerinfo.contactNo !== "") {
         if (
@@ -254,7 +275,7 @@ class Farmeraddnew extends Component {
           // let temp = this.state.famerinfo;
           // temp['conta'] = 0;
           // this.setState({ famerinfo: temp });
-          return;
+          return false;
         }
       }
       axios({
@@ -276,7 +297,9 @@ class Farmeraddnew extends Component {
               title: "Successfully data updated"
               // text: res.data.error.errorMsg
             });
-            window.location.reload();
+            this.props.getfarmer();
+            return true;
+            // window.location.reload();
           } else {
             alert(res.data.error.errorMsg);
           }
@@ -359,10 +382,13 @@ class Farmeraddnew extends Component {
         title: "Fill valid input in all mandatory fields"
         // text: res.data.error.errorMsg
       });
+      return false;
     }
   };
   componentDidMount() {
     // if (this.state.cropschema === undefined) {
+      this.setState({famerinfo:undefined,backupinfo:undefined})
+      let cropschema;
     axios({
       url: config.getcropschema,
       method: "POST",
@@ -373,6 +399,7 @@ class Farmeraddnew extends Component {
         "Content-Type": "application/json"
       }
     }).then(res => {
+      cropschema=res.data.data
       this.setState({ cropschema: res.data.data });
     });
     // }
@@ -392,13 +419,14 @@ class Farmeraddnew extends Component {
         res.data.data.gender = "M";
         res.data.data.entryStatus = "ACTIVE";
         res.data.data.state = "Tripura";
+        res.data.data.uidType = "NA";
         res.data.data.district = "Unakoti";
         res.data.data.vertical = "Solar Irrigation Pump";
         res.data.data.contactNo = "";
-        let cropschema = this.state.cropschema;
-        let deviceschema = this.state.deviceschema;
+        
+        
         res.data.data["croplist"] = [cropschema];
-        res.data.data["pumplist"] = [deviceschema];
+        
         let imgobject = [
           {
             mediaType: "Profile Pic",

@@ -9,6 +9,7 @@ import config from "./config.js";
 import Swal from "sweetalert2";
 import AWS from "aws-sdk";
 import Farmeraddnew from "./Farmeraddnew.js";
+import statedistrict from "./state_json.js";
 const $ = require("jquery");
 
 AWS.config.region = "ap-south-1";
@@ -99,7 +100,7 @@ class Farmer extends Component {
       scrollcount: 0,
       backupimglist: [],
       backupcroplist: 0,
-      backuppumplist: [],
+      // backuppumplist: [],
       searchscrollcount: 0,
       searchhasmore: false,
       cropschema: undefined,
@@ -221,38 +222,38 @@ class Farmer extends Component {
             famerinfo: res.data.data,
             backupinfo: Object.assign({}, res.data.data)
           });
-          axios({
-            url: config.getfarmerpumplist + item.id,
-            method: "POST",
-            data: {
-              temp: "temp"
-            },
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
-            .then(Response => {
-              let tmp = res.data.data;
-              tmp["pumplist"] = Response.data.data.list.slice();
-              if (Response.data.data.list.length === 0) {
-                // console.log(temporary)
-                tmp.pumplist.push(Object.assign({}, this.state.deviceschema));
-                tmp.pumplist[0].farmerId = res.data.data.id;
-              }
-              this.setState({
-                famerinfo: tmp,
-                backuppumplist: Response.data.data.list.slice(),
-                backupinfo: Object.assign({}, tmp)
-              });
-            })
-            .catch(e => {
-              console.log(e);
-              Swal({
-                type: "error",
-                title: "Oops...",
-                text: e
-              });
-            });
+          // axios({
+          //   url: config.getfarmerpumplist + item.id,
+          //   method: "POST",
+          //   data: {
+          //     temp: "temp"
+          //   },
+          //   headers: {
+          //     "Content-Type": "application/json"
+          //   }
+          // })
+          //   .then(Response => {
+          //     let tmp = res.data.data;
+          //     tmp["pumplist"] = Response.data.data.list.slice();
+          //     if (Response.data.data.list.length === 0) {
+          //       // console.log(temporary)
+          //       tmp.pumplist.push(Object.assign({}, this.state.deviceschema));
+          //       tmp.pumplist[0].farmerId = res.data.data.id;
+          //     }
+          //     this.setState({
+          //       famerinfo: tmp,
+          //       backuppumplist: Response.data.data.list.slice(),
+          //       backupinfo: Object.assign({}, tmp)
+          //     });
+          //   })
+          //   .catch(e => {
+          //     console.log(e);
+          //     Swal({
+          //       type: "error",
+          //       title: "Oops...",
+          //       text: e
+          //     });
+          //   });
           axios({
             url: config.getfarmercroplist + item.id,
             method: "POST",
@@ -306,14 +307,14 @@ class Farmer extends Component {
               let imgobject = [
                 {
                   mediaType: "Profile Pic",
-                  link: "https://via.placeholder.com/900",
+                  link: "https://via.placeholder.com/500",
                   farmerId: res.data.data.id,
                   type: "image",
                   modifiedBy: "0"
                 },
                 {
                   mediaType: "Public Pic",
-                  link: "https://via.placeholder.com/700",
+                  link: "https://via.placeholder.com/500",
                   farmerId: res.data.data.id,
                   type: "image",
                   modifiedBy: "0"
@@ -327,7 +328,7 @@ class Farmer extends Component {
                 },
                 {
                   mediaType: "Crop Pic",
-                  link: "https://via.placeholder.com/200",
+                  link: "https://via.placeholder.com/500",
                   farmerId: res.data.data.id,
                   type: "image",
                   modifiedBy: "0"
@@ -386,6 +387,9 @@ class Farmer extends Component {
     event.persist();
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
+    if(event.target.name==='state'){
+      temp.district=statedistrict[event.target.value][0]
+    }
     this.setState({ famerinfo: temp });
   };
   pumphandleInputChange = (index, event) => {
@@ -705,11 +709,12 @@ class Farmer extends Component {
         } else {
           let temp = self.state.famerinfo;
           if (temp.imglist[index].mediaType === mediaType) {
-            temp.imglist[index].link = data.Location;
+            
             if (
               self.state.backupimglist.length !== 0 &&
-              temp.imglist[index] !== undefined
+              temp.imglist[index].link !== "https://via.placeholder.com/500"
             ) {
+              temp.imglist[index].link = data.Location;
               axios({
                 url: config.updateimg,
                 method: "POST",
@@ -734,6 +739,7 @@ class Farmer extends Component {
                   });
                 });
             } else {
+              temp.imglist[index].link = data.Location;
               axios({
                 url: config.addimg,
                 method: "POST",
@@ -818,38 +824,38 @@ class Farmer extends Component {
           }
         })
           .then(resp => {
-            axios({
-              url: config.getfarmerpumplist + res.data.data.list[0].id,
-              method: "POST",
-              data: {
-                temp: "temp"
-              },
-              headers: {
-                "Content-Type": "application/json"
-              }
-            })
-              .then(Response => {
-                let tmp = resp.data.data;
-                tmp["pumplist"] = Response.data.data.list.slice();
-                if (Response.data.data.list.length === 0) {
-                  // console.log(temporary)
-                  tmp.pumplist.push(Object.assign({}, this.state.deviceschema));
-                  tmp.pumplist[0].farmerId = res.data.data.list[0].id;
-                }
-                this.setState({
-                  famerinfo: tmp,
-                  backuppumplist: Response.data.data.list.slice(),
-                  backupinfo: Object.assign({}, tmp)
-                });
-              })
-              .catch(e => {
-                console.log(e);
-                Swal({
-                  type: "error",
-                  title: "Oops...",
-                  text: e
-                });
-              });
+            // axios({
+            //   url: config.getfarmerpumplist + res.data.data.list[0].id,
+            //   method: "POST",
+            //   data: {
+            //     temp: "temp"
+            //   },
+            //   headers: {
+            //     "Content-Type": "application/json"
+            //   }
+            // })
+            //   .then(Response => {
+            //     let tmp = resp.data.data;
+            //     tmp["pumplist"] = Response.data.data.list.slice();
+            //     if (Response.data.data.list.length === 0) {
+            //       // console.log(temporary)
+            //       tmp.pumplist.push(Object.assign({}, this.state.deviceschema));
+            //       tmp.pumplist[0].farmerId = res.data.data.list[0].id;
+            //     }
+            //     this.setState({
+            //       famerinfo: tmp,
+            //       backuppumplist: Response.data.data.list.slice(),
+            //       backupinfo: Object.assign({}, tmp)
+            //     });
+            //   })
+            //   .catch(e => {
+            //     console.log(e);
+            //     Swal({
+            //       type: "error",
+            //       title: "Oops...",
+            //       text: e
+            //     });
+            //   });
             axios({
               url: config.getfarmercroplist + res.data.data.list[0].id,
               method: "POST",
@@ -903,14 +909,14 @@ class Farmer extends Component {
                 let imgobject = [
                   {
                     mediaType: "Profile Pic",
-                    link: "https://via.placeholder.com/900",
+                    link: "https://via.placeholder.com/500",
                     farmerId: this.state.famerinfo.id,
                     type: "image",
                     modifiedBy: "0"
                   },
                   {
                     mediaType: "Public Pic",
-                    link: "https://via.placeholder.com/700",
+                    link: "https://via.placeholder.com/500",
                     farmerId: this.state.famerinfo.id,
                     type: "image",
                     modifiedBy: "0"
@@ -924,7 +930,7 @@ class Farmer extends Component {
                   },
                   {
                     mediaType: "Crop Pic",
-                    link: "https://via.placeholder.com/200",
+                    link: "https://via.placeholder.com/500",
                     farmerId: this.state.famerinfo.id,
                     type: "image",
                     modifiedBy: "0"
@@ -1131,20 +1137,6 @@ class Farmer extends Component {
         }
       }).then(res => {
         this.setState({ cropschema: res.data.data });
-      });
-    }
-    if (this.state.deviceschema === undefined) {
-      axios({
-        url: config.getdeviceschema,
-        method: "POST",
-        data: {
-          temp: "temp"
-        },
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(res => {
-        this.setState({ deviceschema: res.data.data });
       });
     }
 
