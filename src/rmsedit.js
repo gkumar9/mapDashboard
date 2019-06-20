@@ -748,45 +748,48 @@ class Rmsedit extends Component {
                   <label htmlFor="" className="col-sm-9" />
                   <div className="col-sm-3">
                     
+                   
                     <button
-                      style={{
-                        float: "right",
-                        border: "1px solid #ccc",
-                        background: "blue",
-                        color: "white"
-                      }}
-                      onClick={this.handlesave}
-                      type="button"
-                      className="btn btn-default"
-                      aria-label="Left Align"
-                    >
-                      <span
-                        className="glyphicon glyphicon-upload"
-                        style={{ marginRight: "6px" }}
-                        aria-hidden="true"
-                      />
-                      Save
-                    </button>
+                  onClick={this.handlesave}
+                  type="submit"
+                  className="btn btn-default"
+                  aria-label="Right Align"
+                  id="drillUp"
+                  style={{
+                    // display: "none",
+                    width: "28%",
+                    borderRadius: "0px",
+                    // marginBottom: "1em",
+                    borderColor: "darkgray",
+                    float: "left",
+                    outline: "none",
+                    color: "white",
+                    backgroundColor: "blue"
+                  }}
+                >
+                  Save
+                </button>
                     <button
-                      style={{
-                        float: "right",
-                        marginRight: "2em",
-                        border: "1px solid #ccc",
-                        background: "white",
-                        color: "blue"
-                      }}
-                      onClick={this.handlecancel}
-                      type="button"
-                      className="btn btn-default"
-                      aria-label="Left Align"
-                    >
-                      <span
-                        className="glyphicon glyphicon-remove"
-                        style={{ marginRight: "6px" }}
-                        aria-hidden="true"
-                      />
-                      Cancel
-                    </button>
+                  onClick={this.handlecancel}
+                  type="button"
+                  className="cancelbutton btn btn-default"
+                  aria-label="Right Align"
+                  id="drillUp"
+                  style={{
+                    // display: "none",
+                    width: "28%",
+                    marginLeft: "1em",
+
+                    borderRadius: "0px",
+                    borderColor: "blue",
+                    float: "left",
+                    outline: "none",
+                    color: "blue",
+                    backgroundColor: "white"
+                  }}
+                >
+                  Cancel
+                </button>
                   </div>
                 </div>
               </div>
