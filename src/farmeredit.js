@@ -93,7 +93,7 @@ class Farmer extends Component {
     this.state = {
       farmerlist: [],
       searchvariantselected: "name",
-      verticalsearchvariantselected:"NA",
+      verticalsearchvariantselected: "NA",
       famerinfo: {},
       searchtext: "",
       backupinfo: {},
@@ -222,38 +222,7 @@ class Farmer extends Component {
             famerinfo: res.data.data,
             backupinfo: Object.assign({}, res.data.data)
           });
-          // axios({
-          //   url: config.getfarmerpumplist + item.id,
-          //   method: "POST",
-          //   data: {
-          //     temp: "temp"
-          //   },
-          //   headers: {
-          //     "Content-Type": "application/json"
-          //   }
-          // })
-          //   .then(Response => {
-          //     let tmp = res.data.data;
-          //     tmp["pumplist"] = Response.data.data.list.slice();
-          //     if (Response.data.data.list.length === 0) {
-          //       // console.log(temporary)
-          //       tmp.pumplist.push(Object.assign({}, this.state.deviceschema));
-          //       tmp.pumplist[0].farmerId = res.data.data.id;
-          //     }
-          //     this.setState({
-          //       famerinfo: tmp,
-          //       backuppumplist: Response.data.data.list.slice(),
-          //       backupinfo: Object.assign({}, tmp)
-          //     });
-          //   })
-          //   .catch(e => {
-          //     console.log(e);
-          //     Swal({
-          //       type: "error",
-          //       title: "Oops...",
-          //       text: e
-          //     });
-          //   });
+
           axios({
             url: config.getfarmercroplist + item.id,
             method: "POST",
@@ -303,7 +272,7 @@ class Farmer extends Component {
           })
             .then(rreess => {
               let temporaryy = res.data.data;
-              temporaryy["imglist"] = rreess.data.data.list.slice();
+
               let imgobject = [
                 {
                   mediaType: "Profile Pic",
@@ -337,9 +306,9 @@ class Farmer extends Component {
 
               temporaryy["imglist"] = imgobject;
               rreess.data.data.list.map(item => {
-                temporaryy.imglist.map(itm => {
-                  if (item.mediaType == itm.mediaType) {
-                    itm.link = item.link;
+                temporaryy.imglist.map((itm, index) => {
+                  if (item.mediaType === itm.mediaType) {
+                    temporaryy.imglist[index] = Object.assign({}, item);
                   }
                 });
               });
@@ -387,8 +356,8 @@ class Farmer extends Component {
     event.persist();
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
-    if(event.target.name==='state'){
-      temp.district=statedistrict[event.target.value][0]
+    if (event.target.name === "state") {
+      temp.district = statedistrict[event.target.value][0];
     }
     this.setState({ famerinfo: temp });
   };
@@ -460,7 +429,22 @@ class Farmer extends Component {
             this.state.famerinfo.contactNo.charAt(0) !== "6")
         ) {
           alert(
-            "Please set valid Contact Number.(10 digit starting with 9/8/7)"
+            "Please set valid Contact Number.(10 digit starting with 9/8/7/6)"
+          );
+
+          return;
+        }
+      }
+      if (this.state.famerinfo.alternateNumber !== "") {
+        if (
+          this.state.famerinfo.alternateNumber.length !== 10 ||
+          (this.state.famerinfo.alternateNumber.charAt(0) !== "9" &&
+            this.state.famerinfo.alternateNumber.charAt(0) !== "8" &&
+            this.state.famerinfo.alternateNumber.charAt(0) !== "7" &&
+            this.state.famerinfo.alternateNumber.charAt(0) !== "6")
+        ) {
+          alert(
+            "Please set valid Alternate Contact Number.(10 digit starting with 9/8/7/6)"
           );
 
           return;
@@ -488,7 +472,7 @@ class Farmer extends Component {
             document.getElementById("showsidetab").style.display = "block";
             document.getElementById("showsidetabeditfarmer").style.display =
               "none";
-            this.getfarmerlist();
+            // this.getfarmerlist();
           } else {
             alert(res.data.error.errorMsg);
             return;
@@ -510,91 +494,92 @@ class Farmer extends Component {
       });
     }
   };
-  handleeditfarmersavepumplist = async () => {
-    delete this.state.famerinfo["modificationTime"];
-    this.state.famerinfo.pumplist.map((item, number) => {
-      if (item.deviceId && item.deviceId.replace(/\s/g, "").length !== 0) {
-        if (this.state.backuppumplist.length !== 0 && item !== undefined) {
-          axios({
-            url: config.updatermsedit,
-            method: "POST",
-            data: item,
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
-            .then(res => {
-              if (res.data.data !== null && res.data.data.result) {
-                Swal({
-                  type: "success",
-                  title: "Successfully data updated"
-                  // text: res.data.error.errorMsg
-                });
+  // handleeditfarmersavepumplist = async () => {
+  //   delete this.state.famerinfo["modificationTime"];
+  //   this.state.famerinfo.pumplist.map((item, number) => {
+  //     if (item.deviceId && item.deviceId.replace(/\s/g, "").length !== 0) {
+  //       if (this.state.backuppumplist.length !== 0 && item !== undefined) {
+  //         axios({
+  //           url: config.updatermsedit,
+  //           method: "POST",
+  //           data: item,
+  //           headers: {
+  //             "Content-Type": "application/json"
+  //           }
+  //         })
+  //           .then(res => {
+  //             if (res.data.data !== null && res.data.data.result) {
+  //               Swal({
+  //                 type: "success",
+  //                 title: "Successfully data updated"
+  //                 // text: res.data.error.errorMsg
+  //               });
 
-                // this.setState({
-                //   backupinfo: Object.assign({}, this.state.famerinfo)
-                // });
-              } else {
-                alert(res.data.error.errorMsg);
-                return;
-              }
-            })
-            .catch(e => {
-              Swal({
-                type: "error",
-                title: "Oops...",
-                text: e
-              });
-            });
-        } else if (
-          this.state.backuppumplist.length === 0 &&
-          item !== undefined
-        ) {
-          axios({
-            url: config.addrms,
-            method: "POST",
-            data: item,
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
-            .then(res => {
-              if (res.data.data !== null && res.data.data.result) {
-                Swal({
-                  type: "success",
-                  title: "Successfully data updated"
-                  // text: res.data.error.errorMsg
-                });
+  //               // this.setState({
+  //               //   backupinfo: Object.assign({}, this.state.famerinfo)
+  //               // });
+  //             } else {
+  //               alert(res.data.error.errorMsg);
+  //               return;
+  //             }
+  //           })
+  //           .catch(e => {
+  //             Swal({
+  //               type: "error",
+  //               title: "Oops...",
+  //               text: e
+  //             });
+  //           });
+  //       } else if (
+  //         this.state.backuppumplist.length === 0 &&
+  //         item !== undefined
+  //       ) {
+  //         axios({
+  //           url: config.addrms,
+  //           method: "POST",
+  //           data: item,
+  //           headers: {
+  //             "Content-Type": "application/json"
+  //           }
+  //         })
+  //           .then(res => {
+  //             if (res.data.data !== null && res.data.data.result) {
+  //               Swal({
+  //                 type: "success",
+  //                 title: "Successfully data updated"
+  //                 // text: res.data.error.errorMsg
+  //               });
 
-                // this.setState({
-                //   backupinfo: Object.assign({}, this.state.famerinfo)
-                // });
-              } else {
-                alert(res.data.error.errorMsg);
-                return;
-              }
-            })
-            .catch(e => {
-              Swal({
-                type: "error",
-                title: "Oops...",
-                text: e
-              });
-            });
-        } else {
-          alert("error at pump save");
-        }
-      } else {
-        Swal({
-          type: "error",
-          title: "Fill valid input in all mandatory fields"
-          // text: res.data.error.errorMsg
-        });
-      }
-    });
-  };
+  //               // this.setState({
+  //               //   backupinfo: Object.assign({}, this.state.famerinfo)
+  //               // });
+  //             } else {
+  //               alert(res.data.error.errorMsg);
+  //               return;
+  //             }
+  //           })
+  //           .catch(e => {
+  //             Swal({
+  //               type: "error",
+  //               title: "Oops...",
+  //               text: e
+  //             });
+  //           });
+  //       } else {
+  //         alert("error at pump save");
+  //       }
+  //     } else {
+  //       Swal({
+  //         type: "error",
+  //         title: "Fill valid input in all mandatory fields"
+  //         // text: res.data.error.errorMsg
+  //       });
+  //     }
+  //   });
+  // };
   handleeditfarmersavecroplist = async () => {
     this.state.famerinfo.croplist.map((item, number) => {
+      
       if (
         item.name &&
         item.name.replace(/\s/g, "").length !== 0 &&
@@ -609,8 +594,7 @@ class Farmer extends Component {
         item.grownArea &&
         item.grownArea.replace(/\s/g, "").length !== 0
       ) {
-        console.log(this.state.backupcroplist);
-        if (this.state.backupcroplist !== 0 && item !== undefined) {
+        if (this.state.backupcroplist.length !== 0 && item !== undefined) {
           axios({
             url: config.updatecrop,
             method: "POST",
@@ -626,10 +610,12 @@ class Farmer extends Component {
                   title: "Successfully data updated"
                   // text: res.data.error.errorMsg
                 });
-
-                // this.setState({
-                //   backupinfo: Object.assign({}, this.state.famerinfo)
-                // });
+                document.getElementById("showsidetab").style.display = "block";
+                document.getElementById("showsidetabeditfarmer").style.display =
+                  "none";
+                this.setState({
+                  backupinfo: Object.assign({}, this.state.famerinfo)
+                });
               } else {
                 alert(res.data.error.errorMsg);
                 return;
@@ -642,7 +628,7 @@ class Farmer extends Component {
                 text: e
               });
             });
-        } else if (this.state.backupcroplist === 0 && item !== undefined) {
+        } else if (this.state.backupcroplist.length === 0 && item !== undefined) {
           axios({
             url: config.addcrop,
             method: "POST",
@@ -658,10 +644,12 @@ class Farmer extends Component {
                   title: "Successfully data updated"
                   // text: res.data.error.errorMsg
                 });
-
-                // this.setState({
-                //   backupinfo: Object.assign({}, this.state.famerinfo)
-                // });
+                document.getElementById("showsidetab").style.display = "block";
+                document.getElementById("showsidetabeditfarmer").style.display =
+                  "none";
+                this.setState({
+                  backupinfo: Object.assign({}, this.state.famerinfo)
+                });
               } else {
                 alert(res.data.error.errorMsg);
                 return;
@@ -709,7 +697,6 @@ class Farmer extends Component {
         } else {
           let temp = self.state.famerinfo;
           if (temp.imglist[index].mediaType === mediaType) {
-            
             if (
               self.state.backupimglist.length !== 0 &&
               temp.imglist[index].link !== "https://via.placeholder.com/500"
@@ -770,8 +757,11 @@ class Farmer extends Component {
     );
   };
   handlesearchselect = event => {
-    this.setState({ searchvariantselected: event.target.value,searchtext:" " });
-    this.handlesearch({["target"]:{["value"]:""}})
+    this.setState({
+      searchvariantselected: event.target.value,
+      searchtext: " "
+    });
+    this.handlesearch({ ["target"]: { ["value"]: "" } });
   };
   // handlesearchselect = event => {
   //   if(event.target.value==='vertical'){
@@ -786,12 +776,12 @@ class Farmer extends Component {
   //     this.setState({ searchvariantselected: event.target.value,searchtext:"" });
   //     this.handlesearch(event)
   //   }
-    
+
   // };
   // handleverticalsearchselect=(event)=>{
   //   this.setState({ searchtext: event.target.value,verticalsearchvariantselected:event.target.value });
   //   this.handlesearch(event)
-    
+
   // }
   getfarmerlist = () => {
     let count = 1;
@@ -905,33 +895,33 @@ class Farmer extends Component {
             })
               .then(rreess => {
                 let temporaryy = resp.data.data;
-                temporaryy["imglist"] = rreess.data.data.list.slice();
+
                 let imgobject = [
                   {
                     mediaType: "Profile Pic",
                     link: "https://via.placeholder.com/500",
-                    farmerId: this.state.famerinfo.id,
+                    farmerId: res.data.data.list[0].id,
                     type: "image",
                     modifiedBy: "0"
                   },
                   {
                     mediaType: "Public Pic",
                     link: "https://via.placeholder.com/500",
-                    farmerId: this.state.famerinfo.id,
+                    farmerId: res.data.data.list[0].id,
                     type: "image",
                     modifiedBy: "0"
                   },
                   {
                     mediaType: "Farm Pic",
                     link: "https://via.placeholder.com/500",
-                    farmerId: this.state.famerinfo.id,
+                    farmerId: res.data.data.list[0].id,
                     type: "image",
                     modifiedBy: "0"
                   },
                   {
                     mediaType: "Crop Pic",
                     link: "https://via.placeholder.com/500",
-                    farmerId: this.state.famerinfo.id,
+                    farmerId: res.data.data.list[0].id,
                     type: "image",
                     modifiedBy: "0"
                   }
@@ -939,9 +929,9 @@ class Farmer extends Component {
 
                 temporaryy["imglist"] = imgobject;
                 rreess.data.data.list.map(item => {
-                  temporaryy.imglist.map(itm => {
-                    if (item.mediaType == itm.mediaType) {
-                      itm.link = item.link;
+                  temporaryy.imglist.map((itm, index) => {
+                    if (item.mediaType === itm.mediaType) {
+                      temporaryy.imglist[index] = Object.assign({}, item);
                     }
                   });
                 });
@@ -1031,7 +1021,6 @@ class Farmer extends Component {
               hasMore: res.data.data.hasMore
             });
             $(".list-group-item").click(function() {
-              
               var listItems = $(".list-group-item"); //Select all list items
 
               //Remove 'active' tag for all list items
@@ -1082,7 +1071,7 @@ class Farmer extends Component {
                 searchhasmore: res.data.data.hasMore
               });
               $(".list-group-item").click(function() {
-                console.log("click event");
+                // console.log("click event");
                 var listItems = $(".list-group-item"); //Select all list items
 
                 //Remove 'active' tag for all list items
@@ -1194,7 +1183,11 @@ class Farmer extends Component {
                         <option value="vertical">Vertical</option>
                       </select>
                     </div>
-                    <div id="normaltextsearch" className="col-xs-8" style={{ display:'block',paddingLeft: "0" }}>
+                    <div
+                      id="normaltextsearch"
+                      className="col-xs-8"
+                      style={{ display: "block", paddingLeft: "0" }}
+                    >
                       <input
                         value={this.state.searchtext}
                         onChange={this.handlesearch}
@@ -1204,19 +1197,16 @@ class Farmer extends Component {
                         aria-label="..."
                       />
                     </div>
-                    <div id="verticaldropdownsearch" className="col-xs-8" style={{ paddingLeft: "0",display:'none' }}>
-                      {/* <input
-                        value={this.state.searchtext}
-                        onChange={this.handlesearch}
-                        type="search"
-                        className="form-control "
-                        placeholder="Search"
-                        aria-label="..."
-                      /> */}
+                    {/* <div
+                      id="verticaldropdownsearch"
+                      className="col-xs-8"
+                      style={{ paddingLeft: "0", display: "none" }}
+                    >
+                      
                       <select
                         name="verticalselectkey"
                         onChange={this.handleverticalsearchselect}
-                        value={this.state.verticalsearchvariantselected}
+                        value={this.state.verticalsearchvariantselected ||"Solar Irrigation Pump"}
                         className="form-control"
                         id="sel111"
                       >
@@ -1232,7 +1222,7 @@ class Farmer extends Component {
                         </option>
                         <option value="NA">NA</option>
                       </select>
-                    </div>
+                    </div> */}
                   </div>
                   <div id="maptable" className="farmerlists">
                     {this.state.farmerlist !== [] &&
@@ -1284,9 +1274,9 @@ class Farmer extends Component {
                   handlecancelfarmer={this.handlecancelfarmer}
                   handleInputChange={this.handleInputChange}
                   handleeditfarmersave={this.handleeditfarmersave}
-                  handleeditfarmersavepumplist={
-                    this.handleeditfarmersavepumplist
-                  }
+                  // handleeditfarmersavepumplist={
+                  //   this.handleeditfarmersavepumplist
+                  // }
                   handleeditfarmersavecroplist={
                     this.handleeditfarmersavecroplist
                   }

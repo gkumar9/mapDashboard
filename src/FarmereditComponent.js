@@ -162,7 +162,7 @@ class Farmeredit extends Component {
                         <select
                           name="entryStatus"
                           onChange={this.props.handleInputChange}
-                          value={this.props.famerinfo.entryStatus || "ACTIVE"}
+                          value={this.props.famerinfo.entryStatus || ""}
                           className="form-control"
                           id="sel3"
                         >
@@ -170,15 +170,7 @@ class Farmeredit extends Component {
                           <option value="INACTIVE">INACTIVE</option>
                         </select>
                       </div>
-                      {/* <input
-                      name="entryStatus"
-                      type="text"
-                      className="form-control"
-                      id="entryStatus"
-                      value={this.props.famerinfo.entryStatus}
-                      onChange={this.props.handleInputChange}
-                      placeholder="Status"
-                    /> */}
+                      
                     </div>
                   </div>
                   <div className="row farmerinforow">
@@ -197,7 +189,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="contactno"
-                        value={this.props.famerinfo.contactNo || ""}
+                        value={this.props.famerinfo.contactNo || "0"}
                         onChange={this.props.handleInputChange}
                         placeholder="Contact Number "
                       />
@@ -229,16 +221,13 @@ class Farmeredit extends Component {
                           className="form-control"
                           id="sel2"
                         >
-                          <option value="AADHAAR">AADHAAR</option>
+                         <option value="AADHAR">AADHAR</option>
                           <option value="VOTER ID">VOTER ID</option>
                           <option value="LICENSE">LICENSE</option>
-                          <option value="PAYGO">PAYGO</option>
+                          <option value="PAY-GO">PAYGO</option>
                           <option value="CLARO ID">CLARO ID</option>
-                          <option value="SYSTEM_GENERATED">
-                            SYSTEM_GENERATED
-                          </option>
                           <option value="OTHERS">OTHERS</option>
-                          <option value="NA">NA</option>
+                          <option value="N.A">N.A</option>
                         </select>
                       </div>
                       {/* <input
@@ -304,7 +293,6 @@ class Farmeredit extends Component {
                         <option value="Solar Irrigation Service">
                           Solar Irrigation Service
                         </option>
-                        <option value="NA">NA</option>
                       </select>
                     </div>
                   </div>
@@ -368,7 +356,7 @@ class Farmeredit extends Component {
                     <div className="col-xs-6">
                       <input
                         name="alternateNumber"
-                        type="text"
+                        type="number"
                         className="form-control"
                         id="alternateNumber"
                         value={this.props.famerinfo.alternateNumber || ""}
@@ -447,7 +435,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="totalLandSize"
-                        value={this.props.famerinfo.totalLandSize || ""}
+                        value={this.props.famerinfo.totalLandSize || "0"}
                         onChange={this.props.handleInputChange}
                         placeholder="Land Size in Sq. Ft."
                       />
@@ -463,7 +451,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="incomeFromLand"
-                        value={this.props.famerinfo.incomeFromLand || ""}
+                        value={this.props.famerinfo.incomeFromLand || "0"}
                         onChange={this.props.handleInputChange}
                         placeholder="Income From Land in rupee"
                       />
@@ -602,7 +590,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="pincode"
-                        value={this.props.famerinfo.pincode || ""}
+                        value={this.props.famerinfo.pincode || "0"}
                         onChange={this.props.handleInputChange}
                         placeholder="Pincode"
                       />
@@ -626,7 +614,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="latitude"
-                        value={this.props.famerinfo.latitude || ""}
+                        value={this.props.famerinfo.latitude || "0"}
                         onChange={this.props.handleInputChange}
                         placeholder="Latitude"
                         required
@@ -649,7 +637,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="longitude"
-                        value={this.props.famerinfo.longitude || ""}
+                        value={this.props.famerinfo.longitude || "0"}
                         onChange={this.props.handleInputChange}
                         placeholder="Longitude"
                         required
@@ -674,7 +662,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="numberOfDependents"
-                        value={this.props.famerinfo.numberOfDependents || ""}
+                        value={this.props.famerinfo.numberOfDependents || "0"}
                         onChange={this.props.handleInputChange}
                         placeholder="Number Of Dependents"
                       />
@@ -691,7 +679,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="numberOfSiblings"
-                        value={this.props.famerinfo.numberOfSiblings || ""}
+                        value={this.props.famerinfo.numberOfSiblings || "0"}
                         onChange={this.props.handleInputChange}
                         placeholder="Number Of Siblings"
                       />
@@ -742,7 +730,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="farmingStartedAt"
-                        value={this.props.famerinfo.farmingStartedAt || ""}
+                        value={this.props.famerinfo.farmingStartedAt || "0"}
                         onChange={this.props.handleInputChange}
                         placeholder="Age when started farming"
                       />

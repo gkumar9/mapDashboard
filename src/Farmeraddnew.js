@@ -129,6 +129,7 @@ class Farmeraddnew extends Component {
   handleeditfarmersavecroplist = async () => {
     let check=this.handleeditfarmersave();
     if(check){this.state.famerinfo.croplist.map((item, number) => {
+      
       if (
         item.name &&
         item.name.replace(/\s/g, "").length !== 0 &&
@@ -143,6 +144,7 @@ class Farmeraddnew extends Component {
         item.grownArea &&
         item.grownArea.replace(/\s/g, "").length !== 0
       ) {
+        item.farmerId=this.state.famerinfo.farmerId
         if (this.state.backupcroplist !== 0 && item !== undefined) {
           axios({
             url: config.addcrop,
@@ -159,7 +161,7 @@ class Farmeraddnew extends Component {
                   title: "Successfully data updated"
                   // text: res.data.error.errorMsg
                 });
-
+                this.props.getfarmer();
                 // this.setState({
                 //   backupinfo: Object.assign({}, this.state.famerinfo)
                 // });
@@ -297,7 +299,7 @@ class Farmeraddnew extends Component {
               title: "Successfully data updated"
               // text: res.data.error.errorMsg
             });
-            this.props.getfarmer();
+            // this.props.getfarmer();
             return true;
             // window.location.reload();
           } else {
@@ -419,7 +421,7 @@ class Farmeraddnew extends Component {
         res.data.data.gender = "M";
         res.data.data.entryStatus = "ACTIVE";
         res.data.data.state = "Tripura";
-        res.data.data.uidType = "NA";
+        res.data.data.uidType = "N.A";
         res.data.data.district = "Unakoti";
         res.data.data.vertical = "Solar Irrigation Pump";
         res.data.data.contactNo = "";
@@ -472,8 +474,9 @@ class Farmeraddnew extends Component {
   render() {
     return (
       <div className="farmerinfobody">
-        {this.state.famerinfo !== undefined && (
+        
           <div id="farmeraddnew" style={{ display: "none" }}>
+          {this.state.famerinfo !== undefined && (
             <div
               style={{
                 maxHeight: "90vh",
@@ -685,7 +688,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="contactno"
-                              value={this.state.famerinfo.contactNo || ""}
+                              value={this.state.famerinfo.contactNo || "0"}
                               onChange={this.handleInputChange}
                               placeholder="Contact Number "
                             />
@@ -720,27 +723,17 @@ class Farmeraddnew extends Component {
                                 className="form-control"
                                 id="sel2"
                               >
-                                <option value="AADHAAR">AADHAAR</option>
+                                <option value="AADHAR">AADHAR</option>
                                 <option value="VOTER ID">VOTER ID</option>
                                 <option value="LICENSE">LICENSE</option>
-                                <option value="PAYGO">PAYGO</option>
+                                <option value="PAY-GO">PAYGO</option>
                                 <option value="CLARO ID">CLARO ID</option>
-                                <option value="SYSTEM_GENERATED">
-                                  SYSTEM_GENERATED
-                                </option>
+                                
                                 <option value="OTHERS">OTHERS</option>
-                                <option value="NA">NA</option>
+                                <option value="N.A">N.A</option>
                               </select>
                             </div>
-                            {/* <input
-                      name="uidType"
-                      type="text"
-                      className="form-control"
-                      id="uidType"
-                      value={this.state.famerinfo.uidType}
-                      onChange={this.handleInputChange}
-                      placeholder="UID Type"
-                    /> */}
+                            
                           </div>
                         </div>
                         <div className="row farmerinforow">
@@ -803,7 +796,7 @@ class Farmeraddnew extends Component {
                               <option value="Solar Irrigation Service">
                                 Solar Irrigation Service
                               </option>
-                              <option value="NA">NA</option>
+                              
                             </select>
                           </div>
                         </div>
@@ -872,7 +865,7 @@ class Farmeraddnew extends Component {
                           <div className="col-xs-6">
                             <input
                               name="alternateNumber"
-                              type="text"
+                              type="number"
                               className="form-control"
                               id="alternateNumber"
                               value={this.state.famerinfo.alternateNumber || ""}
@@ -953,7 +946,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="totalLandSize"
-                              value={this.state.famerinfo.totalLandSize || ""}
+                              value={this.state.famerinfo.totalLandSize || "0"}
                               onChange={this.handleInputChange}
                               placeholder="Land Size in Sq. Ft."
                             />
@@ -969,7 +962,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="incomeFromLand"
-                              value={this.state.famerinfo.incomeFromLand || ""}
+                              value={this.state.famerinfo.incomeFromLand || "0"}
                               onChange={this.handleInputChange}
                               placeholder="Income From Land in rupee"
                             />
@@ -1122,7 +1115,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="pincode"
-                              value={this.state.famerinfo.pincode || ""}
+                              value={this.state.famerinfo.pincode || "0"}
                               onChange={this.handleInputChange}
                               placeholder="Pincode"
                             />
@@ -1149,7 +1142,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="latitude"
-                              value={this.state.famerinfo.latitude || ""}
+                              value={this.state.famerinfo.latitude || "0"}
                               onChange={this.handleInputChange}
                               placeholder="Latitude"
                               required
@@ -1175,7 +1168,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="longitude"
-                              value={this.state.famerinfo.longitude || ""}
+                              value={this.state.famerinfo.longitude || "0"}
                               onChange={this.handleInputChange}
                               placeholder="Longitude"
                               required
@@ -1202,7 +1195,7 @@ class Farmeraddnew extends Component {
                               className="form-control"
                               id="numberOfDependents"
                               value={
-                                this.state.famerinfo.numberOfDependents || ""
+                                this.state.famerinfo.numberOfDependents || "0"
                               }
                               onChange={this.handleInputChange}
                               placeholder="Number Of Dependents"
@@ -1221,7 +1214,7 @@ class Farmeraddnew extends Component {
                               className="form-control"
                               id="numberOfSiblings"
                               value={
-                                this.state.famerinfo.numberOfSiblings || ""
+                                this.state.famerinfo.numberOfSiblings || "0"
                               }
                               onChange={this.handleInputChange}
                               placeholder="Number Of Siblings"
@@ -1278,7 +1271,7 @@ class Farmeraddnew extends Component {
                               className="form-control"
                               id="farmingStartedAt"
                               value={
-                                this.state.famerinfo.farmingStartedAt || ""
+                                this.state.famerinfo.farmingStartedAt || "0"
                               }
                               onChange={this.handleInputChange}
                               placeholder="Age when started farming"
@@ -1722,8 +1715,9 @@ class Farmeraddnew extends Component {
                 </div>
               </div>
             </div>
-          </div>
+          
         )}
+        </div>
       </div>
     );
   }

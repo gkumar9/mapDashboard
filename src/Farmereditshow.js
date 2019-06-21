@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import farmerimg from "./pins/user.png";
 
 class Farmereditshow extends Component {
-  render() {
+  render() {    
     return (
       <div id="showsidetab" style={{ display: "none" }}>
         <div className="container">
@@ -18,6 +18,7 @@ class Farmereditshow extends Component {
                     height: "17vh"
                   }}
                   width="100%"
+                  // src={this.props.famerinfo.imglist!==undefined&&this.props.famerinfo.imglist.map((item)=>{if(item.mediaType==='Profile Pic'){return item.link}})}
                   src={this.props.famerinfo.farmerImage}
                   alt="farmerimg"
                 />
