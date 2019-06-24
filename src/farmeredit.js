@@ -435,21 +435,21 @@ class Farmer extends Component {
           return;
         }
       }
-      if (this.state.famerinfo.alternateNumber !== "") {
-        if (
-          this.state.famerinfo.alternateNumber.length !== 10 ||
-          (this.state.famerinfo.alternateNumber.charAt(0) !== "9" &&
-            this.state.famerinfo.alternateNumber.charAt(0) !== "8" &&
-            this.state.famerinfo.alternateNumber.charAt(0) !== "7" &&
-            this.state.famerinfo.alternateNumber.charAt(0) !== "6")
-        ) {
-          alert(
-            "Please set valid Alternate Contact Number.(10 digit starting with 9/8/7/6)"
-          );
+      // if (this.state.famerinfo.alternateNumber !== "") {
+      //   if (
+      //     this.state.famerinfo.alternateNumber.length !== 10 ||
+      //     (this.state.famerinfo.alternateNumber.charAt(0) !== "9" &&
+      //       this.state.famerinfo.alternateNumber.charAt(0) !== "8" &&
+      //       this.state.famerinfo.alternateNumber.charAt(0) !== "7" &&
+      //       this.state.famerinfo.alternateNumber.charAt(0) !== "6")
+      //   ) {
+      //     alert(
+      //       "Please set valid Alternate Contact Number.(10 digit starting with 9/8/7/6)"
+      //     );
 
-          return;
-        }
-      }
+      //     return;
+      //   }
+      // }
 
       axios({
         url: config.updatefarmer,
@@ -759,7 +759,7 @@ class Farmer extends Component {
   handlesearchselect = event => {
     this.setState({
       searchvariantselected: event.target.value,
-      searchtext: " "
+      searchtext: ""
     });
     this.handlesearch({ ["target"]: { ["value"]: "" } });
   };
