@@ -189,7 +189,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="contactno"
-                        value={this.props.famerinfo.contactNo || "0"}
+                        value={this.props.famerinfo.contactNo || ""}
                         onChange={this.props.handleInputChange}
                         placeholder="Contact Number "
                       />
@@ -614,7 +614,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="latitude"
-                        value={this.props.famerinfo.latitude || "0"}
+                        value={this.props.famerinfo.latitude || ""}
                         onChange={this.props.handleInputChange}
                         placeholder="Latitude"
                         required
@@ -637,7 +637,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="longitude"
-                        value={this.props.famerinfo.longitude || "0"}
+                        value={this.props.famerinfo.longitude || ""}
                         onChange={this.props.handleInputChange}
                         placeholder="Longitude"
                         required

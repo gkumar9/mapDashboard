@@ -688,7 +688,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="contactno"
-                              value={this.state.famerinfo.contactNo || "0"}
+                              value={this.state.famerinfo.contactNo || ""}
                               onChange={this.handleInputChange}
                               placeholder="Contact Number "
                             />
@@ -1142,7 +1142,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="latitude"
-                              value={this.state.famerinfo.latitude || "0"}
+                              value={this.state.famerinfo.latitude || ""}
                               onChange={this.handleInputChange}
                               placeholder="Latitude"
                               required
@@ -1168,7 +1168,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="longitude"
-                              value={this.state.famerinfo.longitude || "0"}
+                              value={this.state.famerinfo.longitude || ""}
                               onChange={this.handleInputChange}
                               placeholder="Longitude"
                               required
