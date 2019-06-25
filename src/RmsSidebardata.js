@@ -71,7 +71,7 @@ class RmsSidebardata extends Component {
               </div>
               <div className="col-xs-9">
                 <span>
-                  <b>{this.props.allassetstat.totalEnergy} GWh</b>
+                  <b>{this.props.allassetstat.totalEnergy} MWh</b>
                 </span>
                 <p>
                   <small>Energy generated</small>

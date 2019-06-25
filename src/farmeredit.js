@@ -342,6 +342,117 @@ class Farmer extends Component {
         });
     }
   };
+  handlefarmeraddresponse = object => {
+    this.setState({
+      famerinfo: object,
+      backupinfo: Object.assign({}, object)
+    });
+    axios({
+      url: config.getfarmercroplist + object.id,
+      method: "POST",
+      data: {
+        temp: "temp"
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(ressp => {
+        // console.log(ressp.data.data.list)
+        let temporary = object;
+        temporary["croplist"] = ressp.data.data.list.slice();
+        // console.log(this.state.cropschema)
+        if (ressp.data.data.list.length === 0) {
+          // console.log(temporary)
+          temporary.croplist.push(Object.assign({}, this.state.cropschema));
+          temporary.croplist[0].farmerId = object.id;
+        }
+
+        this.setState({
+          famerinfo: temporary,
+          backupcroplist: ressp.data.data.list.slice(),
+          backupinfo: Object.assign({}, temporary)
+        });
+      })
+      .catch(e => {
+        console.log(e);
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
+      });
+    axios({
+      url: config.getfarmerimg + object.id,
+      method: "POST",
+      data: {
+        temp: "temp"
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(rreess => {
+        let temporaryy = object;
+
+        let imgobject = [
+          {
+            mediaType: "Profile Pic",
+            link: "https://via.placeholder.com/500",
+            farmerId: object.id,
+            type: "image",
+            modifiedBy: "0"
+          },
+          {
+            mediaType: "Public Pic",
+            link: "https://via.placeholder.com/500",
+            farmerId: object.id,
+            type: "image",
+            modifiedBy: "0"
+          },
+          {
+            mediaType: "Farm Pic",
+            link: "https://via.placeholder.com/500",
+            farmerId: object.id,
+            type: "image",
+            modifiedBy: "0"
+          },
+          {
+            mediaType: "Crop Pic",
+            link: "https://via.placeholder.com/500",
+            farmerId: object.id,
+            type: "image",
+            modifiedBy: "0"
+          }
+        ];
+
+        temporaryy["imglist"] = imgobject;
+        rreess.data.data.list.map(item => {
+          temporaryy.imglist.map((itm, index) => {
+            if (item.mediaType === itm.mediaType) {
+              temporaryy.imglist[index] = Object.assign({}, item);
+            }
+          });
+        });
+        this.setState({
+          famerinfo: temporaryy,
+          backupimglist: rreess.data.data.list.slice(),
+          backupinfo: Object.assign({}, temporaryy)
+        });
+      })
+      .catch(e => {
+        console.log(e);
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
+      });
+
+    document.getElementById("showsidetab").style.display = "block";
+    document.getElementById("farmeraddnew").style.display = "none";
+    document.getElementById("showsidetabeditfarmer").style.display = "none";
+  };
   handleclickaddfarmer = () => {
     document.getElementById("showsidetab").style.display = "none";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
@@ -579,7 +690,6 @@ class Farmer extends Component {
   // };
   handleeditfarmersavecroplist = async () => {
     this.state.famerinfo.croplist.map((item, number) => {
-      
       if (
         item.name &&
         item.name.replace(/\s/g, "").length !== 0 &&
@@ -628,7 +738,10 @@ class Farmer extends Component {
                 text: e
               });
             });
-        } else if (this.state.backupcroplist.length === 0 && item !== undefined) {
+        } else if (
+          this.state.backupcroplist.length === 0 &&
+          item !== undefined
+        ) {
           axios({
             url: config.addcrop,
             method: "POST",
@@ -761,6 +874,13 @@ class Farmer extends Component {
       searchvariantselected: event.target.value,
       searchtext: ""
     });
+    var listItems = $(".list-group-item"); //Select all list items
+
+    //Remove 'active' tag for all list items
+    for (let i = 0; i < listItems.length; i++) {
+      listItems[i].classList.remove("active");
+    }
+
     this.handlesearch({ ["target"]: { ["value"]: "" } });
   };
   // handlesearchselect = event => {
@@ -1281,7 +1401,10 @@ class Farmer extends Component {
                     this.handleeditfarmersavecroplist
                   }
                 />
-                <Farmeraddnew getfarmer={this.getfarmerlist} />
+                <Farmeraddnew
+                  getfarmer={this.getfarmerlist}
+                  handlefarmeraddresponse={this.handlefarmeraddresponse}
+                />
               </div>
             </div>
           </div>

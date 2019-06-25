@@ -6,8 +6,8 @@ class Farmeredit extends Component {
       <div
         id="showsidetabeditfarmer"
         style={{
-          maxHeight: "90vh",
-          overflow: "scroll",
+          // maxHeight: "90vh",
+          // overflow: "scroll",
           display: "none"
         }}
         className="farmerinfobody"
@@ -36,7 +36,7 @@ class Farmeredit extends Component {
               Family
             </a>
           </li>
-          
+
           <li role="presentation">
             <a
               style={{ color: "black" }}
@@ -66,61 +66,64 @@ class Farmeredit extends Component {
           style={{
             padding: "0.5em",
             maxHeight: "80vh",
-            overflow: "scroll"
+            overflowY: "scroll",
+            overflowX: "hidden"
           }}
         >
           <div role="tabpanel" className="tab-pane active" id="profile1">
             <div className="row kycbody" style={{ margin: "0.7em 0.1em" }}>
               {/* <div className="row" style={{marginBottom: '0.7em',marginLeft: '0.3em' }}> */}
-                <div className="col-xs-9">
-                  
-                  <h3 style={{marginTop:'5px'}}>Primary</h3>
-                </div>
-                <div className="col-xs-3" style={{display:'flex',justifyContent:'flex-end'}}>
-                  <button
-                    onClick={this.props.handleeditfarmersave}
-                    type="submit"
-                    className="btn btn-default"
-                    aria-label="Right Align"
-                    id="drillUp"
-                    style={{
-                      // display: "none",
-                      width: "28%",
-                      borderRadius: "0px",
-                      // marginBottom: "1em",
-                      borderColor: "darkgray",
-                      float: "left",
-                      outline: "none",
-                      color: "white",
-                      backgroundColor: "blue"
-                    }}
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={this.props.handlecancelfarmer}
-                    type="button"
-                    className="cancelbutton btn btn-default"
-                    aria-label="Right Align"
-                    id="drillUp"
-                    style={{
-                      // display: "none",
-                      width: "28%",
-                      marginLeft: "1em",
-
-                      borderRadius: "0px",
-                      borderColor: "blue",
-                      float: "left",
-                      outline: "none",
-                      color: "blue",
-                      backgroundColor: "white"
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
+              <div className="col-xs-9">
+                <h3 style={{ marginTop: "5px" }}>Primary</h3>
               </div>
-              <div className="row kycbody" style={{ margin: "0.7em 0.1em" }}>
+              <div
+                className="col-xs-3"
+                style={{ display: "flex", justifyContent: "flex-end" }}
+              >
+                <button
+                  onClick={this.props.handleeditfarmersave}
+                  type="submit"
+                  className="btn btn-default"
+                  aria-label="Right Align"
+                  id="drillUp"
+                  style={{
+                    // display: "none",
+                    width: "28%",
+                    borderRadius: "0px",
+                    // marginBottom: "1em",
+                    borderColor: "darkgray",
+                    float: "left",
+                    outline: "none",
+                    color: "white",
+                    backgroundColor: "blue"
+                  }}
+                >
+                  Save
+                </button>
+                <button
+                  onClick={this.props.handlecancelfarmer}
+                  type="button"
+                  className="cancelbutton btn btn-default"
+                  aria-label="Right Align"
+                  id="drillUp"
+                  style={{
+                    // display: "none",
+                    width: "28%",
+                    marginLeft: "1em",
+
+                    borderRadius: "0px",
+                    borderColor: "blue",
+                    float: "left",
+                    outline: "none",
+                    color: "blue",
+                    backgroundColor: "white"
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+            <div className="row kycbody" style={{ margin: "0.7em 0.1em" }}>
               <div className="col-md-5">
                 <div className="kycbody">
                   <div className="row farmerinforow">
@@ -170,7 +173,6 @@ class Farmeredit extends Component {
                           <option value="INACTIVE">INACTIVE</option>
                         </select>
                       </div>
-                      
                     </div>
                   </div>
                   <div className="row farmerinforow">
@@ -221,11 +223,11 @@ class Farmeredit extends Component {
                           className="form-control"
                           id="sel2"
                         >
-                         <option value="AADHAR">AADHAR</option>
+                          <option value="AADHAR">AADHAR</option>
                           <option value="VOTER ID">VOTER ID</option>
                           <option value="LICENSE">LICENSE</option>
                           <option value="PAY-GO">PAYGO</option>
-                          <option value="CLARO ID">CLARO ID</option>
+                          {/* <option value="CLARO ID">CLARO ID</option> */}
                           <option value="OTHERS">OTHERS</option>
                           <option value="N.A">N.A</option>
                         </select>
@@ -298,7 +300,7 @@ class Farmeredit extends Component {
                   </div>
                 </div>
               </div>
-              </div>
+            </div>
             {/* </div> */}
             <div className="row kycbody" style={{ margin: "0.7em 0.1em" }}>
               <div className="col-md-5">
@@ -739,7 +741,10 @@ class Farmeredit extends Component {
                 </div>
               </div>
               <div className="col-xs-4" />
-              <div className="col-xs-3" style={{display:'flex',justifyContent:'flex-end'}}>
+              <div
+                className="col-xs-3"
+                style={{ display: "flex", justifyContent: "flex-end" }}
+              >
                 <button
                   onClick={this.props.handleeditfarmersave}
                   type="submit"
@@ -789,7 +794,11 @@ class Farmeredit extends Component {
             this.props.famerinfo.croplist !== undefined &&
             this.props.famerinfo.croplist.length !== 0 ? (
               <div>
-                <ul className=" nav nav-tabs" role="tablist" style={{marginTop:"8px"}}>
+                <ul
+                  className=" nav nav-tabs"
+                  role="tablist"
+                  style={{ marginTop: "8px" }}
+                >
                   {this.props.famerinfo.croplist !== undefined &&
                     this.props.famerinfo.croplist.map((item, index) =>
                       index === 0 ? (
@@ -811,15 +820,19 @@ class Farmeredit extends Component {
                             role="tab"
                             data-toggle="tab"
                           >
-                            Crop 
+                            Crop
                           </a>
                         </li>
                       )
                     )}
-                    <li
+                  <li
                     role="presentation"
-                    
-                    style={{ display:'flex',justifyContent:'flex-end',float: "right", padding: "0.2em 1.5em" }}
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      float: "right",
+                      padding: "0.2em 1.5em"
+                    }}
                   >
                     <button
                       onClick={this.props.handleeditfarmersavecroplist}
@@ -863,7 +876,7 @@ class Farmeredit extends Component {
                       Cancel
                     </button>
                   </li>
-                  <li style={{float:"right"}}/>
+                  <li style={{ float: "right" }} />
                 </ul>
                 <div className="tab-content">
                   {this.props.famerinfo.croplist !== undefined &&
