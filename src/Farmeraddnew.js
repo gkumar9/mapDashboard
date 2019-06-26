@@ -3,6 +3,7 @@ import statedistrict from "./state_json.js";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
+import notify from "bootstrap-notify";
 import AWS from "aws-sdk";
 const $ = require("jquery");
 // import { stat } from "fs";
@@ -22,8 +23,7 @@ class Farmeraddnew extends Component {
     super(props);
     this.state = {
       famerinfo: undefined,
-      backupinfo: undefined,
-      cropschema: undefined
+      backupinfo: undefined
     };
     this.fileInput = [
       React.createRef(),
@@ -37,35 +37,35 @@ class Farmeraddnew extends Component {
     document.getElementById("showsidetab").style.display = "none";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
     document.getElementById("farmeraddnew").style.display = "none";
-    
+
     var listItems = $(".list-group-item"); //Select all list items
 
-      //Remove 'active' tag for all list items
-      for (let i = 0; i < listItems.length; i++) {
-        listItems[i].classList.remove("active");
-      }
-      this.fileInput = [
-        React.createRef(),
-        React.createRef(),
-        React.createRef(),
-        React.createRef()
-      ];
-      this.props.getfarmer();
+    //Remove 'active' tag for all list items
+    for (let i = 0; i < listItems.length; i++) {
+      listItems[i].classList.remove("active");
+    }
+    this.fileInput = [
+      React.createRef(),
+      React.createRef(),
+      React.createRef(),
+      React.createRef()
+    ];
+    this.props.getfarmer();
   };
   handleInputChange = event => {
     event.persist();
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
-    if(event.target.name==='state'){
-      temp.district=statedistrict[event.target.value][0]
+    if (event.target.name === "state") {
+      temp.district = statedistrict[event.target.value][0];
     }
-    
+
     this.setState({ famerinfo: temp });
   };
-  crophandleInputChange = (index, event) => {
+  crophandleInputChange = event => {
     event.persist();
     let temp = this.state.famerinfo;
-    temp.croplist[index][event.target.name] = event.target.value;
+    temp.croplist[event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
   };
   // handleChangeimage = () => {
@@ -121,106 +121,106 @@ class Farmeraddnew extends Component {
           // let temp = self.state.famerinfo;
           temp.imglist[index].link = data.Location;
           self.setState({ famerinfo: temp });
-          alert("Img uploaded succesfully");
+          alert("Img added");
         }
       }
     );
   };
   handleeditfarmersavecroplist = async () => {
-    let check=this.handleeditfarmersave();
-    if(check){this.state.famerinfo.croplist.map((item, number) => {
-      
-      if (
-        item.name &&
-        item.name.replace(/\s/g, "").length !== 0 &&
-        item.cropSeason &&
-        item.cropSeason.replace(/\s/g, "").length !== 0 &&
-        item.cropVariety &&
-        item.cropVariety.replace(/\s/g, "").length !== 0 &&
-        item.sowingMonth &&
-        item.sowingMonth.replace(/\s/g, "").length !== 0 &&
-        item.harvestingTime &&
-        item.harvestingTime.replace(/\s/g, "").length !== 0 &&
-        item.grownArea &&
-        item.grownArea.replace(/\s/g, "").length !== 0
-      ) {
-        item.farmerId=this.state.famerinfo.farmerId
-        if (this.state.backupcroplist !== 0 && item !== undefined) {
-          axios({
-            url: config.addcrop,
-            method: "POST",
-            data: item,
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
-            .then(res => {
-              if (res.data.data !== null && res.data.data.result) {
-                Swal({
-                  type: "success",
-                  title: "Successfully data updated"
-                  // text: res.data.error.errorMsg
-                });
-                this.props.getfarmer();
-                // this.setState({
-                //   backupinfo: Object.assign({}, this.state.famerinfo)
-                // });
-              } else {
-                alert(res.data.error.errorMsg);
-                return;
+    let check = this.handleeditfarmersave();
+    if (check) {
+      this.state.famerinfo.croplist.map((item, number) => {
+        if (
+          item.name &&
+          item.name.replace(/\s/g, "").length !== 0 &&
+          item.cropSeason &&
+          item.cropSeason.replace(/\s/g, "").length !== 0 &&
+          item.cropVariety &&
+          item.cropVariety.replace(/\s/g, "").length !== 0 &&
+          item.sowingMonth &&
+          item.sowingMonth.replace(/\s/g, "").length !== 0 &&
+          item.harvestingTime &&
+          item.harvestingTime.replace(/\s/g, "").length !== 0 &&
+          item.grownArea &&
+          item.grownArea.replace(/\s/g, "").length !== 0
+        ) {
+          item.farmerId = this.state.famerinfo.farmerId;
+          if (this.state.backupcroplist !== 0 && item !== undefined) {
+            axios({
+              url: config.addcrop,
+              method: "POST",
+              data: item,
+              headers: {
+                "Content-Type": "application/json"
               }
             })
-            .catch(e => {
-              Swal({
-                type: "error",
-                title: "Oops...",
-                text: e
-              });
-            });
-        } else if (this.state.backupcroplist === 0 && item !== undefined) {
-          axios({
-            url: config.addcrop,
-            method: "POST",
-            data: item,
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
-            .then(res => {
-              if (res.data.data !== null && res.data.data.result) {
+              .then(res => {
+                if (res.data.data !== null && res.data.data.result) {
+                  Swal({
+                    type: "success",
+                    title: "Successfully data updated"
+                    // text: res.data.error.errorMsg
+                  });
+                  this.props.getfarmer();
+                  // this.setState({
+                  //   backupinfo: Object.assign({}, this.state.famerinfo)
+                  // });
+                } else {
+                  alert(res.data.error.errorMsg);
+                  return;
+                }
+              })
+              .catch(e => {
                 Swal({
-                  type: "success",
-                  title: "Successfully data updated"
-                  // text: res.data.error.errorMsg
+                  type: "error",
+                  title: "Oops...",
+                  text: e
                 });
+              });
+          } else if (this.state.backupcroplist === 0 && item !== undefined) {
+            axios({
+              url: config.addcrop,
+              method: "POST",
+              data: item,
+              headers: {
+                "Content-Type": "application/json"
+              }
+            })
+              .then(res => {
+                if (res.data.data !== null && res.data.data.result) {
+                  Swal({
+                    type: "success",
+                    title: "Successfully data updated"
+                    // text: res.data.error.errorMsg
+                  });
 
-                // this.setState({
-                //   backupinfo: Object.assign({}, this.state.famerinfo)
-                // });
-              } else {
-                alert(res.data.error.errorMsg);
-                return;
-              }
-            })
-            .catch(e => {
-              Swal({
-                type: "error",
-                title: "Oops...",
-                text: e
+                  // this.setState({
+                  //   backupinfo: Object.assign({}, this.state.famerinfo)
+                  // });
+                } else {
+                  alert(res.data.error.errorMsg);
+                  return;
+                }
+              })
+              .catch(e => {
+                Swal({
+                  type: "error",
+                  title: "Oops...",
+                  text: e
+                });
               });
-            });
+          } else {
+            alert("error at crop save");
+          }
         } else {
-          alert("error at crop save");
+          Swal({
+            type: "error",
+            title: "Fill valid input in all mandatory fields"
+            // text: res.data.error.errorMsg
+          });
         }
-      } else {
-        Swal({
-          type: "error",
-          title: "Fill valid input in all mandatory fields"
-          // text: res.data.error.errorMsg
-        });
-      }
-    });}
-    
+      });
+    }
   };
   handleeditfarmersave = () => {
     delete this.state.famerinfo["modificationTime"];
@@ -241,7 +241,23 @@ class Farmeraddnew extends Component {
       this.state.famerinfo.state &&
       this.state.famerinfo.state.replace(/\s/g, "").length !== 0 &&
       this.state.famerinfo.district &&
-      this.state.famerinfo.district.replace(/\s/g, "").length !== 0
+      this.state.famerinfo.district.replace(/\s/g, "").length !== 0 &&
+      this.state.famerinfo.croplist.name &&
+      this.state.famerinfo.croplist.name.replace(/\s/g, "").length !== 0 &&
+      this.state.famerinfo.croplist.cropSeason &&
+      this.state.famerinfo.croplist.cropSeason.replace(/\s/g, "").length !==
+        0 &&
+      this.state.famerinfo.croplist.cropVariety &&
+      this.state.famerinfo.croplist.cropVariety.replace(/\s/g, "").length !==
+        0 &&
+      this.state.famerinfo.croplist.sowingMonth &&
+      this.state.famerinfo.croplist.sowingMonth.replace(/\s/g, "").length !==
+        0 &&
+      this.state.famerinfo.croplist.harvestingTime &&
+      this.state.famerinfo.croplist.harvestingTime.replace(/\s/g, "").length !==
+        0 &&
+      this.state.famerinfo.croplist.grownArea &&
+      this.state.famerinfo.croplist.grownArea.replace(/\s/g, "").length !== 0
     ) {
       if (
         this.state.famerinfo.latitude > 37 ||
@@ -251,7 +267,6 @@ class Farmeraddnew extends Component {
         let temp = this.state.famerinfo;
         temp["latitude"] = 0;
         this.setState({ famerinfo: temp });
-        return false;
       }
       if (
         this.state.famerinfo.longitude > 97 ||
@@ -261,7 +276,6 @@ class Farmeraddnew extends Component {
         let temp = this.state.famerinfo;
         temp["longitude"] = 0;
         this.setState({ famerinfo: temp });
-        return false;
       }
       if (this.state.famerinfo.contactNo !== "") {
         if (
@@ -272,14 +286,11 @@ class Farmeraddnew extends Component {
             this.state.famerinfo.contactNo.charAt(0) !== "6")
         ) {
           alert(
-            "Please set valid Contact Number(10 digit starting with 9/8/7)"
+            "Please set valid Contact Number(10 digit starting with 9/8/7/6)"
           );
-          // let temp = this.state.famerinfo;
-          // temp['conta'] = 0;
-          // this.setState({ famerinfo: temp });
-          return false;
         }
       }
+
       axios({
         url: config.addfarmernew,
         method: "POST",
@@ -289,124 +300,151 @@ class Farmeraddnew extends Component {
         }
       })
         .then(res => {
-          // console.log(res);
-          if (res.data.data !== null && res.data.data.result) {
-            this.setState({
-              famerinfo: Object.assign({}, this.state.backupinfo)
-            });
-            Swal({
-              type: "success",
-              title: "Successfully data updated"
-              // text: res.data.error.errorMsg
-            });
-            // this.props.getfarmer();
-            return true;
-            // window.location.reload();
+          if (res.data.data !== null) {
+            $.notify(
+              {
+                // options
+                message: "Farmer added successfully."
+              },
+              {
+                // settings
+                type: "success"
+              }
+            );
+            let tempcropobject = this.state.famerinfo.croplist;
+            tempcropobject.farmerId = res.data.data.id;
+            axios({
+              url: config.addcrop,
+              method: "POST",
+              data: tempcropobject,
+              headers: {
+                "Content-Type": "application/json"
+              }
+            })
+              .then(ress => {
+                if (ress.data.data !== null) {
+                  // $.notify(
+                  //   {
+                  //     // options
+                  //     message: "Crop added successfully."
+                  //   },
+                  //   {
+                  //     // settings
+                  //     type: "success"
+                  //   }
+                  // );
+                  let tempimgobject = this.state.famerinfo.imglist;
+                  tempimgobject.map((item, index) => {
+                    if (item.link !== "https://via.placeholder.com/500") {
+                      item.farmerId = res.data.data.id;
+                      axios({
+                        url: config.addimg,
+                        method: "POST",
+                        data: item,
+                        headers: {
+                          "Content-Type": "application/json"
+                        }
+                      })
+                        .then(resss => {
+                          if (
+                            resss.data.data !== null &&
+                            resss.data.data.result
+                          ) {
+                            console.log(
+                              "success in upload of img type " + item.mediaType
+                            );
+                          } else {
+                            console.log(
+                              "error img object" + item.mediaType,
+                              item,
+                              ".ERROR:",
+                              resss.data.error.errorMsg
+                            );
+
+                            $.notify(
+                              {
+                                // options
+                                message:
+                                  "Image addition failed for " + item.mediaType
+                              },
+                              {
+                                // settings
+                                type: "info"
+                              }
+                            );
+                          }
+                        })
+                        .catch(e => {
+                          Swal({
+                            type: "API error",
+                            title: "Oops...",
+                            text: e
+                          });
+                        });
+                    } else {
+                      console.log(
+                        "skipping " +
+                          item.mediaType +
+                          " img object because no changes found"
+                      );
+                    }
+                    if (index + 1 === tempimgobject.length) {
+                      this.props.handlefarmeraddresponse(res.data.data)
+                    }
+                  });
+                } else {
+                  // alert("Crop Api error:", ress.data.error.errorMsg);
+                  $.notify(
+                    {
+                      // options
+                      message:
+                        "Crop addition failed." + ress.data.error.errorMsg
+                    },
+                    {
+                      // settings
+                      type: "info"
+                    }
+                  );
+                }
+              })
+              .catch(e => {
+                Swal({
+                  type: "API error",
+                  title: "Oops...",
+                  text: e
+                });
+              });
           } else {
-            alert(res.data.error.errorMsg);
+            alert("Add farmer api error:", res.data.error.errorMsg);
           }
-
-          // if (res.data.data !== null && res.data.data.result) {
-          //   this.state.famerinfo.pumplist.map(item =>
-          //     axios({
-          //       url: config.addrms,
-          //       method: "POST",
-          //       data: item,
-          //       headers: {
-          //         "Content-Type": "application/json"
-          //       }
-          //     })
-          //       .then(res => {
-          //         if (res.data.data !== null && res.data.data.result) {
-          //         } else {
-          //           alert(res.data.error.errorMsg);
-          //           return;
-          //         }
-          //       })
-          //       .catch(e => {
-          //         Swal({
-          //           type: "error",
-          //           title: "Oops...",
-          //           text: e
-          //         });
-          //       })
-          //   );
-          //   this.state.famerinfo.croplist.map(item =>
-          //     axios({
-          //       url: config.addcrop,
-          //       method: "POST",
-          //       data: item,
-          //       headers: {
-          //         "Content-Type": "application/json"
-          //       }
-          //     })
-          //       .then(res => {
-          //         if (res.data.data !== null && res.data.data.result) {
-          //         } else {
-          //           alert(res.data.error.errorMsg);
-          //           return;
-          //         }
-          //       })
-          //       .catch(e => {
-          //         Swal({
-          //           type: "error",
-          //           title: "Oops...",
-          //           text: e
-          //         });
-          //       })
-          //   );
-
-          //   Swal({
-          //     type: "success",
-          //     title: "Successfully data updated"
-          //     // text: res.data.error.errorMsg
-          //   });
-          //   this.setState({
-          //     famerinfo: Object.assign({}, this.state.backupinfo)
-          //   });
-          //   Swal({
-          //     type: "success",
-          //     title: "Successfully data updated"
-          //     // text: res.data.error.errorMsg
-          //   });
-          //   window.location.reload();
-          // } else {
-          //   alert(res.data.error.errorMsg);
-          //   return;
-          // }
         })
         .catch(e => {
           console.log(e);
         });
     } else {
       Swal({
-        type: "error",
-        title: "Fill valid input in all mandatory fields"
-        // text: res.data.error.errorMsg
+        type: "info",
+        width: "45rem",
+        html:
+          "<h4>Fill valid input in all mandatory fields across all tabs.<br><small> If value not available for crop scetion put NA.</small></h4>"
       });
-      return false;
     }
   };
   componentDidMount() {
-    // if (this.state.cropschema === undefined) {
-      this.setState({famerinfo:undefined,backupinfo:undefined})
-      let cropschema;
-    axios({
-      url: config.getcropschema,
-      method: "POST",
-      data: {
-        temp: "temp"
-      },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(res => {
-      cropschema=res.data.data
-      this.setState({ cropschema: res.data.data });
-    });
-    // }
-
-    // if (this.state.famerinfo === undefined) {
+    this.setState({ famerinfo: undefined, backupinfo: undefined });
+    let cropschema = {
+      farmerId: null,
+      name: null,
+      cropSeason: null,
+      cropVariety: null,
+      sowingMonth: null,
+      harvestingTime: null,
+      estimatedYield: null,
+      expectedPrice: null,
+      grownArea: null,
+      remark: null,
+      modifiedBy: "0"
+    };
     axios({
       url: config.getfarmerschema,
       method: "POST",
@@ -425,36 +463,35 @@ class Farmeraddnew extends Component {
         res.data.data.district = "Unakoti";
         res.data.data.vertical = "Solar Irrigation Pump";
         res.data.data.contactNo = "";
-        
-        
-        res.data.data["croplist"] = [cropschema];
-        
+
+        res.data.data["croplist"] = cropschema;
+
         let imgobject = [
           {
             mediaType: "Profile Pic",
             link: "https://via.placeholder.com/500",
-            // farmerId: this.state.famerinfo.id,
+            farmerId: null,
             type: "image",
             modifiedBy: "0"
           },
           {
             mediaType: "Public Pic",
             link: "https://via.placeholder.com/500",
-            // farmerId: this.state.famerinfo.id,
+            farmerId: null,
             type: "image",
             modifiedBy: "0"
           },
           {
             mediaType: "Farm Pic",
             link: "https://via.placeholder.com/500",
-            // farmerId: this.state.famerinfo.id,
+            farmerId: null,
             type: "image",
             modifiedBy: "0"
           },
           {
             mediaType: "Crop Pic",
             link: "https://via.placeholder.com/500",
-            // farmerId: this.state.famerinfo.id,
+            farmerId: null,
             type: "image",
             modifiedBy: "0"
           }
@@ -474,15 +511,16 @@ class Farmeraddnew extends Component {
   render() {
     return (
       <div className="farmerinfobody">
-        
-          <div id="farmeraddnew" style={{ display: "none" }}>
+        <div id="farmeraddnew" style={{ display: "none" }}>
           {this.state.famerinfo !== undefined && (
             <div
-              style={{
-                maxHeight: "90vh",
-                overflow: "scroll"
-                // display: "none"
-              }}
+              style={
+                {
+                  // maxHeight: "90vh",
+                  // overflow: "scroll"
+                  // display: "none"
+                }
+              }
               className="farmerinfobody"
             >
               <ul className="nav nav-tabs" role="tablist">
@@ -531,6 +569,56 @@ class Farmeraddnew extends Component {
                     Multimedia
                   </a>
                 </li>
+                <li
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    float: "right",
+                    padding: "0.2em 1.5em"
+                  }}
+                >
+                  <button
+                    onClick={this.handleeditfarmersave}
+                    type="submit"
+                    className="btn btn-default"
+                    aria-label="Right Align"
+                    id="drillUp"
+                    style={{
+                      // display: "none",
+                      width: "50%",
+                      borderRadius: "0px",
+                      // marginBottom: "1em",
+                      borderColor: "darkgray",
+                      float: "left",
+                      outline: "none",
+                      color: "white",
+                      backgroundColor: "blue"
+                    }}
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={this.handlecancelfarmer}
+                    type="button"
+                    className="cancelbutton btn btn-default"
+                    aria-label="Right Align"
+                    id="drillUp"
+                    style={{
+                      // display: "none",
+                      width: "46%",
+                      marginLeft: "1em",
+
+                      borderRadius: "0px",
+                      borderColor: "blue",
+                      float: "left",
+                      outline: "none",
+                      color: "blue",
+                      backgroundColor: "white"
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </li>
               </ul>
 
               <div
@@ -538,7 +626,8 @@ class Farmeraddnew extends Component {
                 style={{
                   padding: "0.5em",
                   maxHeight: "80vh",
-                  overflow: "scroll"
+                  overflowY: "scroll",
+                  overflowX: "hidden"
                 }}
               >
                 <div role="tabpanel" className="tab-pane active" id="profile11">
@@ -550,52 +639,11 @@ class Farmeraddnew extends Component {
                     <div className="col-xs-9">
                       <h3 style={{ marginTop: "5px" }}>Primary</h3>
                     </div>
-                    <div
+                    {/* <div
                       className="col-xs-3"
                       style={{ display: "flex", justifyContent: "flex-end" }}
                     >
-                      <button
-                        onClick={this.handleeditfarmersave}
-                        type="submit"
-                        className="btn btn-default"
-                        aria-label="Right Align"
-                        id="drillUp"
-                        style={{
-                          // display: "none",
-                          width: "28%",
-                          borderRadius: "0px",
-                          // marginBottom: "1em",
-                          borderColor: "darkgray",
-                          float: "left",
-                          outline: "none",
-                          color: "white",
-                          backgroundColor: "blue"
-                        }}
-                      >
-                        Save
-                      </button>
-                      <button
-                        onClick={this.handlecancelfarmer}
-                        type="button"
-                        className="cancelbutton btn btn-default"
-                        aria-label="Right Align"
-                        id="drillUp"
-                        style={{
-                          // display: "none",
-                          width: "28%",
-                          marginLeft: "1em",
-
-                          borderRadius: "0px",
-                          borderColor: "blue",
-                          float: "left",
-                          outline: "none",
-                          color: "blue",
-                          backgroundColor: "white"
-                        }}
-                      >
-                        Cancel
-                      </button>
-                    </div>
+                     </div> */}
                   </div>
                   <div
                     className="row kycbody"
@@ -688,7 +736,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="contactno"
-                              value={this.state.famerinfo.contactNo || "0"}
+                              value={this.state.famerinfo.contactNo || ""}
                               onChange={this.handleInputChange}
                               placeholder="Contact Number "
                             />
@@ -727,13 +775,12 @@ class Farmeraddnew extends Component {
                                 <option value="VOTER ID">VOTER ID</option>
                                 <option value="LICENSE">LICENSE</option>
                                 <option value="PAY-GO">PAYGO</option>
-                                <option value="CLARO ID">CLARO ID</option>
-                                
+                                {/* <option value="CLARO ID">CLARO ID</option> */}
+
                                 <option value="OTHERS">OTHERS</option>
                                 <option value="N.A">N.A</option>
                               </select>
                             </div>
-                            
                           </div>
                         </div>
                         <div className="row farmerinforow">
@@ -796,7 +843,6 @@ class Farmeraddnew extends Component {
                               <option value="Solar Irrigation Service">
                                 Solar Irrigation Service
                               </option>
-                              
                             </select>
                           </div>
                         </div>
@@ -1142,7 +1188,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="latitude"
-                              value={this.state.famerinfo.latitude || "0"}
+                              value={this.state.famerinfo.latitude || ""}
                               onChange={this.handleInputChange}
                               placeholder="Latitude"
                               required
@@ -1168,7 +1214,7 @@ class Farmeraddnew extends Component {
                               type="number"
                               className="form-control"
                               id="longitude"
-                              value={this.state.famerinfo.longitude || "0"}
+                              value={this.state.famerinfo.longitude || ""}
                               onChange={this.handleInputChange}
                               placeholder="Longitude"
                               required
@@ -1285,7 +1331,7 @@ class Farmeraddnew extends Component {
                       className="col-xs-3"
                       style={{ display: "flex", justifyContent: "flex-end" }}
                     >
-                      <button
+                      {/* <button
                         onClick={this.handleeditfarmersave}
                         type="submit"
                         className="btn btn-default"
@@ -1325,7 +1371,7 @@ class Farmeraddnew extends Component {
                         }}
                       >
                         Cancel
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>
@@ -1334,329 +1380,251 @@ class Farmeraddnew extends Component {
                   this.state.famerinfo.croplist !== undefined &&
                   this.state.famerinfo.croplist.length !== 0 ? (
                     <div>
-                      <ul
-                        className=" nav nav-tabs"
-                        role="tablist"
-                        style={{ marginTop: "8px" }}
-                      >
-                        <li role="presentation" className="active">
-                          <a
-                            href="#new"
-                            aria-controls="new"
-                            role="tab"
-                            data-toggle="tab"
-                          >
-                            Crop
-                          </a>
-                        </li>
-                        <li
-                          role="presentation"
-                          style={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                            float: "right",
-                            padding: "0.2em 1.5em"
-                          }}
+                      {this.state.famerinfo.croplist !== undefined && (
+                        <div
+                          className="row kycbody"
+                          style={{ margin: " 0.7em 0.1em" }}
                         >
-                          <button
-                            onClick={this.handleeditfarmersavecroplist}
-                            type="submit"
-                            className="btn btn-default"
-                            aria-label="Right Align"
-                            id="drillUp"
-                            style={{
-                              // display: "none",
-                              width: "50%",
-                              borderRadius: "0px",
-                              // marginBottom: "1em",
-                              borderColor: "darkgray",
-                              float: "left",
-                              outline: "none",
-                              color: "white",
-                              backgroundColor: "blue"
-                            }}
-                          >
-                            Save
-                          </button>
-                          <button
-                            onClick={this.handlecancelfarmer}
-                            type="button"
-                            className="cancelbutton btn btn-default"
-                            aria-label="Right Align"
-                            id="drillUp"
-                            style={{
-                              // display: "none",
-                              width: "47%",
-                              marginLeft: "1em",
-
-                              borderRadius: "0px",
-                              borderColor: "blue",
-                              float: "left",
-                              outline: "none",
-                              color: "blue",
-                              backgroundColor: "white"
-                            }}
-                          >
-                            Cancel
-                          </button>
-                        </li>
-                        <li />
-                      </ul>
-                      <div className="tab-content">
-                        {this.state.famerinfo.croplist !== undefined &&
-                          this.state.famerinfo.croplist.map((item, index) => (
-                            <div
-                              key={item}
-                              role="tabpanel"
-                              className="vertical tab-pane active"
-                              id="new"
-                            >
-                              {item !== undefined && (
-                                <div>
-                                  <div className="col-md-5">
-                                    <div className="kycbody">
-                                      <div className="row farmerinforow">
-                                        <div className="col-xs-6 farmerinforowtitle">
-                                          Name{" "}
-                                          <i
-                                            title="Mandatory fields"
-                                            style={{
-                                              marginTop: "0.5em",
-                                              marginLeft: "0.5em"
-                                            }}
-                                            className="fa fa-info-circle"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        {/* <div className="col-xs-6">
-                                      {item.name || "NA"}
-                                    </div> */}
-                                        <div className="col-xs-6">
-                                          <input
-                                            name="name"
-                                            type="text"
-                                            className="form-control"
-                                            id="name"
-                                            value={item.name || ""}
-                                            onChange={this.crophandleInputChange.bind(
-                                              this,
-                                              index
-                                            )}
-                                            placeholder="Crop Name"
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="row farmerinforow">
-                                        <div className="col-xs-6 farmerinforowtitle">
-                                          Crop season{" "}
-                                          <i
-                                            title="Mandatory fields"
-                                            style={{
-                                              marginTop: "0.5em",
-                                              marginLeft: "0.5em"
-                                            }}
-                                            className="fa fa-info-circle"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        {/* <div className="col-xs-6">
-                                      {item.cropSeason || "NA"}
-                                    </div> */}
-                                        <div className="col-xs-6">
-                                          <input
-                                            name="cropSeason"
-                                            type="text"
-                                            className="form-control"
-                                            id="cropSeason"
-                                            value={item.cropSeason || ""}
-                                            onChange={this.crophandleInputChange.bind(
-                                              this,
-                                              index
-                                            )}
-                                            placeholder="Crop Season"
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="row farmerinforow">
-                                        <div className="col-xs-6 farmerinforowtitle">
-                                          Crop variety{" "}
-                                          <i
-                                            title="Mandatory fields"
-                                            style={{
-                                              marginTop: "0.5em",
-                                              marginLeft: "0.5em"
-                                            }}
-                                            className="fa fa-info-circle"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        {/* <div className="col-xs-6">
-                                      {item.cropVariety || "NA"}
-                                    </div> */}
-                                        <div className="col-xs-6">
-                                          <input
-                                            name="cropVariety"
-                                            type="text"
-                                            className="form-control"
-                                            id="cropVariety"
-                                            value={item.cropVariety || ""}
-                                            onChange={this.crophandleInputChange.bind(
-                                              this,
-                                              index
-                                            )}
-                                            placeholder="Crop Variety"
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="row farmerinforow">
-                                        <div className="col-xs-6 farmerinforowtitle">
-                                          Sowing month{" "}
-                                          <i
-                                            title="Mandatory fields"
-                                            style={{
-                                              marginTop: "0.5em",
-                                              marginLeft: "0.5em"
-                                            }}
-                                            className="fa fa-info-circle"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        {/* <div className="col-xs-6">
-                                      {item.sowingMonth || "NA"}
-                                    </div> */}
-                                        <div className="col-xs-6">
-                                          <input
-                                            name="sowingMonth"
-                                            type="text"
-                                            className="form-control"
-                                            id="sowingMonth"
-                                            value={item.sowingMonth || ""}
-                                            onChange={this.crophandleInputChange.bind(
-                                              this,
-                                              index
-                                            )}
-                                            placeholder="sowing Month"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="col-md-1" />
-                                  <div className="col-md-5">
-                                    <div className="kycbody">
-                                      <div className="row farmerinforow">
-                                        <div className="col-xs-6 farmerinforowtitle">
-                                          Harvesting time{" "}
-                                          <i
-                                            title="Mandatory fields"
-                                            style={{
-                                              marginTop: "0.5em",
-                                              marginLeft: "0.5em"
-                                            }}
-                                            className="fa fa-info-circle"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        {/* <div className="col-xs-6">
-                                      {item.harvestingTime || "NA"}
-                                    </div> */}
-                                        <div className="col-xs-6">
-                                          <input
-                                            name="harvestingTime"
-                                            type="text"
-                                            className="form-control"
-                                            id="harvestingTime"
-                                            value={item.harvestingTime || ""}
-                                            onChange={this.crophandleInputChange.bind(
-                                              this,
-                                              index
-                                            )}
-                                            placeholder="Harvesting Time"
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="row farmerinforow">
-                                        <div className="col-xs-6 farmerinforowtitle">
-                                          Estimated Yield
-                                        </div>
-                                        {/* <div className="col-xs-6">
-                                      {item.estimateYield || "NA"}
-                                    </div> */}
-                                        <div className="col-xs-6">
-                                          <input
-                                            name="estimateYield"
-                                            type="text"
-                                            className="form-control"
-                                            id="estimateYield"
-                                            value={item.estimateYield || ""}
-                                            onChange={this.crophandleInputChange.bind(
-                                              this,
-                                              index
-                                            )}
-                                            placeholder="Estimate Yield"
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="row farmerinforow">
-                                        <div className="col-xs-6 farmerinforowtitle">
-                                          Grown area{" "}
-                                          <i
-                                            title="Mandatory fields"
-                                            style={{
-                                              marginTop: "0.5em",
-                                              marginLeft: "0.5em"
-                                            }}
-                                            className="fa fa-info-circle"
-                                            aria-hidden="true"
-                                          />
-                                        </div>
-                                        {/* <div className="col-xs-6">
-                                      {item.grownArea || "NA"}
-                                    </div> */}
-                                        <div className="col-xs-6">
-                                          <input
-                                            name="grownArea"
-                                            type="text"
-                                            className="form-control"
-                                            id="grownArea"
-                                            value={item.grownArea || ""}
-                                            onChange={this.crophandleInputChange.bind(
-                                              this,
-                                              index
-                                            )}
-                                            placeholder="Grown Area"
-                                          />
-                                        </div>
-                                      </div>
-                                      <div className="row farmerinforow">
-                                        <div className="col-xs-6 farmerinforowtitle">
-                                          Remark
-                                        </div>
-                                        {/* <div className="col-xs-6">
-                                      {item.remarks || "NA"}
-                                    </div> */}
-                                        <div className="col-xs-6">
-                                          <input
-                                            name="remarks"
-                                            type="textarea"
-                                            className="form-control"
-                                            id="remarks"
-                                            value={item.remarks || ""}
-                                            onChange={this.crophandleInputChange.bind(
-                                              this,
-                                              index
-                                            )}
-                                            placeholder="remarks"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+                          <div className="col-md-5">
+                            <div className="kycbody">
+                              <div className="row farmerinforow">
+                                <div className="col-xs-6 farmerinforowtitle">
+                                  Name{" "}
+                                  <i
+                                    title="Mandatory fields"
+                                    style={{
+                                      marginTop: "0.5em",
+                                      marginLeft: "0.5em"
+                                    }}
+                                    className="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  />
                                 </div>
-                              )}
+                                {/* <div className="col-xs-6">
+                                      {this.state.famerinfo.croplist.name || "NA"}
+                                    </div> */}
+                                <div className="col-xs-6">
+                                  <input
+                                    name="name"
+                                    type="text"
+                                    className="form-control"
+                                    id="name"
+                                    value={
+                                      this.state.famerinfo.croplist.name || ""
+                                    }
+                                    onChange={this.crophandleInputChange}
+                                    placeholder="Crop Name"
+                                  />
+                                </div>
+                              </div>
+                              <div className="row farmerinforow">
+                                <div className="col-xs-6 farmerinforowtitle">
+                                  Crop season{" "}
+                                  <i
+                                    title="Mandatory fields"
+                                    style={{
+                                      marginTop: "0.5em",
+                                      marginLeft: "0.5em"
+                                    }}
+                                    className="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  />
+                                </div>
+                                {/* <div className="col-xs-6">
+                                      {this.state.famerinfo.croplist.cropSeason || "NA"}
+                                    </div> */}
+                                <div className="col-xs-6">
+                                  <input
+                                    name="cropSeason"
+                                    type="text"
+                                    className="form-control"
+                                    id="cropSeason"
+                                    value={
+                                      this.state.famerinfo.croplist
+                                        .cropSeason || ""
+                                    }
+                                    onChange={this.crophandleInputChange}
+                                    placeholder="Crop Season"
+                                  />
+                                </div>
+                              </div>
+                              <div className="row farmerinforow">
+                                <div className="col-xs-6 farmerinforowtitle">
+                                  Crop variety{" "}
+                                  <i
+                                    title="Mandatory fields"
+                                    style={{
+                                      marginTop: "0.5em",
+                                      marginLeft: "0.5em"
+                                    }}
+                                    className="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  />
+                                </div>
+                                {/* <div className="col-xs-6">
+                                      {this.state.famerinfo.croplist.cropVariety || "NA"}
+                                    </div> */}
+                                <div className="col-xs-6">
+                                  <input
+                                    name="cropVariety"
+                                    type="text"
+                                    className="form-control"
+                                    id="cropVariety"
+                                    value={
+                                      this.state.famerinfo.croplist
+                                        .cropVariety || ""
+                                    }
+                                    onChange={this.crophandleInputChange}
+                                    placeholder="Crop Variety"
+                                  />
+                                </div>
+                              </div>
+                              <div className="row farmerinforow">
+                                <div className="col-xs-6 farmerinforowtitle">
+                                  Sowing month{" "}
+                                  <i
+                                    title="Mandatory fields"
+                                    style={{
+                                      marginTop: "0.5em",
+                                      marginLeft: "0.5em"
+                                    }}
+                                    className="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  />
+                                </div>
+                                {/* <div className="col-xs-6">
+                                      {this.state.famerinfo.croplist.sowingMonth || "NA"}
+                                    </div> */}
+                                <div className="col-xs-6">
+                                  <input
+                                    name="sowingMonth"
+                                    type="text"
+                                    className="form-control"
+                                    id="sowingMonth"
+                                    value={
+                                      this.state.famerinfo.croplist
+                                        .sowingMonth || ""
+                                    }
+                                    onChange={this.crophandleInputChange}
+                                    placeholder="sowing Month"
+                                  />
+                                </div>
+                              </div>
                             </div>
-                          ))}
-                      </div>
+                          </div>
+                          <div className="col-md-1" />
+                          <div className="col-md-5">
+                            <div className="kycbody">
+                              <div className="row farmerinforow">
+                                <div className="col-xs-6 farmerinforowtitle">
+                                  Harvesting time{" "}
+                                  <i
+                                    title="Mandatory fields"
+                                    style={{
+                                      marginTop: "0.5em",
+                                      marginLeft: "0.5em"
+                                    }}
+                                    className="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  />
+                                </div>
+                                {/* <div className="col-xs-6">
+                                      {this.state.famerinfo.croplist.harvestingTime || "NA"}
+                                    </div> */}
+                                <div className="col-xs-6">
+                                  <input
+                                    name="harvestingTime"
+                                    type="text"
+                                    className="form-control"
+                                    id="harvestingTime"
+                                    value={
+                                      this.state.famerinfo.croplist
+                                        .harvestingTime || ""
+                                    }
+                                    onChange={this.crophandleInputChange}
+                                    placeholder="Harvesting Time"
+                                  />
+                                </div>
+                              </div>
+                              <div className="row farmerinforow">
+                                <div className="col-xs-6 farmerinforowtitle">
+                                  Estimated Yield
+                                </div>
+                                {/* <div className="col-xs-6">
+                                      {this.state.famerinfo.croplist.estimateYield || "NA"}
+                                    </div> */}
+                                <div className="col-xs-6">
+                                  <input
+                                    name="estimateYield"
+                                    type="text"
+                                    className="form-control"
+                                    id="estimateYield"
+                                    value={
+                                      this.state.famerinfo.croplist
+                                        .estimateYield || ""
+                                    }
+                                    onChange={this.crophandleInputChange}
+                                    placeholder="Estimate Yield"
+                                  />
+                                </div>
+                              </div>
+                              <div className="row farmerinforow">
+                                <div className="col-xs-6 farmerinforowtitle">
+                                  Grown area{" "}
+                                  <i
+                                    title="Mandatory fields"
+                                    style={{
+                                      marginTop: "0.5em",
+                                      marginLeft: "0.5em"
+                                    }}
+                                    className="fa fa-info-circle"
+                                    aria-hidden="true"
+                                  />
+                                </div>
+                                {/* <div className="col-xs-6">
+                                      {this.state.famerinfo.croplist.grownArea || "NA"}
+                                    </div> */}
+                                <div className="col-xs-6">
+                                  <input
+                                    name="grownArea"
+                                    type="text"
+                                    className="form-control"
+                                    id="grownArea"
+                                    value={
+                                      this.state.famerinfo.croplist.grownArea ||
+                                      ""
+                                    }
+                                    onChange={this.crophandleInputChange}
+                                    placeholder="Grown Area"
+                                  />
+                                </div>
+                              </div>
+                              <div className="row farmerinforow">
+                                <div className="col-xs-6 farmerinforowtitle">
+                                  Remark
+                                </div>
+                                {/* <div className="col-xs-6">
+                                      {this.state.famerinfo.croplist.remarks || "NA"}
+                                    </div> */}
+                                <div className="col-xs-6">
+                                  <input
+                                    name="remarks"
+                                    type="textarea"
+                                    className="form-control"
+                                    id="remarks"
+                                    value={
+                                      this.state.famerinfo.croplist.remarks ||
+                                      ""
+                                    }
+                                    onChange={this.crophandleInputChange}
+                                    placeholder="remarks"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <center style={{ marginTop: "2em" }}>
@@ -1715,8 +1683,7 @@ class Farmeraddnew extends Component {
                 </div>
               </div>
             </div>
-          
-        )}
+          )}
         </div>
       </div>
     );

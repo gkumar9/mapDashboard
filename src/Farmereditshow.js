@@ -155,7 +155,8 @@ class Farmereditshow extends Component {
                 style={{
                   // padding: "1em",
                   maxHeight: "60vh",
-                  overflow: "scroll"
+                  overflowY: "scroll",
+                  overflowX: "hidden"
                 }}
               >
                 <div role="tabpanel" className="tab-pane active" id="profile">
