@@ -117,7 +117,7 @@ class Farmer extends Component {
   handlesearch = event => {
     if (
       this.state.searchtext === event.target.value &&
-      event.target.value.length > 3
+      event.target.value.length > 2
     ) {
       this.setState({ searchtext: event.target.value });
       let tempsearchscrollcount = this.state.searchscrollcount + 1;
@@ -157,7 +157,7 @@ class Farmer extends Component {
         });
     } else if (
       this.state.searchtext !== event.target.value &&
-      event.target.value.length > 3
+      event.target.value.length > 2
     ) {
       this.setState({ searchtext: event.target.value });
       let tempsearchscrollcount = 1;
@@ -197,7 +197,7 @@ class Farmer extends Component {
         });
     } else if (
       this.state.searchtext !== event.target.value &&
-      event.target.value.length <= 3
+      event.target.value.length <= 2
     ) {
       this.setState({ searchtext: event.target.value });
     }
@@ -599,9 +599,8 @@ class Farmer extends Component {
         });
     } else {
       Swal({
-        type: "error",
-        title: "Fill valid input in all mandatory fields"
-        // text: res.data.error.errorMsg
+        type: "info",
+        html: "<h4>Please fill valid input in all mandatory fields.</h4>"
       });
     }
   };
@@ -869,40 +868,45 @@ class Farmer extends Component {
       }
     );
   };
-  handlesearchselect = event => {
-    this.setState({
-      searchvariantselected: event.target.value,
-      searchtext: ""
-    });
-    var listItems = $(".list-group-item"); //Select all list items
-
-    //Remove 'active' tag for all list items
-    for (let i = 0; i < listItems.length; i++) {
-      listItems[i].classList.remove("active");
-    }
-
-    this.handlesearch({ ["target"]: { ["value"]: "" } });
-  };
   // handlesearchselect = event => {
-  //   if(event.target.value==='vertical'){
-  //     document.getElementById("normaltextsearch").style.display="none";
-  //     document.getElementById("verticaldropdownsearch").style.display="block";
-  //     this.setState({ searchvariantselected: event.target.value });
-  //     // this.handlesearch({['target']:{["value"]:"vertical"}})
-  //   }
-  //   else{
-  //     document.getElementById("normaltextsearch").style.display="block";
-  //     document.getElementById("verticaldropdownsearch").style.display="none";
-  //     this.setState({ searchvariantselected: event.target.value,searchtext:"" });
-  //     this.handlesearch(event)
+  //   this.setState({
+  //     searchvariantselected: event.target.value,
+  //     searchtext: ""
+  //   });
+  //   var listItems = $(".list-group-item"); //Select all list items
+
+  //   //Remove 'active' tag for all list items
+  //   for (let i = 0; i < listItems.length; i++) {
+  //     listItems[i].classList.remove("active");
   //   }
 
+  //   this.handlesearch({ ["target"]: { ["value"]: "" } });
   // };
-  // handleverticalsearchselect=(event)=>{
-  //   this.setState({ searchtext: event.target.value,verticalsearchvariantselected:event.target.value });
-  //   this.handlesearch(event)
+  handlesearchselect = async event => {
+    if (event.target.value === "vertical") {
+      await this.setState({
+        searchvariantselected: event.target.value,
+        verticalsearchvariantselected: "Solar Irrigation Pump",
+        searchtext: ""
+      });
 
-  // }
+      this.handlesearch({ ["target"]: { ["value"]: "Solar Irrigation Pump" } });
+      document.getElementById("normaltextsearch").style.display = "none";
+      document.getElementById("verticaldropdownsearch").style.display = "block";
+    } else {
+      await this.setState({
+        searchvariantselected: event.target.value,
+        searchtext: ""
+      });
+      this.handlesearch({ ["target"]: { ["value"]: "" } });
+      document.getElementById("normaltextsearch").style.display = "block";
+      document.getElementById("verticaldropdownsearch").style.display = "none";
+    }
+  };
+  handleverticalsearchselect = event => {
+    this.setState({ verticalsearchvariantselected: event.target.value });
+    this.handlesearch(event);
+  };
   getfarmerlist = () => {
     let count = 1;
     axios({
@@ -1317,16 +1321,18 @@ class Farmer extends Component {
                         aria-label="..."
                       />
                     </div>
-                    {/* <div
+                    <div
                       id="verticaldropdownsearch"
                       className="col-xs-8"
                       style={{ paddingLeft: "0", display: "none" }}
                     >
-                      
                       <select
                         name="verticalselectkey"
                         onChange={this.handleverticalsearchselect}
-                        value={this.state.verticalsearchvariantselected ||"Solar Irrigation Pump"}
+                        value={
+                          this.state.verticalsearchvariantselected ||
+                          "Solar Irrigation Pump"
+                        }
                         className="form-control"
                         id="sel111"
                       >
@@ -1342,7 +1348,7 @@ class Farmer extends Component {
                         </option>
                         <option value="NA">NA</option>
                       </select>
-                    </div> */}
+                    </div>
                   </div>
                   <div id="maptable" className="farmerlists">
                     {this.state.farmerlist !== [] &&

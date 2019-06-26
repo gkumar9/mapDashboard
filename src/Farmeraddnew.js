@@ -126,180 +126,375 @@ class Farmeraddnew extends Component {
       }
     );
   };
-  handleeditfarmersavecroplist = async () => {
-    let check = this.handleeditfarmersave();
-    if (check) {
-      this.state.famerinfo.croplist.map((item, number) => {
-        if (
-          item.name &&
-          item.name.replace(/\s/g, "").length !== 0 &&
-          item.cropSeason &&
-          item.cropSeason.replace(/\s/g, "").length !== 0 &&
-          item.cropVariety &&
-          item.cropVariety.replace(/\s/g, "").length !== 0 &&
-          item.sowingMonth &&
-          item.sowingMonth.replace(/\s/g, "").length !== 0 &&
-          item.harvestingTime &&
-          item.harvestingTime.replace(/\s/g, "").length !== 0 &&
-          item.grownArea &&
-          item.grownArea.replace(/\s/g, "").length !== 0
-        ) {
-          item.farmerId = this.state.famerinfo.farmerId;
-          if (this.state.backupcroplist !== 0 && item !== undefined) {
-            axios({
-              url: config.addcrop,
-              method: "POST",
-              data: item,
-              headers: {
-                "Content-Type": "application/json"
-              }
-            })
-              .then(res => {
-                if (res.data.data !== null && res.data.data.result) {
-                  Swal({
-                    type: "success",
-                    title: "Successfully data updated"
-                    // text: res.data.error.errorMsg
-                  });
-                  this.props.getfarmer();
-                  // this.setState({
-                  //   backupinfo: Object.assign({}, this.state.famerinfo)
-                  // });
-                } else {
-                  alert(res.data.error.errorMsg);
-                  return;
-                }
-              })
-              .catch(e => {
-                Swal({
-                  type: "error",
-                  title: "Oops...",
-                  text: e
-                });
-              });
-          } else if (this.state.backupcroplist === 0 && item !== undefined) {
-            axios({
-              url: config.addcrop,
-              method: "POST",
-              data: item,
-              headers: {
-                "Content-Type": "application/json"
-              }
-            })
-              .then(res => {
-                if (res.data.data !== null && res.data.data.result) {
-                  Swal({
-                    type: "success",
-                    title: "Successfully data updated"
-                    // text: res.data.error.errorMsg
-                  });
+  // handleeditfarmersavecroplist = async () => {
+  //   let check = this.handleeditfarmersave();
+  //   if (check) {
+  //     this.state.famerinfo.croplist.map((item, number) => {
+  //       if (
+  //         item.name &&
+  //         item.name.replace(/\s/g, "").length !== 0 &&
+  //         item.cropSeason &&
+  //         item.cropSeason.replace(/\s/g, "").length !== 0 &&
+  //         item.cropVariety &&
+  //         item.cropVariety.replace(/\s/g, "").length !== 0 &&
+  //         item.sowingMonth &&
+  //         item.sowingMonth.replace(/\s/g, "").length !== 0 &&
+  //         item.harvestingTime &&
+  //         item.harvestingTime.replace(/\s/g, "").length !== 0 &&
+  //         item.grownArea &&
+  //         item.grownArea.replace(/\s/g, "").length !== 0
+  //       ) {
+  //         item.farmerId = this.state.famerinfo.farmerId;
+  //         if (this.state.backupcroplist !== 0 && item !== undefined) {
+  //           axios({
+  //             url: config.addcrop,
+  //             method: "POST",
+  //             data: item,
+  //             headers: {
+  //               "Content-Type": "application/json"
+  //             }
+  //           })
+  //             .then(res => {
+  //               if (res.data.data !== null && res.data.data.result) {
+  //                 Swal({
+  //                   type: "success",
+  //                   title: "Successfully data updated"
+  //                   // text: res.data.error.errorMsg
+  //                 });
+  //                 this.props.getfarmer();
+  //                 // this.setState({
+  //                 //   backupinfo: Object.assign({}, this.state.famerinfo)
+  //                 // });
+  //               } else {
+  //                 alert(res.data.error.errorMsg);
+  //                 return;
+  //               }
+  //             })
+  //             .catch(e => {
+  //               Swal({
+  //                 type: "error",
+  //                 title: "Oops...",
+  //                 text: e
+  //               });
+  //             });
+  //         } else if (this.state.backupcroplist === 0 && item !== undefined) {
+  //           axios({
+  //             url: config.addcrop,
+  //             method: "POST",
+  //             data: item,
+  //             headers: {
+  //               "Content-Type": "application/json"
+  //             }
+  //           })
+  //             .then(res => {
+  //               if (res.data.data !== null && res.data.data.result) {
+  //                 Swal({
+  //                   type: "success",
+  //                   title: "Successfully data updated"
+  //                   // text: res.data.error.errorMsg
+  //                 });
 
-                  // this.setState({
-                  //   backupinfo: Object.assign({}, this.state.famerinfo)
-                  // });
-                } else {
-                  alert(res.data.error.errorMsg);
-                  return;
-                }
-              })
-              .catch(e => {
-                Swal({
-                  type: "error",
-                  title: "Oops...",
-                  text: e
-                });
-              });
-          } else {
-            alert("error at crop save");
-          }
-        } else {
-          Swal({
-            type: "error",
-            title: "Fill valid input in all mandatory fields"
-            // text: res.data.error.errorMsg
-          });
-        }
-      });
-    }
-  };
+  //                 // this.setState({
+  //                 //   backupinfo: Object.assign({}, this.state.famerinfo)
+  //                 // });
+  //               } else {
+  //                 alert(res.data.error.errorMsg);
+  //                 return;
+  //               }
+  //             })
+  //             .catch(e => {
+  //               Swal({
+  //                 type: "error",
+  //                 title: "Oops...",
+  //                 text: e
+  //               });
+  //             });
+  //         } else {
+  //           alert("error at crop save");
+  //         }
+  //       } else {
+  //         Swal({
+  //           type: "error",
+  //           title: "Fill valid input in all mandatory fields"
+  //           // text: res.data.error.errorMsg
+  //         });
+  //       }
+  //     });
+  //   }
+  // };
   handleeditfarmersave = () => {
     delete this.state.famerinfo["modificationTime"];
     delete this.state.famerinfo["id"];
     if (
-      this.state.famerinfo.name &&
-      this.state.famerinfo.name.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.gender &&
-      this.state.famerinfo.gender.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.entryStatus &&
-      this.state.famerinfo.entryStatus.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.vertical &&
-      this.state.famerinfo.vertical.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.latitude &&
-      this.state.famerinfo.latitude.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.longitude &&
-      this.state.famerinfo.longitude.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.state &&
-      this.state.famerinfo.state.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.district &&
-      this.state.famerinfo.district.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.croplist.name &&
-      this.state.famerinfo.croplist.name.replace(/\s/g, "").length !== 0 &&
-      this.state.famerinfo.croplist.cropSeason &&
-      this.state.famerinfo.croplist.cropSeason.replace(/\s/g, "").length !==
-        0 &&
-      this.state.famerinfo.croplist.cropVariety &&
-      this.state.famerinfo.croplist.cropVariety.replace(/\s/g, "").length !==
-        0 &&
-      this.state.famerinfo.croplist.sowingMonth &&
-      this.state.famerinfo.croplist.sowingMonth.replace(/\s/g, "").length !==
-        0 &&
-      this.state.famerinfo.croplist.harvestingTime &&
-      this.state.famerinfo.croplist.harvestingTime.replace(/\s/g, "").length !==
-        0 &&
-      this.state.famerinfo.croplist.grownArea &&
-      this.state.famerinfo.croplist.grownArea.replace(/\s/g, "").length !== 0
+      this.state.famerinfo.croplist.name !== "" &&
+      this.state.famerinfo.croplist.name !== null &&
+      this.state.famerinfo.croplist.name !== undefined
     ) {
       if (
-        this.state.famerinfo.latitude > 37 ||
-        this.state.famerinfo.latitude < 8
+        this.state.famerinfo.name &&
+        this.state.famerinfo.name.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.gender &&
+        this.state.famerinfo.gender.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.entryStatus &&
+        this.state.famerinfo.entryStatus.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.vertical &&
+        this.state.famerinfo.vertical.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.latitude &&
+        this.state.famerinfo.latitude.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.longitude &&
+        this.state.famerinfo.longitude.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.state &&
+        this.state.famerinfo.state.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.district &&
+        this.state.famerinfo.district.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.croplist.name &&
+        this.state.famerinfo.croplist.name.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.croplist.cropSeason &&
+        this.state.famerinfo.croplist.cropSeason.replace(/\s/g, "").length !==
+          0 &&
+        this.state.famerinfo.croplist.cropVariety &&
+        this.state.famerinfo.croplist.cropVariety.replace(/\s/g, "").length !==
+          0 &&
+        this.state.famerinfo.croplist.sowingMonth &&
+        this.state.famerinfo.croplist.sowingMonth.replace(/\s/g, "").length !==
+          0 &&
+        this.state.famerinfo.croplist.harvestingTime &&
+        this.state.famerinfo.croplist.harvestingTime.replace(/\s/g, "")
+          .length !== 0 &&
+        this.state.famerinfo.croplist.grownArea &&
+        this.state.famerinfo.croplist.grownArea.replace(/\s/g, "").length !== 0
       ) {
-        alert("Please set valid Latitude value.(Lattitude - 8′N to 37′N)");
-        let temp = this.state.famerinfo;
-        temp["latitude"] = 0;
-        this.setState({ famerinfo: temp });
-      }
-      if (
-        this.state.famerinfo.longitude > 97 ||
-        this.state.famerinfo.longitude < 68
-      ) {
-        alert("Please set valid Longitude value.(Longitude - 68′E to 97′E)");
-        let temp = this.state.famerinfo;
-        temp["longitude"] = 0;
-        this.setState({ famerinfo: temp });
-      }
-      if (this.state.famerinfo.contactNo !== "") {
         if (
-          this.state.famerinfo.contactNo.length !== 10 ||
-          (this.state.famerinfo.contactNo.charAt(0) !== "9" &&
-            this.state.famerinfo.contactNo.charAt(0) !== "8" &&
-            this.state.famerinfo.contactNo.charAt(0) !== "7" &&
-            this.state.famerinfo.contactNo.charAt(0) !== "6")
+          this.state.famerinfo.latitude > 37 ||
+          this.state.famerinfo.latitude < 8
         ) {
-          alert(
-            "Please set valid Contact Number(10 digit starting with 9/8/7/6)"
-          );
+          alert("Please set valid Latitude value.(Lattitude - 8′N to 37′N)");
+          let temp = this.state.famerinfo;
+          temp["latitude"] = 0;
+          this.setState({ famerinfo: temp });
         }
-      }
+        if (
+          this.state.famerinfo.longitude > 97 ||
+          this.state.famerinfo.longitude < 68
+        ) {
+          alert("Please set valid Longitude value.(Longitude - 68′E to 97′E)");
+          let temp = this.state.famerinfo;
+          temp["longitude"] = 0;
+          this.setState({ famerinfo: temp });
+        }
+        if (this.state.famerinfo.contactNo !== "") {
+          if (
+            this.state.famerinfo.contactNo.length !== 10 ||
+            (this.state.famerinfo.contactNo.charAt(0) !== "9" &&
+              this.state.famerinfo.contactNo.charAt(0) !== "8" &&
+              this.state.famerinfo.contactNo.charAt(0) !== "7" &&
+              this.state.famerinfo.contactNo.charAt(0) !== "6")
+          ) {
+            alert(
+              "Please set valid Contact Number(10 digit starting with 9/8/7/6)"
+            );
+          }
+        }
 
-      axios({
-        url: config.addfarmernew,
-        method: "POST",
-        data: this.state.famerinfo,
-        headers: {
-          "Content-Type": "application/json"
+        axios({
+          url: config.addfarmernew,
+          method: "POST",
+          data: this.state.famerinfo,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(res => {
+            if (res.data.data !== null) {
+              $.notify(
+                {
+                  // options
+                  message: "Farmer added successfully."
+                },
+                {
+                  // settings
+                  type: "success"
+                }
+              );
+              let tempcropobject = this.state.famerinfo.croplist;
+              tempcropobject.farmerId = res.data.data.id;
+
+              axios({
+                url: config.addcrop,
+                method: "POST",
+                data: tempcropobject,
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              })
+                .then(ress => {
+                  if (ress.data.data !== null) {
+                    // $.notify(
+                    //   {
+                    //     // options
+                    //     message: "Crop added successfully."
+                    //   },
+                    //   {
+                    //     // settings
+                    //     type: "success"
+                    //   }
+                    // );
+                    let tempimgobject = this.state.famerinfo.imglist;
+                    tempimgobject.map((item, index) => {
+                      if (item.link !== "https://via.placeholder.com/500") {
+                        item.farmerId = res.data.data.id;
+                        axios({
+                          url: config.addimg,
+                          method: "POST",
+                          data: item,
+                          headers: {
+                            "Content-Type": "application/json"
+                          }
+                        })
+                          .then(resss => {
+                            if (
+                              resss.data.data !== null &&
+                              resss.data.data.result
+                            ) {
+                              console.log(
+                                "success in upload of img type " +
+                                  item.mediaType
+                              );
+                            } else {
+                              console.log(
+                                "error img object" + item.mediaType,
+                                item,
+                                ".ERROR:",
+                                resss.data.error.errorMsg
+                              );
+
+                              $.notify(
+                                {
+                                  // options
+                                  message:
+                                    "Image addition failed for " +
+                                    item.mediaType
+                                },
+                                {
+                                  // settings
+                                  type: "info"
+                                }
+                              );
+                            }
+                          })
+                          .catch(e => {
+                            Swal({
+                              type: "API error",
+                              title: "Oops...",
+                              text: e
+                            });
+                          });
+                      } else {
+                        console.log(
+                          "skipping " +
+                            item.mediaType +
+                            " img object because no changes found"
+                        );
+                      }
+                      if (index + 1 === tempimgobject.length) {
+                        this.props.handlefarmeraddresponse(res.data.data);
+                      }
+                    });
+                  } else {
+                    // alert("Crop Api error:", ress.data.error.errorMsg);
+                    $.notify(
+                      {
+                        // options
+                        message:
+                          "Crop addition failed." + ress.data.error.errorMsg
+                      },
+                      {
+                        // settings
+                        type: "info"
+                      }
+                    );
+                  }
+                })
+                .catch(e => {
+                  Swal({
+                    type: "API error",
+                    title: "Oops...",
+                    text: e
+                  });
+                });
+            } else {
+              alert("Add farmer api error:", res.data.error.errorMsg);
+            }
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      } else {
+        Swal({
+          type: "info",
+          width: "45rem",
+          html:
+            "<h4>Fill valid input in all mandatory fields across all tabs.<br><small> If value not available for crop scetion put NA.</small></h4>"
+        });
+      }
+    } else {
+      if (
+        this.state.famerinfo.name &&
+        this.state.famerinfo.name.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.gender &&
+        this.state.famerinfo.gender.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.entryStatus &&
+        this.state.famerinfo.entryStatus.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.vertical &&
+        this.state.famerinfo.vertical.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.latitude &&
+        this.state.famerinfo.latitude.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.longitude &&
+        this.state.famerinfo.longitude.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.state &&
+        this.state.famerinfo.state.replace(/\s/g, "").length !== 0 &&
+        this.state.famerinfo.district &&
+        this.state.famerinfo.district.replace(/\s/g, "").length !== 0
+      ) {
+        if (
+          this.state.famerinfo.latitude > 37 ||
+          this.state.famerinfo.latitude < 8
+        ) {
+          alert("Please set valid Latitude value.(Lattitude - 8′N to 37′N)");
+          let temp = this.state.famerinfo;
+          temp["latitude"] = 0;
+          this.setState({ famerinfo: temp });
         }
-      })
-        .then(res => {
+        if (
+          this.state.famerinfo.longitude > 97 ||
+          this.state.famerinfo.longitude < 68
+        ) {
+          alert("Please set valid Longitude value.(Longitude - 68′E to 97′E)");
+          let temp = this.state.famerinfo;
+          temp["longitude"] = 0;
+          this.setState({ famerinfo: temp });
+        }
+        if (this.state.famerinfo.contactNo !== "") {
+          if (
+            this.state.famerinfo.contactNo.length !== 10 ||
+            (this.state.famerinfo.contactNo.charAt(0) !== "9" &&
+              this.state.famerinfo.contactNo.charAt(0) !== "8" &&
+              this.state.famerinfo.contactNo.charAt(0) !== "7" &&
+              this.state.famerinfo.contactNo.charAt(0) !== "6")
+          ) {
+            alert(
+              "Please set valid Contact Number(10 digit starting with 9/8/7/6)"
+            );
+          }
+        }
+        axios({
+          url: config.addfarmernew,
+          method: "POST",
+          data: this.state.famerinfo,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then(res => {
           if (res.data.data !== null) {
             $.notify(
               {
@@ -311,126 +506,75 @@ class Farmeraddnew extends Component {
                 type: "success"
               }
             );
-            let tempcropobject = this.state.famerinfo.croplist;
-            tempcropobject.farmerId = res.data.data.id;
-            axios({
-              url: config.addcrop,
-              method: "POST",
-              data: tempcropobject,
-              headers: {
-                "Content-Type": "application/json"
-              }
-            })
-              .then(ress => {
-                if (ress.data.data !== null) {
-                  // $.notify(
-                  //   {
-                  //     // options
-                  //     message: "Crop added successfully."
-                  //   },
-                  //   {
-                  //     // settings
-                  //     type: "success"
-                  //   }
-                  // );
-                  let tempimgobject = this.state.famerinfo.imglist;
-                  tempimgobject.map((item, index) => {
-                    if (item.link !== "https://via.placeholder.com/500") {
-                      item.farmerId = res.data.data.id;
-                      axios({
-                        url: config.addimg,
-                        method: "POST",
-                        data: item,
-                        headers: {
-                          "Content-Type": "application/json"
-                        }
-                      })
-                        .then(resss => {
-                          if (
-                            resss.data.data !== null &&
-                            resss.data.data.result
-                          ) {
-                            console.log(
-                              "success in upload of img type " + item.mediaType
-                            );
-                          } else {
-                            console.log(
-                              "error img object" + item.mediaType,
-                              item,
-                              ".ERROR:",
-                              resss.data.error.errorMsg
-                            );
-
-                            $.notify(
-                              {
-                                // options
-                                message:
-                                  "Image addition failed for " + item.mediaType
-                              },
-                              {
-                                // settings
-                                type: "info"
-                              }
-                            );
-                          }
-                        })
-                        .catch(e => {
-                          Swal({
-                            type: "API error",
-                            title: "Oops...",
-                            text: e
-                          });
-                        });
+            let tempimgobject = this.state.famerinfo.imglist;
+            tempimgobject.map((item, index) => {
+              if (item.link !== "https://via.placeholder.com/500") {
+                item.farmerId = res.data.data.id;
+                axios({
+                  url: config.addimg,
+                  method: "POST",
+                  data: item,
+                  headers: {
+                    "Content-Type": "application/json"
+                  }
+                })
+                  .then(resss => {
+                    if (resss.data.data !== null && resss.data.data.result) {
+                      console.log(
+                        "success in upload of img type " + item.mediaType
+                      );
                     } else {
                       console.log(
-                        "skipping " +
-                          item.mediaType +
-                          " img object because no changes found"
+                        "error img object" + item.mediaType,
+                        item,
+                        ".ERROR:",
+                        resss.data.error.errorMsg
+                      );
+
+                      $.notify(
+                        {
+                          // options
+                          message: "Image addition failed for " + item.mediaType
+                        },
+                        {
+                          // settings
+                          type: "info"
+                        }
                       );
                     }
-                    if (index + 1 === tempimgobject.length) {
-                      this.props.handlefarmeraddresponse(res.data.data)
-                    }
+                  })
+                  .catch(e => {
+                    Swal({
+                      type: "API error",
+                      title: "Oops...",
+                      text: e
+                    });
                   });
-                } else {
-                  // alert("Crop Api error:", ress.data.error.errorMsg);
-                  $.notify(
-                    {
-                      // options
-                      message:
-                        "Crop addition failed." + ress.data.error.errorMsg
-                    },
-                    {
-                      // settings
-                      type: "info"
-                    }
-                  );
-                }
-              })
-              .catch(e => {
-                Swal({
-                  type: "API error",
-                  title: "Oops...",
-                  text: e
-                });
-              });
+              } else {
+                console.log(
+                  "skipping " +
+                    item.mediaType +
+                    " img object because no changes found"
+                );
+              }
+              if (index + 1 === tempimgobject.length) {
+                this.props.handlefarmeraddresponse(res.data.data);
+              }
+            });
           } else {
             alert("Add farmer api error:", res.data.error.errorMsg);
           }
-        })
-        .catch(e => {
-          console.log(e);
         });
-    } else {
-      Swal({
-        type: "info",
-        width: "45rem",
-        html:
-          "<h4>Fill valid input in all mandatory fields across all tabs.<br><small> If value not available for crop scetion put NA.</small></h4>"
-      });
+      } else {
+        Swal({
+          type: "info",
+          html: "<h4>Please fill valid input in all mandatory fields.</h4>"
+        });
+      }
     }
   };
   componentDidMount() {
+    
     this.setState({ famerinfo: undefined, backupinfo: undefined });
     let cropschema = {
       farmerId: null,
