@@ -48,6 +48,7 @@ class RmsHeader extends Component {
 }
 class FormLeft extends Component {
   render() {
+    console.log(this.props.rmsvalues.installationDate)
     return (
       <form className="form-horizontal">
         {this.props.rmsvalues.imei !== undefined && (
@@ -61,14 +62,14 @@ class FormLeft extends Component {
                 type="text"
                 className="form-control"
                 id="inputimei"
-                value={this.props.rmsvalues.imei}
+                value={this.props.rmsvalues.imei ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Imei"
               />
             </div>
           </div>
         )}
-        {this.props.rmsvalues.installationDate !== undefined && (
+        {/* {this.props.rmsvalues.installationDate !== undefined && ( */}
           <div className="form-group">
             <label
               htmlFor="inputinstallationDate"
@@ -81,14 +82,14 @@ class FormLeft extends Component {
                 name="installationDate"
                 type="date"
                 className="form-control"
-                id="inputinstallationDate"
-                value={this.props.rmsvalues.installationDate}
+                id="installationDate"
+                value={this.props.rmsvalues.installationDate||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Installation Date"
               />
             </div>
           </div>
-        )}
+        {/* )} */}
         {this.props.rmsvalues.registrationSource !== undefined && (
           <div className="form-group">
             <label
@@ -104,7 +105,7 @@ class FormLeft extends Component {
                 disabled
                 className="form-control"
                 id="inputregsource"
-                value={this.props.rmsvalues.registrationSource}
+                value={this.props.rmsvalues.registrationSource ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Regstration Source"
               />
@@ -126,7 +127,7 @@ class FormLeft extends Component {
                 type="text"
                 className="form-control"
                 id="inputdeviceid"
-                value={this.props.rmsvalues.deviceId}
+                value={this.props.rmsvalues.deviceId ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Device Id"
               />
@@ -147,7 +148,7 @@ class FormLeft extends Component {
                 type="text"
                 className="form-control"
                 id="inputProjectCode"
-                value={this.props.rmsvalues.projectCode}
+                value={this.props.rmsvalues.projectCode ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Project Code"
               />
@@ -168,7 +169,7 @@ class FormLeft extends Component {
                 type="text"
                 className="form-control"
                 id="inputvfdMake"
-                value={this.props.rmsvalues.vfdMake}
+                value={this.props.rmsvalues.vfdMake ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="VFD Make"
               />
@@ -189,7 +190,7 @@ class FormLeft extends Component {
                 type="text"
                 className="form-control"
                 id="inputvfdSno"
-                value={this.props.rmsvalues.vfdSno}
+                value={this.props.rmsvalues.vfdSno ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="VFD Sno"
               />
@@ -240,7 +241,7 @@ class FormLeft extends Component {
             <select
               name="pumpCapability"
               onChange={this.props.handleInputChange}
-              value={this.props.rmsvalues.pumpCapability ||"AC"}
+              value={this.props.rmsvalues.pumpCapability ||"NA"}
               className="form-control"
               id="sel221"
             >
@@ -272,7 +273,7 @@ class FormLeft extends Component {
                 disabled
                 className="form-control"
                 id="inputpumpType"
-                value={this.props.rmsvalues.pumpType}
+                value={this.props.rmsvalues.pumpType ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Pump Type"
               />
@@ -293,7 +294,7 @@ class FormLeft extends Component {
                 type="text"
                 className="form-control"
                 id="inputpumpMake"
-                value={this.props.rmsvalues.pumpMake}
+                value={this.props.rmsvalues.pumpMake ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Pump Make"
               />
@@ -314,7 +315,7 @@ class FormLeft extends Component {
                 type="text"
                 className="form-control"
                 id="inputpumpSno"
-                value={this.props.rmsvalues.pumpSno}
+                value={this.props.rmsvalues.pumpSno ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Pump Sno"
               />
@@ -336,7 +337,7 @@ class FormLeft extends Component {
                 type="text"
                 className="form-control"
                 id="inputpanelMake"
-                value={this.props.rmsvalues.panelMake}
+                value={this.props.rmsvalues.panelMake ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Panel Make"
               />
@@ -357,7 +358,7 @@ class FormLeft extends Component {
                 type="text"
                 className="form-control"
                 id="inputpanelWP"
-                value={this.props.rmsvalues.panelWP}
+                value={this.props.rmsvalues.panelWP ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Panel WP"
               />
@@ -387,7 +388,7 @@ class FormRight extends Component {
                 disabled
                 className="form-control"
                 id="inputrmsAvailability"
-                value={this.props.rmsvalues.rmsAvailability}
+                value={this.props.rmsvalues.rmsAvailability ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="RMS Availability"
               />
@@ -408,7 +409,7 @@ class FormRight extends Component {
                 type="text"
                 className="form-control"
                 id="inputrmsVendorId"
-                value={this.props.rmsvalues.rmsVendorId}
+                value={this.props.rmsvalues.rmsVendorId ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="RMS Vendor ID"
               />
@@ -430,7 +431,7 @@ class FormRight extends Component {
                 disabled
                 className="form-control"
                 id="inputfarmerId"
-                value={this.props.rmsvalues.farmerId}
+                value={this.props.rmsvalues.farmerId||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Farmer ID"
               />
@@ -451,7 +452,7 @@ class FormRight extends Component {
                 type="text"
                 className="form-control"
                 id="inputinstate"
-                value={this.props.rmsvalues.state}
+                value={this.props.rmsvalues.state ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="State"
               />
@@ -472,7 +473,7 @@ class FormRight extends Component {
                 type="text"
                 className="form-control"
                 id="inputdistrict"
-                value={this.props.rmsvalues.district}
+                value={this.props.rmsvalues.district ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="District"
               />
@@ -491,7 +492,7 @@ class FormRight extends Component {
                 type="text"
                 className="form-control"
                 id="inputblock"
-                value={this.props.rmsvalues.block}
+                value={this.props.rmsvalues.block ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Block"
               />
@@ -512,7 +513,7 @@ class FormRight extends Component {
                 type="text"
                 className="form-control"
                 id="inputvillage"
-                value={this.props.rmsvalues.village}
+                value={this.props.rmsvalues.village ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Village"
               />
@@ -533,7 +534,7 @@ class FormRight extends Component {
                 type="text"
                 className="form-control"
                 id="inputhabitation"
-                value={this.props.rmsvalues.habitation}
+                value={this.props.rmsvalues.habitation ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Habitation"
               />
@@ -551,7 +552,7 @@ class FormRight extends Component {
                 type="text"
                 className="form-control"
                 id="inputdepth"
-                value={this.props.rmsvalues.depth}
+                value={this.props.rmsvalues.depth ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Depth"
               />
@@ -595,7 +596,7 @@ class FormRight extends Component {
                 type="text"
                 className="form-control"
                 id="inputapplication"
-                value={this.props.rmsvalues.application}
+                value={this.props.rmsvalues.application ||""}
                 onChange={this.props.handleInputChange}
                 placeholder="Application"
               />
