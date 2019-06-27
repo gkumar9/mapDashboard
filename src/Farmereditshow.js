@@ -196,6 +196,12 @@ class Farmereditshow extends Component {
                         </div>
                       </div>
                       <div className="row farmerinforow">
+                        <div className="col-xs-6 farmerinforowtitle">Intervention Size</div>
+                        <div className="col-xs-6">
+                          {this.props.famerinfo.interventionSize || "NA"}
+                        </div>
+                      </div>
+                      <div className="row farmerinforow">
                         <div className="col-xs-6 farmerinforowtitle">
                           Govt Card Holder
                         </div>
@@ -224,7 +230,7 @@ class Farmereditshow extends Component {
                           Total Land Size
                         </div>
                         <div className="col-xs-6">
-                          {this.props.famerinfo.totalLandSize || "NA"}
+                          {this.props.famerinfo.totalLandSize || "NA"} Sq. Ft.
                         </div>
                       </div>
                       <div className="row farmerinforow">
@@ -232,7 +238,7 @@ class Farmereditshow extends Component {
                           Income from Land
                         </div>
                         <div className="col-xs-6">
-                          {this.props.famerinfo.incomeFromLand || "NA"}
+                          {this.props.famerinfo.incomeFromLand || "NA"} Rs.
                         </div>
                       </div>
                     </div>

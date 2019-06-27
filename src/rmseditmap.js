@@ -37,8 +37,10 @@ import {
   withGoogleMap
 )(props => (
   <GoogleMap
-    defaultZoom={8}
+    defaultZoom={7}
     defaultCenter={{ lat: 22.845625996700075, lng: 78.9629 }}
+    options={{streetViewControl: false,
+      fullscreenControl:false}}
   >
     <Marker
       position={{ lat: 22.845625996700075, lng: 78.9629 }}

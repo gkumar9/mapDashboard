@@ -382,6 +382,20 @@ class Farmeredit extends Component {
                     </div>
                   </div>
                   <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">Intervention Size</div>
+                    <div className="col-xs-6">
+                      <input
+                        name="interventionSize"
+                        type="number"
+                        className="form-control"
+                        id="interventionSize"
+                        value={this.props.famerinfo.interventionSize || ""}
+                        onChange={this.props.handleInputChange}
+                        placeholder="interventionSize"
+                      />
+                    </div>
+                  </div>
+                  <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
                       Govt Card Holder
                     </div>
@@ -416,7 +430,18 @@ class Farmeredit extends Component {
                       House Type
                     </div>
                     <div className="col-xs-6">
-                      <input
+                      <select
+                        name="houseType"
+                        onChange={this.props.handleInputChange}
+                        value={this.props.famerinfo.houseType || "NA"}
+                        className="form-control"
+                        id="selhouse"
+                      >
+                        <option value="brick">Brick</option>
+                        <option value="mud">Mud</option>
+                        <option value="NA">NA</option>
+                      </select>
+                      {/* <input
                         name="houseType"
                         type="text"
                         className="form-control"
@@ -424,12 +449,12 @@ class Farmeredit extends Component {
                         value={this.props.famerinfo.houseType || ""}
                         onChange={this.props.handleInputChange}
                         placeholder="House Type"
-                      />
+                      /> */}
                     </div>
                   </div>
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
-                      Total Land Size
+                      Total Land Size (ha)
                     </div>
                     <div className="col-xs-6">
                       <input
@@ -445,7 +470,7 @@ class Farmeredit extends Component {
                   </div>
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
-                      Income from Land
+                      Income from Land (Rs.)
                     </div>
                     <div className="col-xs-6">
                       <input
@@ -455,7 +480,7 @@ class Farmeredit extends Component {
                         id="incomeFromLand"
                         value={this.props.famerinfo.incomeFromLand || "0"}
                         onChange={this.props.handleInputChange}
-                        placeholder="Income From Land in rupee"
+                        placeholder="Income From Land in Rupees"
                       />
                     </div>
                   </div>
@@ -490,7 +515,6 @@ class Farmeredit extends Component {
                             {item}
                           </option>
                         ))}
-                        <option value="NA">NA</option>
                       </select>
                     </div>
                   </div>
@@ -521,7 +545,6 @@ class Farmeredit extends Component {
                                 </option>
                               )
                             )}
-                            <option value="NA">NA</option>
                           </select>
                         )}
                     </div>

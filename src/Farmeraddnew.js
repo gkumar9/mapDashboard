@@ -384,7 +384,7 @@ class Farmeraddnew extends Component {
                           })
                           .catch(e => {
                             Swal({
-                              type: "API error",
+                              type: "error",
                               title: "Oops...",
                               text: e
                             });
@@ -401,7 +401,7 @@ class Farmeraddnew extends Component {
                       }
                     });
                   } else {
-                    // alert("Crop Api error:", ress.data.error.errorMsg);
+                    // alert("Crop error:", ress.data.error.errorMsg);
                     $.notify(
                       {
                         // options
@@ -417,13 +417,13 @@ class Farmeraddnew extends Component {
                 })
                 .catch(e => {
                   Swal({
-                    type: "API error",
+                    type: "error",
                     title: "Oops...",
                     text: e
                   });
                 });
             } else {
-              alert("Add farmer api error:", res.data.error.errorMsg);
+              alert("Add farmer error:", res.data.error.errorMsg);
             }
           })
           .catch(e => {
@@ -545,7 +545,7 @@ class Farmeraddnew extends Component {
                   })
                   .catch(e => {
                     Swal({
-                      type: "API error",
+                      type: "error",
                       title: "Oops...",
                       text: e
                     });
@@ -562,7 +562,7 @@ class Farmeraddnew extends Component {
               }
             });
           } else {
-            alert("Add farmer api error:", res.data.error.errorMsg);
+            alert("Add farmer error:", res.data.error.errorMsg);
           }
         });
       } else {
@@ -574,7 +574,6 @@ class Farmeraddnew extends Component {
     }
   };
   componentDidMount() {
-    
     this.setState({ famerinfo: undefined, backupinfo: undefined });
     let cropschema = {
       farmerId: null,
@@ -1079,6 +1078,20 @@ class Farmeraddnew extends Component {
                           </div>
                         </div>
                         <div className="row farmerinforow">
+                          <div className="col-xs-6 farmerinforowtitle">Intervention Size</div>
+                          <div className="col-xs-6">
+                            <input
+                              name="interventionSize"
+                              type="number"
+                              className="form-control"
+                              id="interventionSize"
+                              value={this.state.famerinfo.interventionSize || ""}
+                              onChange={this.handleInputChange}
+                              placeholder="Intervention Size"
+                            />
+                          </div>
+                        </div>
+                        <div className="row farmerinforow">
                           <div className="col-xs-6 farmerinforowtitle">
                             Govt Card Holder
                           </div>
@@ -1115,7 +1128,18 @@ class Farmeraddnew extends Component {
                             House Type
                           </div>
                           <div className="col-xs-6">
-                            <input
+                            <select
+                              name="houseType"
+                              onChange={this.handleInputChange}
+                              value={this.state.famerinfo.houseType || "NA"}
+                              className="form-control"
+                              id="selhouse"
+                            >
+                              <option value="brick">Brick</option>
+                              <option value="mud">Mud</option>
+                              <option value="NA">NA</option>
+                            </select>
+                            {/* <input
                               name="houseType"
                               type="text"
                               className="form-control"
@@ -1123,12 +1147,12 @@ class Farmeraddnew extends Component {
                               value={this.state.famerinfo.houseType || ""}
                               onChange={this.handleInputChange}
                               placeholder="House Type"
-                            />
+                            /> */}
                           </div>
                         </div>
                         <div className="row farmerinforow">
                           <div className="col-xs-6 farmerinforowtitle">
-                            Total Land Size
+                            Total Land Size (ha)
                           </div>
                           <div className="col-xs-6">
                             <input

@@ -94,13 +94,13 @@ class Farmer extends Component {
       farmerlist: [],
       searchvariantselected: "name",
       verticalsearchvariantselected: "NA",
+      statesearchvariantselected: "",
       famerinfo: {},
       searchtext: "",
       backupinfo: {},
       scrollcount: 0,
       backupimglist: [],
       backupcroplist: 0,
-      // backuppumplist: [],
       searchscrollcount: 0,
       searchhasmore: false,
       cropschema: undefined,
@@ -139,6 +139,7 @@ class Farmer extends Component {
               searchscrollcount: tempsearchscrollcount,
               searchhasmore: res.data.data.hasMore
             });
+            
           } else {
             let temp = [{ name: "No result found", id: null }];
             this.setState({
@@ -179,6 +180,20 @@ class Farmer extends Component {
               searchscrollcount: tempsearchscrollcount,
               searchhasmore: res.data.data.hasMore
             });
+            this.handleclick(res.data.data.list[0])
+            $(".list-group-item").click(function() {
+              var listItems = $(".list-group-item"); //Select all list items
+
+              //Remove 'active' tag for all list items
+              for (let i = 0; i < listItems.length; i++) {
+                listItems[i].classList.remove("active");
+              }
+
+              //Add 'active' tag for currently selected item
+              this.classList.add("active");
+            });
+            var listItems = $(".list-group-item");
+            listItems[1].classList.add("active");
           } else {
             let temp = [{ name: "No result found", id: null }];
             this.setState({
@@ -206,7 +221,7 @@ class Farmer extends Component {
     }
   };
   handleclick = item => {
-    if (item.id !== null) {
+    if (item.id !== null&&item.id !== undefined) {
       axios({
         url: config.getfarmer + item.id,
         method: "POST",
@@ -340,6 +355,12 @@ class Farmer extends Component {
             text: e
           });
         });
+    }
+    else{
+      Swal({
+        type: "error",
+        title: "ID not found"
+      });
     }
   };
   handlefarmeraddresponse = object => {
@@ -883,6 +904,12 @@ class Farmer extends Component {
   //   this.handlesearch({ ["target"]: { ["value"]: "" } });
   // };
   handlesearchselect = async event => {
+    var listItems = $(".list-group-item"); //Select all list items
+
+    //Remove 'active' tag for all list items
+    for (let i = 0; i < listItems.length; i++) {
+      listItems[i].classList.remove("active");
+    }
     if (event.target.value === "vertical") {
       await this.setState({
         searchvariantselected: event.target.value,
@@ -892,7 +919,19 @@ class Farmer extends Component {
 
       this.handlesearch({ ["target"]: { ["value"]: "Solar Irrigation Pump" } });
       document.getElementById("normaltextsearch").style.display = "none";
+      document.getElementById("statedropdownsearch").style.display = "none";
       document.getElementById("verticaldropdownsearch").style.display = "block";
+    } else if (event.target.value === "state") {
+      await this.setState({
+        searchvariantselected: event.target.value,
+        statesearchvariantselected: "Bihar",
+        searchtext: ""
+      });
+
+      this.handlesearch({ ["target"]: { ["value"]: "Bihar" } });
+      document.getElementById("normaltextsearch").style.display = "none";
+      document.getElementById("verticaldropdownsearch").style.display = "none";
+      document.getElementById("statedropdownsearch").style.display = "block";
     } else {
       await this.setState({
         searchvariantselected: event.target.value,
@@ -900,11 +939,16 @@ class Farmer extends Component {
       });
       this.handlesearch({ ["target"]: { ["value"]: "" } });
       document.getElementById("normaltextsearch").style.display = "block";
+      document.getElementById("statedropdownsearch").style.display = "none";
       document.getElementById("verticaldropdownsearch").style.display = "none";
     }
   };
   handleverticalsearchselect = event => {
     this.setState({ verticalsearchvariantselected: event.target.value });
+    this.handlesearch(event);
+  };
+  handlestatesearchselect = event => {
+    this.setState({ statesearchvariantselected: event.target.value });
     this.handlesearch(event);
   };
   getfarmerlist = () => {
@@ -1115,7 +1159,7 @@ class Farmer extends Component {
   };
   componentDidMount() {
     let self = this;
-
+    
     $("#maptable").scroll(function() {
       if (
         $(this).scrollTop() + $(this).innerHeight() >=
@@ -1320,6 +1364,25 @@ class Farmer extends Component {
                         placeholder="Search"
                         aria-label="..."
                       />
+                    </div>
+                    <div
+                      id="statedropdownsearch"
+                      className="col-xs-8"
+                      style={{ paddingLeft: "0", display: "none" }}
+                    >
+                      <select
+                        name="stateselectkey"
+                        onChange={this.handlestatesearchselect}
+                        value={this.state.statesearchvariantselected || ""}
+                        className="form-control"
+                        id="sel1111"
+                      >
+                        {Object.keys(statedistrict).map(item => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div
                       id="verticaldropdownsearch"
