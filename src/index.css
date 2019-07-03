@@ -1,3 +1,17 @@
+
+@font-face{
+  font-family: 'gotham-light';
+  src: url('Gotham-Light.otf');
+}
+@font-face{
+  font-family: 'gotham-bold';
+  src: url('Gotham-Bold.otf');
+}
+@font-face{
+  font-family: 'gotham-medium';
+  src: url('GothamMedium.ttf');
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -190,8 +204,9 @@ a.disabled {
   background-color: #e3e1d2;
 }
 .verticalLine {
-  border-right: 1.5px solid #aab;
-  margin: auto;
+  border-right: 2px solid #77a;
+  display: flex;
+  min-height: 22px;
 }
 .container {
   padding: 0;
@@ -279,8 +294,9 @@ input[type="radio"] {
   width: 54%;
 }
 .main_sidebar ul li:hover {
-  background: #3a50fc;
+  background: #b12d28;
   opacity: 1;
+  /* filter: brightness(100) */
 }
 .main_sidebar ul li a {
   color: #fff;
@@ -292,19 +308,27 @@ input[type="radio"] {
 }
 .main_sidebar ul li i {
   color: #aaa;
+  filter: saturate(0);
+}
+/* .main_sidebar ul li i img{
+  filter: brightness(0)
+} */
+.main_sidebar ul li i:hover{
+  filter: saturate(1)
 }
 .main_sidebar ul li:hover i {
   color: black;
 }
 .main_sidebar ul li.active {
-  background: #3a50fc;
+  background: #b12d28;
   opacity: 1;
 }
 .main_sidebar ul li.active i {
   color: black;
+  filter: saturate(1);
 }
 .main_sidebar ul li.active:hover {
-  background: #3a50fc;
+  background: #b12d28;
 }
 .main_sidebar ul li.active:hover i {
   color: black;

@@ -44,34 +44,37 @@ class Header extends Component {
                 <span className="icon-bar" />
               </button>
               <a className="navbar-brand" href="/home">
-                <img src="https://claroenergy.in/wp-content/themes/claro/images/temp/logo.png" alt="logo" />
+                <img
+                  src="https://claroenergy.in/wp-content/themes/claro/images/temp/logo.png"
+                  alt="logo"
+                />
               </a>
             </div>
             <div id="navbar1" className="navbar-collapse collapse gaurav">
               <ul className="nav navbar-nav">
-              {/* <li className="sidebarheader">
+                {/* <li className="sidebarheader">
                 <Link to="/">
                     <img alt="irrigation" src={HOME} />
                     Home
                     </Link>
                 </li> */}
                 <li className="sidebarheader">
-                <Link to="/rms">
+                  <Link to="/rms">
                     <img alt="irrigation" src={RMS} />
                     RMS
-                    </Link>
+                  </Link>
                 </li>
-                
+
                 <li className="sidebarheader">
                   <a>
                     <span className="verticalLine" />
                   </a>
                 </li>
                 <li className="sidebarheader">
-                <Link to="/iaas">
+                  <Link to="/iaas">
                     <img alt="patvan" src={IAAS} />
                     IAAS
-                </Link>
+                  </Link>
                 </li>
                 <li className="sidebarheader">
                   <a>
@@ -79,7 +82,7 @@ class Header extends Component {
                   </a>
                 </li>
                 <li className="sidebarheader">
-                  <a >
+                  <a>
                     <img alt="DRINKING_WATER_PUMP" src={ROOFTOP} />
                     Rooftop
                   </a>
@@ -90,7 +93,7 @@ class Header extends Component {
                   </a>
                 </li>
                 <li className="sidebarheader">
-                  <a >
+                  <a>
                     <img alt="Minigrid" src={MINIGRID} />
                     Minigrid
                   </a>
@@ -101,17 +104,27 @@ class Header extends Component {
                   </a>
                 </li>
                 <li className="sidebarheader">
-                <Link to="/farmer">
+                  <Link to="/farmer">
                     <img alt="Minigrid" src={FARMER} />
                     Farmer
                   </Link>
                 </li>
                 <li className="headerdivider" />
                 <li>
-                  <a style={{cursor:'default'}}>Welcome User</a>
+                  <a
+                    style={{
+                      color: "#b12d28",
+                      fontSize: "1.1em",
+                      cursor: "default",
+                      fontFamily: "gotham-light",
+                      fontWeight: "600"
+                    }}
+                  >
+                    Welcome User
+                  </a>
                 </li>
                 <li>
-                  <a>
+                  <a style={{ padding: "14px 1px" }}>
                     <span className="verticalLine" />
                   </a>
                 </li>
@@ -120,18 +133,24 @@ class Header extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                     href="../OpsDashboard/index.html"
+                    style={{
+                      color: "#b12d28",
+                      fontSize: "1.1em",
+                      fontFamily: "gotham-light",
+                      fontWeight: "600"
+                    }}
                   >
                     Operations
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a>
                     <span className="verticalLine" />
                   </a>
                 </li>
                 <li>
                   <a onClick={this.handleSignout}>Sign Out</a>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

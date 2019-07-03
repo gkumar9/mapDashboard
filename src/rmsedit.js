@@ -256,7 +256,8 @@ class FormLeft extends Component {
               >
                 <option value="1HP">1HP</option>
                 <option value="2HP">2HP</option>
-                <option value="5HP">2HP</option>
+                <option value="3HP">3HP</option>
+                <option value="5HP">5HP</option>
                 <option value="7.5HP">7.5HP</option>
                 <option value="10HP">10HP</option>
                 <option value="NA">NA</option>

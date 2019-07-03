@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import RMS from "./pins/RMS.png";
-import IAAS from "./pins/IAAS.png";
+import RMS from "./pins/RMS 2.png";
+import IAAS from "./pins/IAAS 2.png";
 import MINIGRID from "./pins/Minigrid(2).png";
-import HOME from "./pins/ROOFTOP.png";
+import HOME from "./pins/Home_BW.png";
+import HOMEACTIVE from "./pins/Home.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
-import FARMER from "./pins/user1.png";
+import FARMER from "./pins/Farmer 2.png";
 class Sidebar extends Component {
   render() {
     return (
@@ -26,7 +27,7 @@ class Sidebar extends Component {
                 <img
                   alt="home"
                   style={{ width: "45%", marginLeft: "3px" }}
-                  src={HOME}
+                  src={HOMEACTIVE}
                 />
               </i>
             </li>
