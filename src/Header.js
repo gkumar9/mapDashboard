@@ -44,7 +44,7 @@ class Header extends Component {
                 <span className="icon-bar" />
               </button>
               <a className="navbar-brand" href="/home">
-                <img src={logo} alt="logo" />
+                <img src="https://claroenergy.in/wp-content/themes/claro/images/temp/logo.png" alt="logo" />
               </a>
             </div>
             <div id="navbar1" className="navbar-collapse collapse gaurav">

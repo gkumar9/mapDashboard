@@ -53,7 +53,7 @@ class iaas extends Component {
                   <IaasSidebar statsdata={this.state.statsdata}/>
                   <div className="col-xs-10">
                     <div>
-                        <ul className="nav nav-tabs" role="tablist" style={{'marginLeft':'-16px'}}>
+                        <ul className="nav nav-tabs" role="tablist" style={{'marginLeft':'-12px'}}>
                           <li role="presentation" className="active"><a style={{'color':'#666666'}} href="#home" aria-controls="home" role="tab" data-toggle="tab">Revenue Timeline</a></li>
                           <li role="presentation"><a style={{'color':'#666666'}} href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Patvan's Revenue</a></li>
                           <li role="presentation"><a style={{'color':'#666666'}} href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Operations per Transaction</a></li>

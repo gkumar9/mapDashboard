@@ -192,7 +192,7 @@ const MapWithAMarkerClusterer = compose(
         // }
       ]}
       enableRetinaIcons
-      gridSize={60}
+      gridSize={65}
     />
     
     {props.isOpen && props.InfoWindowobject !== null && (

@@ -67,7 +67,7 @@ class Filter extends Component {
                 <span style={{ fontSize: "20px", margin: "5px" }}>Filters</span>
               </div>
             </div>
-            <div id="navbar2" className="navbar-collapse collapse">
+            <div id="navbar2" className="navbar-collapse collapse" >
               <ul className="nav navbar-nav">
                 <li style={{ width: "147px" }} className="filterItem">
                   <input

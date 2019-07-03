@@ -133,8 +133,6 @@ ul {
   display: none;
 }
 a.disabled {
-  /*pointer-events: none;
- */
   cursor: not-allowed;
 }
 .filterbuttonreset {
@@ -143,7 +141,6 @@ a.disabled {
   float: right;
   border-radius: 0;
   border-color: blue;
-  /* border-width: 1.2px; */
   color: blue;
   outline: none !important;
   width: 8%;
@@ -185,8 +182,6 @@ a.disabled {
 }
 .filterIcon {
   display: none;
-  /*transform: rotate(90deg);
- */
 }
 .navbar-default {
   background-color: white;
@@ -230,8 +225,6 @@ a.disabled {
 }
 .main {
   -webkit-box-flex: 3;
-  /*-ms-flex: 3;
- */
   flex: 3;
   -webkit-box-ordinal-group: 3;
   -ms-flex-order: 2;
@@ -363,15 +356,6 @@ input[type="radio"] {
   top: 278px !important;
   text-shadow: 0 0 0px black;
 }
-/*#map div div div:last-child div:last-child div div div:nth-child(3) {
-  left: 0 !important;
-  top: 30px !important;
-  border-top-width: 24px;
-  position: absolute;
-  transform: rotate(90deg);
-}
-*/
-
 #root
   > div
   > div
@@ -493,7 +477,6 @@ input[type="radio"] {
 .portal span {
   margin-right: 10px;
 }
-/********************************** Responsive navbar-brand image CSS - Remove navbar-brand padding for firefox bug workaround - add 100% height and width auto ... similar to how bootstrap img-responsive class works ***********************************/
 .navbar-brand {
   padding: 0px;
 }
@@ -502,6 +485,12 @@ input[type="radio"] {
   margin-left: 8px;
   padding: 5px;
   width: 60%;
+}
+.backbuttoniaas{
+  float: right;
+  margin-top: -50px;
+  margin-right: 30px;
+  background-color: #f2f2f2;
 }
 @media (min-width: 200px) {
   .container {
@@ -516,7 +505,34 @@ input[type="radio"] {
     }
   }
 }
+@media screen and (max-width: 480px) {
+  .nav {
+      padding-left:2px;
+      padding-right:2px;
+  }
+  .nav li {
+      display:block !important;
+      width:100%;
+      margin:0px;
+  }
+  .nav li.active {
+      border-bottom:1px solid #ddd!important;
+      margin: 0px;
+  }
+}
 @media (max-width: 770px) {
+  .backbuttoniaas{
+  margin-top: 0;
+  margin-right: 0;
+  }
+  
+  #container1{
+    margin-top:10px !important;
+  }
+  .navbar-brand > img{
+    margin-left: 0;
+    width:55%;
+  }
   .rmssidebar {
     display: none;
   }
@@ -532,12 +548,21 @@ input[type="radio"] {
   .btn .caret {
     transform: rotate(180deg);
   }
+  #navbar2{
+    padding: 1em;
+  }
+  .main .col-xs-10{
+    width: 100%;
+  }
   .filterbuttonreset {
     float: right;
     width: 43%;
+    margin-right: 6px
   }
   .filterbuttonapply {
     float: left;
+    margin-left: 12px;
+    margin-right: 0;
     width: 43%;
   }
   .sidebarheader {
@@ -631,7 +656,7 @@ input[type="radio"] {
     display: none;
   }
 }
-/* EXAMPLE 9 - Center with Flexbox and Text*/
+
 .brand-centered {
   display: flex;
   justify-content: center;
@@ -647,7 +672,6 @@ input[type="radio"] {
 .navbar-toggle {
   z-index: 1;
 }
-/* CSS Transform Align Navbar Brand Text ... This could also be achieved with table / table-cells */
 .navbar-alignit .navbar-header {
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
@@ -666,9 +690,6 @@ input[type="radio"] {
 .navbar-nav > li > .dropdown-menu {
   z-index: 9999;
 }
-/* body {
-  font-family: "Lato" !important;
-} */
 
 .rmsedithead {
   margin-left: 1.5em;
@@ -701,19 +722,6 @@ input[type="radio"] {
   top: 0px;
   left: 0;
 }
-/* #root > div > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div > div > div > div{
-  overflow: hidden !important;
-  width: -webkit-fill-available;
-    max-width: -webkit-fill-available !important;
-}
-#root > div > div > div.mainbody > div > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(4) > div > div > div > div{
-  padding: 0 !important;
-  width: 800px;
-  max-width: -webkit-fill-available !important;
-  background-color: #FFFFFF;
-  border: 1px solid #e6e6e6;
-  left: 0px
-} */
 .gm-style .gm-style-iw-t::after {
   background-color: #ffffff;
 }
@@ -863,17 +871,10 @@ input[type="radio"] {
 .farmerinfoheader{
   padding: 1em;
   margin-left: 0; 
-  /* color:#777; */
-  /* border-top-left-radius: 4px;
-  border-top-right-radius: 4px; */
   border: 1px solid #ddd;
   border-bottom:0;
 }
 .farmerinfobody{
-  /* font-size: 1.2em; */
-  /* max-height: 60vh; */
-  /* overflow: scroll; */
-  /* padding: 1em; */
   margin-left: 0; 
   color:#777;
 }
@@ -888,12 +889,10 @@ input[type="radio"] {
   margin-top: 0.3em;
 }
 .farmerlists{
-  /* margin-top: 0.8em; */
   max-height: 72vh;
   overflow: scroll;
 }
 label {
-  /* font-weight: 500 !important; */
   color: black;
 }
 .cancelbutton:hover {
@@ -908,20 +907,6 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 .list-group-item-text{
   font-size: 14px;
 }
-/* .gauravwww ::-webkit-scrollbar {
-  width: 10px;
-  
-}
-
-.gauravwww ::-webkit-scrollbar-track {
-  -webkit-box-shadow: 5px 10px #888888;
-  border-radius: 8px;
-}
-
-.gauravwww ::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  -webkit-box-shadow: inset 0 0 6px #888888; 
-} */
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
   background-color:white;
   color: black;
@@ -934,9 +919,6 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   width: 0.5em;
 }
 
-/* #maptable::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-} */
 
 #maptable::-webkit-scrollbar-thumb {
 background-color: darkgrey;
@@ -945,25 +927,19 @@ outline: 1px solid slategrey;
 
 .kycbody{
   padding-left: 0.5em;
-  /* padding-top: 0.5em; */
-/* padding-left: 1em; */
 }
 .farmerinfobody  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
   background-color: transparent !important;
 }
 .farmerinfobody .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
-  /* color: #555; */
   cursor: default;
   background-color: transparent;
   border: 0;
-  /* border-bottom-color: blue; */
   border-bottom: 0.1em solid blue;
 }
 .farmerinfobody .nav-tabs>li>a:hover{
   background-color: transparent;
   border-bottom: 0.1em solid gray;
-  /* border: 0; */
-  /* border-color:transparent; */
 }
 .farmerinfobody .nav-tabs>li>a{
   border:0;
@@ -971,22 +947,15 @@ outline: 1px solid slategrey;
 .vertical .nav-tabs{
   border-bottom:0;
 }
-/* .vertical .farmerinfobody .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
-  border-bottom:0.1em solid #9c7766
-} */
+
 .imglistbody{
-  /* width:65%; */
-  /* height: 17vh; */
   overflow: hidden;
   top: 0;
     right: 0;
     left: 0;
     height: 120px;
-  /* display: flex;
-  margin: 0 auto; */
 }
 .imglistbody img {
-  /* margin: auto; */
     position: absolute;
     top: 0px;
     right: 0px;

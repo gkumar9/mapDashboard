@@ -436,14 +436,10 @@ class IaasRevenue extends Component {
           <button
             id="drillUp"
             type="button"
-            className="btn btn-default"
+            className="btn btn-default backbuttoniaas"
             aria-label="Left Align"
             style={{
-              display: "none",
-              float: "right",
-              marginTop: "-50px",
-              marginRight: "30px",
-              backgroundColor: "#f2f2f2"
+              display: "none"
             }}
           >
             <span
