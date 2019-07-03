@@ -54,51 +54,58 @@ class FormLeft extends Component {
   render() {
     return (
       <form className="form-horizontal">
-        {this.props.rmsvendorimeicheck === true ? (
-          <div className="form-group">
-            <label
-              htmlFor="inputimei"
-              className="col-sm-6 farmerinforowtitle "
-              data-toggle="popover"
-              data-placement="right"
-              data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-            >
-              Imei
-            </label>
-            <div className="col-sm-6">
-              <input
-                name="imei"
+        {this.props.rmsvalues.rmsVendorId !== undefined && (
+          <div>
+            <div className="form-group">
+              <label
+                htmlFor="inputrmsVendorId"
+                className="col-sm-6 farmerinforowtitle"
+              >
+                RMS Vendor ID
+              </label>
+              <div className="col-sm-6">
+                {/* <input
+                name="rmsVendorId"
                 type="text"
                 className="form-control"
-                id="inputimei"
-                value={this.props.rmsvalues.imei || ""}
+                id="inputrmsVendorId"
+                value={this.props.rmsvalues.rmsVendorId || ""}
                 onChange={this.props.handleInputChange}
-                placeholder="Imei"
-              />
+                placeholder="RMS Vendor ID"
+              /> */}
+                <select
+                  name="rmsVendorId"
+                  value={this.props.rmsvalues.rmsVendorId || ""}
+                  onChange={this.props.handleInputChange}
+                  className="form-control"
+                  id="selrmsvendorid"
+                >
+                  {this.props.rmsvendoridlist.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className="form-group">
-            <label
-              htmlFor="inputvfdSno"
-              className="col-sm-6 farmerinforowtitle"
-            >
-              VFD Sno
-            </label>
-            <div className="col-sm-6">
-              <input
-                name="vfdSno"
-                type="text"
-                className="form-control"
-                id="inputvfdSno"
-                value={this.props.rmsvalues.vfdSno || ""}
-                onChange={this.props.handleInputChange}
-                placeholder="VFD Sno"
-              />
+            <div className="form-group">
+              <label
+                htmlFor="rmsvendorname"
+                className="col-sm-6 farmerinforowtitle"
+              >
+                RMS Vendor Name
+              </label>
+              <div className="col-sm-6">
+                <input
+                  className="form-control"
+                  disabled
+                  value={this.props.rmsvendoridlistnameselected}
+                />
+              </div>
             </div>
           </div>
         )}
-        {/* {this.props.rmsvalues.installationDate !== undefined && ( */}
+
         <div className="form-group">
           <label
             htmlFor="inputinstallationDate"
@@ -256,7 +263,8 @@ class FormLeft extends Component {
               >
                 <option value="1HP">1HP</option>
                 <option value="2HP">2HP</option>
-                <option value="5HP">2HP</option>
+                <option value="3HP">3HP</option>
+                <option value="5HP">5HP</option>
                 <option value="7.5HP">7.5HP</option>
                 <option value="10HP">10HP</option>
                 <option value="NA">NA</option>
@@ -401,40 +409,51 @@ class FormRight extends Component {
             </div>
           </div>
         )} */}
-        {this.props.rmsvalues.rmsVendorId !== undefined && (
+        {this.props.rmsvendorimeicheck === true ? (
           <div className="form-group">
             <label
-              htmlFor="inputrmsVendorId"
-              className="col-sm-6 farmerinforowtitle"
+              htmlFor="inputimei"
+              className="col-sm-6 farmerinforowtitle "
+              data-toggle="popover"
+              data-placement="right"
+              data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
             >
-              RMS Vendor ID
+              Imei
             </label>
             <div className="col-sm-6">
-              {/* <input
-                name="rmsVendorId"
+              <input
+                name="imei"
                 type="text"
                 className="form-control"
-                id="inputrmsVendorId"
-                value={this.props.rmsvalues.rmsVendorId || ""}
+                id="inputimei"
+                value={this.props.rmsvalues.imei || ""}
                 onChange={this.props.handleInputChange}
-                placeholder="RMS Vendor ID"
-              /> */}
-              <select
-                name="rmsVendorId"
-                value={this.props.rmsvalues.rmsVendorId || ""}
-                onChange={this.props.handleInputChange}
+                placeholder="Imei"
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="form-group">
+            <label
+              htmlFor="inputvfdSno"
+              className="col-sm-6 farmerinforowtitle"
+            >
+              VFD Sno
+            </label>
+            <div className="col-sm-6">
+              <input
+                name="vfdSno"
+                type="text"
                 className="form-control"
-                id="selrmsvendorid"
-              >
-                {this.props.rmsvendoridlist.map((item, index) => (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+                id="inputvfdSno"
+                value={this.props.rmsvalues.vfdSno || ""}
+                onChange={this.props.handleInputChange}
+                placeholder="VFD Sno"
+              />
             </div>
           </div>
         )}
+
         {/* {this.props.rmsvalues.farmerId !== undefined && (
           <div className="form-group">
             <label
@@ -713,7 +732,11 @@ class FormRight extends Component {
 class Rmsedit extends Component {
   constructor(props) {
     super(props);
-    this.state = { rmsvalues: {}, rmsvendorimeicheck: false };
+    this.state = {
+      rmsvalues: {},
+      rmsvendorimeicheck: false,
+      rmsvendoridlistnameselected: ""
+    };
     this.rmsvendoridlist = [
       "1001",
       "1006",
@@ -726,6 +749,19 @@ class Rmsedit extends Component {
       "1007",
       "1010",
       "1009"
+    ];
+    this.rmsvendoridlistname = [
+      { "1001": "Unique" },
+      { "1002": "Analogics" },
+      { "1003": "Rotosol" },
+      { "1004": "Shakti_AC" },
+      { "1005": "Shakti_DC" },
+      { "1006": "CLARO_AC" },
+      { "1007": "Metrics" },
+      { "1008": "FUJI" },
+      { "1009": "Raydean" },
+      { "1010": "Ecozen" },
+      { NA: "NA" }
     ];
     this.imeilist = ["1001", "1006", "1007", "1008", "1009"];
   }
@@ -743,7 +779,6 @@ class Rmsedit extends Component {
     this.forceUpdate();
   };
   componentDidMount() {
-    
     if (this.props.location.state !== undefined) {
       // console.log(this.props.location.state.detail);
       axios({
@@ -756,7 +791,24 @@ class Rmsedit extends Component {
       })
         .then(res => {
           if (res.data.data !== null) {
+            let tempinstallationdate = res.data.data.installationDate.split(
+              "-"
+            );
+            res.data.data.installationDate =
+              tempinstallationdate[2] +
+              "-" +
+              tempinstallationdate[1] +
+              "-" +
+              tempinstallationdate[0];
             this.setState({ rmsvalues: res.data.data });
+            this.rmsvendoridlistname.map(async (item, index) => {
+              if (Object.keys(item)[0] === res.data.data.rmsVendorId) {
+                let temp = this.rmsvendoridlistname[index][
+                  res.data.data.rmsVendorId
+                ];
+                this.setState({ rmsvendoridlistnameselected: temp });
+              }
+            });
             this.handlermsvendoridchange();
           } else {
             Swal({
@@ -782,7 +834,7 @@ class Rmsedit extends Component {
       });
     }
   }
-  handlesave = () => {
+  handlesave = async () => {
     if (
       this.state.rmsvalues.latitude > 37 ||
       this.state.rmsvalues.latitude < 8
@@ -827,10 +879,18 @@ class Rmsedit extends Component {
 
       return;
     }
+    let tempdatechangedobject = this.state.rmsvalues;
+    if (this.state.rmsvalues.installationDate) {
+      let tempdatearray = this.state.rmsvalues.installationDate.split("-");
+      // let tempdatechangedobject=this.state.rmsvalues
+      tempdatechangedobject.installationDate =
+        tempdatearray[2] + "-" + tempdatearray[1] + "-" + tempdatearray[0];
+      // await this.setState({rmsvalues:tempdatechangedobject})
+    }
     axios({
       url: config.updatermsedit,
       method: "POST",
-      data: this.state.rmsvalues,
+      data: tempdatechangedobject,
       headers: {
         "Content-Type": "application/json"
       }
@@ -862,6 +922,17 @@ class Rmsedit extends Component {
     temp[event.target.name] = event.target.value;
     if (event.target.name === "state") {
       temp.district = statedistrict[event.target.value][0];
+    }
+    if (namefield === "rmsVendorId") {
+      this.rmsvendoridlistname.map(async (item, index) => {
+        if (Object.keys(item)[0] === event.target.value) {
+          await this.setState({
+            rmsvendoridlistnameselected: this.rmsvendoridlistname[index][
+              event.target.value
+            ]
+          });
+        }
+      });
     }
     await this.setState({ rmsvalues: temp });
     if (namefield === "rmsVendorId") {
@@ -945,7 +1016,10 @@ class Rmsedit extends Component {
                     <FormLeft
                       rmsvalues={this.state.rmsvalues}
                       handleInputChange={this.handleInputChange}
-                      rmsvendorimeicheck={this.state.rmsvendorimeicheck}
+                      rmsvendoridlist={this.rmsvendoridlist}
+                      rmsvendoridlistnameselected={
+                        this.state.rmsvendoridlistnameselected
+                      }
                     />
                   </div>
                 </div>
@@ -955,7 +1029,7 @@ class Rmsedit extends Component {
                     <FormRight
                       rmsvalues={this.state.rmsvalues}
                       handleInputChange={this.handleInputChange}
-                      rmsvendoridlist={this.rmsvendoridlist}
+                      rmsvendorimeicheck={this.state.rmsvendorimeicheck}
                     />
                   </div>
                 </div>

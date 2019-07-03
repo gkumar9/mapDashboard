@@ -604,7 +604,7 @@ class Farmeraddnew extends Component {
         res.data.data.state = "Tripura";
         res.data.data.uidType = "N.A";
         res.data.data.district = "Unakoti";
-        res.data.data.vertical = "Solar Irrigation Pump";
+        res.data.data.vertical = "Solar Drinking Water Pump";
         res.data.data.contactNo = "";
 
         res.data.data["croplist"] = cropschema;
@@ -974,9 +974,9 @@ class Farmeraddnew extends Component {
                               className="form-control"
                               id="vertical"
                             >
-                              <option value="Solar Irrigation Pump">
+                              {/* <option value="Solar Irrigation Pump">
                                 Solar Irrigation Pump
-                              </option>
+                              </option> */}
                               <option value="Solar Drinking Water Pump">
                                 Solar Drinking Water Pump
                               </option>
