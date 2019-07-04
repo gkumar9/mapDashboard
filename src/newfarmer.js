@@ -79,8 +79,7 @@ const MapWithAMarkerClusterer = compose(
         url: config.farmerinfo,
         method: "POST",
         data: {
-          uid: markerss.uid,
-          uidType: markerss.uidType
+          id: markerss.id
         },
         headers: {
           "Content-Type": "application/json"

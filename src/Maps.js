@@ -247,8 +247,22 @@ class MapContainer extends Component {
               {this.state.selectedPlace.owner.name}{" "}
             </h4>
             <h6 className="infoWindowName">
-              {" "}
-              Customer ID: {this.state.selectedPlace.id}{" "}
+              
+              {this.state.selectedPlace.assetType==="PATVAN"&&(
+                <span>Patvan ID: {this.state.selectedPlace.id}</span>
+              )}
+              {this.state.selectedPlace.assetType==="IRRIGATION_PUMP"&&(
+                <span>Customer ID: {this.state.selectedPlace.id}</span>
+              )}
+              {this.state.selectedPlace.assetType==="MINIGRID"&&(
+                <span>Minigrid ID: {this.state.selectedPlace.id}</span>
+              )}
+              {this.state.selectedPlace.assetType==="DRINKING_WATER_PUMP"&&(
+                <span>Customer ID: {this.state.selectedPlace.id}</span>
+              )}
+              {this.state.selectedPlace.assetType==="ROOFTOP"&&(
+                <span>Rooftop ID: {this.state.selectedPlace.id}</span>
+              )}
             </h6>
             <div>
               <ul className="infoWindowDetail">
