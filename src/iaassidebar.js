@@ -1,121 +1,193 @@
 import React, { Component } from "react";
 import CO2 from "./pins/1.png";
 import FLOW from "./pins/2.png";
-import SOLARENERGY from "./pins/3.png";
-import SUBMERSIBLE from "./pins/4.png";
-import STATES from "./pins/5.png";
+import LAND from "./pins/land.png";
+import PATVAN from "./pins/tuk-tuk.png";
+import FARMER from "./pins/farmer 3.png";
+import ACTIVE from "./pins/placeholder.png";
 
 class IaasSidebar extends Component {
   render() {
     return (
       <div
         style={{
-          borderRightStyle: "groove",
           minHeight: "100vh",
-          textAlign: "center"
+          textAlign: "center",
+          padding: "1.5em"
         }}
-        className="col-xs-2 rmssidebar"
+        className="col-xs-3 rmssidebar"
       >
-        <h4 style={{ marginTop: "40px", color: "gray", fontSize: "large" }}>
-          Our Impact
-        </h4>
-        <ul style={{ marginTop: "40px", color: "black" }}>
-          <li className="rmssidebar">
-            <div className="row">
-              <div className="col-xs-3">
-                <img
-                  alt="CO2"
-                  src={CO2}
-                  style={{ width: "46px", marginLeft: "-11px" }}
-                />
+        <div
+          style={{
+            background: "#F2F2F2",
+            padding: "0.3em",
+            borderRadius: "0.5em"
+          }}
+        >
+          <h4
+            style={{
+              marginTop: "20px",
+              color: "#b12d28",
+              fontSize: "large",
+              fontFamily: "gotham-medium"
+            }}
+          >
+            Our Impact
+          </h4>
+          <ul style={{ marginTop: "20px", color: "black" }}>
+            <li className="rmssidebar">
+              <div className="row">
+                <div className="col-xs-3">
+                  <img
+                    alt="CO2"
+                    src={CO2}
+                    style={{ width: "42px", marginLeft: "-11px" }}
+                  />
+                </div>
+                <div className="col-xs-9">
+                  <span className="iaassidebartext">
+                    <b>{this.props.statsdata.co2Saved} Kg</b>
+                  </span>
+                  <p>
+                    <small>CO2 Saved</small>
+                  </p>
+                </div>
               </div>
-              <div className="col-xs-9">
-                <span>
-                  <b>{this.props.statsdata.co2Saved} Kg</b>
-                </span>
-                <p>
-                  <small>CO2 Saved</small>
-                </p>
+            </li>
+            <li className="rmssidebar">
+              <div className="row">
+                <div className="col-xs-3">
+                  <img
+                    alt="flow"
+                    src={FLOW}
+                    style={{ width: "36px", marginLeft: "-11px" }}
+                  />
+                </div>
+                <div className="col-xs-9">
+                  <span className="iaassidebartext">
+                    <b>{this.props.statsdata.waterDischarged} kL</b>
+                  </span>
+                  <p>
+                    <small>Water Discharged</small>
+                  </p>
+                </div>
               </div>
-            </div>
-          </li>
-          <li className="rmssidebar">
-            <div className="row">
-              <div className="col-xs-3">
-                <img
-                  alt="flow"
-                  src={FLOW}
-                  style={{ width: "32px", marginLeft: "-11px" }}
-                />
+            </li>
+            <li className="rmssidebar">
+              <div className="row">
+                <div className="col-xs-3">
+                  <img
+                    alt="Land"
+                    src={LAND}
+                    style={{
+                      width: "34px",
+                      marginLeft: "-11px",
+                      filter: "contrast(0)"
+                    }}
+                  />
+                </div>
+                <div className="col-xs-9">
+                  <span className="iaassidebartext">
+                    <b>{this.props.statsdata.landIrrigated} Acre</b>
+                  </span>
+                  <p>
+                    <small>Land Irrigated</small>
+                  </p>
+                </div>
               </div>
-              <div className="col-xs-9">
-                <span>
-                  <b>{this.props.statsdata.waterDischarged} kL</b>
-                </span>
-                <p>
-                  <small>Water Discharged</small>
-                </p>
+            </li>
+            <li className="rmssidebar">
+              <div className="row">
+                <div className="col-xs-3">
+                  <img
+                    alt="PATVAN"
+                    src={PATVAN}
+                    style={{
+                      width: "37px",
+                      marginLeft: "-11px",
+                      filter: "contrast(0)"
+                    }}
+                  />
+                </div>
+                <div className="col-xs-9">
+                  <span className="iaassidebartext">
+                    <b>{this.props.statsdata.noOfPatvans}</b>
+                  </span>
+                  <p>
+                    <small>No of Patvans</small>
+                  </p>
+                </div>
               </div>
-            </div>
-          </li>
-          <li className="rmssidebar">
-            <div className="row">
-              <div className="col-xs-3">
-                <img
-                  alt="SOLARENERGY"
-                  src={SOLARENERGY}
-                  style={{ width: "37px", marginLeft: "-11px" }}
-                />
+            </li>
+            <li className="rmssidebar">
+              <div className="row">
+                <div className="col-xs-3">
+                  <img
+                    alt="FARMER"
+                    src={FARMER}
+                    style={{
+                      width: "37px",
+                      marginLeft: "-11px",
+                      filter: "contrast(0)"
+                    }}
+                  />
+                </div>
+                <div className="col-xs-9">
+                  <span className="iaassidebartext">
+                    <b>{this.props.statsdata.noOfFarmers}</b>
+                  </span>
+                  <p>
+                    <small>No of Farmers</small>
+                  </p>
+                </div>
               </div>
-              <div className="col-xs-9">
-                <span>
-                  <b>{this.props.statsdata.landIrrigated} Acre</b>
-                </span>
-                <p>
-                  <small>Land Irrigated</small>
-                </p>
+            </li>
+          </ul>
+        </div>
+        <div
+          style={{
+            background: "#F2F2F2",
+            padding: "0.3em",
+            borderRadius: "0.5em",
+            marginTop: "20px"
+          }}
+        >
+          <h4
+            style={{
+              marginTop: "20px",
+              color: "#b12d28",
+              fontSize: "large",
+              fontFamily: "gotham-medium"
+            }}
+          >
+            Most Active State
+          </h4>
+          <ul style={{ marginTop: "20px", color: "black" }}>
+            <li className="rmssidebar">
+              <div className="row">
+                <div className="col-xs-3">
+                  <img
+                    alt="ACTIVE"
+                    src={ACTIVE}
+                    style={{
+                      width: "42px",
+                      marginLeft: "-11px",
+                      filter: "contrast(0)"
+                    }}
+                  />
+                </div>
+                <div className="col-xs-9">
+                  <span className="iaassidebartext">
+                    <b>Bihar</b>
+                  </span>
+                  <p>
+                    <small>95% Patvan active</small>
+                  </p>
+                </div>
               </div>
-            </div>
-          </li>
-          <li className="rmssidebar">
-            <div className="row">
-              <div className="col-xs-3">
-                <img
-                  alt="submersible"
-                  src={SUBMERSIBLE}
-                  style={{ width: "42px", marginLeft: "-11px" }}
-                />
-              </div>
-              <div className="col-xs-9">
-                <span>
-                  <b>{this.props.statsdata.noOfPatvans}</b>
-                </span>
-                <p>
-                  <small>No of Patvans</small>
-                </p>
-              </div>
-            </div>
-          </li>
-          <li className="rmssidebar">
-            <div className="row">
-              <div className="col-xs-3">
-                <img
-                  alt="states"
-                  src={STATES}
-                  style={{ width: "42px", marginLeft: "-11px" }}
-                />
-              </div>
-              <div className="col-xs-9">
-                <span>
-                  <b>{this.props.statsdata.noOfFarmers}</b>
-                </span>
-                <p>
-                  <small>No of Farmers</small>
-                </p>
-              </div>
-            </div>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }

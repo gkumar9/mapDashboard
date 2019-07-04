@@ -95,7 +95,7 @@ code {
     monospace;
 }
 .rmssidebar {
-  margin-bottom: 35px;
+  margin-bottom: 28px;
 }
 .col-xs-9 {
   text-align: left;
@@ -175,13 +175,29 @@ a.disabled {
   background-color: #3a50fc;
 }
 .btn-default:hover {
-  background: white;
+  background:transparent;
   border-color: transparent;
   color: blue;
 }
 .btn-default:active {
-  background: white;
+  background: transparent;
   outline: none;
+}
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
+  border-color:transparent ;
+  outline: none;
+}
+.btn-default.focus, .btn-default:focus{
+  outline: none;
+
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.btn:active:focus, .btn:focus{
+  outline: none;
+}
+.btn.active, .btn:active{
+  box-shadow: none;
 }
 .sidebarheader {
   display: none !important;
@@ -512,7 +528,7 @@ input[type="radio"] {
 }
 .backbuttoniaas{
   float: right;
-  margin-top: -50px;
+  margin-top: 0px;
   margin-right: 30px;
   background-color: #f2f2f2;
 }
@@ -549,7 +565,9 @@ input[type="radio"] {
   margin-top: 0;
   margin-right: 0;
   }
-  
+  .main .col-xs-9{
+    width: 100%
+    }
   #container1{
     margin-top:10px !important;
   }
@@ -952,20 +970,21 @@ outline: 1px solid slategrey;
 .kycbody{
   padding-left: 0.5em;
 }
-.farmerinfobody  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
   background-color: transparent !important;
 }
-.farmerinfobody .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+ .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
   cursor: default;
   background-color: transparent;
   border: 0;
-  border-bottom: 0.1em solid blue;
+  border-bottom: 2px solid #b12d28;
+  color:#b12d28 !important;
 }
-.farmerinfobody .nav-tabs>li>a:hover{
+.nav-tabs>li>a:hover{
   background-color: transparent;
-  border-bottom: 0.1em solid gray;
+  border-bottom: 2px solid gray;
 }
-.farmerinfobody .nav-tabs>li>a{
+ .nav-tabs>li>a{
   border:0;
 }
 .vertical .nav-tabs{
@@ -993,4 +1012,7 @@ outline: 1px solid slategrey;
 }
 .farmerinfobody h3{
   font-size: 1.4em;
+}
+.iaassidebartext{
+  color:#315ca6
 }

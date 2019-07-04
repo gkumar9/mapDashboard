@@ -3,7 +3,9 @@ import Highcharts from 'highcharts/highstock'
 import drilldown from "highcharts-drilldown";
 import axios from 'axios'
 import config from './config.js'
+
 const $ = require("jquery");
+
 
 class Iaashourtans extends Component{
     componentDidMount(){
@@ -52,6 +54,9 @@ class Iaashourtans extends Component{
                     renderTo:'tranvsrev',
                     type:'column',
                     backgroundColor: "#f2f2f2",
+                    style: {
+                        fontFamily: 'gotham-light'
+                    },
                 },
                 title:{
                     text:'Hours of Operation per Transaction',
@@ -110,8 +115,10 @@ class Iaashourtans extends Component{
                 },    
                 series: [{
                     pointWidth: 35,
+                    borderRadiusTopLeft: 3,
+                    borderRadiusTopRight: 3,
                     data: valuelist,
-                    color:"#ff4081",
+                    color:"#315ca6",
                 }],
                 responsive: {
                     rules: [{

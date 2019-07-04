@@ -56,7 +56,7 @@ class Rmsdatatable extends Component {
       data: this.props.data,
       scrollY: 480,
       destroy: true,
-      order: [[ 5, "desc" ]],
+      order: [[5, "desc"]],
       paging: true,
       ordering: true,
       responsive: true,
@@ -69,31 +69,34 @@ class Rmsdatatable extends Component {
         },
         { data: "customerId" },
         { data: "customerName" },
-       
+
         { data: "district" },
         { data: "state" },
         { data: "lastActive" },
         {
+          data: "assetType",
           render: function(data, type, row) {
-            return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
+            if (data !== "rooftop") {
+              return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
+            } else {
+              return "";
+            }
           }
         }
       ]
     });
     $("#table_id").delegate("tr td:first-child", "click", function() {
       let rmssubdata = otable.row($(this).parents("tr")).data();
-      if(rmssubdata&&rmssubdata.deviceId!=='0'){
+      if (rmssubdata && rmssubdata.deviceId !== "0") {
         self.props.history.push({
           pathname: "/rms/" + rmssubdata.deviceId,
           state: { detail: rmssubdata }
         });
       }
-      
     });
     $("#table_id").delegate("tr td:last-child", "click", function() {
-      
       let rmssubdata = otable.row($(this).parents("tr")).data();
-      
+
       self.props.history.push({
         pathname: "/rmsedit",
         state: { detail: rmssubdata }
@@ -106,7 +109,7 @@ class Rmsdatatable extends Component {
         <table
           id="table_id"
           className="table table-striped table-hover"
-          style={{width:'100%'}}
+          style={{ width: "100%" }}
         >
           {/* <table id="example" className="display" width="100%" ref={el=>this.el=el}> */}
           <thead>

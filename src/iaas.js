@@ -8,7 +8,9 @@ import IaasPatvan from "./iaaspatvan.js";
 import Iasshourtrans from "./iaashourtrans.js";
 import axios from "axios";
 import config from "./config.js";
-
+import Highcharts from 'highcharts/highstock'
+const borderRadius = require("highcharts-border-radius");
+borderRadius(Highcharts);
 class iaas extends Component {
   constructor(props) {
     super(props);
@@ -56,32 +58,57 @@ class iaas extends Component {
         <Header />
         <div className="mainbody">
           <Sidebar history={this.props.history} />
-          <div style={{ backgroundColor: "#F2F2F2" }} className="main">
+          <div className="main">
             <IaasHeader />
             <div className="container">
-              <div className="row">
+              <div
+                className="row"
+                style={{
+                  marginRight: "0",
+                  marginLeft: "0",
+                  fontFamily: "gotham-light"
+                }}
+              >
                 <IaasSidebar statsdata={this.state.statsdata} />
-                <div className="col-xs-10">
-                  <div>
-                    <ul
-                      className="nav nav-tabs"
-                      role="tablist"
-                      style={{ marginLeft: "-12px" }}
-                    >
+                <div
+                  className="col-xs-9"
+                  style={{
+                    // minHeight: "100vh",
+                    // textAlign: "center",
+                    padding: "1.5em"
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "#F2F2F2",
+                      padding: "0.5em",
+                      borderRadius: "0.5em",
+                      minHeight: "80vh"
+                    }}
+                  >
+                    <ul className="nav nav-tabs" role="tablist">
                       <li role="presentation" className="active">
                         <a
-                          style={{ color: "#666666" }}
+                          style={{
+                            color: "#666666",
+                            fontFamily: "gotham-medium",
+                            padding: "4px 25px"
+                          }}
                           href="#home"
                           aria-controls="home"
                           role="tab"
                           data-toggle="tab"
                         >
-                          Revenue Timeline
+                          Revenue
                         </a>
                       </li>
-                      <li role="presentation">
+                      <li role="presentation" className="">
                         <a
-                          style={{ color: "#666666" }}
+                          style={{
+                            color: "#666666",
+                            fontFamily: "gotham-medium",
+                            padding: "4px 25px"
+                          }}
                           href="#profile"
                           aria-controls="profile"
                           role="tab"
@@ -90,9 +117,13 @@ class iaas extends Component {
                           Patvan's Revenue
                         </a>
                       </li>
-                      <li role="presentation">
+                      <li role="presentation" className="">
                         <a
-                          style={{ color: "#666666" }}
+                          style={{
+                            color: "#666666",
+                            fontFamily: "gotham-medium",
+                            padding: "4px 25px"
+                          }}
                           href="#messages"
                           aria-controls="messages"
                           role="tab"
