@@ -646,8 +646,8 @@ class Iaaspatvan extends Component{
     }
     render(){
         return(
-            <div style={{'marginTop':'24px',fontFamily:'gotham-light'}}>
-            <center><h4><b>Patvan wise Revenue</b></h4></center>
+            <div style={{'marginTop':'50px',fontFamily:'gotham-light'}}>
+            <center><h4 style={{fontFamily:'gotham-medium'}}>Patvan wise Revenue</h4></center>
             <ul className="nav nav-pills pvlist"  style={{'marginLeft':'0px', 'marginRight':'0px'}}>
             <li className = 'pvlist' style={{'marginRight':'15px', 'marginTop':'4px'}}>
                 <select  className="form-control" id="sel">

@@ -1024,13 +1024,15 @@ outline: 1px solid slategrey;
   background: #F2F2F2;
   padding: 0.5em;
   border-radius: 0.5em;
+  /* height: vh */
 }
-@media (max-width: 800px) {
-.iaasoverall{
-  min-height: 80vh
-}}
-@media (min-width: 900px) {
+@media (min-width: 1440px) {
   .iaasoverall{
-    min-height: 69vh ;
+    height: 68vh ;
+  }
+}
+@media (max-width: 1440px) {
+  .iaasoverall{
+    height: 80vh ;
   }
 }

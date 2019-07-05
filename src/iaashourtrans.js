@@ -61,9 +61,8 @@ class Iaashourtans extends Component{
                 title:{
                     text:'Hours of Operation per Transaction',
                     style: {
-                        
-                        fontWeight: 'bold'
-                    }
+                        fontFamily: "gotham-medium"
+                      }
                 },
                 tooltip: {
                     formatter: function() {	
@@ -166,7 +165,7 @@ class Iaashourtans extends Component{
     }
     render(){
         return(
-            <div style={{'marginTop':'64px'}} id="tranvsrev" ></div>
+            <div style={{'marginTop':'30px'}} id="tranvsrev" ></div>
         )
     }
 }
