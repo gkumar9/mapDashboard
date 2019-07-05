@@ -169,15 +169,6 @@ class MapContainer extends Component {
         // zoomControlOptions= {{position :this.props.google.maps.ControlPosition.RIGHT_CENTER}}
         streetViewControl={false}
         fullscreenControl={false}
-        restriction={{
-          latLngBounds: {
-            north: 37.803116,
-            south: 7.381437,
-            west: 67.917435,
-            east: 97.17622340167043
-          },
-          strictBounds: false
-        }}
         google={this.props.google}
         zoom={5}
         style={mapStyles}

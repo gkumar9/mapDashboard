@@ -30,7 +30,7 @@ class FarmerHeader extends Component {
         >
           <div
             className="container-fluid "
-            style={{ textAlign: "center", marginTop: "10px" }}
+            style={{ textAlign: "center", marginTop: "14px" }}
           >
             <Link to="/farmer">
               <button
@@ -78,7 +78,7 @@ class FarmerHeader extends Component {
                 </button>
               </div>
             </Link> */}
-            <span style={{ fontSize: "large", color: "blue" }}>
+            <span style={{ fontFamily:'gotham-medium',fontSize: "large", color: "#b12d28" }}>
               Farmer database in India
             </span>
           </div>

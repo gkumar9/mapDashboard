@@ -11,6 +11,9 @@ import iaas from './iaas.js'
 import farmer from './newfarmer.js'
 import rmsedit from './rmsedit.js';
 import farmeredit from './farmeredit.js';
+import Highcharts from 'highcharts/highstock'
+const borderRadius = require("highcharts-border-radius");
+borderRadius(Highcharts);
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL
 });

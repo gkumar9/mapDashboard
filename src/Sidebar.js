@@ -3,11 +3,19 @@ import { Link } from "react-router-dom";
 import RMS from "./pins/RMS 2.png";
 import IAAS from "./pins/IAAS 2.png";
 import MINIGRID from "./pins/Minigrid(2).png";
-import HOME from "./pins/Home_BW.png";
+import SIGNOUT from "./pins/sign-out.png";
 import HOMEACTIVE from "./pins/Home.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
 import FARMER from "./pins/Farmer 2.png";
+import axios from "axios";
+import config from "./config.js";
 class Sidebar extends Component {
+  handleSignout=()=> {
+    // console.log("sign out");
+    axios.get(config.LogoutServlet).then(() => {
+      window.location.href = "../login.html?redirect=maps";
+    });
+  }
   render() {
     return (
       <aside className="main_sidebar">
@@ -90,6 +98,17 @@ class Sidebar extends Component {
               </i>
             </li>
           </Link>
+          {/* <Link key="farmer" to="/farmer"> */}
+            <li
+              title="signout"
+              style={{bottom:'11px',position:'fixed',cursor:'pointer'}}
+              onClick={this.handleSignout}
+            >
+              <i>
+                <img alt="sigout" src={SIGNOUT} />
+              </i>
+            </li>
+          {/* </Link> */}
         </ul>
       </aside>
     );

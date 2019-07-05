@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import logo from "./logo.png";
-import axios from "axios";
-import config from "./config.js";
+
 import { Link } from "react-router-dom";
 // import DRINKING_WATER_PUMP from "./pins/DRINKING_WATER_PUMP.png";
 // import IRRIGATION_PUMP from "./pins/IRRIGATION_PUMP.png";
@@ -16,16 +14,7 @@ import MINIGRID from "./pins/Minigrid(2).png";
 import ROOFTOP from "./pins/Rooftop(2).png";
 import FARMER from "./pins/user1.png";
 class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSignout = this.handleSignout.bind(this);
-  }
-  handleSignout() {
-    console.log("sign out");
-    axios.get(config.LogoutServlet).then(() => {
-      window.location.href = "../login.html?redirect=maps";
-    });
-  }
+
   render() {
     return (
       <div className="container">

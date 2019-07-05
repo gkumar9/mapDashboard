@@ -18,7 +18,7 @@ class RmsHeader extends Component {
         >
           <div
             className="container-fluid"
-            style={{ textAlign: "center", marginTop: "10px" }}
+            style={{ textAlign: "center", marginTop: "14px" }}
           >
             {/* <Link to="/">
               <button
@@ -39,7 +39,7 @@ class RmsHeader extends Component {
                 Home{" "}
               </button>
             </Link> */}
-            <span style={{ fontSize: "large", color: "blue" }}>
+            <span style={{ fontFamily:'gotham-medium',fontSize: "large", color: "#b12d28" }}>
               Remote Monitoring System{" "}
             </span>
           </div>

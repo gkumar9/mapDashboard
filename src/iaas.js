@@ -8,9 +8,7 @@ import IaasPatvan from "./iaaspatvan.js";
 import Iasshourtrans from "./iaashourtrans.js";
 import axios from "axios";
 import config from "./config.js";
-import Highcharts from 'highcharts/highstock'
-const borderRadius = require("highcharts-border-radius");
-borderRadius(Highcharts);
+
 class iaas extends Component {
   constructor(props) {
     super(props);
@@ -79,12 +77,8 @@ class iaas extends Component {
                   }}
                 >
                   <div
-                    style={{
-                      background: "#F2F2F2",
-                      padding: "0.5em",
-                      borderRadius: "0.5em",
-                      minHeight: "80vh"
-                    }}
+                  className="iaasoverall"
+                    
                   >
                     <ul className="nav nav-tabs" role="tablist">
                       <li role="presentation" className="active">

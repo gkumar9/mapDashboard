@@ -69,7 +69,7 @@ a.pvlist {
 }
 .newfarmer .btn-default {
   border-color: darkgray;
-  margin-top: -3px;
+  margin-top: -7px;
 }
 .newfarmer .btn-default:hover {
   border-color: blue;
@@ -1015,4 +1015,22 @@ outline: 1px solid slategrey;
 }
 .iaassidebartext{
   color:#315ca6
+}
+.additional .infobox .body{
+  width: 350px !important;
+  padding: 1em !important;
+}
+.iaasoverall{
+  background: #F2F2F2;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+@media (max-width: 800px) {
+.iaasoverall{
+  min-height: 80vh
+}}
+@media (min-width: 900px) {
+  .iaasoverall{
+    min-height: 69vh ;
+  }
 }

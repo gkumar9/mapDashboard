@@ -10,6 +10,7 @@ import axios from "axios";
 import config from "./config.js";
 import RmsSidebardata from "./RmsSidebardata.js";
 import nodata from "./pins/nodata.png";
+
 // import fvc from "./fvc.json";
 // const $ = require("jquery");
 Highcharts.setOptions({
@@ -24,7 +25,7 @@ class RmsHeader extends Component {
         <nav id="filter" className="navbar navbar-default">
           <div
             className="container-fluid"
-            style={{ textAlign: "center", marginTop: "10px" }}
+            style={{ textAlign: "center", marginTop: "14px" }}
           >
             <Link to="/rms">
               <button
@@ -47,7 +48,7 @@ class RmsHeader extends Component {
               </button>
             </Link>
             <span
-              style={{ fontSize: "large", color: "blue", marginLeft: "-82px" }}
+              style={{ fontFamily:'gotham-medium',fontSize: "large", color: "#b12d28" ,marginLeft:'-87px'}}
             >
               Remote Monitoring System{" "}
             </span>
@@ -259,7 +260,7 @@ class Rms extends Component {
                     data: dataset.data,
                     name: dataset.name,
                     type: dataset.type,
-                    color: Highcharts.getOptions().colors[i],
+                    color: "#315ca6",
                     fillOpacity: 0.3,
                     tooltip: {
                       valueSuffix: " " + dataset.unit
@@ -403,7 +404,7 @@ class Rms extends Component {
                       data: dataset.data,
                       name: dataset.name,
                       type: dataset.type,
-                      color: Highcharts.getOptions().colors[i],
+                      color: "#315ca6",
                       fillOpacity: 0.3,
                       tooltip: {
                         valueSuffix: " " + dataset.unit
@@ -586,13 +587,16 @@ class Rms extends Component {
             },
             plotOptions: {
               series: {
+
+                borderRadiusTopLeft: 3,
+                borderRadiusTopRight: 3,
                 cursor: "pointer",
                 pointWidth: 30,
                 dataLabels: {
                   enabled: true,
                   format: "{point.y}"
                 },
-                color: "#ff4081",
+                color: "#315ca6",
                 point: {
                   events: {
                     click: function() {
@@ -682,7 +686,7 @@ class Rms extends Component {
                 }
               }
             },
-            series: [{ data: obj.data, name: obj.name, color: "#ff4081" }],
+            series: [{ data: obj.data, name: obj.name, color: "#315ca6", }],
             drilldown: {
               series: obj.data
             },
@@ -701,8 +705,11 @@ class Rms extends Component {
                     },
                     plotOptions: {
                       series: {
+
+                      borderRadiusTopLeft: 3,
+                      borderRadiusTopRight: 3,
                         pointWidth: null
-                      }
+                      },
                     },
                     yAxis: {
                       // labels: {
