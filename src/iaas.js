@@ -60,7 +60,7 @@ class iaas extends Component {
             <IaasHeader />
             <div className="container">
               <div
-                className="row"
+                className="row row-eq-height"
                 style={{
                   marginRight: "0",
                   marginLeft: "0",
@@ -73,7 +73,7 @@ class iaas extends Component {
                   style={{
                     // minHeight: "100vh",
                     // textAlign: "center",
-                    padding: "1.5em"
+                    padding: "1em"
                   }}
                 >
                   <div

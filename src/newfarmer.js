@@ -9,9 +9,7 @@ import imgmapcluster from "./pins/iconmapcluster.png";
 // import imgmapcluster3 from "./pins/iconmapclustercopy3.png";
 // import imgmapcluster4 from "./pins/iconmapclustercopy4.png";
 import user from "./pins/user1copy.png";
-import Centre from "./pins/Processing Centre.png";
-import office from "./pins/Claro Offices.png";
-import market from "./pins/Market - Icon.png";
+
 
 import farmerimg from "./pins/user.png";
 import {
@@ -66,26 +64,20 @@ const MapWithAMarkerClusterer = compose(
     googleMapURL:
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyCHi5ryWgN1FcZI-Hmqw3AdxJQmpopYJGk&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `87vh` }} />,
+    containerElement: <div style={{ height: `90vh` }} />,
     mapElement: <div style={{ height: `100%` }} />
   }),
   withStateHandlers(
-    { InfoWindowobject: null, InfoWindowobjectadditional: null },
+    { InfoWindowobject: null },
     {
-      setInfoWindow: () => value => ({ InfoWindowobject: value }),
-      setInfoWindowadditional: () => value => ({
-        InfoWindowobjectadditional: value
-      })
+      setInfoWindow: () => value => ({ InfoWindowobject: value })
     }
   ),
   withStateHandlers(
-    { isOpen: false, isOpenadditional: false },
+    { isOpen: false},
     {
       onToggleOpen: ({ isOpen }) => () => ({
         isOpen: !isOpen
-      }),
-      onToggleOpenadditional: ({ isOpenadditional }) => () => ({
-        isOpenadditional: !isOpenadditional
       })
     }
   ),
@@ -117,11 +109,6 @@ const MapWithAMarkerClusterer = compose(
           alert(e);
         });
     },
-    onadditionalMarkerClick: props => markersss => {
-      const { setInfoWindowadditional, onToggleOpenadditional } = props;
-      setInfoWindowadditional(markersss);
-      onToggleOpenadditional();
-    }
   }),
   withScriptjs,
   withGoogleMap
@@ -139,38 +126,28 @@ const MapWithAMarkerClusterer = compose(
       fullscreenControl: false,
       
       styles: [
-        // { elementType: "geometry.fill", stylers: [{ color: "#F2F2F2" }] },
-        // {
-        //   featureType: "water",
-        //   elementType: "geometry",
-        //   // stylers: [{ color: "#E3E3E3" }]
-        //   // stylers: [{ color: "#ACC8F2" }]
-        // },
-        // {
-        //   featureType: "transit.line",
-        //   elementType: "geometry",
-        //   stylers: [{ visibility: "off" }]
-        // },
-        // {
-        //   featureType: "road",
-        //   elementType: "labels",  
-        //   stylers: [{ visibility: "off" }]
-        // },
-        // {
-        //   featureType: "road",
-        //   elementType: "geometry",
-        //   stylers: [{ visibility: "off" }]
-        // }
-        // {
-        //   featureType: "water",
-        //   elementType: "labels.text.fill",
-        //   stylers: [{ color: "#515c6d" }]
-        // },
-        // {
-        //   featureType: "water",
-        //   elementType: "labels.text.stroke",
-        //   stylers: [{ color: "#17263c" }]
-        // }
+        { elementType: "geometry.fill", stylers: [{ color: "#F2F2F2" }] },
+          {
+            featureType: "water",
+            elementType: "geometry",
+            // stylers: [{ color: "#E3E3E3" }]
+            stylers: [{ color: "#ACC8F2" }]
+          },
+          {
+            featureType: "transit.line",
+            elementType: "geometry",
+            stylers: [{ visibility: "off" }]
+          },
+          {
+            featureType: "road",
+            elementType: "labels",
+            stylers: [{ visibility: "off" }]
+          },
+          {
+            featureType: "road",
+            elementType: "geometry",
+            stylers: [{ visibility: "off" }]
+          },
       ]
     }}
   >
@@ -180,11 +157,7 @@ const MapWithAMarkerClusterer = compose(
       averageCenter
       onMarkerClick={props.onMarkerClick}
       markers={props.markers}
-      additionalmarkerscollectioncenter={
-        props.additionalmarkerscollectioncenter
-      }
-      additionalmarkersmarketserved={props.additionalmarkersmarketserved}
-      additionalmarkersoffice={props.additionalmarkersoffice}
+      
       styles={[
         {
           textColor: "white",
@@ -223,32 +196,9 @@ const MapWithAMarkerClusterer = compose(
         // }
       ]}
       enableRetinaIcons
-      gridSize={93}
+      gridSize={80}
     />
-    {props.additionalmarkerscollectioncenter.map((marker, index) => (
-      <Marker
-        key={index}
-        icon={Centre}
-        onClick={props.onadditionalMarkerClick.bind(props, marker)}
-        position={{ lat: marker.latitude, lng: marker.longitude }}
-      />
-    ))}
-    {props.additionalmarkersmarketserved.map((marker, index) => (
-      <Marker
-        key={index}
-        icon={market}
-        onClick={props.onadditionalMarkerClick.bind(props, marker)}
-        position={{ lat: marker.latitude, lng: marker.longitude }}
-      />
-    ))}
-    {props.additionalmarkersoffice.map((marker, index) => (
-      <Marker
-        key={index}
-        icon={office}
-        onClick={props.onadditionalMarkerClick.bind(props, marker)}
-        position={{ lat: marker.latitude, lng: marker.longitude }}
-      />
-    ))}
+    
     {props.isOpen && props.InfoWindowobject !== null && (
       <div>
         <InfoWindow
@@ -421,7 +371,7 @@ const MapWithAMarkerClusterer = compose(
         </InfoWindow>
       </div>
     )}
-    {props.isOpenadditional && props.InfoWindowobjectadditional !== null && (
+    {/* {props.isOpenadditional && props.InfoWindowobjectadditional !== null && (
       <div >
         <InfoWindow
           position={{
@@ -459,7 +409,7 @@ const MapWithAMarkerClusterer = compose(
           )}
         </InfoWindow>
       </div>
-    )}
+    )} */}
   </GoogleMap>
 ));
 

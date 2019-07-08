@@ -1024,15 +1024,25 @@ outline: 1px solid slategrey;
   background: #F2F2F2;
   padding: 0.5em;
   border-radius: 0.5em;
-  /* height: vh */
+  /* height: 80vh */
 }
-@media (min-width: 1440px) {
-  .iaasoverall{
-    height: 68vh ;
-  }
+.additional .gm-style-iw-d {
+  overflow: hidden !important;
+  width: -webkit-fill-available;
+  max-width: -webkit-fill-available !important;
+  max-height: unset !important;
 }
-@media (max-width: 1440px) {
-  .iaasoverall{
-    height: 80vh ;
-  }
+.additional .gm-style .gm-style-iw-c {
+  padding: 0 !important;
+  /* width: 800px; */
+  max-width: -webkit-fill-available !important;
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
+  left: 0;
+  top: -32px;
+}
+.additional .gm-style .gm-style-iw-t::after {
+  background-color: #ffffff;
+  top: 0px;
+  left: 0;
 }

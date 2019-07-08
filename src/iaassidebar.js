@@ -11,9 +11,9 @@ class IaasSidebar extends Component {
     return (
       <div
         style={{
-          minHeight: "100vh",
+          
           textAlign: "center",
-          padding: "1.5em"
+          padding: "1em"
         }}
         className="col-xs-3 rmssidebar"
       >

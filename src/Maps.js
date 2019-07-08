@@ -9,6 +9,9 @@ import farmer from "./pins/user.png";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
+import Centre from "./pins/Collection & Processing centre.png";
+import office from "./pins/Office.png";
+import market from "./pins/Market.png";
 const mapStyles = {
   width: "100%",
   height: "89%",
@@ -83,18 +86,217 @@ class MapList extends Component {
     );
   }
 }
+class MapListAdditional extends Component {
+  constructor(props) {
+    super(props);
+    this.markersRendered = false;
+  }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      JSON.stringify(this.props.places) === JSON.stringify(nextProps.places) &&
+      this.markersRendered
+    ) {
+      return false;
+    }
+    this.markersRendered = true;
+    return true;
+  }
+
+  render() {
+    return (
+      <span>
+        {this.props.places.map((marker, index) => {
+          let assetType = marker.type;
+          let icon = {
+            url: "",
+            anchor: new this.props.google.maps.Point(12, 23),
+            origin: new this.props.google.maps.Point(0, 0),
+            scaledSize: new this.props.google.maps.Size(30, 30)
+          };
+          switch (assetType) {
+            case "Mini-Grid":
+              icon.url = Centre;
+              break;
+            case "Procurement":
+              icon.url = Centre;
+              break;
+            case "Processing":
+              icon.url = Centre;
+              break;
+            case "Present Market":
+              icon.url = market;
+              break;
+            case "Planned Market":
+              icon.url = market;
+              break;
+            case "Corporate Office":
+              icon.url = office;
+              break;
+            case "Off-Site":
+              icon.url = office;
+              break;
+            default:
+              break;
+          }
+          return (
+            <Marker
+              {...this.props}
+              key={index}
+              data={marker}
+              // assetId={marker.assetId}
+              // assetType={assetType}
+              icon={icon}
+              zIndex= {999999999999}
+              position={{
+                lat: parseFloat(marker.latitude),
+                lng: parseFloat(marker.longitude)
+              }}
+            />
+          );
+        })}
+      </span>
+    );
+  }
+}
 class MapContainer extends Component {
   constructor(props) {
     super(props);
+    let tempadditional = [
+      {
+        latitude: 27.45805556,
+        longitude: 80.58944444,
+        name: "Ucchauli",
+        type: "Mini-Grid",
+        what: "Collection / Processing Centres"
+      },
+      {
+        latitude: 27.45805556,
+        longitude: 80.58944444,
+        name: "Govindpur",
+        type: "Mini-Grid",
+        what: "Collection / Processing Centres"
+      },
+      {
+        latitude: 28.26083333,
+        longitude: 80.11444444,
+        name: "Bicchauli",
+        type: "Mini-Grid",
+        what: "Collection / Processing Centres"
+      },
+      {
+        latitude: 27.41305556,
+        longitude: 80.76027778,
+        name: "Ramgarh",
+        type: "Mini-Grid",
+        what: "Collection / Processing Centres"
+      },
+      {
+        latitude: 26.69333333,
+        longitude: 85.68611111,
+        name: "Takia",
+        type: "Mini-Grid",
+        what: "Collection / Processing Centres"
+      },
+      {
+        latitude: 20.615156,
+        longitude: 77.5035243,
+        name: "Kamragaon",
+        type: "Procurement",
+        what: "Collection / Processing Centres"
+      },
+      {
+        latitude: 28.875826,
+        longitude: 77.106487,
+        name: "Kundli	",
+        type: "Processing",
+        what: "Collection / Processing Centres"
+      },
+      {
+        latitude: 27.01222222,
+        longitude: 84.69888889,
+        name: "Ramchandrapur",
+        type: "Mini-Grid",
+        what: "Collection / Processing Centres"
+      },
+      {
+        latitude: 28.7140497,
+        longitude: 77.1661905,
+        name: "NCR",
+        type: "Present Market",
+        what: "Markets Served"
+      },
+      {
+        latitude: 26.8424945,
+        longitude: 80.8751914,
+        name: "Lucknow",
+        type: "Planned Market",
+        what: "Markets Served"
+      },
+      {
+        latitude: 26.4474128,
+        longitude: 80.198295,
+        name: "Kanpur",
+        type: "Planned Market",
+        what: "Markets Served"
+      },
+      {
+        latitude: 25.6081756,
+        longitude: 85.0730021,
+        name: "Patna",
+        type: "Planned Market",
+        what: "Markets Served"
+      },
+      {
+        latitude: 25.3209013,
+        longitude: 82.9210681,
+        name: "Varanasi",
+        type: "Planned Market",
+        what: "Markets Served"
+      },
+      {
+        latitude: 28.52356,
+        longitude: 77.194194,
+        type: "Corporate Office",
+        name: "Delhi",
+        what: "Office"
+      },
+      {
+        latitude: 25.6226064,
+        longitude: 85.1277454,
+        type: "Off-Site",
+        name: "Patna",
+        what: "Office"
+      },
+      {
+        latitude: 26.8746814,
+        longitude: 80.9729577,
+        type: "Off-Site",
+        name: "Lucknow",
+        what: "Office"
+      },
+      {
+        latitude: 23.167633,
+        longitude: 79.901402,
+        type: "Off-Site",
+        name: "Jabalpur",
+        what: "Office"
+      }
+    ];
+    
+
     this.state = {
       showingInfoWindow: false, //Hides or the shows the infoWindow
       activeMarker: {}, //Shows the active marker upon click
-      selectedPlace: { owner: {} } //Shows the infoWindow to the selected place upon a marker
+      selectedPlace: { owner: {} }, //Shows the infoWindow to the selected place upon a marker
+      additionalmarkers: tempadditional,
+      showingInfoWindowadditional: false,
+      activeMarkeradditional:{},
+      selectedPlaceadditional:{}
     };
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onClose = this.onClose.bind(this);
-    this.portalredirect=this.portalredirect.bind(this);
+    this.portalredirect = this.portalredirect.bind(this);
   }
   onMarkerClick(props, marker, e) {
     let url;
@@ -148,6 +350,14 @@ class MapContainer extends Component {
       }
     });
   }
+  onMarkerClickAdditional = (props, markerAdditional, e) => {
+    // console.log("additional",props.data);
+    this.setState({
+      selectedPlaceadditional: props.data,
+      activeMarkeradditional: markerAdditional,
+      showingInfoWindowadditional: true
+    });
+  };
   onClose(props) {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -156,8 +366,16 @@ class MapContainer extends Component {
       });
     }
   }
-  portalredirect(id){
-    console.log('ddd')
+  onCloseadditional=()=>{
+    if (this.state.showingInfoWindowadditional) {
+      this.setState({
+        showingInfoWindowadditional: false,
+        activeMarkeradditional: null
+      });
+    }
+  }
+  portalredirect(id) {
+    console.log("ddd");
   }
   render() {
     return (
@@ -173,6 +391,7 @@ class MapContainer extends Component {
         zoom={5}
         style={mapStyles}
         styles={[
+          
           { elementType: "geometry.fill", stylers: [{ color: "#F2F2F2" }] },
           {
             featureType: "water",
@@ -194,7 +413,7 @@ class MapContainer extends Component {
             featureType: "road",
             elementType: "geometry",
             stylers: [{ visibility: "off" }]
-          },
+          }
           // {
           //   featureType: "water",
           //   elementType: "labels.text.fill",
@@ -206,12 +425,17 @@ class MapContainer extends Component {
           //   stylers: [{ color: "#17263c" }]
           // }
         ]}
-        initialCenter={{lat:22.845625996700075,lng: 78.9629}}
+        initialCenter={{ lat: 22.845625996700075, lng: 78.9629 }}
       >
         <MapList
           google={this.props.google}
           places={this.props.datapins}
           onClick={this.onMarkerClick}
+        />
+        <MapListAdditional
+          google={this.props.google}
+          places={this.state.additionalmarkers}
+          onClick={this.onMarkerClickAdditional}
         />
 
         <InfoWindow
@@ -238,20 +462,19 @@ class MapContainer extends Component {
               {this.state.selectedPlace.owner.name}{" "}
             </h4>
             <h6 className="infoWindowName">
-              
-              {this.state.selectedPlace.assetType==="PATVAN"&&(
+              {this.state.selectedPlace.assetType === "PATVAN" && (
                 <span>Patvan ID: {this.state.selectedPlace.id}</span>
               )}
-              {this.state.selectedPlace.assetType==="IRRIGATION_PUMP"&&(
+              {this.state.selectedPlace.assetType === "IRRIGATION_PUMP" && (
                 <span>Customer ID: {this.state.selectedPlace.id}</span>
               )}
-              {this.state.selectedPlace.assetType==="MINIGRID"&&(
+              {this.state.selectedPlace.assetType === "MINIGRID" && (
                 <span>Minigrid ID: {this.state.selectedPlace.id}</span>
               )}
-              {this.state.selectedPlace.assetType==="DRINKING_WATER_PUMP"&&(
+              {this.state.selectedPlace.assetType === "DRINKING_WATER_PUMP" && (
                 <span>Customer ID: {this.state.selectedPlace.id}</span>
               )}
-              {this.state.selectedPlace.assetType==="ROOFTOP"&&(
+              {this.state.selectedPlace.assetType === "ROOFTOP" && (
                 <span>Rooftop ID: {this.state.selectedPlace.id}</span>
               )}
             </h6>
@@ -377,6 +600,42 @@ class MapContainer extends Component {
             </div>
           </div>
         </InfoWindow>
+        
+        <InfoWindow
+        // pixelOffset={new this.props.google.maps.Size(190, 290)}
+        marker={this.state.activeMarkeradditional}
+        visible={this.state.showingInfoWindowadditional}
+        onClose={this.onCloseadditional}
+        >
+          
+            <div className=" additional">
+            <div
+              className="infobox clearfix"
+              style={{ textTransform: "capitalize" }}
+            >
+              <div className="header clearfix" style={{fontFamily:'gotham-regular'}}>
+                <h3 style={{color:'#315ca6'}}>
+                  {this.state.selectedPlaceadditional.name}{" "}
+                  <br className="breakline" />
+                  <small>{this.state.selectedPlaceadditional.what}</small>
+                </h3>
+              </div>
+              <div className="body clearfix ">
+                  <div className="row" style={{marginLeft:'0',marginRight:'0',fontSize:'initial',fontFamily:'gotham-light',marginBottom:'1em'}}>
+                    <b>Type: </b> {this.state.selectedPlaceadditional.type}
+                  </div>
+                  <div className="row" style={{marginLeft:'0',marginRight:'0',fontSize:'initial',fontFamily:'gotham-light',marginBottom:'1em'}}>
+                    <b>Latitude: </b> {this.state.selectedPlaceadditional.latitude}
+                  </div>
+                  <div className="row" style={{marginLeft:'0',marginRight:'0',fontSize:'initial',fontFamily:'gotham-light'}}>
+                    <b>Longitude: </b> {this.state.selectedPlaceadditional.longitude}
+                  </div>
+              </div>
+            </div>
+            </div>
+          
+        </InfoWindow>
+        
       </Map>
     );
   }
