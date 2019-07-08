@@ -432,11 +432,11 @@ class MapContainer extends Component {
           places={this.props.datapins}
           onClick={this.onMarkerClick}
         />
-        <MapListAdditional
+        {/* <MapListAdditional
           google={this.props.google}
           places={this.state.additionalmarkers}
           onClick={this.onMarkerClickAdditional}
-        />
+        /> */}
 
         <InfoWindow
           className="infoWindowCard"
@@ -601,7 +601,7 @@ class MapContainer extends Component {
           </div>
         </InfoWindow>
         
-        <InfoWindow
+        {/* <InfoWindow
         // pixelOffset={new this.props.google.maps.Size(190, 290)}
         marker={this.state.activeMarkeradditional}
         visible={this.state.showingInfoWindowadditional}
@@ -634,7 +634,7 @@ class MapContainer extends Component {
             </div>
             </div>
           
-        </InfoWindow>
+        </InfoWindow> */}
         
       </Map>
     );

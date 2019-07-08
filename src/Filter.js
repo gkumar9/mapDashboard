@@ -4,6 +4,7 @@ import ROOFTOP from "./pins/strop2.png";
 import IRRIGATION_PUMP from "./pins/strop1.png";
 import PATVAN from "./pins/strop5patvan.png";
 import MINIGRID from "./pins/strop4.png";
+const $ = require("jquery");
 class Filter extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +29,20 @@ class Filter extends Component {
   handlestatefilter(filteredstates) {
     this.props.onChangeStates(filteredstates);
     this.setState({ classdisabledapply: false, classdisabledreset: false });
+  }
+  componentDidMount(){
+    function myFunction(x) {
+      if (x.matches) {
+        // If media query matches
+        $("#filter").addClass("navbar-fixed-bottom");
+      } else {
+        $("#filter").removeClass("navbar-fixed-bottom");
+      }
+    }
+
+    var x = window.matchMedia("(max-width: 770px)");
+    myFunction(x); // Call listener function at run time
+    x.addListener(myFunction); // Attach listener function on state changes
   }
   render() {
     return (

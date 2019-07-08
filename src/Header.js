@@ -16,11 +16,11 @@ import FARMER from "./pins/Farmer 2.png";
 // import RMS from "./pins/RMS.png";
 // import IAAS from "./pins/IAAS.png";
 // import MINIGRID from "./pins/Minigrid(2).png";
-// // import HOME from "./pins/ROOFTOP.png";
+// import HOME from "./pins/ROOFTOP.png";
+import HOME from "./pins/Home.png";
 // import ROOFTOP from "./pins/Rooftop(2).png";
 // import FARMER from "./pins/user1.png";
 class Header extends Component {
-
   render() {
     return (
       <div className="container">
@@ -38,7 +38,7 @@ class Header extends Component {
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-              <a className="navbar-brand" href="/home">
+              <a className="navbar-brand" href="/">
                 <img
                   src="https://claroenergy.in/wp-content/themes/claro/images/temp/logo.png"
                   alt="logo"
@@ -47,36 +47,27 @@ class Header extends Component {
             </div>
             <div id="navbar1" className="navbar-collapse collapse gaurav">
               <ul className="nav navbar-nav">
-                {/* <li className="sidebarheader">
-                <Link to="/">
+                <li className="sidebarheader">
+                  <Link to="/" target="_self">
                     <img alt="irrigation" src={HOME} />
                     Home
-                    </Link>
-                </li> */}
+                  </Link>
+                </li>
                 <li className="sidebarheader">
-                  <Link to="/rms">
+                  <Link to="/rms" target="_self">
                     <img alt="irrigation" src={RMS} />
                     RMS
                   </Link>
                 </li>
 
                 <li className="sidebarheader">
-                  <a>
-                    <span className="verticalLine" />
-                  </a>
-                </li>
-                <li className="sidebarheader">
-                  <Link to="/iaas">
+                  <Link to="/iaas" target="_self">
                     <img alt="patvan" src={IAAS} />
                     IAAS
                   </Link>
                 </li>
-                <li className="sidebarheader">
-                  <a>
-                    <span className="verticalLine" />
-                  </a>
-                </li>
-                <li className="sidebarheader">
+
+                {/* <li className="sidebarheader">
                   <a>
                     <img alt="DRINKING_WATER_PUMP" src={ROOFTOP} />
                     Rooftop
@@ -97,9 +88,9 @@ class Header extends Component {
                   <a>
                     <span className="verticalLine" />
                   </a>
-                </li>
+                </li> */}
                 <li className="sidebarheader">
-                  <Link to="/farmer">
+                  <Link to="/farmer" target="_self">
                     <img alt="Minigrid" src={FARMER} />
                     Farmer
                   </Link>
@@ -118,7 +109,7 @@ class Header extends Component {
                     Welcome User
                   </a>
                 </li>
-                <li>
+                <li className="hideliinmobile">
                   <a style={{ padding: "14px 1px" }}>
                     <span className="verticalLine" />
                   </a>

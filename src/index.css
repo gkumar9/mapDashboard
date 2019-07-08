@@ -546,12 +546,15 @@ input[type="radio"] {
   }
 }
 @media screen and (max-width: 480px) {
+  .hideliinmobile{
+    display: none !important;
+  }
   .nav {
       padding-left:2px;
       padding-right:2px;
   }
   .nav li {
-      display:block !important;
+      display:block;
       width:100%;
       margin:0px;
   }
@@ -559,6 +562,7 @@ input[type="radio"] {
       border-bottom:1px solid #ddd!important;
       margin: 0px;
   }
+  
 }
 @media (max-width: 770px) {
   .backbuttoniaas{
@@ -697,6 +701,7 @@ input[type="radio"] {
   .verticalLine {
     display: none;
   }
+  
 }
 
 .brand-centered {
@@ -1027,13 +1032,13 @@ outline: 1px solid slategrey;
   border-radius: 0.5em;
   /* height: 80vh */
 }
-.additional .gm-style-iw-d {
+ .gm-style-iw-d >.additional{
   overflow: hidden !important;
   width: -webkit-fill-available;
   max-width: -webkit-fill-available !important;
   max-height: unset !important;
 }
-.additional .gm-style .gm-style-iw-c {
+.gm-style .gm-style-iw-c > .additional {
   padding: 0 !important;
   /* width: 800px; */
   max-width: -webkit-fill-available !important;
@@ -1042,9 +1047,15 @@ outline: 1px solid slategrey;
   left: 0;
   top: -32px;
 }
-.additional .gm-style .gm-style-iw-t::after {
+.gm-style .gm-style-iw-t::after > .additional {
   background-color: #ffffff;
   top: 0px;
   left: 0;
 }
 
+.navbar-default .navbar-toggle .icon-bar{
+  background-color: #315ca6;
+}
+.hideliinmobile{
+  display: block ;
+}

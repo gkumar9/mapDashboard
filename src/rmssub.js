@@ -708,7 +708,7 @@ class Rms extends Component {
 
                       borderRadiusTopLeft: 3,
                       borderRadiusTopRight: 3,
-                        pointWidth: null
+                        pointWidth: 8
                       },
                     },
                     yAxis: {

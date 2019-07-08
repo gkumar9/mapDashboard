@@ -352,7 +352,7 @@ class IaasRevenue extends Component {
               borderWidth: 0,
               borderRadiusTopLeft: 3,
               borderRadiusTopRight: 3,
-
+              pointWidth: 35,
               dataLabels: {
                 enabled: true,
                 style: {
@@ -387,13 +387,54 @@ class IaasRevenue extends Component {
           series: [
             {
               // to set the width of column bar
-              pointWidth: 35,
+              // pointWidth: 35,
               type: "column",
               name: "Year",
               color: "#315ca6",
               data: arr1
             }
-          ]
+          ],
+          responsive: {
+            rules: [
+              {
+                condition: {
+                  maxWidth: 500
+                },
+                chartOptions: {
+                  width: 400,
+                  legend: {
+                    align: "center",
+                    verticalAlign: "bottom",
+                    layout: "horizontal"
+                  },
+                  plotOptions: {
+                    series: {
+
+                    borderRadiusTopLeft: 3,
+                    borderRadiusTopRight: 3,
+                      pointWidth: 8
+                    },
+                  },
+                  yAxis: {
+                    // labels: {
+                    //     align: 'right',
+                    //     x: 0,
+                    //     y: -5
+                    // },
+                    title: {
+                      text: null
+                    }
+                  },
+                  subtitle: {
+                    text: null
+                  },
+                  credits: {
+                    enabled: false
+                  }
+                }
+              }
+            ]
+          }
           // responsive: {
           //   rules: [{
           //       condition: {
