@@ -11,16 +11,16 @@ class IaasSidebar extends Component {
     return (
       <div
         style={{
-          
           textAlign: "center",
-          padding: "1em"
+          padding: "1em",
+          height:'85vh',overflow:"scroll"
         }}
-        className="col-xs-3 rmssidebar"
+        className="col-xs-2 rmssidebar"
       >
         <div
           style={{
             background: "#F2F2F2",
-            padding: "0.3em",
+            padding: "0.1em",
             borderRadius: "0.5em"
           }}
         >
@@ -28,24 +28,29 @@ class IaasSidebar extends Component {
             style={{
               marginTop: "20px",
               color: "#b12d28",
-              fontSize: "large",
+              fontSize: "medium",
               fontFamily: "gotham-medium"
             }}
           >
             Our Impact
           </h4>
-          <ul style={{ marginTop: "20px", color: "black", paddingInlineStart:"20px"}}>
+          <ul
+            style={{
+              marginTop: "20px",
+              color: "black",
+              paddingInlineStart: "0px"
+            }}
+          >
             <li className="rmssidebar">
-              <div className="row">
-              <div className="col-xs-1"/>
-                <div className="col-xs-4">
-                  <img
-                    alt="CO2"
-                    src={CO2}
-                    style={{ width: "42px", marginLeft: "-11px" }}
-                  />
+              <div
+                className="row"
+                style={{ marginLeft: "0", marginRight: "0" }}
+              >
+                {/* <div className="col-xs-1"/> */}
+                <div className="col-xs-5" style={{ textAlign: "right" }}>
+                  <img alt="CO2" src={CO2} style={{ width: "37px" }} />
                 </div>
-                <div className="col-xs-5">
+                <div className="col-xs-7" style={{ textAlign: "left" }}>
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.co2Saved} Kg</b>
                   </span>
@@ -53,45 +58,47 @@ class IaasSidebar extends Component {
                     <small>CO2 Saved</small>
                   </p>
                 </div>
-                <div className="col-xs-1"/>
+                {/* <div className="col-xs-1"/> */}
               </div>
             </li>
             <li className="rmssidebar">
-              <div className="row">
-              <div className="col-xs-1"/>
-                <div className="col-xs-4">
-                  <img
-                    alt="flow"
-                    src={FLOW}
-                    style={{ width: "36px", marginLeft: "-11px" }}
-                  />
+              <div
+                className="row"
+                style={{ marginLeft: "0", marginRight: "0" }}
+              >
+                {/* <div className="col-xs-1"/> */}
+                <div className="col-xs-5" style={{ textAlign: "right" }}>
+                  <img alt="flow" src={FLOW} style={{ width: "35px" }} />
                 </div>
-                <div className="col-xs-5">
+                <div className="col-xs-7" style={{ textAlign: "left" }}>
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.waterDischarged} kL</b>
                   </span>
                   <p>
-                    <small>Water Discharged</small>
+                    <small>Water Pumped</small>
                   </p>
                 </div>
-                <div className="col-xs-1"/>
+                {/* <div className="col-xs-1"/> */}
               </div>
             </li>
             <li className="rmssidebar">
-              <div className="row">
-              <div className="col-xs-1"/>
-                <div className="col-xs-4">
+              <div
+                className="row"
+                style={{ marginLeft: "0", marginRight: "0" }}
+              >
+                {/* <div className="col-xs-1" /> */}
+                <div className="col-xs-5" style={{ textAlign: "right" }}>
                   <img
                     alt="Land"
                     src={LAND}
                     style={{
-                      width: "34px",
+                      width: "30px",
                       marginLeft: "-11px",
                       filter: "contrast(0)"
                     }}
                   />
                 </div>
-                <div className="col-xs-5">
+                <div className="col-xs-7" style={{ textAlign: "left" }}>
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.landIrrigated} Acre</b>
                   </span>
@@ -99,57 +106,63 @@ class IaasSidebar extends Component {
                     <small>Land Irrigated</small>
                   </p>
                 </div>
-                <div className="col-xs-1"/>
+                {/* <div className="col-xs-1" /> */}
               </div>
             </li>
             <li className="rmssidebar">
-              <div className="row">
-              <div className="col-xs-1"/>
-                <div className="col-xs-4">
+              <div
+                className="row"
+                style={{ marginLeft: "0", marginRight: "0" }}
+              >
+                {/* <div className="col-xs-1" /> */}
+                <div className="col-xs-5" style={{ textAlign: "right" }}>
                   <img
                     alt="PATVAN"
                     src={PATVAN}
                     style={{
-                      width: "37px",
+                      width: "30px",
                       marginLeft: "-11px",
                       filter: "contrast(0)"
                     }}
                   />
                 </div>
-                <div className="col-xs-5">
+                <div className="col-xs-7" style={{ textAlign: "left" }}>
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.noOfPatvans}</b>
                   </span>
                   <p>
-                    <small>No of Patvans</small>
+                    <small>Patvans</small>
                   </p>
                 </div>
-                <div className="col-xs-1"/>
+                {/* <div className="col-xs-1" /> */}
               </div>
             </li>
             <li className="rmssidebar">
-              <div className="row">
-              <div className="col-xs-1"/>
-                <div className="col-xs-4">
+              <div
+                className="row"
+                style={{ marginLeft: "0", marginRight: "0" }}
+              >
+                {/* <div className="col-xs-1" /> */}
+                <div className="col-xs-5" style={{ textAlign: "right" }}>
                   <img
                     alt="FARMER"
                     src={FARMER}
                     style={{
-                      width: "37px",
+                      width: "30px",
                       marginLeft: "-11px",
                       filter: "contrast(0)"
                     }}
                   />
                 </div>
-                <div className="col-xs-5">
+                <div className="col-xs-7" style={{ textAlign: "left" }}>
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.noOfFarmers}</b>
                   </span>
                   <p>
-                    <small>No of Farmers</small>
+                    <small>Farmers</small>
                   </p>
                 </div>
-                <div className="col-xs-1"/>
+                {/* <div className="col-xs-1" /> */}
               </div>
             </li>
           </ul>
@@ -157,7 +170,7 @@ class IaasSidebar extends Component {
         <div
           style={{
             background: "#F2F2F2",
-            padding: "0.3em",
+            padding: "0.1em",
             borderRadius: "0.5em",
             marginTop: "20px"
           }}
@@ -166,28 +179,36 @@ class IaasSidebar extends Component {
             style={{
               marginTop: "20px",
               color: "#b12d28",
-              fontSize: "large",
+              fontSize: "medium",
               fontFamily: "gotham-medium"
             }}
           >
             Most Active State
           </h4>
-          <ul style={{ marginTop: "20px", color: "black", paddingInlineStart:"20px" }}>
+          <ul
+            style={{
+              marginTop: "20px",
+              color: "black",
+              paddingInlineStart: "0px"
+            }}
+          >
             <li className="rmssidebar">
-              <div className="row">
-              <div className="col-xs-1"/>
-                <div className="col-xs-4">
+              <div
+                className="row"
+                style={{ marginLeft: "0", marginRight: "0" }}
+              >
+                {/* <div className="col-xs-1" /> */}
+                <div className="col-xs-5" style={{ textAlign: "right" }}>
                   <img
                     alt="ACTIVE"
                     src={ACTIVE}
                     style={{
-                      width: "42px",
-                      marginLeft: "-11px",
+                      width: "35px",
                       filter: "contrast(0)"
                     }}
                   />
                 </div>
-                <div className="col-xs-5">
+                <div className="col-xs-7" style={{ textAlign: "left" }}>
                   <span className="iaassidebartext">
                     <b>Bihar</b>
                   </span>
@@ -195,7 +216,7 @@ class IaasSidebar extends Component {
                     <small>95% Patvan active</small>
                   </p>
                 </div>
-                <div className="col-xs-1"/>
+                {/* <div className="col-xs-1" /> */}
               </div>
             </li>
           </ul>

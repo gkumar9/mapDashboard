@@ -69,7 +69,7 @@ class iaas extends Component {
               >
                 <IaasSidebar statsdata={this.state.statsdata} />
                 <div
-                  className="col-xs-9"
+                  className="col-xs-10"
                   style={{
                     // minHeight: "100vh",
                     // textAlign: "center",
@@ -128,7 +128,7 @@ class iaas extends Component {
                       </li>
                     </ul>
 
-                    <div className="tab-content">
+                    <div className="tab-content" style={{height:'75vh',overflow:"scroll"}}>
                       <div
                         role="tabpanel"
                         className="tab-pane active"
