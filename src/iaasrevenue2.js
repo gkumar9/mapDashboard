@@ -267,7 +267,7 @@ class IaasRevenue extends Component {
               $("#example").DataTable({
                 data: datatable,
                 destroy: true,
-                scrollY: 420,
+                scrollY: 380,
                 columns: [
                   { data: "transactionId" },
                   { data: "farmerName" },

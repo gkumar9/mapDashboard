@@ -95,7 +95,7 @@ code {
     monospace;
 }
 .rmssidebar {
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 }
 .col-xs-9 {
   text-align: left;
@@ -1015,7 +1015,7 @@ outline: 1px solid slategrey;
 }
 .iaassidebartext{
   color:#315ca6;
-  font-size: 12px;
+  font-size: 0.8em;
 }
 .additional .infobox .body{
   width: 350px !important;

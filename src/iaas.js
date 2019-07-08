@@ -128,7 +128,7 @@ class iaas extends Component {
                       </li>
                     </ul>
 
-                    <div className="tab-content" style={{height:'75vh',overflow:"scroll"}}>
+                    <div className="tab-content" >
                       <div
                         role="tabpanel"
                         className="tab-pane active"

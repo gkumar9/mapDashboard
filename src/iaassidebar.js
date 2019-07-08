@@ -12,8 +12,7 @@ class IaasSidebar extends Component {
       <div
         style={{
           textAlign: "center",
-          padding: "1em",
-          height:'85vh',overflow:"scroll"
+          padding: "1em"
         }}
         className="col-xs-2 rmssidebar"
       >
