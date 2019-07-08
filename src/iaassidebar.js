@@ -34,17 +34,18 @@ class IaasSidebar extends Component {
           >
             Our Impact
           </h4>
-          <ul style={{ marginTop: "20px", color: "black" }}>
+          <ul style={{ marginTop: "20px", color: "black", paddingInlineStart:"20px"}}>
             <li className="rmssidebar">
               <div className="row">
-                <div className="col-xs-3">
+              <div className="col-xs-1"/>
+                <div className="col-xs-4">
                   <img
                     alt="CO2"
                     src={CO2}
                     style={{ width: "42px", marginLeft: "-11px" }}
                   />
                 </div>
-                <div className="col-xs-9">
+                <div className="col-xs-5">
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.co2Saved} Kg</b>
                   </span>
@@ -52,18 +53,20 @@ class IaasSidebar extends Component {
                     <small>CO2 Saved</small>
                   </p>
                 </div>
+                <div className="col-xs-1"/>
               </div>
             </li>
             <li className="rmssidebar">
               <div className="row">
-                <div className="col-xs-3">
+              <div className="col-xs-1"/>
+                <div className="col-xs-4">
                   <img
                     alt="flow"
                     src={FLOW}
                     style={{ width: "36px", marginLeft: "-11px" }}
                   />
                 </div>
-                <div className="col-xs-9">
+                <div className="col-xs-5">
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.waterDischarged} kL</b>
                   </span>
@@ -71,11 +74,13 @@ class IaasSidebar extends Component {
                     <small>Water Discharged</small>
                   </p>
                 </div>
+                <div className="col-xs-1"/>
               </div>
             </li>
             <li className="rmssidebar">
               <div className="row">
-                <div className="col-xs-3">
+              <div className="col-xs-1"/>
+                <div className="col-xs-4">
                   <img
                     alt="Land"
                     src={LAND}
@@ -86,7 +91,7 @@ class IaasSidebar extends Component {
                     }}
                   />
                 </div>
-                <div className="col-xs-9">
+                <div className="col-xs-5">
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.landIrrigated} Acre</b>
                   </span>
@@ -94,11 +99,13 @@ class IaasSidebar extends Component {
                     <small>Land Irrigated</small>
                   </p>
                 </div>
+                <div className="col-xs-1"/>
               </div>
             </li>
             <li className="rmssidebar">
               <div className="row">
-                <div className="col-xs-3">
+              <div className="col-xs-1"/>
+                <div className="col-xs-4">
                   <img
                     alt="PATVAN"
                     src={PATVAN}
@@ -109,7 +116,7 @@ class IaasSidebar extends Component {
                     }}
                   />
                 </div>
-                <div className="col-xs-9">
+                <div className="col-xs-5">
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.noOfPatvans}</b>
                   </span>
@@ -117,11 +124,13 @@ class IaasSidebar extends Component {
                     <small>No of Patvans</small>
                   </p>
                 </div>
+                <div className="col-xs-1"/>
               </div>
             </li>
             <li className="rmssidebar">
               <div className="row">
-                <div className="col-xs-3">
+              <div className="col-xs-1"/>
+                <div className="col-xs-4">
                   <img
                     alt="FARMER"
                     src={FARMER}
@@ -132,7 +141,7 @@ class IaasSidebar extends Component {
                     }}
                   />
                 </div>
-                <div className="col-xs-9">
+                <div className="col-xs-5">
                   <span className="iaassidebartext">
                     <b>{this.props.statsdata.noOfFarmers}</b>
                   </span>
@@ -140,6 +149,7 @@ class IaasSidebar extends Component {
                     <small>No of Farmers</small>
                   </p>
                 </div>
+                <div className="col-xs-1"/>
               </div>
             </li>
           </ul>
@@ -162,10 +172,11 @@ class IaasSidebar extends Component {
           >
             Most Active State
           </h4>
-          <ul style={{ marginTop: "20px", color: "black" }}>
+          <ul style={{ marginTop: "20px", color: "black", paddingInlineStart:"20px" }}>
             <li className="rmssidebar">
               <div className="row">
-                <div className="col-xs-3">
+              <div className="col-xs-1"/>
+                <div className="col-xs-4">
                   <img
                     alt="ACTIVE"
                     src={ACTIVE}
@@ -176,7 +187,7 @@ class IaasSidebar extends Component {
                     }}
                   />
                 </div>
-                <div className="col-xs-9">
+                <div className="col-xs-5">
                   <span className="iaassidebartext">
                     <b>Bihar</b>
                   </span>
@@ -184,6 +195,7 @@ class IaasSidebar extends Component {
                     <small>95% Patvan active</small>
                   </p>
                 </div>
+                <div className="col-xs-1"/>
               </div>
             </li>
           </ul>

@@ -14,6 +14,19 @@ class IaasRevenue extends Component {
   componentDidMount() {
     drilldown(Highcharts);
 
+  //   if (window.screen.width <= 480) {
+  //     var chart = $('#container1').highcharts();
+  //     if ($(window).width() < 500) {   
+  //       chart.options.plotOptions=10        
+  //        chart.options.plotOptions.spline.marker.radius = 8;
+  //        chart.series[0].update();
+  //     }
+  //     else {
+  //       chart.options.plotOptions=35  
+  //        chart.options.plotOptions.spline.marker.radius = 4;
+  //        chart.series[0].update();
+  //     }
+  // }
     var arr1 = [];
     // var arr2 = [];
     // var arr3 = [];
