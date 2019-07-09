@@ -16,9 +16,9 @@ class iaas extends Component {
   }
 
   componentDidMount() {
-    if (window.screen.width <= 480) {
-      this.props.history.push("/iaasmobile");
-    }
+    if (window.screen.width >= 480) {
+        this.props.history.push("/iaas");
+      }
     axios({
       url: config.iaasstats,
       method: "POST",
