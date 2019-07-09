@@ -1066,3 +1066,6 @@ outline: 1px solid slategrey;
 .highcharts-xaxis-labels text {
   text-decoration: none !important;
 }
+.highcharts-drilldown-data-label text{
+  text-decoration: none !important;
+}

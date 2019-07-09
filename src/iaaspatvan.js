@@ -223,39 +223,45 @@ class Iaaspatvan extends Component{
                     }
                 },
                 responsive: {
-                    rules: [{
+                    rules: [
+                      {
                         condition: {
-                            maxWidth: 500
+                          maxWidth: 500
                         },
                         chartOptions: {
-                            legend: {
-                                align: 'center',
-                                verticalAlign: 'bottom',
-                                layout: 'horizontal'
+                          width: 400,
+                          legend: {
+                            align: "center",
+                            verticalAlign: "bottom",
+                            layout: "horizontal"
+                          },
+                          plotOptions: {
+                            series: {
+        
+                            borderRadiusTopLeft: 3,
+                            borderRadiusTopRight: 3,
+                              pointWidth: 8
                             },
-                            plotOptions:{
-                                series:{
-                                  pointWidth:null
-                                }
-                              },
-                            yAxis: {
-                                labels: {
-                                    align: 'right',
-                                    x: 0,
-                                    y: -5
-                                },
-                                title: {
-                                    text: null
-                                }
-                            },
-                            subtitle: {
-                                text: null
-                            },
-                            credits: {
-                                enabled: false
+                          },
+                          yAxis: {
+                            // labels: {
+                            //     align: 'right',
+                            //     x: 0,
+                            //     y: -5
+                            // },
+                            title: {
+                              text: null
                             }
+                          },
+                          subtitle: {
+                            text: null
+                          },
+                          credits: {
+                            enabled: false
+                          }
                         }
-                    }]
+                      }
+                    ]
                   },
             
                 series: [{
@@ -648,7 +654,7 @@ class Iaaspatvan extends Component{
         return(
             <div style={{'marginTop':'50px',fontFamily:'gotham-light'}}>
             <center><h4 style={{fontFamily:'gotham-medium'}}>Patvan wise Revenue</h4></center>
-            <ul className="nav nav-pills pvlist"  style={{'marginLeft':'0px', 'marginRight':'0px'}}>
+            <ul className="nav nav-pills pvlist"  style={{'marginLeft':'0px', 'marginRight':'0px',    display: 'inline-flex'}}>
             <li className = 'pvlist' style={{'marginRight':'15px', 'marginTop':'4px'}}>
                 <select  className="form-control" id="sel">
                 <option value="0">Overall</option>
@@ -668,7 +674,7 @@ class Iaaspatvan extends Component{
                 <li className="month_button disabled pvlist" id="11"><a >Nov </a></li>
                 <li className="month_button disabled pvlist" id="12"><a>Dec </a></li>
             </ul>
-            <div id="patrev" style={{padding:'1em'}}/></div>
+            <div id="patrev" style={{padding:'0.5em'}}/></div>
             
         )
     }
