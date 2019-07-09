@@ -71,8 +71,13 @@ class Rms extends Component {
     // console.log(Highcharts.Chart.destroy())
     if (!Highcharts.Chart.prototype.addSeriesAsDrilldown) {
       drilldown(Highcharts);
+      
     }
-
+    Highcharts.setOptions({
+      lang: {
+        thousandsSep: ','
+      }
+    });
     let singleassetstatttemp = {};
     let self = this;
     if (this.props.location.state !== undefined) {

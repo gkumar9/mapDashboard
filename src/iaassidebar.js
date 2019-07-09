@@ -171,7 +171,7 @@ class IaasSidebar extends Component {
             background: "#F2F2F2",
             padding: "0.1em",
             borderRadius: "0.5em",
-            marginTop: "20px"
+            marginTop: "28px"
           }}
         >
           <h4

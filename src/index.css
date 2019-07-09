@@ -174,29 +174,32 @@ a.disabled {
 .btn-primary:active {
   background-color: #3a50fc;
 }
-.btn-default:hover {
+ .btn-default:hover {
   background:transparent;
   border-color: transparent;
   color: blue;
 }
-.btn-default:active {
+.iaasbutton .btn-default:active {
   background: transparent;
   outline: none;
 }
-.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
+.iaasbutton .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
   border-color:transparent ;
   outline: none;
 }
-.btn-default.focus, .btn-default:focus{
+.iaasbutton .btn-default.focus, .btn-default:focus{
   outline: none;
 
-  background-color: transparent !important;
-  border-color: transparent !important;
+  background-color: transparent ;
+  border-color: transparent ;
 }
-.btn:active:focus, .btn:focus{
+.btn-default:active:focus{
+  border-color: transparent
+}
+.iaasbutton .btn:active:focus, .btn:focus{
   outline: none;
 }
-.btn.active, .btn:active{
+.iaasbutton .btn.active, .btn:active{
   box-shadow: none;
 }
 .sidebarheader {
@@ -1058,4 +1061,8 @@ outline: 1px solid slategrey;
 }
 .hideliinmobile{
   display: block ;
+}
+
+.highcharts-xaxis-labels text {
+  text-decoration: none !important;
 }

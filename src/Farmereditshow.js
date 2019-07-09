@@ -230,7 +230,7 @@ class Farmereditshow extends Component {
                           Total Land Size
                         </div>
                         <div className="col-xs-6">
-                          {this.props.famerinfo.totalLandSize || "NA"} Sq. Ft.
+                          {this.props.famerinfo.totalLandSize || "NA"} ha
                         </div>
                       </div>
                       <div className="row farmerinforow">

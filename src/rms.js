@@ -58,6 +58,7 @@ class Rmsdatatable extends Component {
       destroy: true,
       order: [[5, "desc"]],
       paging: true,
+      "pageLength": 100,
       ordering: true,
       responsive: true,
       columns: [

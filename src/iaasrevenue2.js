@@ -13,7 +13,11 @@ class IaasRevenue extends Component {
   }
   componentDidMount() {
     drilldown(Highcharts);
-
+    Highcharts.setOptions({
+      lang: {
+        thousandsSep: ','
+      }
+    });
   //   if (window.screen.width <= 480) {
   //     var chart = $('#container1').highcharts();
   //     if ($(window).width() < 500) {   
@@ -333,6 +337,8 @@ class IaasRevenue extends Component {
           },
           title: {
             text: "Revenue Timeline",
+
+            showEmpty: false,
             style: {
               fontFamily: "gotham-medium"
             }
@@ -356,6 +362,7 @@ class IaasRevenue extends Component {
               dataLabels: {
                 enabled: true,
                 style: {
+                  "font-family": "gotham-light",
                   color: "black"
                 }
               },
@@ -497,7 +504,7 @@ class IaasRevenue extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div className="iaasbutton">
           <div
             className="row"
             style={{ marginLeft: "0", marginRight: "0", marginTop: "10px" }}
