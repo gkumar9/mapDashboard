@@ -2,12 +2,303 @@ import React, { Component } from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import IaasHeader from "./iaasheader.js";
-import IaasSidebar from "./iaassidebar.js";
 import IaasRevenue from "./iaasrevenue2.js";
 import IaasPatvan from "./iaaspatvan.js";
 import Iasshourtrans from "./iaashourtrans.js";
 import axios from "axios";
 import config from "./config.js";
+import CO2 from "./pins/1.png";
+import FLOW from "./pins/2.png";
+import LAND from "./pins/land.png";
+import PATVAN from "./pins/tuk-tuk.png";
+import FARMER from "./pins/farmer 3.png";
+import ACTIVE from "./pins/placeholder.png";
+
+class IaasSidebarmobile extends Component {
+  render() {
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          padding: "1em"
+        }}
+      >
+        <div
+          style={{
+            background: "#F2F2F2",
+            padding: "0.1em",
+            borderRadius: "0.5em"
+          }}
+        >
+          <h4
+            style={{
+              marginTop: "20px",
+              color: "#b12d28",
+              fontSize: "medium",
+              fontFamily: "gotham-medium"
+            }}
+          >
+            Our Impact
+          </h4>
+          <div
+            id="carousel-example-generic"
+            class="carousel slide"
+            // data-ride="carousel"
+            data-wrap="false"
+            style={{ marginBottom: "1em" }}
+          >
+            <div class="carousel-inner" role="listbox">
+              <div class="item active">
+                <div
+                  className="row"
+                  style={{ marginLeft: "0", marginRight: "0" }}
+                >
+                  <div
+                    className="col-xs-6"
+                    style={{ paddingLeft: "0", paddingRight: "0" }}
+                  >
+                    <div
+                      className="row"
+                      style={{ marginLeft: "0", marginRight: "0" }}
+                    >
+                      <div
+                        className="col-xs-5"
+                        style={{ textAlign: "right", paddingRight: "0" }}
+                      >
+                        <img alt="CO2" src={CO2} style={{ width: "37px" }} />
+                      </div>
+                      <div
+                        className="col-xs-7"
+                        style={{ textAlign: "left", paddingRight: "0" }}
+                      >
+                        <span className="iaassidebartext">
+                          <b>{this.props.statsdata.co2Saved} Kg</b>
+                        </span>
+                        <p>
+                          <small>CO2 Saved</small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="col-xs-6"
+                    style={{ paddingLeft: "0", paddingRight: "0" }}
+                  >
+                    <div
+                      className="row"
+                      style={{ marginLeft: "0", marginRight: "0" }}
+                    >
+                      <div
+                        className="col-xs-5"
+                        style={{ textAlign: "right", paddingLeft: "0" }}
+                      >
+                        <img alt="flow" src={FLOW} style={{ width: "35px" }} />
+                      </div>
+                      <div
+                        className="col-xs-7"
+                        style={{
+                          textAlign: "left",
+                          paddingLeft: "0",
+                          paddingRight: "0"
+                        }}
+                      >
+                        <span className="iaassidebartext">
+                          <b>{this.props.statsdata.waterDischarged} kL</b>
+                        </span>
+                        <p>
+                          <small>Water Pumped</small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div
+                  className="row"
+                  style={{ marginLeft: "0", marginRight: "0" }}
+                >
+                  <div
+                    className="col-xs-6"
+                    style={{ paddingLeft: "0", paddingRight: "0" }}
+                  >
+                    <div
+                      className="row"
+                      style={{ marginLeft: "0", marginRight: "0" }}
+                    >
+                      <div
+                        className="col-xs-5"
+                        style={{ textAlign: "right", paddingRight: "0" }}
+                      >
+                        <img
+                          alt="Land"
+                          src={LAND}
+                          style={{
+                            width: "30px",
+                            marginLeft: "-11px",
+                            filter: "contrast(0)"
+                          }}
+                        />
+                      </div>
+                      <div
+                        className="col-xs-7"
+                        style={{ textAlign: "left", paddingRight: "0" }}
+                      >
+                        <span className="iaassidebartext">
+                          <b>{this.props.statsdata.landIrrigated} Acre</b>
+                        </span>
+                        <p>
+                          <small>Land Irrigated</small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="col-xs-6"
+                    style={{ paddingLeft: "0", paddingRight: "0" }}
+                  >
+                    <div
+                      className="row"
+                      style={{ marginLeft: "0", marginRight: "0" }}
+                    >
+                      <div
+                        className="col-xs-5"
+                        style={{ textAlign: "right", paddingRight: "0" }}
+                      >
+                        <img
+                          alt="PATVAN"
+                          src={PATVAN}
+                          style={{
+                            width: "30px",
+                            marginLeft: "-11px",
+                            filter: "contrast(0)"
+                          }}
+                        />
+                      </div>
+                      <div
+                        className="col-xs-7"
+                        style={{ textAlign: "left", paddingRight: "0" }}
+                      >
+                        <span className="iaassidebartext">
+                          <b>{this.props.statsdata.noOfPatvans}</b>
+                        </span>
+                        <p>
+                          <small>Patvans</small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div
+                  className="row"
+                  style={{ marginLeft: "0", marginRight: "0" }}
+                >
+                  <div
+                    className="col-xs-5"
+                    style={{ paddingLeft: "0", paddingRight: "0" }}
+                  >
+                    <div
+                      className="row"
+                      style={{ marginLeft: "0", marginRight: "0" }}
+                    >
+                      <div
+                        className="col-xs-5"
+                        style={{ textAlign: "right", paddingRight: "0" }}
+                      >
+                        <img
+                          alt="FARMER"
+                          src={FARMER}
+                          style={{
+                            width: "30px",
+                            marginLeft: "-11px",
+                            filter: "contrast(0)"
+                          }}
+                        />
+                      </div>
+                      <div
+                        className="col-xs-7"
+                        style={{ textAlign: "left", paddingRight: "0" }}
+                      >
+                        <span className="iaassidebartext">
+                          <b>{this.props.statsdata.noOfFarmers}</b>
+                        </span>
+                        <p>
+                          <small>Farmers</small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="col-xs-7"
+                    style={{ paddingLeft: "0", paddingRight: "0" }}
+                  >
+                    <div
+                      className="row"
+                      style={{ marginLeft: "0", marginRight: "0" }}
+                    >
+                      <div className="col-xs-5" style={{ textAlign: "right" }}>
+                        <img
+                          alt="ACTIVE"
+                          src={ACTIVE}
+                          style={{
+                            width: "35px",
+                            filter: "contrast(0)"
+                          }}
+                        />
+                      </div>
+                      <div
+                        className="col-xs-7"
+                        style={{
+                          textAlign: "left",
+                          paddingLeft: "0",
+                          paddingRight: "0"
+                        }}
+                      >
+                        <span className="iaassidebartext">
+                          <b>Bihar</b>
+                        </span>
+                        <p>
+                          <small>95% Patvan active</small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a
+              class="left carousel-control"
+              href="#carousel-example-generic"
+              role="button"
+              data-slide="prev"
+            >
+              <span
+                class="glyphicon glyphicon-chevron-left"
+                aria-hidden="true"
+              />
+              <span class="sr-only">Previous</span>
+            </a>
+            <a
+              class="right carousel-control"
+              href="#carousel-example-generic"
+              role="button"
+              data-slide="next"
+            >
+              <span
+                class="glyphicon glyphicon-chevron-right"
+                aria-hidden="true"
+              />
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
 class iaas extends Component {
   constructor(props) {
@@ -17,8 +308,8 @@ class iaas extends Component {
 
   componentDidMount() {
     if (window.screen.width >= 480) {
-        this.props.history.push("/iaas");
-      }
+      this.props.history.push("/iaas");
+    }
     axios({
       url: config.iaasstats,
       method: "POST",
@@ -70,41 +361,50 @@ class iaas extends Component {
                   fontFamily: "gotham-light"
                 }}
               >
-                <IaasSidebar statsdata={this.state.statsdata} />
+                <IaasSidebarmobile statsdata={this.state.statsdata} />
+              </div>
+              <div
+                className="row row-eq-height"
+                style={{
+                  marginRight: "0",
+                  marginLeft: "0",
+                  fontFamily: "gotham-light"
+                }}
+              >
                 <div
-                  className="col-xs-10"
                   style={{
                     // minHeight: "100vh",
                     // textAlign: "center",
                     padding: "1em"
                   }}
                 >
-                  <div
-                  className="iaasoverall"
-                    
-                  >
-                    <ul className="nav nav-tabs" role="tablist">
-                      <li role="presentation" className="active">
+                  <div className="iaasoverall">
+                    <ul
+                      className="nav nav-tabs"
+                      role="tablist"
+                      style={{'padding-top':'0.3em'}}
+                    >
+                      <li role="presentation" className="active" style={{width:'50%'}}>
                         <a
                           style={{
                             color: "#666666",
                             fontFamily: "gotham-medium",
-                            padding: "4px 25px"
+                            textAlign:'center'
                           }}
                           href="#home"
                           aria-controls="home"
                           role="tab"
                           data-toggle="tab"
                         >
-                          Revenue
+                          Revenue Timeline
                         </a>
                       </li>
-                      <li role="presentation" className="">
+                      <li role="presentation" className="" style={{width:'50%',borderLeft: '1px solid #ddd'}}>
                         <a
                           style={{
                             color: "#666666",
                             fontFamily: "gotham-medium",
-                            padding: "4px 25px"
+                            textAlign:'center'
                           }}
                           href="#profile"
                           aria-controls="profile"
@@ -119,7 +419,7 @@ class iaas extends Component {
                           style={{
                             color: "#666666",
                             fontFamily: "gotham-medium",
-                            padding: "4px 25px"
+                            textAlign: "center"
                           }}
                           href="#messages"
                           aria-controls="messages"
@@ -131,7 +431,7 @@ class iaas extends Component {
                       </li>
                     </ul>
 
-                    <div className="tab-content" >
+                    <div className="tab-content">
                       <div
                         role="tabpanel"
                         className="tab-pane active"

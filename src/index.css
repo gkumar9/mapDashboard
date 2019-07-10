@@ -1031,7 +1031,7 @@ outline: 1px solid slategrey;
 }
 .iaasoverall{
   background: #F2F2F2;
-  padding: 0.5em;
+  /* padding: 0.5em; */
   border-radius: 0.5em;
   /* height: 80vh */
 }
@@ -1068,4 +1068,39 @@ outline: 1px solid slategrey;
 }
 .highcharts-drilldown-data-label text{
   text-decoration:none !important;
+}
+.carousel-control.right{
+  background-image: none !important;
+}
+.carousel-control.left{
+  background-image: none !important;
+}
+.carousel-control{
+  color: #777;
+  top: -37px;
+  width:7%
+}
+.carousel-control .glyphicon-chevron-right, .carousel-control .icon-next{
+  -webkit-text-stroke: 3px #f2f2f2 !important;
+}
+.carousel-control .glyphicon-chevron-left, .carousel-control .icon-next{
+  -webkit-text-stroke: 3px #f2f2f2 !important;
+}
+.carousel-control:focus, .carousel-control:hover{
+  color: #777
+}
+/* ul {
+  column-count: 2;
+  column-gap: 40px;
+} */
+/* li {
+  text-align: left;
+  display: inline-block;
+  width: 100%
+} */
+.nav li{
+  border-bottom: 1px solid #ddd!important;
+}
+.nav>li>a{
+  padding: 7px;
 }
