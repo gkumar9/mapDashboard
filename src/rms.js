@@ -97,11 +97,13 @@ class Rmsdatatable extends Component {
     });
     $("#table_id").delegate("tr td:last-child", "click", function() {
       let rmssubdata = otable.row($(this).parents("tr")).data();
-
-      self.props.history.push({
-        pathname: "/rmsedit",
-        state: { detail: rmssubdata }
-      });
+      if(rmssubdata.assetType!=='rooftop'){
+        self.props.history.push({
+          pathname: "/rmsedit",
+          state: { detail: rmssubdata }
+        });
+      }
+      
     });
   }
   render() {

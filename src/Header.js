@@ -45,7 +45,7 @@ class Header extends Component {
                 />
               </a>
             </div>
-            <div id="navbar1" className="navbar-collapse collapse gaurav">
+            <div id="navbar1" className="navbar-collapse collapse gaurav" >
               <ul className="nav navbar-nav">
                 <li className="sidebarheader">
                   <Link to="/" target="_self">
@@ -95,8 +95,8 @@ class Header extends Component {
                     Farmer
                   </Link>
                 </li>
-                <li className="headerdivider" />
-                <li>
+                {/* <li className="headerdivider" /> */}
+                <li className="hideliinmobile">
                   <a
                     style={{
                       color: "#b12d28",
@@ -114,7 +114,7 @@ class Header extends Component {
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li>
+                <li className="hideliinmobile">
                   <a
                     target="_blank"
                     rel="noopener noreferrer"

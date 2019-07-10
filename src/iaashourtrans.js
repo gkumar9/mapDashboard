@@ -83,7 +83,7 @@ class Iaashourtans extends Component{
                     enabled:false },
                 plotOptions: {
                       series: {
-                          
+                          pointWidth: 35,
                           shadow:false,
                           borderWidth:0,
                           dataLabels:{
@@ -113,46 +113,52 @@ class Iaashourtans extends Component{
                       }
                 },    
                 series: [{
-                    pointWidth: 35,
+                    // pointWidth: 35,
                     borderRadiusTopLeft: 3,
                     borderRadiusTopRight: 3,
                     data: valuelist,
                     color:"#315ca6",
                 }],
                 responsive: {
-                    rules: [{
+                    rules: [
+                      {
                         condition: {
-                            maxWidth: 500
+                          maxWidth: 500
                         },
                         chartOptions: {
-                            legend: {
-                                align: 'center',
-                                verticalAlign: 'bottom',
-                                layout: 'horizontal'
+                          width: 400,
+                          legend: {
+                            align: "center",
+                            verticalAlign: "bottom",
+                            layout: "horizontal"
+                          },
+                          plotOptions: {
+                            series: {
+        
+                            borderRadiusTopLeft: 3,
+                            borderRadiusTopRight: 3,
+                              pointWidth: 12
                             },
-                            plotOptions:{
-                                series:{
-                                  pointWidth:null
-                                }
-                              },
-                            yAxis: {
-                                labels: {
-                                    align: 'right',
-                                    x: 0,
-                                    y: -5
-                                },
-                                title: {
-                                    text: null
-                                }
-                            },
-                            subtitle: {
-                                text: null
-                            },
-                            credits: {
-                                enabled: false
+                          },
+                          yAxis: {
+                            // labels: {
+                            //     align: 'right',
+                            //     x: 0,
+                            //     y: -5
+                            // },
+                            title: {
+                              text: null
                             }
+                          },
+                          subtitle: {
+                            text: null
+                          },
+                          credits: {
+                            enabled: false
+                          }
                         }
-                    }]
+                      }
+                    ]
                   }
                 
                 
