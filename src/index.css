@@ -1098,9 +1098,9 @@ outline: 1px solid slategrey;
   display: inline-block;
   width: 100%
 } */
-.nav li{
+.iaasmobile .nav li{
   border-bottom: 1px solid #ddd!important;
 }
-.nav>li>a{
+.iaasmobile .nav>li>a{
   padding: 7px;
 }

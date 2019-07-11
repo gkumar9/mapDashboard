@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import IaasHeader from "./iaasheader.js";
-import IaasRevenue from "./iaasrevenue2.js";
+import IaasRevenue from "./iaasrevenuemobile.js";
 import IaasPatvan from "./iaaspatvan.js";
 import Iasshourtrans from "./iaashourtrans.js";
 import axios from "axios";
@@ -42,13 +42,13 @@ class IaasSidebarmobile extends Component {
           </h4>
           <div
             id="carousel-example-generic"
-            class="carousel slide"
+            className="carousel slide"
             // data-ride="carousel"
             data-wrap="false"
             style={{ marginBottom: "1em" }}
           >
-            <div class="carousel-inner" role="listbox">
-              <div class="item active">
+            <div className="carousel-inner" role="listbox">
+              <div className="item active">
                 <div
                   className="row"
                   style={{ marginLeft: "0", marginRight: "0" }}
@@ -113,7 +113,7 @@ class IaasSidebarmobile extends Component {
                   </div>
                 </div>
               </div>
-              <div class="item">
+              <div className="item">
                 <div
                   className="row"
                   style={{ marginLeft: "0", marginRight: "0" }}
@@ -190,7 +190,7 @@ class IaasSidebarmobile extends Component {
                   </div>
                 </div>
               </div>
-              <div class="item">
+              <div className="item">
                 <div
                   className="row"
                   style={{ marginLeft: "0", marginRight: "0" }}
@@ -270,28 +270,28 @@ class IaasSidebarmobile extends Component {
             </div>
 
             <a
-              class="left carousel-control"
+              className="left carousel-control"
               href="#carousel-example-generic"
               role="button"
               data-slide="prev"
             >
               <span
-                class="glyphicon glyphicon-chevron-left"
+                className="glyphicon glyphicon-chevron-left"
                 aria-hidden="true"
               />
-              <span class="sr-only">Previous</span>
+              <span className="sr-only">Previous</span>
             </a>
             <a
-              class="right carousel-control"
+              className="right carousel-control"
               href="#carousel-example-generic"
               role="button"
               data-slide="next"
             >
               <span
-                class="glyphicon glyphicon-chevron-right"
+                className="glyphicon glyphicon-chevron-right"
                 aria-hidden="true"
               />
-              <span class="sr-only">Next</span>
+              <span className="sr-only">Next</span>
             </a>
           </div>
         </div>
@@ -348,7 +348,7 @@ class iaas extends Component {
     return (
       <div>
         <Header />
-        <div className="mainbody">
+        <div className="mainbody iaasmobile">
           <Sidebar history={this.props.history} />
           <div className="main">
             <IaasHeader />
@@ -414,7 +414,7 @@ class iaas extends Component {
                           Patvan's Revenue
                         </a>
                       </li>
-                      <li role="presentation" className="">
+                      <li role="presentation" className="" style={{width:'100%'}}>
                         <a
                           style={{
                             color: "#666666",
