@@ -44,10 +44,10 @@ class IaasSidebarmobile extends Component {
             id="carousel-example-generic"
             className="carousel slide"
             // data-ride="carousel"
-            data-wrap="false"
+            data-wrap="true"
             style={{ marginBottom: "1em" }}
           >
-            <div className="carousel-inner" role="listbox">
+            <div className="carousel-inner" role="listbox" style={{height:'60px'}}>
               <div className="item active">
                 <div
                   className="row"

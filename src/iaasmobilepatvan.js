@@ -9,7 +9,14 @@ const $ = require("jquery");
 class Iaaspatvan extends Component {
   componentDidMount() {
     drilldown(Highcharts);
-
+//     Highcharts.Pointer.prototype.onContainerTouchStart = Highcharts.Pointer.prototype.onContainerMouseDown;
+// var onContainerMouseMove = Highcharts.Pointer.prototype.onContainerMouseMove;
+// Highcharts.Pointer.prototype.onContainerTouchMove = function(e) {
+//     onContainerMouseMove.call(this, e);
+//     if ("touchstart" === this.chart.mouseIsDown) {
+//         this.drag(e);
+//     }
+// };
     axios({
       url: config.iaaspatvan,
       method: "POST",
@@ -144,6 +151,19 @@ class Iaaspatvan extends Component {
               exporting: {
                 enabled: false
               },
+              scrollbar: {
+                enabled: true,
+                buttonArrowColor: "transparent",
+                  buttonBorderColor: "transparent",
+                  buttonBorderRadius: 3,
+                  buttonBorderWidth: 1,
+                  rifleColor: "transparent",
+                  trackBorderWidth: 0,
+                  trackBorderRadius: 7,
+                  barBorderRadius: 7,
+                  barBorderWidth: 0,
+                  barBackgroundColor: "#b1afaf"
+            },
               xAxis: {
                 categories: a2,
                 labels: {
@@ -161,17 +181,7 @@ class Iaaspatvan extends Component {
                 max: 19,
                 scrollbar: {
                   enabled: true,
-                  // maxWidth:3,
-                  buttonArrowColor: "transparent",
-                  buttonBorderColor: "transparent",
-                  buttonBorderRadius: 3,
-                  buttonBorderWidth: 1,
-                  rifleColor: "transparent",
-                  trackBorderWidth: 0,
-                  trackBorderRadius: 7,
-                  barBorderRadius: 7,
-                  barBorderWidth: 0,
-                  barBackgroundColor: "#b1afaf"
+                 
                 }
               },
               yAxis: {
@@ -258,7 +268,7 @@ class Iaaspatvan extends Component {
               Highcharts.addEvent(
                 chart.container,
                 document.onmousewheel === undefined
-                  ? "DOMMouseScroll"
+                  ? "DOMMouseScroll" 
                   : "mousewheel",
                 function(e) {
                   var delta,

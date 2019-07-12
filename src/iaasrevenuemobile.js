@@ -142,7 +142,7 @@ class IaasRevenue extends Component {
               fontFamily: "gotham-light"
             },
             height:'700',
-            spacingRight: 35,
+            spacingRight: 30,
             events: {
               redraw: function(event) {
                 this.series[0].options.pointWidth = 15;

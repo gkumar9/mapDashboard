@@ -1031,7 +1031,7 @@ outline: 1px solid slategrey;
 }
 .iaasoverall{
   background: #F2F2F2;
-  /* padding: 0.5em; */
+  padding: 0.1em;
   border-radius: 0.5em;
   /* height: 80vh */
 }
@@ -1077,7 +1077,7 @@ outline: 1px solid slategrey;
 }
 .carousel-control{
   color: #777;
-  top: -37px;
+  top: -55px;
   width:7%
 }
 .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next{
@@ -1114,5 +1114,11 @@ outline: 1px solid slategrey;
   width: 7px !important;
 }
 .iaasmobile  .highcharts-scrollbar g .highcharts-scrollbar-button{
+  display: none;
+}
+.iaasmobile  .highcharts-scrollbar-arrow{
+  display: none
+}
+.iaasmobile .highcharts-scrollbar .highcharts-scrollbar-rifles{
   display: none;
 }

@@ -59,7 +59,7 @@ class Iaashourtans extends Component{
                     },
                 },
                 title:{
-                    text:'Hours of Operation per Transaction',
+                    text:'',
                     style: {
                         fontFamily: "gotham-medium"
                       }
@@ -109,7 +109,7 @@ class Iaashourtans extends Component{
                 yAxis:{
                    
                     title:{
-                        text:'No of Transactions',
+                        text:'No of Transactions'
                       }
                 },    
                 series: [{
@@ -140,16 +140,7 @@ class Iaashourtans extends Component{
                               pointWidth: 12
                             },
                           },
-                          yAxis: {
-                            // labels: {
-                            //     align: 'right',
-                            //     x: 0,
-                            //     y: -5
-                            // },
-                            title: {
-                              text: null
-                            }
-                          },
+                          
                           subtitle: {
                             text: null
                           },
