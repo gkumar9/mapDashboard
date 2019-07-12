@@ -544,13 +544,13 @@ class IaasRevenue extends Component {
             }}
             className="container"
           >
-            <div style={{ marginTop: "-50px", marginLeft: "-30px" }}>
+            <div style={{ marginTop: "-60px", marginLeft: "-30px" }}>
               <ul>
-                <li>
+                {/* <li>
                   {" "}
                   <i className="fa fa-calendar" aria-hidden="true" />
                   <span> {this.state.tabledata.date}</span>
-                </li>
+                </li> */}
                 {/* <li ><b>Transactions:</b>  {this.state.tabledata.number}</li> */}
                 <li style={{ marginTop: "6px" }}>
                   <b>Revenue:</b> {this.state.tabledata.sum} &#8377;

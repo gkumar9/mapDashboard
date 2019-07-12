@@ -142,7 +142,7 @@ class IaasRevenue extends Component {
               fontFamily: "gotham-light"
             },
             height:'700',
-            // spacingRight: 0,
+            spacingRight: 35,
             events: {
               redraw: function(event) {
                 this.series[0].options.pointWidth = 15;
@@ -193,6 +193,8 @@ class IaasRevenue extends Component {
               pointWidth: 28,
               dataLabels: {
                 enabled: true,
+                crop:false,
+                overflow:"none",
                 style: {
                   "font-family": "gotham-light",
                   color: "black"

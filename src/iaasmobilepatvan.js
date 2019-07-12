@@ -197,7 +197,9 @@ class Iaaspatvan extends Component {
                 },
                 bar: {
                   dataLabels: {
-                    enabled: true
+                    enabled: true,
+                    crop:false,
+                    overflow:"none",
                   }
                 }
               },
@@ -374,8 +376,7 @@ class Iaaspatvan extends Component {
               }
             }
             sorting_array(series_array);
-          }
-         else {
+          } else {
             //    console.log(selected)
             // console.log(month_button_array)
             for (let yr1 = 0; yr1 < month_button_array.length; yr1++) {
@@ -558,7 +559,7 @@ class Iaaspatvan extends Component {
             marginLeft: "0px",
             marginRight: "0px",
             display: "flex",
-            padding: "1em 2em"
+            padding: "0.5em 2em"
           }}
         >
           <li className="pvlist" style={{ margin: "0 5em", borderBottom: "0" }}>
@@ -604,7 +605,7 @@ class Iaaspatvan extends Component {
             </select>
           </li> */}
         </ul>
-        <div id="patrev" style={{ padding: "0.5em" }} />
+        <div id="patrev" />
       </div>
     );
   }

@@ -151,11 +151,7 @@ class Iaaspatvan extends Component {
                 },
                 type: "category",
                 title: {
-                  text: null,
-                  offset: 0,
-                  rotation: 0,
-                  y: 3,
-                  align: "high"
+                  text: "Patvan ID",
                 },
                 max: 19,
                 scrollbar: {
