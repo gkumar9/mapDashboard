@@ -45,7 +45,7 @@ class Header extends Component {
                 />
               </a>
             </div>
-            <div id="navbar1" className="navbar-collapse collapse gaurav" style={{padding:'0.5em'}}>
+            <div id="navbar1" className="navbar-collapse collapse gaurav" >
               <ul className="nav navbar-nav">
                 <li className="sidebarheader">
                   <Link to="/" target="_self">

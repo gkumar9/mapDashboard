@@ -11,6 +11,7 @@ import iaas from './iaas.js'
 import farmer from './newfarmer.js'
 import rmsedit from './rmsedit.js';
 import farmeredit from './farmeredit.js';
+import iaasmobile from './iaasmobile.js';
 import Highcharts from 'highcharts/highstock'
 const borderRadius = require("highcharts-border-radius");
 borderRadius(Highcharts);
@@ -28,6 +29,7 @@ ReactDOM.render(
       <Route exact path="/iaas" component={iaas} />
       <Route exact path="/rms/:id" component={rmssub} />
       <Route exact path="/farmeredit" component={farmeredit} />
+      <Route exact path="/iaasmobile" component={iaasmobile} />
     </div>
   </HashRouter>,
   document.getElementById("root")

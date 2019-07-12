@@ -791,10 +791,10 @@ class Rms extends Component {
                   {this.props.location.state !== undefined ? (
                     <div>
                       <h4>{this.props.location.state.detail.customerName}</h4>
-                      <i className="fa fa-calendar" aria-hidden="true" />
+                      {/* <i className="fa fa-calendar" aria-hidden="true" />
                       <span style={{ marginLeft: "8px" }}>
                         {this.props.location.state.detail.doi}
-                      </span>
+                      </span> */}
                       <div style={{ margin: "10px" }} id="energy_chart" />
                       <button
                         id="drillUp"

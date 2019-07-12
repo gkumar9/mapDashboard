@@ -49,7 +49,7 @@ a.pvlist {
   background: #666666 !important;
 }
 #sel {
-  width: 100px;
+  /* width: 100px; */
 }
 .dataTables_filter {
   margin-right: 15px;
@@ -1031,7 +1031,7 @@ outline: 1px solid slategrey;
 }
 .iaasoverall{
   background: #F2F2F2;
-  padding: 0.5em;
+  /* padding: 0.5em; */
   border-radius: 0.5em;
   /* height: 80vh */
 }
@@ -1067,5 +1067,52 @@ outline: 1px solid slategrey;
   text-decoration: none !important;
 }
 .highcharts-drilldown-data-label text{
-  text-decoration: none !important;
+  text-decoration:none !important;
+}
+.carousel-control.right{
+  background-image: none !important;
+}
+.carousel-control.left{
+  background-image: none !important;
+}
+.carousel-control{
+  color: #777;
+  top: -37px;
+  width:7%
+}
+.carousel-control .glyphicon-chevron-right, .carousel-control .icon-next{
+  -webkit-text-stroke: 3px #f2f2f2 !important;
+}
+.carousel-control .glyphicon-chevron-left, .carousel-control .icon-next{
+  -webkit-text-stroke: 3px #f2f2f2 !important;
+}
+.carousel-control:focus, .carousel-control:hover{
+  color: #777
+}
+/* ul {
+  column-count: 2;
+  column-gap: 40px;
+} */
+/* li {
+  text-align: left;
+  display: inline-block;
+  width: 100%
+} */
+.iaasmobile .nav li{
+  border-bottom: 1px solid #ddd;
+}
+.iaasmobile .nav>li>a{
+  padding: 7px;
+}
+.iaasmobile .nav-tabs {
+  border-bottom: 0 ;
+}
+.iaasmobile  .highcharts-scrollbar{
+  width: 7px !important;
+}
+.iaasmobile  .highcharts-scrollbar-thumb{
+  width: 7px !important;
+}
+.iaasmobile  .highcharts-scrollbar g .highcharts-scrollbar-button{
+  display: none;
 }

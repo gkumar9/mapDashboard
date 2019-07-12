@@ -202,7 +202,7 @@ class IaasSidebar extends Component {
                     alt="ACTIVE"
                     src={ACTIVE}
                     style={{
-                      width: "35px",
+                      width: "32px",
                       filter: "contrast(0)"
                     }}
                   />

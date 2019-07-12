@@ -58,7 +58,8 @@ class Rmsdatatable extends Component {
       destroy: true,
       order: [[5, "desc"]],
       paging: true,
-      "pageLength": 100,
+      pageLength: 100,
+      scrollX: true,
       ordering: true,
       responsive: true,
       columns: [
@@ -97,11 +98,13 @@ class Rmsdatatable extends Component {
     });
     $("#table_id").delegate("tr td:last-child", "click", function() {
       let rmssubdata = otable.row($(this).parents("tr")).data();
-
-      self.props.history.push({
-        pathname: "/rmsedit",
-        state: { detail: rmssubdata }
-      });
+      if(rmssubdata.assetType!=='rooftop'){
+        self.props.history.push({
+          pathname: "/rmsedit",
+          state: { detail: rmssubdata }
+        });
+      }
+      
     });
   }
   render() {

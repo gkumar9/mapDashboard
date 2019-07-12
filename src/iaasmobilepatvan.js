@@ -128,6 +128,7 @@ class Iaaspatvan extends Component {
                 type: "bar",
                 backgroundColor: "#f2f2f2",
                 spacingLeft: 10,
+                height: 600,
                 style: {
                   fontFamily: "gotham-light"
                 },
@@ -151,20 +152,22 @@ class Iaaspatvan extends Component {
                 },
                 type: "category",
                 title: {
-                  text: null,
-                  offset: 0,
-                  rotation: 0,
-                  y: 3,
-                  align: "high"
+                  text: "Patvan ID"
+                  // offset: 0,
+                  // rotation: 0,
+                  // y: 3,
+                  // align: "high"
                 },
                 max: 19,
                 scrollbar: {
                   enabled: true,
-                  buttonArrowColor: "black",
-                  buttonBorderRadius: 7,
+                  // maxWidth:3,
+                  buttonArrowColor: "transparent",
+                  buttonBorderColor: "transparent",
+                  buttonBorderRadius: 3,
                   buttonBorderWidth: 1,
-                  rifleColor: "black",
-                  trackBorderWidth: 1,
+                  rifleColor: "transparent",
+                  trackBorderWidth: 0,
                   trackBorderRadius: 7,
                   barBorderRadius: 7,
                   barBorderWidth: 0,
@@ -198,46 +201,46 @@ class Iaaspatvan extends Component {
                   }
                 }
               },
-              responsive: {
-                rules: [
-                  {
-                    condition: {
-                      maxWidth: 500
-                    },
-                    chartOptions: {
-                      width: 400,
-                      legend: {
-                        align: "center",
-                        verticalAlign: "bottom",
-                        layout: "horizontal"
-                      },
-                      plotOptions: {
-                        series: {
-                          borderRadiusTopLeft: 3,
-                          borderRadiusTopRight: 3,
-                          pointWidth: 8
-                        }
-                      },
-                      yAxis: {
-                        // labels: {
-                        //     align: 'right',
-                        //     x: 0,
-                        //     y: -5
-                        // },
-                        title: {
-                          text: null
-                        }
-                      },
-                      subtitle: {
-                        text: null
-                      },
-                      credits: {
-                        enabled: false
-                      }
-                    }
-                  }
-                ]
-              },
+              //   responsive: {
+              //     rules: [
+              //       {
+              //         condition: {
+              //           maxWidth: 500
+              //         },
+              //         chartOptions: {
+              //           width: 400,
+              //           legend: {
+              //             align: "center",
+              //             verticalAlign: "bottom",
+              //             layout: "horizontal"
+              //           },
+              //           plotOptions: {
+              //             series: {
+              //               borderRadiusTopLeft: 3,
+              //               borderRadiusTopRight: 3,
+              //               pointWidth: 8
+              //             }
+              //           },
+              //           yAxis: {
+              //             // labels: {
+              //             //     align: 'right',
+              //             //     x: 0,
+              //             //     y: -5
+              //             // },
+              //             title: {
+              //               text: null
+              //             }
+              //           },
+              //           subtitle: {
+              //             text: null
+              //           },
+              //           credits: {
+              //             enabled: false
+              //           }
+              //         }
+              //       }
+              //     ]
+              //   },
 
               series: [
                 {
@@ -295,136 +298,6 @@ class Iaaspatvan extends Component {
           );
         }
 
-        // function Sorted_Data() {
-        //   chartpatvsrev = new Highcharts.chart(
-        //     "patrev",
-        //     {
-        //       chart: {
-        //         type: "bar",
-        //         style: {
-        //           fontFamily: "gotham-light"
-        //         },
-        //         spacingLeft: 10,
-        //         events: {
-        //           load: function(event) {
-        //             this.yAxis[0].setExtremes(0, highest);
-        //           }
-        //         }
-        //       },
-        //       title: {
-        //         text: null
-        //       },
-        //       exporting: {
-        //         enabled: false
-        //       },
-        //       xAxis: {
-        //         categories: Patvan_Lists,
-        //         labels: {
-        //           align: "left",
-        //           reserveSpace: true
-        //         },
-        //         type: "category",
-        //         title: {
-        //           text: null,
-        //           offset: 0,
-        //           rotation: 0,
-        //           y: 3,
-        //           align: "high"
-        //         }
-        //         // max:19,
-        //         // scrollbar: {
-        //         //               enabled: true,
-        //         //            buttonArrowColor: 'black',
-        //         //                     buttonBorderRadius: 7,
-        //         //                      buttonBorderWidth: 4,
-        //         //                       rifleColor: 'black',
-        //         //                  trackBorderWidth: 1,
-        //         //           trackBorderRadius: 7,
-        //         //              barBorderRadius: 7,
-        //         //           barBorderWidth: 0,
-        //         //              barBackgroundColor: '#565655'
-        //         //          }
-        //       },
-        //       yAxis: {
-        //         min: 0,
-        //         title: {
-        //           text: "Revenue in (Rs)"
-        //         }
-        //       },
-        //       credits: {
-        //         enabled: false
-        //       },
-
-        //       legend: { enabled: false },
-        //       tooltip: {
-        //         valueSuffix: " Rs"
-        //       },
-        //       plotOptions: {
-        //         series: {
-        //           pointPadding: 0,
-        //           groupPadding: 0,
-        //           pointWidth: 20
-        //         },
-        //         bar: {
-        //           dataLabels: {
-        //             enabled: true
-        //           }
-        //         }
-        //       },
-
-        //       series: [
-        //         {
-        //           name: "Revenue",
-        //           data: series_array,
-        //           color: "#315ca6"
-        //         }
-        //       ]
-        //     },
-        //     function(chart) {
-        //       Highcharts.addEvent(
-        //         chart.container,
-        //         document.onmousewheel === undefined
-        //           ? "DOMMouseScroll"
-        //           : "mousewheel",
-        //         function(e) {
-        //           var delta,
-        //             xAxis = chart.xAxis[0],
-        //             range = xAxis.max - xAxis.min,
-        //             newMin,
-        //             newMax;
-
-        //           e = chart.pointer.normalize(e);
-
-        //           //Firefox uses e.detail, WebKit and IE uses wheelDelta
-        //           delta = e.detail || -(e.wheelDelta / 120);
-
-        //           if (
-        //             chart.isInsidePlot(
-        //               e.chartX - chart.plotLeft,
-        //               e.chartY - chart.plotTop
-        //             )
-        //           ) {
-        //             newMin = xAxis.min + range * delta;
-        //             newMax = xAxis.max + range * delta;
-
-        //             if (newMin < xAxis.dataMin) {
-        //               newMin = xAxis.dataMin;
-        //               newMax = newMin + range;
-        //             }
-
-        //             if (newMax > xAxis.dataMax) {
-        //               newMax = xAxis.dataMax;
-        //               newMin = newMax - range;
-        //             }
-
-        //             xAxis.setExtremes(newMin, newMax, true, false);
-        //           }
-        //           e.preventDefault();
-        //         }
-        //       );
-        //     }
-        //   );
-        // }
         $(".month_button").click(function() {
           // console.log('month_button')
 
@@ -475,7 +348,6 @@ class Iaaspatvan extends Component {
 
         $("#sel").change(function() {
           var selected = $(this).val();
-
           if (selected === "0") {
             for (let yr1 = 0; yr1 < month_button_array.length; yr1++) {
               var ss = month_button_array[yr1];
@@ -502,7 +374,8 @@ class Iaaspatvan extends Component {
               }
             }
             sorting_array(series_array);
-          } else {
+          }
+         else {
             //    console.log(selected)
             // console.log(month_button_array)
             for (let yr1 = 0; yr1 < month_button_array.length; yr1++) {
@@ -563,21 +436,111 @@ class Iaaspatvan extends Component {
           }
         });
 
-        $(document).ready(function() {
-          $(function() {
-            $("ul.nav.pvlist li.pvlist").on("click", function() {
-              $(this)
-                .parent()
-                .find("li.pvlist.active")
-                .removeClass("active");
-              $(this).addClass("active");
-              $(this)
-                .parent()
-                .find("li.pvlist.disabled")
-                .removeClass("active");
-            });
-          });
-        });
+        // $("#sel1").change(function() {
+        //   var selected = $(this).val();
+
+        //   if (selected === "0") {
+        //     for (let yr1 = 0; yr1 < month_button_array.length; yr1++) {
+        //       var ss = month_button_array[yr1];
+        //       var sss = ss.id;
+        //       //debugger;
+        //       ss.className = "";
+
+        //       ss.className = "month_button disabled pvlist";
+        //     }
+        //     var maximum_y = 0;
+
+        //     series_array = [];
+        //     for (let yr = 0; yr < p.patvanList.length; yr++) {
+        //       var pat1 = p["patvanList"][yr];
+
+        //       if (p.patvanRevenue[pat1]) {
+        //         var data2 = parseInt(p.patvanRevenue[pat1]["total"]);
+        //         series_array.push(data2);
+        //         if (data2 > maximum_y) {
+        //           maximum_y = data2;
+        //         }
+        //       } else {
+        //         series_array.push(null);
+        //       }
+        //     }
+        //     sorting_array(series_array);
+        //   } else {
+        //     //    console.log(selected)
+        //     // console.log(month_button_array)
+        //     for (let yr1 = 0; yr1 < month_button_array.length; yr1++) {
+        //       ss = month_button_array[yr1];
+        //       sss = parseInt(ss.id);
+        //       //debugger;
+        //       ss.className = "";
+
+        //       // console.log(p['month'][selected])
+        //       let check = false;
+        //       // eslint-disable-next-line no-loop-func
+        //       p["month"][selected].map(item => {
+        //         if (item === sss) {
+        //           check = true;
+        //         }
+        //       });
+        //       if (check) {
+        //         ss.className = "month_button active pvlist";
+        //       } else {
+        //         ss.className = "month_button disabled pvlist";
+        //       }
+        //       // if(p['month'][selected][yr1]=== sss)
+        //       // {
+        //       //     ss.className = 'month_button disabled pvlist';
+
+        //       // }
+        //       // else
+        //       // {
+
+        //       //     ss.className = 'month_button active pvlist';
+
+        //       // }
+        //     }
+        //     maximum_y = 0;
+
+        //     series_array = [];
+        //     for (let yr = 0; yr < p.patvanList.length; yr++) {
+        //       pat1 = p["patvanList"][yr];
+        //       // console.log('patvan:',pat1)
+        //       if (p.patvanRevenue[pat1].patvanYearDataList[selected]) {
+        //         data2 =
+        //           p.patvanRevenue[pat1].patvanYearDataList[selected]["total"];
+        //         //  console.log('data:',data2)
+        //         if (data2 === 0) {
+        //           series_array.push(null);
+        //         } else {
+        //           series_array.push(data2);
+        //         }
+
+        //         if (data2 > maximum_y) {
+        //           maximum_y = data2;
+        //         }
+        //       } else {
+        //         series_array.push(null);
+        //       }
+        //     }
+        //     sorting_array(series_array);
+        //   }
+        // });
+
+        // $(document).ready(function() {
+        //   $(function() {
+        //     $("ul.nav.pvlist li.pvlist").on("click", function() {
+        //       $(this)
+        //         .parent()
+        //         .find("li.pvlist.active")
+        //         .removeClass("active");
+        //       $(this).addClass("active");
+        //       $(this)
+        //         .parent()
+        //         .find("li.pvlist.disabled")
+        //         .removeClass("active");
+        //     });
+        //   });
+        // });
       })
       .catch(e => {
         console.log(e);
@@ -585,70 +548,61 @@ class Iaaspatvan extends Component {
   }
   render() {
     return (
-      <div style={{ marginTop: "50px", fontFamily: "gotham-light" }}>
-        <center>
+      <div>
+        {/* <center>
           <h4 style={{ fontFamily: "gotham-medium" }}>Patvan wise Revenue</h4>
-        </center>
+        </center> */}
         <ul
           className="nav nav-pills pvlist"
           style={{
             marginLeft: "0px",
             marginRight: "0px",
-            display: "inline-flex"
+            display: "flex",
+            padding: "1em 2em"
           }}
         >
-          <li
-            className="pvlist"
-            style={{
-              marginLeft: "15px",
-              marginRight: "15px",
-              marginTop: "4px"
-            }}
-          >
+          <li className="pvlist" style={{ margin: "0 5em", borderBottom: "0" }}>
             <select
               className="form-control"
               id="sel"
-              style={{ width: "100px" }}
+              style={{
+                border: "1px solid #b12d28",
+                color: "rgb(102, 102, 102)",
+                fontWeight: "700"
+              }}
             >
               <option value="0">Overall</option>
             </select>
           </li>
-          <li className="month_button disabled pvlist" id="01">
-            <a>Jan</a>
-          </li>
-          <li className="month_button disabled pvlist" id="02">
-            <a>Feb </a>
-          </li>
-          <li className="month_button disabled pvlist" id="03">
-            <a>Mar</a>
-          </li>
-          <li className="month_button disabled pvlist" id="04">
-            <a>Apr </a>
-          </li>
-          <li className="month_button disabled pvlist" id="05">
-            <a>May </a>
-          </li>
-          <li className="month_button disabled pvlist" id="06">
-            <a>Jun</a>
-          </li>
-          <li className="month_button disabled pvlist" id="07">
-            <a>Jul</a>
-          </li>
-          <li className="month_button disabled pvlist" id="08">
-            <a>Aug </a>
-          </li>
-          <li className="month_button disabled pvlist" id="09">
-            <a>Sep </a>
-          </li>
-          <li className="month_button disabled pvlist" id="10">
-            <a>Oct </a>
-          </li>
-          <li className="month_button disabled pvlist" id="11">
-            <a>Nov </a>
-          </li>
-          <li className="month_button disabled pvlist" id="12">
-            <a>Dec </a>
-          </li>
+          {/* <li
+            className="pvlist"
+            style={{ margin: "0 1em", borderBottom: "0" }}
+            // style={{ marginRight: "15px", marginTop: "4px" }}
+          >
+            <select
+              className="form-control"
+              id="sel1"
+              style={{
+                border: "1px solid #b12d28",
+                color: "rgb(102, 102, 102)",
+                fontWeight: "700"
+              }}
+            >
+              <option value="0">All month</option>
+              <option value="01">Jan</option>
+              <option value="02">Feb</option>
+              <option value="03">Mar</option>
+              <option value="04">Apr</option>
+              <option value="05">May</option>
+              <option value="06">Jun</option>
+              <option value="07">Jul</option>
+              <option value="08">Aug</option>
+              <option value="09">Sep</option>
+              <option value="10">Oct</option>
+              <option value="11">Nov</option>
+              <option value="12">Dec</option>
+            </select>
+          </li> */}
         </ul>
         <div id="patrev" style={{ padding: "0.5em" }} />
       </div>

@@ -16,6 +16,9 @@ class iaas extends Component {
   }
 
   componentDidMount() {
+    if (window.screen.width <= 480) {
+      this.props.history.push("/iaasmobile");
+    }
     axios({
       url: config.iaasstats,
       method: "POST",
@@ -80,7 +83,7 @@ class iaas extends Component {
                   className="iaasoverall"
                     
                   >
-                    <ul className="nav nav-tabs" role="tablist">
+                    <ul className="nav nav-tabs" role="tablist" style={{paddingTop:'0.5em'}}>
                       <li role="presentation" className="active">
                         <a
                           style={{
@@ -128,7 +131,7 @@ class iaas extends Component {
                       </li>
                     </ul>
 
-                    <div className="tab-content" >
+                    <div className="tab-content" style={{padding:'0.5em'}}>
                       <div
                         role="tabpanel"
                         className="tab-pane active"
