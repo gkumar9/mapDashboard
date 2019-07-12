@@ -22,25 +22,6 @@ class RmsHeader extends Component {
             className="container-fluid"
             style={{ textAlign: "center", marginTop: "10px" }}
           >
-            <Link to="/rms">
-              <button
-                style={{
-                  marginTop: "-2px",
-                  backgroundColor: "transparent",
-                  float: "left"
-                }}
-                type="button"
-                className="btn btn-default"
-                aria-label="Left Align"
-              >
-                <span
-                  className="glyphicon glyphicon-menu-left"
-                  style={{ marginRight: "6px" }}
-                  aria-hidden="true"
-                />
-                RMS{" "}
-              </button>
-            </Link>
             <span style={{ fontSize: "large", color: "blue" }}>
               RMS edit portal{" "}
             </span>

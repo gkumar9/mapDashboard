@@ -113,7 +113,7 @@ class Rmsdatatable extends Component {
         <table
           id="table_id"
           className="table table-striped table-hover"
-          style={{ width: "100%" }}
+          style={{ width: "100%",padding:'0.5em' }}
         >
           {/* <table id="example" className="display" width="100%" ref={el=>this.el=el}> */}
           <thead>
