@@ -3,7 +3,7 @@ import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import IaasHeader from "./iaasheader.js";
 import IaasRevenue from "./iaasrevenuemobile.js";
-import IaasPatvan from "./iaaspatvan.js";
+import IaasPatvan from "./iaasmobilepatvan.js";
 import Iasshourtrans from "./iaashourtrans.js";
 import axios from "axios";
 import config from "./config.js";
@@ -382,7 +382,7 @@ class iaas extends Component {
                     <ul
                       className="nav nav-tabs"
                       role="tablist"
-                      style={{'padding-top':'0.3em'}}
+                      style={{'paddingTop':'0.3em'}}
                     >
                       <li role="presentation" className="active" style={{width:'50%'}}>
                         <a

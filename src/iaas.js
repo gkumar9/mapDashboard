@@ -131,7 +131,7 @@ class iaas extends Component {
                       </li>
                     </ul>
 
-                    <div className="tab-content" >
+                    <div className="tab-content" style={{padding:'0.5em'}}>
                       <div
                         role="tabpanel"
                         className="tab-pane active"
