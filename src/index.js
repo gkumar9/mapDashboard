@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { createBrowserHistory } from "history";
-import { BrowserRouter , Route } from "react-router-dom";
+import { HashRouter , Route } from "react-router-dom";
 import UI from "./UI.js";
 import * as serviceWorker from "./serviceWorker";
 import rms from "./rms.js";
@@ -19,7 +19,7 @@ export const history = createBrowserHistory({
 });
 
 ReactDOM.render(
-  <BrowserRouter basename={'/'}>
+  <HashRouter basename={'/'}>
     <div>
       <Route exact path="/" component={UI} />
       <Route exact path="/rms" component={rms} />
@@ -29,7 +29,7 @@ ReactDOM.render(
       <Route exact path="/rms/:id" component={rmssub} />
       <Route exact path="/farmeredit" component={farmeredit} />
     </div>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById("root")
 );
 

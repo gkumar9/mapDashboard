@@ -174,7 +174,7 @@ a.disabled {
 .btn-primary:active {
   background-color: #3a50fc;
 }
- .btn-default:hover {
+.iaasbutton .btn-default:hover {
   background:transparent;
   border-color: transparent;
   color: blue;
