@@ -1085,7 +1085,7 @@ class Farmeredit extends Component {
                                   type="text"
                                   className="form-control"
                                   id="estimateYield"
-                                  value={item.estimateYield || ""}
+                                  value={item.estimatedYield || ""}
                                   onChange={this.props.crophandleInputChange.bind(
                                     this,
                                     index

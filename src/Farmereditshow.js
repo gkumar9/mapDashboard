@@ -464,7 +464,7 @@ class Farmereditshow extends Component {
                                       Estimated Yield
                                     </div>
                                     <div className="col-xs-6">
-                                      {item.estimateYield || "NA"}
+                                      {item.estimatedYield || "NA"}
                                     </div>
                                   </div>
                                   <div className="row farmerinforow">
