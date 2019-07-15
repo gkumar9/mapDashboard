@@ -466,16 +466,16 @@ class MapContainer extends Component {
                 <span>Patvan ID: {this.state.selectedPlace.id}</span>
               )}
               {this.state.selectedPlace.assetType === "IRRIGATION_PUMP" && (
-                <span>Customer ID: {this.state.selectedPlace.id}</span>
+                <span>Customer ID: {this.state.selectedPlace.customerId}</span>
               )}
               {this.state.selectedPlace.assetType === "MINIGRID" && (
                 <span>Minigrid ID: {this.state.selectedPlace.id}</span>
               )}
               {this.state.selectedPlace.assetType === "DRINKING_WATER_PUMP" && (
-                <span>Customer ID: {this.state.selectedPlace.id}</span>
+                <span>Customer ID: {this.state.selectedPlace.customerId}</span>
               )}
               {this.state.selectedPlace.assetType === "ROOFTOP" && (
-                <span>Rooftop ID: {this.state.selectedPlace.id}</span>
+                <span>Customer ID: {this.state.selectedPlace.customerId}</span>
               )}
             </h6>
             <div>

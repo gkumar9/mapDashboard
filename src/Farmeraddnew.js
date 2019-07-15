@@ -5,6 +5,7 @@ import config from "./config.js";
 import Swal from "sweetalert2";
 import notify from "bootstrap-notify";
 import AWS from "aws-sdk";
+import LoadingOverlay from "react-loading-overlay";
 const $ = require("jquery");
 // import { stat } from "fs";
 // const $ = require("jquery");
@@ -23,7 +24,8 @@ class Farmeraddnew extends Component {
     super(props);
     this.state = {
       famerinfo: undefined,
-      backupinfo: undefined
+      backupinfo: undefined,
+      isloaderactive: false
     };
     this.fileInput = [
       React.createRef(),
@@ -654,6 +656,10 @@ class Farmeraddnew extends Component {
   render() {
     return (
       <div className="farmerinfobody">
+        <LoadingOverlay
+          active={this.state.isloaderactive}
+          spinner
+        >
         <div id="farmeraddnew" style={{ display: "none" }}>
           {this.state.famerinfo !== undefined && (
             <div
@@ -1853,7 +1859,7 @@ class Farmeraddnew extends Component {
             </div>
           )}
         </div>
-      </div>
+        </LoadingOverlay> </div>
     );
   }
 }

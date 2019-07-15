@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import AWS from "aws-sdk";
 import Farmeraddnew from "./Farmeraddnew.js";
 import statedistrict from "./state_json.js";
+import LoadingOverlay from "react-loading-overlay";
 const $ = require("jquery");
 
 AWS.config.region = "ap-south-1";
@@ -78,7 +79,13 @@ class FarmerHeader extends Component {
                 </button>
               </div>
             </Link> */}
-            <span style={{ fontFamily:'gotham-medium',fontSize: "large", color: "#b12d28" }}>
+            <span
+              style={{
+                fontFamily: "gotham-medium",
+                fontSize: "large",
+                color: "#b12d28"
+              }}
+            >
               Farmer database in India
             </span>
           </div>
@@ -105,7 +112,8 @@ class Farmer extends Component {
       searchhasmore: false,
       cropschema: undefined,
       deviceschema: undefined,
-      hasMore: false
+      hasMore: false,
+      isloaderactive: false
     };
     this.fileInput = [
       React.createRef(),
@@ -139,7 +147,6 @@ class Farmer extends Component {
               searchscrollcount: tempsearchscrollcount,
               searchhasmore: res.data.data.hasMore
             });
-            
           } else {
             let temp = [{ name: "No result found", id: null }];
             this.setState({
@@ -180,7 +187,7 @@ class Farmer extends Component {
               searchscrollcount: tempsearchscrollcount,
               searchhasmore: res.data.data.hasMore
             });
-            this.handleclick(res.data.data.list[0])
+            this.handleclick(res.data.data.list[0]);
             $(".list-group-item").click(function() {
               var listItems = $(".list-group-item"); //Select all list items
 
@@ -221,7 +228,7 @@ class Farmer extends Component {
     }
   };
   handleclick = item => {
-    if (item.id !== null&&item.id !== undefined) {
+    if (item.id !== null && item.id !== undefined) {
       axios({
         url: config.getfarmer + item.id,
         method: "POST",
@@ -355,8 +362,7 @@ class Farmer extends Component {
             text: e
           });
         });
-    }
-    else{
+    } else {
       Swal({
         type: "error",
         title: "ID not found"
@@ -511,6 +517,7 @@ class Farmer extends Component {
     document.getElementById("showsidetabeditfarmer").style.display = "none";
   };
   handleeditfarmersave = async () => {
+    this.setState({ isloaderactive: true });
     delete this.state.famerinfo["modificationTime"];
     if (
       this.state.famerinfo.name &&
@@ -598,20 +605,29 @@ class Farmer extends Component {
               title: "Successfully data updated"
               // text: res.data.error.errorMsg
             });
+            this.handleclick(this.state.famerinfo)
             this.setState({
-              backupinfo: Object.assign({}, this.state.famerinfo)
+              // backupinfo: Object.assign({}, this.state.famerinfo),
+              isloaderactive: false
             });
             document.getElementById("showsidetab").style.display = "block";
             document.getElementById("showsidetabeditfarmer").style.display =
               "none";
             // this.getfarmerlist();
           } else {
+            this.setState({
+              isloaderactive: false
+            });
             alert(res.data.error.errorMsg);
+
             return;
           }
         })
         .catch(e => {
           console.log(e);
+          this.setState({
+            isloaderactive: false
+          });
           Swal({
             type: "error",
             title: "Oops...",
@@ -619,6 +635,9 @@ class Farmer extends Component {
           });
         });
     } else {
+      this.setState({
+        isloaderactive: false
+      });
       Swal({
         type: "info",
         html: "<h4>Please fill valid input in all mandatory fields.</h4>"
@@ -1159,7 +1178,7 @@ class Farmer extends Component {
   };
   componentDidMount() {
     let self = this;
-    
+
     $("#maptable").scroll(function() {
       if (
         $(this).scrollTop() + $(this).innerHeight() >=
@@ -1303,181 +1322,189 @@ class Farmer extends Component {
   render() {
     return (
       <div className="gauravwww">
-        <Header />
-        <div className="mainbody">
-          <Sidebar history={this.props.history} />
-          <div style={{ backgroundColor: "#F2F2F2" }} className="main">
-            <FarmerHeader label={this.state.label} />
-            <div className="row">
-              <div
-                className="col-xs-3"
-                style={{
-                  // height: "90vh",
-                  // overflow: "scroll",
-                  paddingRight: "0"
-                }}
-              >
-                <div className="list-group">
-                  <a
-                    onClick={this.handleclickaddfarmer}
-                    className="list-group-item list-group-item-action flex-column align-items-start  "
-                  >
-                    <h4
-                      style={{ textAlign: "right", fontSize: "13px" }}
-                      className="list-group-item-heading"
+        <LoadingOverlay
+          active={this.state.isloaderactive}
+          spinner
+        >
+          <Header />
+          <div className="mainbody">
+            <Sidebar history={this.props.history} />
+            <div style={{ backgroundColor: "#F2F2F2" }} className="main">
+              <FarmerHeader label={this.state.label} />
+
+              <div className="row">
+                <div
+                  className="col-xs-3"
+                  style={{
+                    // height: "90vh",
+                    // overflow: "scroll",
+                    paddingRight: "0"
+                  }}
+                >
+                  <div className="list-group">
+                    <a
+                      onClick={this.handleclickaddfarmer}
+                      className="list-group-item list-group-item-action flex-column align-items-start  "
                     >
-                      <span
-                        className="glyphicon glyphicon-plus"
-                        style={{ marginRight: "6px" }}
-                        aria-hidden="true"
-                      />
-                      <span>Add Farmer</span>
-                    </h4>
-                    {/* <p class="list-group-item-text" /> */}
-                  </a>
-                  <div className="row ">
-                    <div className="col-xs-4" style={{ paddingRight: "0" }}>
-                      <select
-                        name="selectkey"
-                        onChange={this.handlesearchselect}
-                        value={this.state.searchvariantselected}
-                        className="form-control"
-                        id="sel1"
+                      <h4
+                        style={{ textAlign: "right", fontSize: "13px" }}
+                        className="list-group-item-heading"
                       >
-                        <option value="name">Name</option>
-                        <option value="uid">Uid</option>
-                        <option value="contactNo">Contact no.</option>
-                        <option value="state">State</option>
-                        <option value="vertical">Vertical</option>
-                      </select>
-                    </div>
-                    <div
-                      id="normaltextsearch"
-                      className="col-xs-8"
-                      style={{ display: "block", paddingLeft: "0" }}
-                    >
-                      <input
-                        value={this.state.searchtext}
-                        onChange={this.handlesearch}
-                        type="search"
-                        className="form-control "
-                        placeholder="Search"
-                        aria-label="..."
-                      />
-                    </div>
-                    <div
-                      id="statedropdownsearch"
-                      className="col-xs-8"
-                      style={{ paddingLeft: "0", display: "none" }}
-                    >
-                      <select
-                        name="stateselectkey"
-                        onChange={this.handlestatesearchselect}
-                        value={this.state.statesearchvariantselected || ""}
-                        className="form-control"
-                        id="sel1111"
-                      >
-                        {Object.keys(statedistrict).map(item => (
-                          <option key={item} value={item}>
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div
-                      id="verticaldropdownsearch"
-                      className="col-xs-8"
-                      style={{ paddingLeft: "0", display: "none" }}
-                    >
-                      <select
-                        name="verticalselectkey"
-                        onChange={this.handleverticalsearchselect}
-                        value={
-                          this.state.verticalsearchvariantselected ||
-                          "Solar Irrigation Pump"
-                        }
-                        className="form-control"
-                        id="sel111"
-                      >
-                        <option value="Solar Irrigation Pump">
-                          Solar Irrigation Pump
-                        </option>
-                        <option value="Solar Drinking Water Pump">
-                          Solar Drinking Water Pump
-                        </option>
-                        <option value="Solar Mini Grid">Solar Mini Grid</option>
-                        <option value="Solar Irrigation Service">
-                          Solar Irrigation Service
-                        </option>
-                        <option value="NA">NA</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div id="maptable" className="farmerlists">
-                    {this.state.farmerlist !== [] &&
-                      this.state.farmerlist.map((item, index) => (
-                        <a
-                          key={index}
-                          onClick={this.handleclick.bind(this, item)}
-                          className="list-group-item list-group-item-action flex-column align-items-start "
+                        <span
+                          className="glyphicon glyphicon-plus"
+                          style={{ marginRight: "6px" }}
+                          aria-hidden="true"
+                        />
+                        <span>Add Farmer</span>
+                      </h4>
+                      {/* <p class="list-group-item-text" /> */}
+                    </a>
+                    <div className="row ">
+                      <div className="col-xs-4" style={{ paddingRight: "0" }}>
+                        <select
+                          name="selectkey"
+                          onChange={this.handlesearchselect}
+                          value={this.state.searchvariantselected}
+                          className="form-control"
+                          id="sel1"
                         >
-                          <h4 className="list-group-item-heading">
-                            {item.name}
-                          </h4>
-                          {item.uid && item.uidType && (
-                            <p className="list-group-item-text">
-                              {item.uidType}: {item.uid}
-                              {item.contactNo && (
-                                <span style={{ float: "right" }}>
-                                  {item.contactNo}
-                                </span>
-                              )}
-                            </p>
-                          )}
-                        </a>
-                      ))}
-                    <div
-                      id="listendmessage"
-                      style={{
-                        display: "none",
-                        margin: "0 auto",
-                        textAlign: "center"
-                      }}
-                    >
-                      You have come till the end of list.
+                          <option value="name">Name</option>
+                          <option value="uid">Uid</option>
+                          <option value="contactNo">Contact no.</option>
+                          <option value="state">State</option>
+                          <option value="vertical">Vertical</option>
+                        </select>
+                      </div>
+                      <div
+                        id="normaltextsearch"
+                        className="col-xs-8"
+                        style={{ display: "block", paddingLeft: "0" }}
+                      >
+                        <input
+                          value={this.state.searchtext}
+                          onChange={this.handlesearch}
+                          type="search"
+                          className="form-control "
+                          placeholder="Search"
+                          aria-label="..."
+                        />
+                      </div>
+                      <div
+                        id="statedropdownsearch"
+                        className="col-xs-8"
+                        style={{ paddingLeft: "0", display: "none" }}
+                      >
+                        <select
+                          name="stateselectkey"
+                          onChange={this.handlestatesearchselect}
+                          value={this.state.statesearchvariantselected || ""}
+                          className="form-control"
+                          id="sel1111"
+                        >
+                          {Object.keys(statedistrict).map(item => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div
+                        id="verticaldropdownsearch"
+                        className="col-xs-8"
+                        style={{ paddingLeft: "0", display: "none" }}
+                      >
+                        <select
+                          name="verticalselectkey"
+                          onChange={this.handleverticalsearchselect}
+                          value={
+                            this.state.verticalsearchvariantselected ||
+                            "Solar Irrigation Pump"
+                          }
+                          className="form-control"
+                          id="sel111"
+                        >
+                          <option value="Solar Irrigation Pump">
+                            Solar Irrigation Pump
+                          </option>
+                          <option value="Solar Drinking Water Pump">
+                            Solar Drinking Water Pump
+                          </option>
+                          <option value="Solar Mini Grid">
+                            Solar Mini Grid
+                          </option>
+                          <option value="Solar Irrigation Service">
+                            Solar Irrigation Service
+                          </option>
+                          <option value="NA">NA</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div id="maptable" className="farmerlists">
+                      {this.state.farmerlist !== [] &&
+                        this.state.farmerlist.map((item, index) => (
+                          <a
+                            key={index}
+                            onClick={this.handleclick.bind(this, item)}
+                            className="list-group-item list-group-item-action flex-column align-items-start "
+                          >
+                            <h4 className="list-group-item-heading">
+                              {item.name}
+                            </h4>
+                            {item.uid && item.uidType && (
+                              <p className="list-group-item-text">
+                                {item.uidType}: {item.uid}
+                                {item.contactNo && (
+                                  <span style={{ float: "right" }}>
+                                    {item.contactNo}
+                                  </span>
+                                )}
+                              </p>
+                            )}
+                          </a>
+                        ))}
+                      <div
+                        id="listendmessage"
+                        style={{
+                          display: "none",
+                          margin: "0 auto",
+                          textAlign: "center"
+                        }}
+                      >
+                        You have come till the end of list.
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-xs-9 famerinfobox">
-                <Farmereditshow
-                  handleeditfarmer={this.handleeditfarmer}
-                  famerinfo={this.state.famerinfo}
-                />
-                <Farmeredit
-                  pumphandleInputChange={this.pumphandleInputChange}
-                  crophandleInputChange={this.crophandleInputChange}
-                  handleChangeimage={this.handleChangeimage}
-                  fileInput={this.fileInput}
-                  famerinfo={this.state.famerinfo}
-                  handlecancelfarmer={this.handlecancelfarmer}
-                  handleInputChange={this.handleInputChange}
-                  handleeditfarmersave={this.handleeditfarmersave}
-                  // handleeditfarmersavepumplist={
-                  //   this.handleeditfarmersavepumplist
-                  // }
-                  handleeditfarmersavecroplist={
-                    this.handleeditfarmersavecroplist
-                  }
-                />
-                <Farmeraddnew
-                  getfarmer={this.getfarmerlist}
-                  handlefarmeraddresponse={this.handlefarmeraddresponse}
-                />
+                <div className="col-xs-9 famerinfobox">
+                  <Farmereditshow
+                    handleeditfarmer={this.handleeditfarmer}
+                    famerinfo={this.state.famerinfo}
+                  />
+                  <Farmeredit
+                    pumphandleInputChange={this.pumphandleInputChange}
+                    crophandleInputChange={this.crophandleInputChange}
+                    handleChangeimage={this.handleChangeimage}
+                    fileInput={this.fileInput}
+                    famerinfo={this.state.famerinfo}
+                    handlecancelfarmer={this.handlecancelfarmer}
+                    handleInputChange={this.handleInputChange}
+                    handleeditfarmersave={this.handleeditfarmersave}
+                    // handleeditfarmersavepumplist={
+                    //   this.handleeditfarmersavepumplist
+                    // }
+                    handleeditfarmersavecroplist={
+                      this.handleeditfarmersavecroplist
+                    }
+                  />
+                  <Farmeraddnew
+                    getfarmer={this.getfarmerlist}
+                    handlefarmeraddresponse={this.handlefarmeraddresponse}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </LoadingOverlay>
       </div>
     );
   }

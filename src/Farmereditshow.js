@@ -154,7 +154,7 @@ class Farmereditshow extends Component {
                 className="tab-content"
                 style={{
                   // padding: "1em",
-                  maxHeight: "60vh",
+                  maxHeight: "55vh",
                   overflowY: "scroll",
                   overflowX: "hidden"
                 }}
