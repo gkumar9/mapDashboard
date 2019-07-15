@@ -1110,15 +1110,25 @@ outline: 1px solid slategrey;
 .iaasmobile  .highcharts-scrollbar{
   width: 7px !important;
 }
-.iaasmobile  .highcharts-scrollbar-thumb{
+.iaasmobile .highcharts-scrollbar-button{
+  stroke: transparent;
+}
+.iaasmobile .highcharts-scrollbar-track{
+  stroke: transparent;
+}
+.iaasmobile .highcharts-scrollbar-thumb{
+  stroke: transparent;
+}
+/* .iaasmobile  .highcharts-scrollbar-thumb{
   width: 7px !important;
 }
 .iaasmobile  .highcharts-scrollbar g .highcharts-scrollbar-button{
-  display: none;
+  width: 10px !important;
+  fill: #b1afaf;
 }
 .iaasmobile  .highcharts-scrollbar-arrow{
-  display: none
+  width: 10px !important;
 }
 .iaasmobile .highcharts-scrollbar .highcharts-scrollbar-rifles{
-  display: none;
-}
+  width: 10px !important;
+} */

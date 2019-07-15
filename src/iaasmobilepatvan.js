@@ -9,14 +9,14 @@ const $ = require("jquery");
 class Iaaspatvan extends Component {
   componentDidMount() {
     drilldown(Highcharts);
-//     Highcharts.Pointer.prototype.onContainerTouchStart = Highcharts.Pointer.prototype.onContainerMouseDown;
-// var onContainerMouseMove = Highcharts.Pointer.prototype.onContainerMouseMove;
-// Highcharts.Pointer.prototype.onContainerTouchMove = function(e) {
-//     onContainerMouseMove.call(this, e);
-//     if ("touchstart" === this.chart.mouseIsDown) {
-//         this.drag(e);
-//     }
-// };
+    //     Highcharts.Pointer.prototype.onContainerTouchStart = Highcharts.Pointer.prototype.onContainerMouseDown;
+    // var onContainerMouseMove = Highcharts.Pointer.prototype.onContainerMouseMove;
+    // Highcharts.Pointer.prototype.onContainerTouchMove = function(e) {
+    //     onContainerMouseMove.call(this, e);
+    //     if ("touchstart" === this.chart.mouseIsDown) {
+    //         this.drag(e);
+    //     }
+    // };
     axios({
       url: config.iaaspatvan,
       method: "POST",
@@ -135,7 +135,7 @@ class Iaaspatvan extends Component {
                 type: "bar",
                 backgroundColor: "#f2f2f2",
                 spacingLeft: 10,
-                height: 600,
+                height: 500,
                 style: {
                   fontFamily: "gotham-light"
                 },
@@ -153,17 +153,28 @@ class Iaaspatvan extends Component {
               },
               scrollbar: {
                 enabled: true,
-                buttonArrowColor: "transparent",
-                  buttonBorderColor: "transparent",
-                  buttonBorderRadius: 3,
-                  buttonBorderWidth: 1,
-                  rifleColor: "transparent",
-                  trackBorderWidth: 0,
-                  trackBorderRadius: 7,
-                  barBorderRadius: 7,
-                  barBorderWidth: 0,
-                  barBackgroundColor: "#b1afaf"
-            },
+                // barBackgroundColor: 'gray',
+                barBorderRadius: 7,
+                barBorderWidth: 0,
+                buttonBackgroundColor: "#cac8c8",
+                buttonBorderWidth: 0,
+                buttonBorderRadius: 7,
+                // trackBackgroundColor: 'none',
+                // trackBorderWidth: 1,
+                // trackBorderRadius: 8,
+                // trackBorderColor: '#CCC',
+
+                // buttonArrowColor: "black",
+                buttonBorderColor: "transparent",
+                //   buttonBorderRadius: 3,
+                //   buttonBorderWidth: 1,
+                // rifleColor: "transparent",
+                //   trackBorderWidth: 0,
+                //   trackBorderRadius: 7,
+                //   barBorderRadius: 7,
+                //   barBorderWidth: 0,
+                barBackgroundColor: "#cac8c8"
+              },
               xAxis: {
                 categories: a2,
                 labels: {
@@ -180,8 +191,7 @@ class Iaaspatvan extends Component {
                 },
                 max: 19,
                 scrollbar: {
-                  enabled: true,
-                 
+                  enabled: true
                 }
               },
               yAxis: {
@@ -208,8 +218,8 @@ class Iaaspatvan extends Component {
                 bar: {
                   dataLabels: {
                     enabled: true,
-                    crop:false,
-                    overflow:"none",
+                    crop: false,
+                    overflow: "none"
                   }
                 }
               },
@@ -268,7 +278,7 @@ class Iaaspatvan extends Component {
               Highcharts.addEvent(
                 chart.container,
                 document.onmousewheel === undefined
-                  ? "DOMMouseScroll" 
+                  ? "DOMMouseScroll"
                   : "mousewheel",
                 function(e) {
                   var delta,

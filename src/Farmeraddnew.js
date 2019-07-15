@@ -977,9 +977,9 @@ class Farmeraddnew extends Component {
                               {/* <option value="Solar Irrigation Pump">
                                 Solar Irrigation Pump
                               </option> */}
-                              <option value="Solar Drinking Water Pump">
+                              {/* <option value="Solar Drinking Water Pump">
                                 Solar Drinking Water Pump
-                              </option>
+                              </option> */}
                               <option value="Solar Mini Grid">
                                 Solar Mini Grid
                               </option>
