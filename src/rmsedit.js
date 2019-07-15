@@ -3,7 +3,7 @@ import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import { Link } from "react-router-dom";
 import notify from "bootstrap-notify";
-
+import LoadingOverlay from "react-loading-overlay";
 // import { MyMapComponent } from "./rmseditmap.js";
 import axios from "axios";
 import config from "./config.js";
@@ -435,28 +435,28 @@ class FormRight extends Component {
           </div>
         )}
 
-        {/* {this.props.rmsvalues.farmerId !== undefined && (
+        {this.props.rmsvalues.customerId !== undefined && (
           <div className="form-group">
             <label
-              htmlFor="inputfarmerId"
+              htmlFor="inputcustomerId"
               className="col-sm-6 farmerinforowtitle"
             >
-              Farmer ID
+              Customer ID
             </label>
             <div className="col-sm-6">
               <input
-                name="farmerId"
+                name="customerId"
                 type="text"
-                disabled
+                // disabled
                 className="form-control"
-                id="inputfarmerId"
-                value={this.props.rmsvalues.farmerId || ""}
+                id="inputcustomerId"
+                value={this.props.rmsvalues.customerId || ""}
                 onChange={this.props.handleInputChange}
-                placeholder="Farmer ID"
+                placeholder="Customer Id"
               />
             </div>
           </div>
-        )} */}
+        )}
         {this.props.rmsvalues.state !== undefined && (
           <div className="form-group">
             <label
@@ -716,6 +716,7 @@ class Rmsedit extends Component {
     this.state = {
       rmsvalues: {},
       rmsvendorimeicheck: false,
+      isloaderactive:true,
       rmsvendoridlistnameselected: ""
     };
     this.rmsvendoridlist = [
@@ -791,7 +792,9 @@ class Rmsedit extends Component {
               }
             });
             this.handlermsvendoridchange();
+            this.setState({isloaderactive:false})
           } else {
+            this.setState({isloaderactive:false})
             Swal({
               type: "error",
               title: "Oops...",
@@ -810,6 +813,7 @@ class Rmsedit extends Component {
           });
         });
     } else {
+      this.setState({isloaderactive:false})
       this.props.history.push({
         pathname: "/rms"
       });
@@ -860,6 +864,7 @@ class Rmsedit extends Component {
 
       return;
     }
+    this.setState({isloaderactive:true})
     let tempdatechangedobject = this.state.rmsvalues;
     if (this.state.rmsvalues.installationDate) {
       let tempdatearray = this.state.rmsvalues.installationDate.split("-");
@@ -878,6 +883,7 @@ class Rmsedit extends Component {
     }).then(res => {
       // console.log(res.data.data)
       if (res.data.data !== null && res.data.data.result) {
+        this.setState({isloaderactive:false})
         Swal({
           type: "success",
           title: "Successfully data updated"
@@ -888,6 +894,7 @@ class Rmsedit extends Component {
         });
         // this.forceUpdate();
       } else {
+        this.setState({isloaderactive:false})
         alert(res.data.error.errorMsg);
       }
     });
@@ -924,6 +931,10 @@ class Rmsedit extends Component {
   render() {
     return (
       <div>
+        <LoadingOverlay
+          active={this.state.isloaderactive}
+          spinner
+        >
         <Header />
         <div className="mainbody">
           <Sidebar history={this.props.history} />
@@ -1019,6 +1030,7 @@ class Rmsedit extends Component {
             </div>
           </div>
         </div>
+        </LoadingOverlay>
       </div>
     );
   }

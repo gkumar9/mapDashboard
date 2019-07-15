@@ -297,7 +297,7 @@ class Farmeraddnew extends Component {
             );
           }
         }
-
+        this.setState({isloaderactive:true})
         axios({
           url: config.addfarmernew,
           method: "POST",
@@ -418,18 +418,22 @@ class Farmeraddnew extends Component {
                   }
                 })
                 .catch(e => {
+                  this.setState({isloaderactive:false})
                   Swal({
                     type: "error",
                     title: "Oops...",
                     text: e
                   });
                 });
+                this.setState({isloaderactive:false})
             } else {
+              this.setState({isloaderactive:false})
               alert("Add farmer error:", res.data.error.errorMsg);
             }
           })
           .catch(e => {
             console.log(e);
+            this.setState({isloaderactive:false})
           });
       } else {
         Swal({

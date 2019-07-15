@@ -229,6 +229,7 @@ class Farmer extends Component {
   };
   handleclick = item => {
     if (item.id !== null && item.id !== undefined) {
+      this.setState({isloaderactive:true})
       axios({
         url: config.getfarmer + item.id,
         method: "POST",
@@ -341,6 +342,7 @@ class Farmer extends Component {
               });
             })
             .catch(e => {
+              this.setState({isloaderactive:false})
               console.log(e);
               Swal({
                 type: "error",
@@ -348,7 +350,7 @@ class Farmer extends Component {
                 text: e
               });
             });
-
+            this.setState({isloaderactive:false})
           document.getElementById("showsidetab").style.display = "block";
           document.getElementById("farmeraddnew").style.display = "none";
           document.getElementById("showsidetabeditfarmer").style.display =
@@ -356,6 +358,7 @@ class Farmer extends Component {
         })
         .catch(e => {
           console.log(e);
+          this.setState({isloaderactive:false})
           Swal({
             type: "error",
             title: "Oops...",
@@ -363,6 +366,7 @@ class Farmer extends Component {
           });
         });
     } else {
+      this.setState({isloaderactive:false})
       Swal({
         type: "error",
         title: "ID not found"
