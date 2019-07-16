@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import farmerimg from "./pins/user.png";
 
 class Farmereditshow extends Component {
-  render() {    
+  render() {
     return (
       <div id="showsidetab" style={{ display: "none" }}>
         <div className="container">
@@ -53,7 +53,7 @@ class Farmereditshow extends Component {
                       // id="drillUp"
                       style={{
                         // display: "none",
-                        width: "30%",
+                        width: "36%",
                         borderRadius: "0px",
                         borderColor: "darkgray",
                         float: "right",
@@ -196,7 +196,9 @@ class Farmereditshow extends Component {
                         </div>
                       </div>
                       <div className="row farmerinforow">
-                        <div className="col-xs-6 farmerinforowtitle">Intervention Size</div>
+                        <div className="col-xs-6 farmerinforowtitle">
+                          Intervention Size
+                        </div>
                         <div className="col-xs-6">
                           {this.props.famerinfo.interventionSize || "NA"}
                         </div>
@@ -230,7 +232,8 @@ class Farmereditshow extends Component {
                           Total Land Size
                         </div>
                         <div className="col-xs-6">
-                          {this.props.famerinfo.totalLandSize || "NA"} ha
+                          {this.props.famerinfo.totalLandSize || "NA"}{" "}
+                          {this.props.famerinfo.totalLandSize && "ha"}
                         </div>
                       </div>
                       <div className="row farmerinforow">
@@ -238,7 +241,8 @@ class Farmereditshow extends Component {
                           Income from Land
                         </div>
                         <div className="col-xs-6">
-                          {this.props.famerinfo.incomeFromLand || "NA"} Rs.
+                          {this.props.famerinfo.incomeFromLand && "INR"}{" "}
+                          {this.props.famerinfo.incomeFromLand || "NA"}
                         </div>
                       </div>
                     </div>
@@ -321,7 +325,7 @@ class Farmereditshow extends Component {
                   </div>
                 </div>
                 <div role="tabpanel" className="tab-pane" id="family">
-                  <div style={{marginTop:'20px'}} className="col-md-5">
+                  <div style={{ marginTop: "20px" }} className="col-md-5">
                     <div className="kycbody">
                       <div className="row farmerinforow">
                         <div className="col-xs-6 farmerinforowtitle">
@@ -464,7 +468,8 @@ class Farmereditshow extends Component {
                                       Estimated Yield
                                     </div>
                                     <div className="col-xs-6">
-                                      {item.estimatedYield || "NA"}
+                                      {item.estimatedYield || "NA"}{" "}
+                                      {item.estimatedYield && "Kg"}
                                     </div>
                                   </div>
                                   <div className="row farmerinforow">
@@ -472,7 +477,8 @@ class Farmereditshow extends Component {
                                       Grown area
                                     </div>
                                     <div className="col-xs-6">
-                                      {item.grownArea || "NA"}
+                                      {item.grownArea || "NA"}{" "}
+                                      {item.grownArea && "Katha"}
                                     </div>
                                   </div>
                                   <div className="row farmerinforow">
@@ -508,7 +514,9 @@ class Farmereditshow extends Component {
                         >
                           <div className="col-xs-2">
                             <div className="imglistheading">
-                              <span style={{fontSize:'1.1em'}}>{item.mediaType}</span>
+                              <span style={{ fontSize: "1.1em" }}>
+                                {item.mediaType}
+                              </span>
                             </div>
                           </div>
                           <div className="col-xs-3">

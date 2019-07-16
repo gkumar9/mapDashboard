@@ -8,8 +8,17 @@ import LoadingOverlay from "react-loading-overlay";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
+import AWS from "aws-sdk";
 import statedistrict from "./state_json.js";
 const $ = require("jquery");
+AWS.config.region = "ap-south-1";
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: "ap-south-1:8616b2f3-782b-42af-b051-dea274f9e16f"
+});
+const s3 = new AWS.S3({
+  apiVersion: "2006-03-01",
+  params: { Bucket: "claro-farmers" }
+});
 class RmsHeader extends Component {
   render() {
     return (
@@ -296,6 +305,50 @@ class FormLeft extends Component {
             </div>
           </div>
         )}
+        {this.props.rmsvalues.contactNo !== undefined && (
+          <div className="form-group">
+            <label
+              htmlFor="inputcontactNo"
+              className="col-sm-6 farmerinforowtitle"
+            >
+              Contact No
+            </label>
+            <div className="col-sm-6">
+              <input
+                name="contactNo"
+                type="number"
+                className="form-control"
+                id="inputcontactNo"
+                value={this.props.rmsvalues.contactNo || ""}
+                onChange={this.props.handleInputChange}
+                placeholder="Contact No"
+              />
+            </div>
+          </div>
+        )}
+        {this.props.rmsvalues.customerName !== undefined && (
+          <div className="form-group">
+            <label
+              htmlFor="inputcustomerName"
+              className="col-sm-6 farmerinforowtitle"
+            >
+              Customer Name
+            </label>
+            <div className="col-sm-6">
+              <input
+                name="customerName"
+                type="text"
+                className="form-control"
+                id="inputcustomerName"
+                value={this.props.rmsvalues.customerName || ""}
+                onChange={this.props.handleInputChange}
+                placeholder="Customer Name"
+              />
+            </div>
+          </div>
+        )}
+        
+
         {this.props.rmsvalues.pumpSno !== undefined && (
           <div className="form-group">
             <label
@@ -356,6 +409,34 @@ class FormLeft extends Component {
                 value={this.props.rmsvalues.panelWP || ""}
                 onChange={this.props.handleInputChange}
                 placeholder="Panel WP"
+              />
+            </div>
+          </div>
+        )}
+        {this.props.rmsvalues.customerImage !== undefined && (
+          <div className="form-group">
+            <label
+              htmlFor="inputcustomerImage"
+              className="col-sm-6 farmerinforowtitle"
+            >
+              Customer Image
+            </label>
+            <div className="col-sm-6">
+              <img style={{borderRadius: '0.3em'}} src={this.props.rmsvalues.customerImage} alt="customer Image" width="200" height="200" />
+              {/* <input
+                name="customerImage"
+                type="file"
+                className="form-control"
+                id="inputcustomerImage"
+                value={this.props.rmsvalues.customerImage || ""}
+                onChange={this.props.handleInputChange}
+                placeholder="Customer Name"
+              /> */}
+              <input
+                onChange={this.props.handleChangeimage}
+                type="file"
+                ref={this.props.fileInput}
+                style={{ width: "-webkit-fill-available" }}
               />
             </div>
           </div>
@@ -719,6 +800,7 @@ class Rmsedit extends Component {
       isloaderactive:true,
       rmsvendoridlistnameselected: ""
     };
+    this.fileInput = React.createRef();
     this.rmsvendoridlist = [
       "1001",
       "1006",
@@ -747,6 +829,32 @@ class Rmsedit extends Component {
     ];
     this.imeilist = ["1001", "1006", "1007", "1008", "1009"];
   }
+  handleChangeimage=()=>{
+    var file = this.fileInput.current.files[0];
+    var fileName = +this.state.rmsvalues.id + "-rooftop-" + Date.now();
+    let self = this;
+    var photoKey = fileName;
+    s3.upload(
+      {
+        Key: photoKey,
+        Body: file,
+        ACL: "public-read"
+      },
+      function(err, data) {
+        if (err) {
+          return alert(
+            "There was an error uploading your photo: ",
+            err.message
+          );
+        } else {
+          let temprmsvalue=self.state.rmsvalues;
+          temprmsvalue.customerImage=data.Location;
+          self.setState({rmsvalues:temprmsvalue})
+          
+        }
+      }
+    );
+  }
   handlermsvendoridchange = async () => {
     await this.setState({
       rmsvendorimeicheck: false
@@ -763,15 +871,74 @@ class Rmsedit extends Component {
   componentDidMount() {
     if (this.props.location.state !== undefined) {
       // console.log(this.props.location.state.detail);
-      axios({
-        url: config.rmseditget + this.props.location.state.detail.id + "/",
-        method: "POST",
-        data: {},
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-        .then(res => {
+      if(this.props.location.state.detail.assetType==='pump'){
+        axios({
+          url: config.rmseditget + this.props.location.state.detail.id + "/",
+          method: "POST",
+          data: {},
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(res => {
+            if (res.data.data !== null) {
+              if(res.data.data.installationDate&&res.data.data.installationDate!==null){
+                let tempinstallationdate = res.data.data.installationDate.split(
+                  "-"
+                );
+                res.data.data.installationDate =
+                  tempinstallationdate[2] +
+                  "-" +
+                  tempinstallationdate[1] +
+                  "-" +
+                  tempinstallationdate[0];
+              }
+              
+              this.setState({ rmsvalues: res.data.data });
+              this.rmsvendoridlistname.map(async (item, index) => {
+                if (Object.keys(item)[0] === res.data.data.rmsVendorId) {
+                  let temp = this.rmsvendoridlistname[index][
+                    res.data.data.rmsVendorId
+                  ];
+                  this.setState({ rmsvendoridlistnameselected: temp });
+                }
+              });
+              this.handlermsvendoridchange();
+              this.setState({isloaderactive:false})
+            } else {
+              this.setState({isloaderactive:false})
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: res.data.error.errorMsg
+              });
+              this.props.history.push({
+                pathname: "/rms"
+              });
+            }
+          })
+          .catch(e => {
+            this.setState({isloaderactive:false})
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
+            this.props.history.push({
+              pathname: "/rms"
+            });
+          });
+      }else{
+        axios({
+          url: config.getrmsrooftop + this.props.location.state.detail.id + "/",
+          method: "POST",
+          data: {},
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then((res)=>{
+          // console.log(res.data.data)
           if (res.data.data !== null) {
             if(res.data.data.installationDate&&res.data.data.installationDate!==null){
               let tempinstallationdate = res.data.data.installationDate.split(
@@ -808,17 +975,11 @@ class Rmsedit extends Component {
             });
           }
         })
-        .catch(e => {
-          this.setState({isloaderactive:false})
-          Swal({
-            type: "error",
-            title: "Oops...",
-            text: e
-          });
-          this.props.history.push({
-            pathname: "/rms"
-          });
-        });
+        .catch((e)=>{
+          console.log(e)
+        })
+      }
+      
     } else {
       this.setState({isloaderactive:false})
       this.props.history.push({
@@ -965,7 +1126,7 @@ class Rmsedit extends Component {
                       id="drillUp"
                       style={{
                         // display: "none",
-                        width: "28%",
+                        width: "36%",
                         borderRadius: "0px",
                         // marginBottom: "1em",
                         borderColor: "darkgray",
@@ -985,7 +1146,7 @@ class Rmsedit extends Component {
                       id="drillUp"
                       style={{
                         // display: "none",
-                        width: "28%",
+                        width: "36%",
                         marginLeft: "1em",
 
                         borderRadius: "0px",
@@ -1019,6 +1180,8 @@ class Rmsedit extends Component {
                       rmsvendoridlistnameselected={
                         this.state.rmsvendoridlistnameselected
                       }
+                      handleChangeimage={this.handleChangeimage}
+                      fileInput={this.fileInput}
                     />
                   </div>
                 </div>

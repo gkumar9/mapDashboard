@@ -88,7 +88,7 @@ class Farmeredit extends Component {
                   id="drillUp"
                   style={{
                     // display: "none",
-                    width: "28%",
+                    width: "36%",
                     borderRadius: "0px",
                     // marginBottom: "1em",
                     borderColor: "darkgray",
@@ -108,7 +108,7 @@ class Farmeredit extends Component {
                   id="drillUp"
                   style={{
                     // display: "none",
-                    width: "28%",
+                    width: "36%",
                     marginLeft: "1em",
 
                     borderRadius: "0px",
@@ -165,12 +165,13 @@ class Farmeredit extends Component {
                         <select
                           name="entryStatus"
                           onChange={this.props.handleInputChange}
-                          value={this.props.famerinfo.entryStatus || ""}
+                          value={this.props.famerinfo.entryStatus || "NA"}
                           className="form-control"
                           id="sel3"
                         >
                           <option value="ACTIVE">ACTIVE</option>
                           <option value="INACTIVE">INACTIVE</option>
+                          <option value="NA">NA</option>
                         </select>
                       </div>
                     </div>
@@ -219,7 +220,7 @@ class Farmeredit extends Component {
                         <select
                           name="uidType"
                           onChange={this.props.handleInputChange}
-                          value={this.props.famerinfo.uidType}
+                          value={this.props.famerinfo.uidType || "NA"}
                           className="form-control"
                           id="sel2"
                         >
@@ -229,7 +230,7 @@ class Farmeredit extends Component {
                           <option value="PAY-GO">PAYGO</option>
                           {/* <option value="CLARO ID">CLARO ID</option> */}
                           <option value="OTHERS">OTHERS</option>
-                          <option value="N.A">N.A</option>
+                          <option value="NA">NA</option>
                         </select>
                       </div>
                       {/* <input
@@ -281,7 +282,7 @@ class Farmeredit extends Component {
                       <select
                         name="vertical"
                         onChange={this.props.handleInputChange}
-                        value={this.props.famerinfo.vertical || "NA"}
+                        value={this.props.famerinfo.vertical || "N.A"}
                         className="form-control"
                         id="vertical"
                       >
@@ -295,6 +296,7 @@ class Farmeredit extends Component {
                         <option value="Solar Irrigation Service">
                           Solar Irrigation Service
                         </option>
+                        <option value="N.A">N.A</option>
                       </select>
                     </div>
                   </div>
@@ -382,7 +384,9 @@ class Farmeredit extends Component {
                     </div>
                   </div>
                   <div className="row farmerinforow">
-                    <div className="col-xs-6 farmerinforowtitle">Intervention Size</div>
+                    <div className="col-xs-6 farmerinforowtitle">
+                      Intervention Size
+                    </div>
                     <div className="col-xs-6">
                       <input
                         name="interventionSize"
@@ -470,7 +474,7 @@ class Farmeredit extends Component {
                   </div>
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
-                      Income from Land (Rs.)
+                      Income from Land (INR)
                     </div>
                     <div className="col-xs-6">
                       <input
@@ -515,6 +519,7 @@ class Farmeredit extends Component {
                             {item}
                           </option>
                         ))}
+                        <option value="NA">NA</option>
                       </select>
                     </div>
                   </div>
@@ -545,6 +550,7 @@ class Farmeredit extends Component {
                                 </option>
                               )
                             )}
+                            <option value="NA">NA</option>
                           </select>
                         )}
                     </div>
@@ -725,6 +731,24 @@ class Farmeredit extends Component {
                         onChange={this.props.handleInputChange}
                         placeholder="Profession of father"
                       />
+                      {/* <select
+                        name="fathersProfession"
+                        onChange={this.props.handleInputChange}
+                        value={
+                          this.props.famerinfo.fathersProfession ||
+                          "Less than 10th Pass"
+                        }
+                        className="form-control"
+                        id="fathersProfession"
+                      >
+                        <option value="Less than 10th Pass">
+                          Less than 10th Pass
+                        </option>
+                        <option value="10th Pass">10th Pass</option>
+                        <option value="12th Pass">12th Pass</option>
+                        <option value="Graduate">Graduate</option>
+                        <option value="Postgraduate">Postgraduate</option>
+                      </select> */}
                     </div>
                   </div>
                   <div className="row farmerinforow">
@@ -733,7 +757,7 @@ class Farmeredit extends Component {
                     </div>
 
                     <div className="col-xs-6">
-                      <input
+                      {/* <input
                         name="highestEducation"
                         type="text"
                         className="form-control"
@@ -741,7 +765,25 @@ class Farmeredit extends Component {
                         value={this.props.famerinfo.highestEducation || ""}
                         onChange={this.props.handleInputChange}
                         placeholder="Education level of farmer"
-                      />
+                      /> */}
+                      <select
+                        name="highestEducation"
+                        onChange={this.props.handleInputChange}
+                        value={
+                          this.props.famerinfo.highestEducation ||
+                          "Less than 10th Pass"
+                        }
+                        className="form-control"
+                        id="highestEducation"
+                      >
+                        <option value="Less than 10th Pass">
+                          Less than 10th Pass
+                        </option>
+                        <option value="10th Pass">10th Pass</option>
+                        <option value="12th Pass">12th Pass</option>
+                        <option value="Graduate">Graduate</option>
+                        <option value="Postgraduate">Postgraduate</option>
+                      </select>
                     </div>
                   </div>
                   <div className="row farmerinforow">
@@ -776,7 +818,7 @@ class Farmeredit extends Component {
                   id="drillUp"
                   style={{
                     // display: "none",
-                    width: "28%",
+                    width: "36%",
                     borderRadius: "0px",
                     // marginBottom: "1em",
                     borderColor: "darkgray",
@@ -796,7 +838,7 @@ class Farmeredit extends Component {
                   id="drillUp"
                   style={{
                     // display: "none",
-                    width: "28%",
+                    width: "36%",
                     marginLeft: "1em",
 
                     borderRadius: "0px",
@@ -960,7 +1002,7 @@ class Farmeredit extends Component {
                                       {item.cropSeason || "NA"}
                                     </div> */}
                               <div className="col-xs-6">
-                                <input
+                                {/* <input
                                   name="cropSeason"
                                   type="text"
                                   className="form-control"
@@ -971,7 +1013,28 @@ class Farmeredit extends Component {
                                     index
                                   )}
                                   placeholder="Crop Season"
-                                />
+                                /> */}
+                                <select
+                                  name="cropSeason"
+                                  onChange={this.props.crophandleInputChange.bind(
+                                    this,
+                                    index
+                                  )}
+                                  value={item.cropSeason || "NA"}
+                                  className="form-control"
+                                  id="cropSeason"
+                                >
+                                  <option value="Kharif (June/July)">
+                                    Kharif (June/July)
+                                  </option>
+                                  <option value="Rabi (Nov/Dec)">
+                                    Rabi (Nov/Dec)
+                                  </option>
+                                  <option value="Garma (March/April)">
+                                    Garma (March/April)
+                                  </option>
+                                  <option value="NA">NA</option>
+                                </select>
                               </div>
                             </div>
                             <div className="row farmerinforow">
@@ -1022,7 +1085,7 @@ class Farmeredit extends Component {
                                       {item.sowingMonth || "NA"}
                                     </div> */}
                               <div className="col-xs-6">
-                                <input
+                                {/* <input
                                   name="sowingMonth"
                                   type="text"
                                   className="form-control"
@@ -1033,7 +1096,31 @@ class Farmeredit extends Component {
                                     index
                                   )}
                                   placeholder="sowing Month"
-                                />
+                                /> */}
+                                <select
+                                  name="sowingMonth"
+                                  onChange={this.props.crophandleInputChange.bind(
+                                    this,
+                                    index
+                                  )}
+                                  value={item.sowingMonth || "NA"}
+                                  className="form-control"
+                                  id="sowingMonth"
+                                >
+                                  <option value="Jan">Jan</option>
+                                  <option value="Feb">Feb</option>
+                                  <option value="Mar">Mar</option>
+                                  <option value="Apr">Apr</option>
+                                  <option value="May">May</option>
+                                  <option value="Jun">Jun</option>
+                                  <option value="Jul">Jul</option>
+                                  <option value="Aug">Aug</option>
+                                  <option value="Sep">Sep</option>
+                                  <option value="Oct">Oct</option>
+                                  <option value="Nov">Nov</option>
+                                  <option value="Dec">Dec</option>
+                                  <option value="NA">NA</option>
+                                </select>
                               </div>
                             </div>
                           </div>
@@ -1058,7 +1145,7 @@ class Farmeredit extends Component {
                                       {item.harvestingTime || "NA"}
                                     </div> */}
                               <div className="col-xs-6">
-                                <input
+                                {/* <input
                                   name="harvestingTime"
                                   type="text"
                                   className="form-control"
@@ -1069,12 +1156,36 @@ class Farmeredit extends Component {
                                     index
                                   )}
                                   placeholder="Harvesting Time"
-                                />
+                                /> */}
+                                <select
+                                  name="harvestingTime"
+                                  onChange={this.props.crophandleInputChange.bind(
+                                    this,
+                                    index
+                                  )}
+                                  value={item.harvestingTime || "NA"}
+                                  className="form-control"
+                                  id="harvestingTime"
+                                >
+                                  <option value="Jan">Jan</option>
+                                  <option value="Feb">Feb</option>
+                                  <option value="Mar">Mar</option>
+                                  <option value="Apr">Apr</option>
+                                  <option value="May">May</option>
+                                  <option value="Jun">Jun</option>
+                                  <option value="Jul">Jul</option>
+                                  <option value="Aug">Aug</option>
+                                  <option value="Sep">Sep</option>
+                                  <option value="Oct">Oct</option>
+                                  <option value="Nov">Nov</option>
+                                  <option value="Dec">Dec</option>
+                                  <option value="NA">NA</option>
+                                </select>
                               </div>
                             </div>
                             <div className="row farmerinforow">
                               <div className="col-xs-6 farmerinforowtitle">
-                                Estimated Yield
+                                Estimated Yield (Kg)
                               </div>
                               {/* <div className="col-xs-6">
                                       {item.estimateYield || "NA"}
@@ -1082,7 +1193,7 @@ class Farmeredit extends Component {
                               <div className="col-xs-6">
                                 <input
                                   name="estimatedYield"
-                                  type="text"
+                                  type="number"
                                   className="form-control"
                                   id="estimateYield"
                                   value={item.estimatedYield || ""}
@@ -1096,7 +1207,7 @@ class Farmeredit extends Component {
                             </div>
                             <div className="row farmerinforow">
                               <div className="col-xs-6 farmerinforowtitle">
-                                Grown area{" "}
+                                Grown area (katha)
                                 <i
                                   title="Mandatory fields"
                                   style={{
@@ -1113,7 +1224,7 @@ class Farmeredit extends Component {
                               <div className="col-xs-6">
                                 <input
                                   name="grownArea"
-                                  type="text"
+                                  type="number"
                                   className="form-control"
                                   id="grownArea"
                                   value={item.grownArea || ""}

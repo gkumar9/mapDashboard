@@ -78,11 +78,7 @@ class Rmsdatatable extends Component {
         {
           data: "assetType",
           render: function(data, type, row) {
-            if (data !== "rooftop") {
-              return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
-            } else {
-              return "";
-            }
+            return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
           }
         }
       ]
@@ -98,12 +94,12 @@ class Rmsdatatable extends Component {
     });
     $("#table_id").delegate("tr td:last-child", "click", function() {
       let rmssubdata = otable.row($(this).parents("tr")).data();
-      if(rmssubdata.assetType!=='rooftop'){
+      // if(rmssubdata.assetType!=='rooftop'){
         self.props.history.push({
           pathname: "/rmsedit",
           state: { detail: rmssubdata }
         });
-      }
+      // }
       
     });
   }

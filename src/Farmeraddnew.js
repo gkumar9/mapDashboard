@@ -607,10 +607,10 @@ class Farmeraddnew extends Component {
       .then(res => {
         res.data.data.gender = "M";
         res.data.data.entryStatus = "ACTIVE";
-        res.data.data.state = "Tripura";
+        res.data.data.state = "Bihar";
         res.data.data.uidType = "N.A";
-        res.data.data.district = "Unakoti";
-        res.data.data.vertical = "Solar Drinking Water Pump";
+        res.data.data.district = "Araria";
+        res.data.data.vertical = "N.A";
         res.data.data.contactNo = "";
 
         res.data.data["croplist"] = cropschema;
@@ -996,6 +996,9 @@ class Farmeraddnew extends Component {
                               <option value="Solar Irrigation Service">
                                 Solar Irrigation Service
                               </option>
+                              <option value="N.A">
+                                N.A
+                              </option>
                             </select>
                           </div>
                         </div>
@@ -1178,7 +1181,7 @@ class Farmeraddnew extends Component {
                         </div>
                         <div className="row farmerinforow">
                           <div className="col-xs-6 farmerinforowtitle">
-                            Income from Land
+                            Income from Land (INR)
                           </div>
                           <div className="col-xs-6">
                             <input
@@ -1470,7 +1473,7 @@ class Farmeraddnew extends Component {
                           </div>
 
                           <div className="col-xs-6">
-                            <input
+                            {/* <input
                               name="highestEducation"
                               type="text"
                               className="form-control"
@@ -1480,7 +1483,25 @@ class Farmeraddnew extends Component {
                               }
                               onChange={this.handleInputChange}
                               placeholder="Education level of farmer"
-                            />
+                            /> */}
+                            <select
+                              name="highestEducation"
+                              onChange={this.handleInputChange}
+                              value={
+                                this.state.famerinfo.highestEducation ||
+                                "Less than 10th Pass"
+                              }
+                              className="form-control"
+                              id="highestEducation"
+                            >
+                              <option value="Less than 10th Pass">
+                                Less than 10th Pass
+                              </option>
+                              <option value="10th Pass">10th Pass</option>
+                              <option value="12th Pass">12th Pass</option>
+                              <option value="Graduate">Graduate</option>
+                              <option value="Postgraduate">Postgraduate</option>
+                            </select>
                           </div>
                         </div>
                         <div className="row farmerinforow">
@@ -1612,7 +1633,7 @@ class Farmeraddnew extends Component {
                                       {this.state.famerinfo.croplist.cropSeason || "NA"}
                                     </div> */}
                                 <div className="col-xs-6">
-                                  <input
+                                  {/* <input
                                     name="cropSeason"
                                     type="text"
                                     className="form-control"
@@ -1623,7 +1644,26 @@ class Farmeraddnew extends Component {
                                     }
                                     onChange={this.crophandleInputChange}
                                     placeholder="Crop Season"
-                                  />
+                                  /> */}
+                                  <select
+                                  name="cropSeason"
+                                  onChange={this.crophandleInputChange}
+                                  value={this.state.famerinfo.croplist
+                                    .cropSeason || "NA"}
+                                  className="form-control"
+                                  id="cropSeason"
+                                >
+                                  <option value="Kharif (June/July)">
+                                    Kharif (June/July)
+                                  </option>
+                                  <option value="Rabi (Nov/Dec)">
+                                    Rabi (Nov/Dec)
+                                  </option>
+                                  <option value="Garma (March/April)">
+                                    Garma (March/April)
+                                  </option>
+                                  <option value="NA">NA</option>
+                                </select>
                                 </div>
                               </div>
                               <div className="row farmerinforow">
@@ -1674,7 +1714,7 @@ class Farmeraddnew extends Component {
                                       {this.state.famerinfo.croplist.sowingMonth || "NA"}
                                     </div> */}
                                 <div className="col-xs-6">
-                                  <input
+                                  {/* <input
                                     name="sowingMonth"
                                     type="text"
                                     className="form-control"
@@ -1685,7 +1725,29 @@ class Farmeraddnew extends Component {
                                     }
                                     onChange={this.crophandleInputChange}
                                     placeholder="sowing Month"
-                                  />
+                                  /> */}
+                                  <select
+                                  name="sowingMonth"
+                                  onChange={this.crophandleInputChange}
+                                  value={this.state.famerinfo.croplist
+                                    .sowingMonth|| "NA"}
+                                  className="form-control"
+                                  id="sowingMonth"
+                                >
+                                  <option value="Jan">Jan</option>
+                                  <option value="Feb">Feb</option>
+                                  <option value="Mar">Mar</option>
+                                  <option value="Apr">Apr</option>
+                                  <option value="May">May</option>
+                                  <option value="Jun">Jun</option>
+                                  <option value="Jul">Jul</option>
+                                  <option value="Aug">Aug</option>
+                                  <option value="Sep">Sep</option>
+                                  <option value="Oct">Oct</option>
+                                  <option value="Nov">Nov</option>
+                                  <option value="Dec">Dec</option>
+                                  <option value="NA">NA</option>
+                                </select>
                                 </div>
                               </div>
                             </div>
@@ -1710,7 +1772,7 @@ class Farmeraddnew extends Component {
                                       {this.state.famerinfo.croplist.harvestingTime || "NA"}
                                     </div> */}
                                 <div className="col-xs-6">
-                                  <input
+                                  {/* <input
                                     name="harvestingTime"
                                     type="text"
                                     className="form-control"
@@ -1721,12 +1783,34 @@ class Farmeraddnew extends Component {
                                     }
                                     onChange={this.crophandleInputChange}
                                     placeholder="Harvesting Time"
-                                  />
+                                  /> */}
+                                  <select
+                                  name="harvestingTime"
+                                  onChange={this.crophandleInputChange}
+                                  value={ this.state.famerinfo.croplist
+                                    .harvestingTime|| "NA"}
+                                  className="form-control"
+                                  id="harvestingTime"
+                                >
+                                  <option value="Jan">Jan</option>
+                                  <option value="Feb">Feb</option>
+                                  <option value="Mar">Mar</option>
+                                  <option value="Apr">Apr</option>
+                                  <option value="May">May</option>
+                                  <option value="Jun">Jun</option>
+                                  <option value="Jul">Jul</option>
+                                  <option value="Aug">Aug</option>
+                                  <option value="Sep">Sep</option>
+                                  <option value="Oct">Oct</option>
+                                  <option value="Nov">Nov</option>
+                                  <option value="Dec">Dec</option>
+                                  <option value="NA">NA</option>
+                                </select>
                                 </div>
                               </div>
                               <div className="row farmerinforow">
                                 <div className="col-xs-6 farmerinforowtitle">
-                                  Estimated Yield
+                                  Estimated Yield (Kg)
                                 </div>
                                 {/* <div className="col-xs-6">
                                       {this.state.famerinfo.croplist.estimateYield || "NA"}
@@ -1734,7 +1818,7 @@ class Farmeraddnew extends Component {
                                 <div className="col-xs-6">
                                   <input
                                     name="estimateYield"
-                                    type="text"
+                                    type="number"
                                     className="form-control"
                                     id="estimateYield"
                                     value={
@@ -1748,7 +1832,7 @@ class Farmeraddnew extends Component {
                               </div>
                               <div className="row farmerinforow">
                                 <div className="col-xs-6 farmerinforowtitle">
-                                  Grown area{" "}
+                                  Grown area (katha)
                                   <i
                                     title="Mandatory fields"
                                     style={{
@@ -1765,7 +1849,7 @@ class Farmeraddnew extends Component {
                                 <div className="col-xs-6">
                                   <input
                                     name="grownArea"
-                                    type="text"
+                                    type="number"
                                     className="form-control"
                                     id="grownArea"
                                     value={
