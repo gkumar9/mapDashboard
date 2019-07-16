@@ -773,15 +773,18 @@ class Rmsedit extends Component {
       })
         .then(res => {
           if (res.data.data !== null) {
-            let tempinstallationdate = res.data.data.installationDate.split(
-              "-"
-            );
-            res.data.data.installationDate =
-              tempinstallationdate[2] +
-              "-" +
-              tempinstallationdate[1] +
-              "-" +
-              tempinstallationdate[0];
+            if(res.data.data.installationDate&&res.data.data.installationDate!==null){
+              let tempinstallationdate = res.data.data.installationDate.split(
+                "-"
+              );
+              res.data.data.installationDate =
+                tempinstallationdate[2] +
+                "-" +
+                tempinstallationdate[1] +
+                "-" +
+                tempinstallationdate[0];
+            }
+            
             this.setState({ rmsvalues: res.data.data });
             this.rmsvendoridlistname.map(async (item, index) => {
               if (Object.keys(item)[0] === res.data.data.rmsVendorId) {
@@ -806,10 +809,14 @@ class Rmsedit extends Component {
           }
         })
         .catch(e => {
+          this.setState({isloaderactive:false})
           Swal({
             type: "error",
             title: "Oops...",
             text: e
+          });
+          this.props.history.push({
+            pathname: "/rms"
           });
         });
     } else {

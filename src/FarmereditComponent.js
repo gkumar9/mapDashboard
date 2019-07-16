@@ -1081,7 +1081,7 @@ class Farmeredit extends Component {
                                     </div> */}
                               <div className="col-xs-6">
                                 <input
-                                  name="estimateYield"
+                                  name="estimatedYield"
                                   type="text"
                                   className="form-control"
                                   id="estimateYield"
