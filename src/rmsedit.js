@@ -347,7 +347,6 @@ class FormLeft extends Component {
             </div>
           </div>
         )}
-        
 
         {this.props.rmsvalues.pumpSno !== undefined && (
           <div className="form-group">
@@ -371,27 +370,6 @@ class FormLeft extends Component {
           </div>
         )}
 
-        {this.props.rmsvalues.panelMake !== undefined && (
-          <div className="form-group">
-            <label
-              htmlFor="inputpanelMake"
-              className="col-sm-6 farmerinforowtitle"
-            >
-              Panel Make
-            </label>
-            <div className="col-sm-6">
-              <input
-                name="panelMake"
-                type="text"
-                className="form-control"
-                id="inputpanelMake"
-                value={this.props.rmsvalues.panelMake || ""}
-                onChange={this.props.handleInputChange}
-                placeholder="Panel Make"
-              />
-            </div>
-          </div>
-        )}
         {this.props.rmsvalues.panelWP !== undefined && (
           <div className="form-group">
             <label
@@ -422,7 +400,13 @@ class FormLeft extends Component {
               Customer Image
             </label>
             <div className="col-sm-6">
-              <img style={{borderRadius: '0.3em'}} src={this.props.rmsvalues.customerImage} alt="customer Image" width="200" height="200" />
+              <img
+                style={{ borderRadius: "0.3em" }}
+                src={this.props.rmsvalues.customerImage}
+                alt="customer Image"
+                width="220"
+                height="200"
+              />
               {/* <input
                 name="customerImage"
                 type="file"
@@ -534,6 +518,27 @@ class FormRight extends Component {
                 value={this.props.rmsvalues.customerId || ""}
                 onChange={this.props.handleInputChange}
                 placeholder="Customer Id"
+              />
+            </div>
+          </div>
+        )}
+        {this.props.rmsvalues.panelWp !== undefined && (
+          <div className="form-group">
+            <label
+              htmlFor="inputpanelMake"
+              className="col-sm-6 farmerinforowtitle"
+            >
+              Panel WP
+            </label>
+            <div className="col-sm-6">
+              <input
+                name="panelWp"
+                type="text"
+                className="form-control"
+                id="inputpanelWp"
+                value={this.props.rmsvalues.panelWp || ""}
+                onChange={this.props.handleInputChange}
+                placeholder="Panel WP"
               />
             </div>
           </div>
@@ -797,7 +802,7 @@ class Rmsedit extends Component {
     this.state = {
       rmsvalues: {},
       rmsvendorimeicheck: false,
-      isloaderactive:true,
+      isloaderactive: true,
       rmsvendoridlistnameselected: ""
     };
     this.fileInput = React.createRef();
@@ -829,7 +834,7 @@ class Rmsedit extends Component {
     ];
     this.imeilist = ["1001", "1006", "1007", "1008", "1009"];
   }
-  handleChangeimage=()=>{
+  handleChangeimage = () => {
     var file = this.fileInput.current.files[0];
     var fileName = +this.state.rmsvalues.id + "-rooftop-" + Date.now();
     let self = this;
@@ -847,14 +852,13 @@ class Rmsedit extends Component {
             err.message
           );
         } else {
-          let temprmsvalue=self.state.rmsvalues;
-          temprmsvalue.customerImage=data.Location;
-          self.setState({rmsvalues:temprmsvalue})
-          
+          let temprmsvalue = self.state.rmsvalues;
+          temprmsvalue.customerImage = data.Location;
+          self.setState({ rmsvalues: temprmsvalue });
         }
       }
     );
-  }
+  };
   handlermsvendoridchange = async () => {
     await this.setState({
       rmsvendorimeicheck: false
@@ -871,7 +875,7 @@ class Rmsedit extends Component {
   componentDidMount() {
     if (this.props.location.state !== undefined) {
       // console.log(this.props.location.state.detail);
-      if(this.props.location.state.detail.assetType==='pump'){
+      if (this.props.location.state.detail.assetType === "pump") {
         axios({
           url: config.rmseditget + this.props.location.state.detail.id + "/",
           method: "POST",
@@ -882,7 +886,10 @@ class Rmsedit extends Component {
         })
           .then(res => {
             if (res.data.data !== null) {
-              if(res.data.data.installationDate&&res.data.data.installationDate!==null){
+              if (
+                res.data.data.installationDate &&
+                res.data.data.installationDate !== null
+              ) {
                 let tempinstallationdate = res.data.data.installationDate.split(
                   "-"
                 );
@@ -893,7 +900,7 @@ class Rmsedit extends Component {
                   "-" +
                   tempinstallationdate[0];
               }
-              
+
               this.setState({ rmsvalues: res.data.data });
               this.rmsvendoridlistname.map(async (item, index) => {
                 if (Object.keys(item)[0] === res.data.data.rmsVendorId) {
@@ -904,9 +911,9 @@ class Rmsedit extends Component {
                 }
               });
               this.handlermsvendoridchange();
-              this.setState({isloaderactive:false})
+              this.setState({ isloaderactive: false });
             } else {
-              this.setState({isloaderactive:false})
+              this.setState({ isloaderactive: false });
               Swal({
                 type: "error",
                 title: "Oops...",
@@ -918,7 +925,7 @@ class Rmsedit extends Component {
             }
           })
           .catch(e => {
-            this.setState({isloaderactive:false})
+            this.setState({ isloaderactive: false });
             Swal({
               type: "error",
               title: "Oops...",
@@ -928,7 +935,7 @@ class Rmsedit extends Component {
               pathname: "/rms"
             });
           });
-      }else{
+      } else {
         axios({
           url: config.getrmsrooftop + this.props.location.state.detail.id + "/",
           method: "POST",
@@ -937,51 +944,53 @@ class Rmsedit extends Component {
             "Content-Type": "application/json"
           }
         })
-        .then((res)=>{
-          // console.log(res.data.data)
-          if (res.data.data !== null) {
-            if(res.data.data.installationDate&&res.data.data.installationDate!==null){
-              let tempinstallationdate = res.data.data.installationDate.split(
-                "-"
-              );
-              res.data.data.installationDate =
-                tempinstallationdate[2] +
-                "-" +
-                tempinstallationdate[1] +
-                "-" +
-                tempinstallationdate[0];
-            }
-            
-            this.setState({ rmsvalues: res.data.data });
-            this.rmsvendoridlistname.map(async (item, index) => {
-              if (Object.keys(item)[0] === res.data.data.rmsVendorId) {
-                let temp = this.rmsvendoridlistname[index][
-                  res.data.data.rmsVendorId
-                ];
-                this.setState({ rmsvendoridlistnameselected: temp });
+          .then(res => {
+            // console.log(res.data.data)
+            if (res.data.data !== null) {
+              if (
+                res.data.data.installationDate &&
+                res.data.data.installationDate !== null
+              ) {
+                let tempinstallationdate = res.data.data.installationDate.split(
+                  "-"
+                );
+                res.data.data.installationDate =
+                  tempinstallationdate[2] +
+                  "-" +
+                  tempinstallationdate[1] +
+                  "-" +
+                  tempinstallationdate[0];
               }
-            });
-            this.handlermsvendoridchange();
-            this.setState({isloaderactive:false})
-          } else {
-            this.setState({isloaderactive:false})
-            Swal({
-              type: "error",
-              title: "Oops...",
-              text: res.data.error.errorMsg
-            });
-            this.props.history.push({
-              pathname: "/rms"
-            });
-          }
-        })
-        .catch((e)=>{
-          console.log(e)
-        })
+
+              this.setState({ rmsvalues: res.data.data });
+              this.rmsvendoridlistname.map(async (item, index) => {
+                if (Object.keys(item)[0] === res.data.data.rmsVendorId) {
+                  let temp = this.rmsvendoridlistname[index][
+                    res.data.data.rmsVendorId
+                  ];
+                  this.setState({ rmsvendoridlistnameselected: temp });
+                }
+              });
+              this.handlermsvendoridchange();
+              this.setState({ isloaderactive: false });
+            } else {
+              this.setState({ isloaderactive: false });
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: res.data.error.errorMsg
+              });
+              this.props.history.push({
+                pathname: "/rms"
+              });
+            }
+          })
+          .catch(e => {
+            console.log(e);
+          });
       }
-      
     } else {
-      this.setState({isloaderactive:false})
+      this.setState({ isloaderactive: false });
       this.props.history.push({
         pathname: "/rms"
       });
@@ -1032,7 +1041,7 @@ class Rmsedit extends Component {
 
       return;
     }
-    this.setState({isloaderactive:true})
+    this.setState({ isloaderactive: true });
     let tempdatechangedobject = this.state.rmsvalues;
     if (this.state.rmsvalues.installationDate) {
       let tempdatearray = this.state.rmsvalues.installationDate.split("-");
@@ -1041,31 +1050,59 @@ class Rmsedit extends Component {
         tempdatearray[2] + "-" + tempdatearray[1] + "-" + tempdatearray[0];
       // await this.setState({rmsvalues:tempdatechangedobject})
     }
-    axios({
-      url: config.updatermsedit,
-      method: "POST",
-      data: tempdatechangedobject,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(res => {
-      // console.log(res.data.data)
-      if (res.data.data !== null && res.data.data.result) {
-        this.setState({isloaderactive:false})
-        Swal({
-          type: "success",
-          title: "Successfully data updated"
-          // text: res.data.error.errorMsg
-        });
-        this.props.history.push({
-          pathname: "/rms"
-        });
-        // this.forceUpdate();
-      } else {
-        this.setState({isloaderactive:false})
-        alert(res.data.error.errorMsg);
-      }
-    });
+    if (this.props.location.state.detail.assetType === "rooftop") {
+      axios({
+        url: config.updatermsrooftop,
+        method: "POST",
+        data: tempdatechangedobject,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => {
+        // console.log(res.data.data)
+        if (res.data.data !== null && res.data.data.result) {
+          this.setState({ isloaderactive: false });
+          Swal({
+            type: "success",
+            title: "Successfully data updated"
+            // text: res.data.error.errorMsg
+          });
+          this.props.history.push({
+            pathname: "/rms"
+          });
+          // this.forceUpdate();
+        } else {
+          this.setState({ isloaderactive: false });
+          alert(res.data.error.errorMsg);
+        }
+      });
+    } else {
+      axios({
+        url: config.updatermsedit,
+        method: "POST",
+        data: tempdatechangedobject,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => {
+        // console.log(res.data.data)
+        if (res.data.data !== null && res.data.data.result) {
+          this.setState({ isloaderactive: false });
+          Swal({
+            type: "success",
+            title: "Successfully data updated"
+            // text: res.data.error.errorMsg
+          });
+          this.props.history.push({
+            pathname: "/rms"
+          });
+          // this.forceUpdate();
+        } else {
+          this.setState({ isloaderactive: false });
+          alert(res.data.error.errorMsg);
+        }
+      });
+    }
   };
   handlecancel = () => {
     this.props.history.push({
@@ -1099,107 +1136,104 @@ class Rmsedit extends Component {
   render() {
     return (
       <div>
-        <LoadingOverlay
-          active={this.state.isloaderactive}
-          spinner
-        >
-        <Header />
-        <div className="mainbody">
-          <Sidebar history={this.props.history} />
-          <div style={{ backgroundColor: "#F2F2F2" }} className="main">
-            <RmsHeader />
-            <div className="container">
-              <div
-                className="row"
-                style={{
-                  padding: "1em 5em 1px 5em "
-                }}
-              >
-                <div className="form-group">
-                  <label htmlFor="" className="col-sm-9" />
-                  <div className="col-sm-3">
-                    <button
-                      onClick={this.handlesave}
-                      type="submit"
-                      className="btn btn-default"
-                      aria-label="Right Align"
-                      id="drillUp"
-                      style={{
-                        // display: "none",
-                        width: "36%",
-                        borderRadius: "0px",
-                        // marginBottom: "1em",
-                        borderColor: "darkgray",
-                        float: "left",
-                        outline: "none",
-                        color: "white",
-                        backgroundColor: "blue"
-                      }}
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={this.handlecancel}
-                      type="button"
-                      className="cancelbutton btn btn-default"
-                      aria-label="Right Align"
-                      id="drillUp"
-                      style={{
-                        // display: "none",
-                        width: "36%",
-                        marginLeft: "1em",
+        <LoadingOverlay active={this.state.isloaderactive} spinner>
+          <Header />
+          <div className="mainbody">
+            <Sidebar history={this.props.history} />
+            <div style={{ backgroundColor: "#F2F2F2" }} className="main">
+              <RmsHeader />
+              <div className="container">
+                <div
+                  className="row"
+                  style={{
+                    padding: "1em 5em 1px 5em "
+                  }}
+                >
+                  <div className="form-group">
+                    <label htmlFor="" className="col-sm-9" />
+                    <div className="col-sm-3">
+                      <button
+                        onClick={this.handlesave}
+                        type="submit"
+                        className="btn btn-default"
+                        aria-label="Right Align"
+                        id="drillUp"
+                        style={{
+                          // display: "none",
+                          width: "36%",
+                          borderRadius: "0px",
+                          // marginBottom: "1em",
+                          borderColor: "darkgray",
+                          float: "left",
+                          outline: "none",
+                          color: "white",
+                          backgroundColor: "blue"
+                        }}
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={this.handlecancel}
+                        type="button"
+                        className="cancelbutton btn btn-default"
+                        aria-label="Right Align"
+                        id="drillUp"
+                        style={{
+                          // display: "none",
+                          width: "36%",
+                          marginLeft: "1em",
 
-                        borderRadius: "0px",
-                        borderColor: "blue",
-                        float: "left",
-                        outline: "none",
-                        color: "blue",
-                        backgroundColor: "white"
-                      }}
-                    >
-                      Cancel
-                    </button>
+                          borderRadius: "0px",
+                          borderColor: "blue",
+                          float: "left",
+                          outline: "none",
+                          color: "blue",
+                          backgroundColor: "white"
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div
-                className="row"
-                style={{
-                  maxHeight: "90vh",
-                  overflow: "scroll",
-                  padding: "0 3em"
-                }}
-              >
-                <div className="col-md-1" />
-                <div className="col-md-4">
-                  <div className="rmseditbody">
-                    <FormLeft
-                      rmsvalues={this.state.rmsvalues}
-                      handleInputChange={this.handleInputChange}
-                      rmsvendoridlist={this.rmsvendoridlist}
-                      rmsvendoridlistnameselected={
-                        this.state.rmsvendoridlistnameselected
-                      }
-                      handleChangeimage={this.handleChangeimage}
-                      fileInput={this.fileInput}
-                    />
+                <div
+                  className="row"
+                  style={{
+                    maxHeight: "90vh",
+                    overflow: "scroll",
+                    padding: "0 3em"
+                  }}
+                >
+                  <div className="col-md-1" />
+                  <div className="col-md-4">
+                    <div className="rmseditbody">
+                      <FormLeft
+                        rmsvalues={this.state.rmsvalues}
+                        handleInputChange={this.handleInputChange}
+                        rmsvendoridlist={this.rmsvendoridlist}
+                        rmsvendoridlistnameselected={
+                          this.state.rmsvendoridlistnameselected
+                        }
+                        handleChangeimage={this.handleChangeimage}
+                        fileInput={this.fileInput}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-1" />
-                <div className="col-md-4">
-                  <div className="rmseditbody">
-                    <FormRight
-                      rmsvalues={this.state.rmsvalues}
-                      handleInputChange={this.handleInputChange}
-                      rmsvendorimeicheck={this.state.rmsvendorimeicheck}
-                    />
+                  <div className="col-md-1" />
+                  <div className="col-md-4">
+                    <div className="rmseditbody">
+                      <FormRight
+                        rmsvalues={this.state.rmsvalues}
+                        handleInputChange={this.handleInputChange}
+                        rmsvendorimeicheck={this.state.rmsvendorimeicheck}
+                      />
+                    </div>
                   </div>
+                  <div className="col-md-2" />
                 </div>
-                <div className="col-md-2" />
               </div>
             </div>
           </div>
-        </div>
         </LoadingOverlay>
       </div>
     );
