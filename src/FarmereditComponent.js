@@ -771,7 +771,7 @@ class Farmeredit extends Component {
                         onChange={this.props.handleInputChange}
                         value={
                           this.props.famerinfo.highestEducation ||
-                          "Less than 10th Pass"
+                          "NA"
                         }
                         className="form-control"
                         id="highestEducation"
@@ -783,6 +783,7 @@ class Farmeredit extends Component {
                         <option value="12th Pass">12th Pass</option>
                         <option value="Graduate">Graduate</option>
                         <option value="Postgraduate">Postgraduate</option>
+                        <option value="NA">NA</option>
                       </select>
                     </div>
                   </div>
