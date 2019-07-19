@@ -20,6 +20,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
+
 g[class^="raphael-group-"][class$="-creditgroup"] {
   display: none !important;
 }
@@ -161,7 +162,7 @@ a.disabled {
 }
 .filterbuttonapply {
   margin-top: 8px;
-  margin-right: 18px;
+  margin-right: 10px;
   outline: none !important;
   float: right;
   background: #3a50fc !important;
@@ -242,10 +243,10 @@ a.disabled {
 }
 .filterImg {
   width: 14%;
-  margin-top: -10px;
+  margin-top: -5px;
 }
 .filterText {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .filterItem {
   margin-left: 5px;
@@ -786,6 +787,10 @@ input[type="radio"] {
 
 .breakline {
   display: none;
+}
+.additional .infobox .header{
+  background: transparent;
+  /* border-bottom: none; */
 }
 .infobox .header {
   background: #e6e6e6;

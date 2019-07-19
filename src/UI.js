@@ -6,6 +6,128 @@ import Filter from "./Filter.js";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
+let tempadditional = [
+  {
+    latitude: 27.45805556,
+    longitude: 80.58944444,
+    name: "Ucchauli",
+    type: "Mini-Grid",
+    what: "Collection / Processing Centres"
+  },
+  {
+    latitude: 27.45805556,
+    longitude: 80.58944444,
+    name: "Govindpur",
+    type: "Mini-Grid",
+    what: "Collection / Processing Centres"
+  },
+  {
+    latitude: 28.26083333,
+    longitude: 80.11444444,
+    name: "Bicchauli",
+    type: "Mini-Grid",
+    what: "Collection / Processing Centres"
+  },
+  {
+    latitude: 27.41305556,
+    longitude: 80.76027778,
+    name: "Ramgarh",
+    type: "Mini-Grid",
+    what: "Collection / Processing Centres"
+  },
+  {
+    latitude: 26.69333333,
+    longitude: 85.68611111,
+    name: "Takia",
+    type: "Mini-Grid",
+    what: "Collection / Processing Centres"
+  },
+  {
+    latitude: 20.615156,
+    longitude: 77.5035243,
+    name: "Kamragaon",
+    type: "Procurement",
+    what: "Collection / Processing Centres"
+  },
+  {
+    latitude: 28.875826,
+    longitude: 77.106487,
+    name: "Kundli	",
+    type: "Processing",
+    what: "Collection / Processing Centres"
+  },
+  {
+    latitude: 27.01222222,
+    longitude: 84.69888889,
+    name: "Ramchandrapur",
+    type: "Mini-Grid",
+    what: "Collection / Processing Centres"
+  },
+  {
+    latitude: 28.7140497,
+    longitude: 77.1661905,
+    name: "NCR",
+    type: "Present Market",
+    what: "Markets Served"
+  },
+  {
+    latitude: 26.8424945,
+    longitude: 80.8751914,
+    name: "Lucknow",
+    type: "Planned Market",
+    what: "Markets Served"
+  },
+  {
+    latitude: 26.4474128,
+    longitude: 80.198295,
+    name: "Kanpur",
+    type: "Planned Market",
+    what: "Markets Served"
+  },
+  {
+    latitude: 25.6081756,
+    longitude: 85.0730021,
+    name: "Patna",
+    type: "Planned Market",
+    what: "Markets Served"
+  },
+  {
+    latitude: 25.3209013,
+    longitude: 82.9210681,
+    name: "Varanasi",
+    type: "Planned Market",
+    what: "Markets Served"
+  },
+  {
+    latitude: 28.52356,
+    longitude: 77.194194,
+    type: "Corporate Office",
+    name: "Delhi",
+    what: "Office"
+  },
+  {
+    latitude: 25.6226064,
+    longitude: 85.1277454,
+    type: "Off-Site",
+    name: "Patna",
+    what: "Office"
+  },
+  {
+    latitude: 26.8746814,
+    longitude: 80.9729577,
+    type: "Off-Site",
+    name: "Lucknow",
+    what: "Office"
+  },
+  {
+    latitude: 23.167633,
+    longitude: 79.901402,
+    type: "Off-Site",
+    name: "Jabalpur",
+    what: "Office"
+  }
+];
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -14,12 +136,14 @@ class Main extends Component {
       allpins: [],
       filteredstate: "",
       filteredpins: [],
+      additionalmarkers: tempadditional,
       filter: {
         IRRIGATION_PUMP: true,
         PATVAN: true,
         DRINKING_WATER_PUMP: true,
         MINIGRID: true,
-        ROOFTOP: true
+        ROOFTOP: true,
+        AGROASSETS: true
       }
     };
     this.handleFilterChange = this.handleFilterChange.bind(this);
@@ -33,13 +157,15 @@ class Main extends Component {
       PATVAN: true,
       DRINKING_WATER_PUMP: true,
       MINIGRID: true,
-      ROOFTOP: true
+      ROOFTOP: true,
+      AGROASSETS: true
     };
     this.setState(prevState => ({
       ...prevState,
       filter: newfilter,
       filteredstate: "",
-      filteredpins: prevState.allpins
+      filteredpins: prevState.allpins,
+      additionalmarkers: tempadditional
     }));
   }
   handleApply() {
@@ -57,10 +183,19 @@ class Main extends Component {
         }
       }
     });
-    this.setState(prevState => ({
-      ...prevState,
-      filteredpins: filterpins
-    }));
+    if (!this.state.filter.AGROASSETS) {
+      this.setState(prevState => ({
+        ...prevState,
+        filteredpins: filterpins,
+        additionalmarkers: []
+      }));
+    } else {
+      this.setState(prevState => ({
+        ...prevState,
+        filteredpins: filterpins,
+        additionalmarkers: tempadditional
+      }));
+    }
   }
   handleFilterChange(filtervalue) {
     this.setState(prevState => ({
@@ -72,12 +207,18 @@ class Main extends Component {
     }));
   }
   handlestatefilter(filtered) {
-    this.setState({ filteredstate: filtered });
+    let tempfilter=this.state.filter
+    tempfilter.AGROASSETS=false;
+    this.setState({ filteredstate: filtered,additionalmarkers:[],filter:tempfilter });
   }
 
   componentDidMount() {
-    console.log('ui')
-    if(this.state.allpins.length===0&&this.state.states.length===0&&this.state.filteredpins.length===0){
+    // console.log('ui')
+    if (
+      this.state.allpins.length === 0 &&
+      this.state.states.length === 0 &&
+      this.state.filteredpins.length === 0
+    ) {
       axios({
         url: config.allpins,
         method: "POST",
@@ -127,7 +268,6 @@ class Main extends Component {
           });
         });
     }
-    
   }
 
   render() {
@@ -135,7 +275,7 @@ class Main extends Component {
       <div>
         <Header />
         <div className="mainbody">
-          <Sidebar history={this.props.history}/>
+          <Sidebar history={this.props.history} />
           <div className="main">
             <Filter
               states={this.state.states}
@@ -148,6 +288,7 @@ class Main extends Component {
             />
             <Map
               datapins={this.state.filteredpins}
+              additionalmarkers={this.state.additionalmarkers}
               filter={this.state.filter}
             />
           </div>

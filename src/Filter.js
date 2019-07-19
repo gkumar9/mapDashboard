@@ -4,6 +4,7 @@ import ROOFTOP from "./pins/strop2.png";
 import IRRIGATION_PUMP from "./pins/strop1.png";
 import PATVAN from "./pins/strop5patvan.png";
 import MINIGRID from "./pins/strop4.png";
+import agroassetsicon from "./pins/Filter Icon.png";
 const $ = require("jquery");
 class Filter extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Filter extends Component {
     this.props.onChangeStates(filteredstates);
     this.setState({ classdisabledapply: false, classdisabledreset: false });
   }
-  componentDidMount(){
+  componentDidMount() {
     function myFunction(x) {
       if (x.matches) {
         // If media query matches
@@ -48,7 +49,7 @@ class Filter extends Component {
     return (
       <div className="container ">
         <nav id="filter" className="navbar navbar-default">
-          <div className="container-fluid">
+          <div className="container-fluid" style={{paddingLeft:'0'}}>
             <div
               className="navbar-header"
               data-toggle="collapse"
@@ -82,9 +83,9 @@ class Filter extends Component {
                 <span style={{ fontSize: "20px", margin: "5px" }}>Filters</span>
               </div>
             </div>
-            <div id="navbar2" className="navbar-collapse collapse" >
+            <div id="navbar2" className="navbar-collapse collapse">
               <ul className="nav navbar-nav">
-                <li style={{ width: "147px" }} className="filterItem">
+                <li style={{ width: "137px" }} className="filterItem">
                   <input
                     type="checkbox"
                     name="red"
@@ -105,7 +106,7 @@ class Filter extends Component {
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li style={{ width: "100px" }} className="filterItem">
+                <li style={{ width: "84px" }} className="filterItem">
                   <input
                     type="checkbox"
                     name="red"
@@ -126,7 +127,7 @@ class Filter extends Component {
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li style={{ width: "148px" }} className="filterItem">
+                <li style={{ width: "136px" }} className="filterItem">
                   <input
                     type="checkbox"
                     name="red"
@@ -147,7 +148,7 @@ class Filter extends Component {
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li style={{ width: "118px" }} className="filterItem">
+                <li style={{ width: "94px" }} className="filterItem">
                   <input
                     type="checkbox"
                     name="red"
@@ -168,7 +169,7 @@ class Filter extends Component {
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li style={{ width: "103px" }} className="filterItem">
+                <li style={{ width: "94px" }} className="filterItem">
                   <input
                     type="checkbox"
                     name="red"
@@ -189,15 +190,37 @@ class Filter extends Component {
                     <span className="verticalLine" />
                   </a>
                 </li>
+                <li style={{ width: "116px" }} className="filterItem">
+                  <input
+                    type="checkbox"
+                    name="AGROASSETS"
+                    value="AGROASSETS"
+                    checked={this.props.filter.AGROASSETS}
+                    onChange={this.handleFilterChange}
+                  />
+                  <img
+                    style={{ width: "12%",marginLeft:'7px',marginTop:'0',filter:'opacity(0.8)' }}
+                    src={agroassetsicon}
+                    alt="logo"
+                    className="filterImg responsive"
+                  />
+                  <span className="filterText">Agro assets</span>
+                </li>
+                <li>
+                  <a>
+                    <span className="verticalLine" />
+                  </a>
+                </li>
                 <li
-                  style={{ width: "177px" }}
+                  style={{ width: "144px" }}
                   className="filterItem statefilter"
                 >
                   <div className="dropdown">
                     <button
                       style={{
                         width: "-webkit-fill-available",
-                        borderRadius: "0"
+                        borderRadius: "0",
+                        backgroundColor:'transparent'
                       }}
                       className="btn btn-default dropdown-toggle"
                       type="button"
@@ -217,22 +240,23 @@ class Filter extends Component {
                       className="dropdown-menu"
                       aria-labelledby="dropdownMenu1"
                     >
-                      {this.props.states.map((item) => {
-                        if(item!==null){
+                      {this.props.states.map(item => {
+                        if (item !== null) {
                           return (
-                           <li
-                            onClick={this.handlestatefilter.bind(this, item)}
-                            key={item.slice(0,1)+item.slice(1).toLowerCase()}
-                          >
-                            <a>{item.slice(0,1)+item.slice(1).toLowerCase()}</a>
-                          </li>
-                         
-                        );
+                            <li
+                              onClick={this.handlestatefilter.bind(this, item)}
+                              key={
+                                item.slice(0, 1) + item.slice(1).toLowerCase()
+                              }
+                            >
+                              <a>
+                                {item.slice(0, 1) + item.slice(1).toLowerCase()}
+                              </a>
+                            </li>
+                          );
+                        } else {
+                          return null;
                         }
-                        else{
-                          return(null)
-                        }
-                        
                       })}
                     </ul>
                   </div>

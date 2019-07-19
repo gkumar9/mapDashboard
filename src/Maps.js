@@ -9,9 +9,10 @@ import farmer from "./pins/user.png";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
-import Centre from "./pins/Collection & Processing centre.png";
+import market from "./pins/Market Served.png";
+import Centre from "./pins/Processing center 1.png";
+
 import office from "./pins/Office.png";
-import market from "./pins/Market.png";
 const mapStyles = {
   width: "100%",
   height: "89%",
@@ -112,7 +113,7 @@ class MapListAdditional extends Component {
             url: "",
             anchor: new this.props.google.maps.Point(12, 23),
             origin: new this.props.google.maps.Point(0, 0),
-            scaledSize: new this.props.google.maps.Size(30, 30)
+            scaledSize: new this.props.google.maps.Size(20, 20)
           };
           switch (assetType) {
             case "Mini-Grid":
@@ -147,7 +148,7 @@ class MapListAdditional extends Component {
               // assetId={marker.assetId}
               // assetType={assetType}
               icon={icon}
-              zIndex= {999999999999}
+              zIndex={999999999999}
               position={{
                 lat: parseFloat(marker.latitude),
                 lng: parseFloat(marker.longitude)
@@ -162,137 +163,15 @@ class MapListAdditional extends Component {
 class MapContainer extends Component {
   constructor(props) {
     super(props);
-    let tempadditional = [
-      {
-        latitude: 27.45805556,
-        longitude: 80.58944444,
-        name: "Ucchauli",
-        type: "Mini-Grid",
-        what: "Collection / Processing Centres"
-      },
-      {
-        latitude: 27.45805556,
-        longitude: 80.58944444,
-        name: "Govindpur",
-        type: "Mini-Grid",
-        what: "Collection / Processing Centres"
-      },
-      {
-        latitude: 28.26083333,
-        longitude: 80.11444444,
-        name: "Bicchauli",
-        type: "Mini-Grid",
-        what: "Collection / Processing Centres"
-      },
-      {
-        latitude: 27.41305556,
-        longitude: 80.76027778,
-        name: "Ramgarh",
-        type: "Mini-Grid",
-        what: "Collection / Processing Centres"
-      },
-      {
-        latitude: 26.69333333,
-        longitude: 85.68611111,
-        name: "Takia",
-        type: "Mini-Grid",
-        what: "Collection / Processing Centres"
-      },
-      {
-        latitude: 20.615156,
-        longitude: 77.5035243,
-        name: "Kamragaon",
-        type: "Procurement",
-        what: "Collection / Processing Centres"
-      },
-      {
-        latitude: 28.875826,
-        longitude: 77.106487,
-        name: "Kundli	",
-        type: "Processing",
-        what: "Collection / Processing Centres"
-      },
-      {
-        latitude: 27.01222222,
-        longitude: 84.69888889,
-        name: "Ramchandrapur",
-        type: "Mini-Grid",
-        what: "Collection / Processing Centres"
-      },
-      {
-        latitude: 28.7140497,
-        longitude: 77.1661905,
-        name: "NCR",
-        type: "Present Market",
-        what: "Markets Served"
-      },
-      {
-        latitude: 26.8424945,
-        longitude: 80.8751914,
-        name: "Lucknow",
-        type: "Planned Market",
-        what: "Markets Served"
-      },
-      {
-        latitude: 26.4474128,
-        longitude: 80.198295,
-        name: "Kanpur",
-        type: "Planned Market",
-        what: "Markets Served"
-      },
-      {
-        latitude: 25.6081756,
-        longitude: 85.0730021,
-        name: "Patna",
-        type: "Planned Market",
-        what: "Markets Served"
-      },
-      {
-        latitude: 25.3209013,
-        longitude: 82.9210681,
-        name: "Varanasi",
-        type: "Planned Market",
-        what: "Markets Served"
-      },
-      {
-        latitude: 28.52356,
-        longitude: 77.194194,
-        type: "Corporate Office",
-        name: "Delhi",
-        what: "Office"
-      },
-      {
-        latitude: 25.6226064,
-        longitude: 85.1277454,
-        type: "Off-Site",
-        name: "Patna",
-        what: "Office"
-      },
-      {
-        latitude: 26.8746814,
-        longitude: 80.9729577,
-        type: "Off-Site",
-        name: "Lucknow",
-        what: "Office"
-      },
-      {
-        latitude: 23.167633,
-        longitude: 79.901402,
-        type: "Off-Site",
-        name: "Jabalpur",
-        what: "Office"
-      }
-    ];
-    
 
     this.state = {
       showingInfoWindow: false, //Hides or the shows the infoWindow
       activeMarker: {}, //Shows the active marker upon click
       selectedPlace: { owner: {} }, //Shows the infoWindow to the selected place upon a marker
-      additionalmarkers: tempadditional,
+
       showingInfoWindowadditional: false,
-      activeMarkeradditional:{},
-      selectedPlaceadditional:{}
+      activeMarkeradditional: {},
+      selectedPlaceadditional: {}
     };
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onClose = this.onClose.bind(this);
@@ -366,14 +245,14 @@ class MapContainer extends Component {
       });
     }
   }
-  onCloseadditional=()=>{
+  onCloseadditional = () => {
     if (this.state.showingInfoWindowadditional) {
       this.setState({
         showingInfoWindowadditional: false,
         activeMarkeradditional: null
       });
     }
-  }
+  };
   portalredirect(id) {
     console.log("ddd");
   }
@@ -391,7 +270,6 @@ class MapContainer extends Component {
         zoom={5}
         style={mapStyles}
         styles={[
-          
           { elementType: "geometry.fill", stylers: [{ color: "#F2F2F2" }] },
           {
             featureType: "water",
@@ -428,15 +306,16 @@ class MapContainer extends Component {
         initialCenter={{ lat: 22.845625996700075, lng: 78.9629 }}
       >
         <MapList
+          style={{ display: "none" }}
           google={this.props.google}
           places={this.props.datapins}
           onClick={this.onMarkerClick}
         />
-        {/* <MapListAdditional
+        <MapListAdditional
           google={this.props.google}
-          places={this.state.additionalmarkers}
+          places={this.props.additionalmarkers}
           onClick={this.onMarkerClickAdditional}
-        /> */}
+        />
 
         <InfoWindow
           className="infoWindowCard"
@@ -600,42 +479,71 @@ class MapContainer extends Component {
             </div>
           </div>
         </InfoWindow>
-        
-        {/* <InfoWindow
-        // pixelOffset={new this.props.google.maps.Size(190, 290)}
-        marker={this.state.activeMarkeradditional}
-        visible={this.state.showingInfoWindowadditional}
-        onClose={this.onCloseadditional}
+
+        <InfoWindow
+          className="tesingclass"
+          // pixelOffset={new this.props.google.maps.Size(190, 290)}
+          marker={this.state.activeMarkeradditional}
+          visible={this.state.showingInfoWindowadditional}
+          onClose={this.onCloseadditional}
         >
-          
-            <div className=" additional">
+          <div className=" additional">
             <div
               className="infobox clearfix"
               style={{ textTransform: "capitalize" }}
             >
-              <div className="header clearfix" style={{fontFamily:'gotham-regular'}}>
-                <h3 style={{color:'#315ca6'}}>
+              <div
+                className="header clearfix"
+                style={{ fontFamily: "gotham-regular" }}
+              >
+                <h3 style={{ color: "#315ca6" }}>
                   {this.state.selectedPlaceadditional.name}{" "}
                   <br className="breakline" />
                   <small>{this.state.selectedPlaceadditional.what}</small>
                 </h3>
               </div>
               <div className="body clearfix ">
-                  <div className="row" style={{marginLeft:'0',marginRight:'0',fontSize:'initial',fontFamily:'gotham-light',marginBottom:'1em'}}>
-                    <b>Type: </b> {this.state.selectedPlaceadditional.type}
-                  </div>
-                  <div className="row" style={{marginLeft:'0',marginRight:'0',fontSize:'initial',fontFamily:'gotham-light',marginBottom:'1em'}}>
-                    <b>Latitude: </b> {this.state.selectedPlaceadditional.latitude}
-                  </div>
-                  <div className="row" style={{marginLeft:'0',marginRight:'0',fontSize:'initial',fontFamily:'gotham-light'}}>
-                    <b>Longitude: </b> {this.state.selectedPlaceadditional.longitude}
-                  </div>
+                <div
+                  className="row"
+                  style={{
+                    marginLeft: "0",
+                    marginRight: "0",
+                    fontSize: "initial",
+                    fontFamily: "gotham-light",
+                    marginBottom: "1em"
+                  }}
+                >
+                  <b>Type: </b> {this.state.selectedPlaceadditional.type}
+                </div>
+                <div
+                  className="row"
+                  style={{
+                    marginLeft: "0",
+                    marginRight: "0",
+                    fontSize: "initial",
+                    fontFamily: "gotham-light",
+                    marginBottom: "1em"
+                  }}
+                >
+                  <b>Latitude: </b>{" "}
+                  {this.state.selectedPlaceadditional.latitude}
+                </div>
+                <div
+                  className="row"
+                  style={{
+                    marginLeft: "0",
+                    marginRight: "0",
+                    fontSize: "initial",
+                    fontFamily: "gotham-light"
+                  }}
+                >
+                  <b>Longitude: </b>{" "}
+                  {this.state.selectedPlaceadditional.longitude}
+                </div>
               </div>
             </div>
-            </div>
-          
-        </InfoWindow> */}
-        
+          </div>
+        </InfoWindow>
       </Map>
     );
   }
