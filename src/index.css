@@ -1137,3 +1137,6 @@ outline: 1px solid slategrey;
 .iaasmobile .highcharts-scrollbar .highcharts-scrollbar-rifles{
   width: 10px !important;
 } */
+ .btn-default:hover{
+  border-color:transparent !important;
+}
