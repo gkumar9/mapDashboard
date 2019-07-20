@@ -199,7 +199,7 @@ class Filter extends Component {
                     onChange={this.handleFilterChange}
                   />
                   <img
-                    style={{ width: "12%",marginLeft:'7px',marginTop:'0',filter:'opacity(0.8)' }}
+                    style={{ width: "12%",marginLeft:'7px',filter:'opacity(0.8)' }}
                     src={agroassetsicon}
                     alt="logo"
                     className="filterImg responsive"
