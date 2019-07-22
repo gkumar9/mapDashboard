@@ -300,15 +300,17 @@ class IaasSidebarmobile extends Component {
   }
 }
 
-class iaas extends Component {
+class Iaas extends Component {
   constructor(props) {
     super(props);
     this.state = { statsdata: {} };
   }
 
   componentDidMount() {
+    // eslint-disable-next-line no-undef
     if (window.screen.width >= 480) {
       this.props.history.push("/iaas");
+      
     }
     axios({
       url: config.iaasstats,
@@ -340,6 +342,7 @@ class iaas extends Component {
         });
       })
       .catch(e => {
+        // eslint-disable-next-line no-undef
         console.log(e);
       });
   }
@@ -457,4 +460,4 @@ class iaas extends Component {
   }
 }
 
-export default iaas;
+export default Iaas;

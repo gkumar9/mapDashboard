@@ -500,6 +500,10 @@ class IaasRevenue extends Component {
         console.log(e);
       });
   }
+  componentWillUnmount() {
+    // eslint-disable-next-line no-undef
+    Highcharts.chart("container1", { series: [] }).destroy();
+  }
 
   render() {
     return (

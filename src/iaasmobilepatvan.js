@@ -137,8 +137,8 @@ class Iaaspatvan extends Component {
                 spacingLeft: 10,
                 height: 500,
                 scrollablePlotArea: {
-                  minHeight: 400,
-                  scrollPositionY: 1
+                  minHeight: 500,
+                  scrollPositionX: 1
               },
                 style: {
                   fontFamily: "gotham-light"
