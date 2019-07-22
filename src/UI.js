@@ -6,6 +6,7 @@ import Filter from "./Filter.js";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
+// import Keycloak from "keycloak-js";
 let tempadditional = [
   {
     latitude: 27.45805556,
@@ -132,6 +133,8 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      keycloak: true,
+      authenticated: true,
       states: [],
       allpins: [],
       filteredstate: "",
@@ -207,13 +210,31 @@ class Main extends Component {
     }));
   }
   handlestatefilter(filtered) {
-    let tempfilter=this.state.filter
-    tempfilter.AGROASSETS=false;
-    this.setState({ filteredstate: filtered,additionalmarkers:[],filter:tempfilter });
+    let tempfilter = this.state.filter;
+    tempfilter.AGROASSETS = false;
+    this.setState({
+      filteredstate: filtered,
+      additionalmarkers: [],
+      filter: tempfilter
+    });
   }
 
   componentDidMount() {
-    // console.log('ui')
+    // const keycloak = Keycloak({
+    //   realm: "clarokeycloak",
+    //   "auth-server-url":
+    //     "http://ec2-13-234-112-1.ap-south-1.compute.amazonaws.com/auth",
+    //   "ssl-required": "none",
+    //   resource: "claro-apps",
+    //   "public-client": true,
+    //   "verify-token-audience": true,
+    //   "use-resource-role-mappings": true,
+    //   "confidential-port": 0,
+    //   clientId: "claro-apps"
+    // });
+    // keycloak.init({ onLoad: "login-required" }).success(authenticated => {
+    //   this.setState({ keycloak: keycloak, authenticated: authenticated });
+    // });
     if (
       this.state.allpins.length === 0 &&
       this.state.states.length === 0 &&
@@ -271,30 +292,35 @@ class Main extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Header />
-        <div className="mainbody">
-          <Sidebar history={this.props.history} />
-          <div className="main">
-            <Filter
-              states={this.state.states}
-              selectedstate={this.state.filteredstate}
-              onChangeStates={this.handlestatefilter}
-              filter={this.state.filter}
-              onChangeFilter={this.handleFilterChange}
-              onFilterReset={this.handleReset}
-              onFilterApply={this.handleApply}
-            />
-            <Map
-              datapins={this.state.filteredpins}
-              additionalmarkers={this.state.additionalmarkers}
-              filter={this.state.filter}
-            />
+    if (this.state.keycloak) {
+      if (this.state.authenticated)
+        return (
+          <div>
+            <Header />
+            <div className="mainbody">
+              <Sidebar history={this.props.history} />
+              <div className="main">
+                <Filter
+                  states={this.state.states}
+                  selectedstate={this.state.filteredstate}
+                  onChangeStates={this.handlestatefilter}
+                  filter={this.state.filter}
+                  onChangeFilter={this.handleFilterChange}
+                  onFilterReset={this.handleReset}
+                  onFilterApply={this.handleApply}
+                />
+                <Map
+                  datapins={this.state.filteredpins}
+                  additionalmarkers={this.state.additionalmarkers}
+                  filter={this.state.filter}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    );
+        );
+      else return <div>Unable to authenticate!</div>;
+    }
+    return <div>Initializing Keycloak...</div>;
   }
 }
 

@@ -12,25 +12,21 @@ class IaasRevenue extends Component {
     this.state = { tabledata: {} };
   }
   componentDidMount() {
+    // let chart;
+    // eslint-disable-next-line no-undef
+    // if (window.screen.width <= 480) {
+    //   if(chart){
+    //     chart.destroy()
+    //   }
+
+    // }
     drilldown(Highcharts);
     Highcharts.setOptions({
       lang: {
-        thousandsSep: ','
+        thousandsSep: ","
       }
     });
-  //   if (window.screen.width <= 480) {
-  //     var chart = $('#container1').highcharts();
-  //     if ($(window).width() < 500) {   
-  //       chart.options.plotOptions=10        
-  //        chart.options.plotOptions.spline.marker.radius = 8;
-  //        chart.series[0].update();
-  //     }
-  //     else {
-  //       chart.options.plotOptions=35  
-  //        chart.options.plotOptions.spline.marker.radius = 4;
-  //        chart.series[0].update();
-  //     }
-  // }
+
     var arr1 = [];
     // var arr2 = [];
     // var arr3 = [];
@@ -111,6 +107,7 @@ class IaasRevenue extends Component {
             Farmers: z[i].farmer
           });
         }
+
         let chart = Highcharts.chart("container1", {
           tooltip: {
             formatter: function() {
@@ -136,12 +133,12 @@ class IaasRevenue extends Component {
             borderColor: "#4848d3"
           },
           chart: {
-            type: 'bar',
+            type: "bar",
             backgroundColor: "#f2f2f2",
             style: {
               fontFamily: "gotham-light"
             },
-            height:'700',
+            height: "700",
             spacingRight: 30,
             events: {
               redraw: function(event) {
@@ -155,13 +152,13 @@ class IaasRevenue extends Component {
           },
           xAxis: {
             type: "category",
-            
+
             title: {
-                text: "Time",
-                style: {
-                  fontFamily: "gotham-medium"
-                }
+              text: "Time",
+              style: {
+                fontFamily: "gotham-medium"
               }
+            }
           },
 
           legend: {
@@ -193,8 +190,8 @@ class IaasRevenue extends Component {
               pointWidth: 28,
               dataLabels: {
                 enabled: true,
-                crop:false,
-                overflow:"none",
+                crop: false,
+                overflow: "none",
                 style: {
                   "font-family": "gotham-light",
                   color: "black"
@@ -234,48 +231,48 @@ class IaasRevenue extends Component {
               color: "#315ca6",
               data: arr1
             }
-          ],
-        //   responsive: {
-        //     rules: [
-        //       {
-        //         condition: {
-        //           maxWidth: 500
-        //         },
-        //         chartOptions: {
-        //           width: 400,
-        //           legend: {
-        //             align: "center",
-        //             verticalAlign: "bottom",
-        //             layout: "horizontal"
-        //           },
-        //           plotOptions: {
-        //             series: {
+          ]
+          //   responsive: {
+          //     rules: [
+          //       {
+          //         condition: {
+          //           maxWidth: 500
+          //         },
+          //         chartOptions: {
+          //           width: 400,
+          //           legend: {
+          //             align: "center",
+          //             verticalAlign: "bottom",
+          //             layout: "horizontal"
+          //           },
+          //           plotOptions: {
+          //             series: {
 
-        //             borderRadiusTopLeft: 3,
-        //             borderRadiusTopRight: 3,
-        //               pointWidth: 8
-        //             },
-        //           },
-        //           yAxis: {
-        //             // labels: {
-        //             //     align: 'right',
-        //             //     x: 0,
-        //             //     y: -5
-        //             // },
-        //             title: {
-        //               text: null
-        //             }
-        //           },
-        //           subtitle: {
-        //             text: null
-        //           },
-        //           credits: {
-        //             enabled: false
-        //           }
-        //         }
-        //       }
-        //     ]
-        //   }
+          //             borderRadiusTopLeft: 3,
+          //             borderRadiusTopRight: 3,
+          //               pointWidth: 8
+          //             },
+          //           },
+          //           yAxis: {
+          //             // labels: {
+          //             //     align: 'right',
+          //             //     x: 0,
+          //             //     y: -5
+          //             // },
+          //             title: {
+          //               text: null
+          //             }
+          //           },
+          //           subtitle: {
+          //             text: null
+          //           },
+          //           credits: {
+          //             enabled: false
+          //           }
+          //         }
+          //       }
+          //     ]
+          //   }
           // responsive: {
           //   rules: [{
           //       condition: {
@@ -332,13 +329,13 @@ class IaasRevenue extends Component {
         $("#drillUp").click(function() {
           document.getElementById("tablerevenue").style.display = "none";
           document.getElementById("iaas").style.display = "block";
-          
+
           let removed = stateiaas.pop();
           if (stateiaas.length === 0) {
             document.getElementById("drillUp").style.display = "none";
             chart.series[0].setData(arr1, true);
             chart.xAxis[0].setCategories(yearxaxis, true);
-            chart.xAxis[0].setTitle({ text: 'Time' });
+            chart.xAxis[0].setTitle({ text: "Time" });
             chart.redraw();
           } else if (stateiaas.length === 1) {
             // console.log(arr2, months);
@@ -349,7 +346,9 @@ class IaasRevenue extends Component {
           } else if (stateiaas.length === 2) {
             chart.series[0].setData(arr3, true);
             chart.xAxis[0].setCategories(days, true);
-            chart.xAxis[0].setTitle({ text: stateiaas[0]+"/"+stateiaas[1] });
+            chart.xAxis[0].setTitle({
+              text: stateiaas[0] + "/" + stateiaas[1]
+            });
             chart.redraw();
           }
         });
@@ -357,8 +356,8 @@ class IaasRevenue extends Component {
           var itIsNumber = /^\d{4}$/.test(type);
           let itstwonumber = /^\d{2}$/.test(type);
           let itsonenumber = /^\d{1}$/.test(type);
-        //   console.log(type)
-          
+          //   console.log(type)
+
           if (typeof type === "number" && itIsNumber) {
             stateiaas.push(type);
             arr2 = [];
@@ -458,7 +457,9 @@ class IaasRevenue extends Component {
 
               chart.series[0].setData(arr3, true);
               chart.xAxis[0].setCategories(days, true);
-              chart.xAxis[0].setTitle({ text: stateiaas[0]+"/"+stateiaas[1] });
+              chart.xAxis[0].setTitle({
+                text: stateiaas[0] + "/" + stateiaas[1]
+              });
               chart.redraw();
             });
           } else if (
@@ -493,7 +494,7 @@ class IaasRevenue extends Component {
               temp["number"] = datatable.length;
               temp["sum"] = sum;
               self.setState({ tabledata: temp });
-              var table =$("#example").DataTable({
+              var table = $("#example").DataTable({
                 data: datatable,
                 destroy: true,
                 scrollY: 380,
@@ -510,16 +511,19 @@ class IaasRevenue extends Component {
                 paging: false,
                 ordering: true,
                 responsive: true
-                
               });
             }
           });
         }
-        
       })
       .catch(e => {
+        // eslint-disable-next-line no-undef
         console.log(e);
       });
+  }
+  componentWillUnmount() {
+    // eslint-disable-next-line no-undef
+    Highcharts.chart("container1", { series: [] }).destroy();
   }
 
   render() {
@@ -562,12 +566,12 @@ class IaasRevenue extends Component {
               display: "none",
               marginTop: "12px",
               fontFamily: "gotham-light",
-              padding:"0.5em"
+              padding: "0.5em"
             }}
             className="container"
           >
             <div style={{ marginTop: "-50px", marginLeft: "-30px" }}>
-              <ul style={{paddingInlineStart:'30px'}}>
+              <ul style={{ paddingInlineStart: "30px" }}>
                 {/* <li>
                   {" "}
                   <i className="fa fa-calendar" aria-hidden="true" />

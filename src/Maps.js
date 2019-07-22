@@ -214,7 +214,8 @@ class MapContainer extends Component {
         this.setState({
           selectedPlace: data,
           activeMarker: marker,
-          showingInfoWindow: true
+          showingInfoWindow: true,
+          showingInfoWindowadditional:false
         });
       } else if (res.data.error !== undefined) {
         if (res.data.error.errorCode === 153) {
@@ -234,7 +235,8 @@ class MapContainer extends Component {
     this.setState({
       selectedPlaceadditional: props.data,
       activeMarkeradditional: markerAdditional,
-      showingInfoWindowadditional: true
+      showingInfoWindowadditional: true,
+      showingInfoWindow: false,
     });
   };
   onClose(props) {

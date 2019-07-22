@@ -8,6 +8,7 @@ import IaasPatvan from "./iaaspatvan.js";
 import Iasshourtrans from "./iaashourtrans.js";
 import axios from "axios";
 import config from "./config.js";
+import { chart } from "highcharts";
 
 class iaas extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class iaas extends Component {
   }
 
   componentDidMount() {
+    // eslint-disable-next-line no-undef
     if (window.screen.width <= 480) {
       this.props.history.push("/iaasmobile");
     }
