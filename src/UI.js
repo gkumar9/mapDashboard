@@ -6,7 +6,7 @@ import Filter from "./Filter.js";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
-// import Keycloak from "keycloak-js";
+import Keycloak from "keycloak-js";
 let tempadditional = [
   {
     latitude: 27.45805556,
@@ -133,8 +133,8 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      keycloak: true,
-      authenticated: true,
+      keycloak: null,
+      authenticated: false,
       states: [],
       allpins: [],
       filteredstate: "",
@@ -219,22 +219,27 @@ class Main extends Component {
     });
   }
 
-  componentDidMount() {
-    // const keycloak = Keycloak({
-    //   realm: "clarokeycloak",
-    //   "auth-server-url":
-    //     "http://ec2-13-234-112-1.ap-south-1.compute.amazonaws.com/auth",
-    //   "ssl-required": "none",
-    //   resource: "claro-apps",
-    //   "public-client": true,
-    //   "verify-token-audience": true,
-    //   "use-resource-role-mappings": true,
-    //   "confidential-port": 0,
-    //   clientId: "claro-apps"
-    // });
-    // keycloak.init({ onLoad: "login-required" }).success(authenticated => {
-    //   this.setState({ keycloak: keycloak, authenticated: authenticated });
-    // });
+  async componentDidMount() {
+    const keycloak = Keycloak({
+      realm: "clarokeycloak",
+      "url":
+        "http://ec2-13-234-112-1.ap-south-1.compute.amazonaws.com/auth",
+      "ssl-required": "none",
+      resource: "claro-apps",
+      "public-client": true,
+      "verify-token-audience": true,
+      "use-resource-role-mappings": true,
+      "confidential-port": 0,
+      clientId: "claro-apps",
+      "enable-cors": true
+    });
+    
+    await keycloak.init({ onLoad: "login-required" }).success(async (authenticated) => {
+      
+      await this.setState({ keycloak: keycloak, authenticated: authenticated });
+    });
+    console.log(keycloak)
+    
     if (
       this.state.allpins.length === 0 &&
       this.state.states.length === 0 &&

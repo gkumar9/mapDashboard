@@ -521,7 +521,7 @@ class Farmer extends Component {
     document.getElementById("showsidetabeditfarmer").style.display = "none";
   };
   handleeditfarmersave = async () => {
-    this.setState({ isloaderactive: true });
+    // this.setState({ isloaderactive: true });
     delete this.state.famerinfo["modificationTime"];
     if (
       this.state.famerinfo.name &&
@@ -593,7 +593,7 @@ class Farmer extends Component {
       //     return;
       //   }
       // }
-
+      this.setState({ isloaderactive: true });
       axios({
         url: config.updatefarmer,
         method: "POST",
