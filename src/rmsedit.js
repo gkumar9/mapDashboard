@@ -10,6 +10,7 @@ import config from "./config.js";
 import Swal from "sweetalert2";
 import AWS from "aws-sdk";
 import statedistrict from "./state_json.js";
+import Cookies from 'js-cookie';
 const $ = require("jquery");
 AWS.config.region = "ap-south-1";
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -873,15 +874,18 @@ class Rmsedit extends Component {
     this.forceUpdate();
   };
   componentDidMount() {
+    // eslint-disable-next-line no-undef
+    
+    console.log(Cookies.getJSON())
     if (this.props.location.state !== undefined) {
-      // console.log(this.props.location.state.detail);
       if (this.props.location.state.detail.assetType === "pump") {
         axios({
           url: config.rmseditget + this.props.location.state.detail.id + "/",
           method: "POST",
           data: {},
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization : 'Bearer ' + Cookies.get('KEYCLOAK_IDENTITY')
           }
         })
           .then(res => {

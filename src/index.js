@@ -21,7 +21,7 @@ export const history = createBrowserHistory({
 });
 
 ReactDOM.render(
-  <Router basename={'/'}>
+  <Router basename="/">
     <div>
       <Route exact path="/" component={UI} />
       <Route exact path="/rms" component={rms} />
