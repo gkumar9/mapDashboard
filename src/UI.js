@@ -6,8 +6,8 @@ import Filter from "./Filter.js";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
-import Keycloak from "keycloak-js";
-import Cookies from 'js-cookie';
+// import Keycloak from "keycloak-js";
+// import Cookies from 'js-cookie';
 
 let tempadditional = [
   {
@@ -135,8 +135,8 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      keycloak: null,
-      authenticated: false,
+      // keycloak: null,
+      // authenticated: false,
       states: [],
       allpins: [],
       filteredstate: "",
@@ -222,25 +222,25 @@ class Main extends Component {
   }
 
   async componentDidMount() {
-    const keycloak = Keycloak({
-      realm: "clarokeycloak",
-      "url":
-        "http://ec2-13-234-112-1.ap-south-1.compute.amazonaws.com/auth",
-      "ssl-required": "none",
-      resource: "claro-apps",
-      "public-client": true,
-      "verify-token-audience": true,
-      "use-resource-role-mappings": true,
-      "confidential-port": 0,
-      clientId: "claro-apps",
-      "enable-cors": true
-    });
+    // const keycloak = Keycloak({
+    //   realm: "clarokeycloak",
+    //   "url":
+    //     "http://ec2-13-234-112-1.ap-south-1.compute.amazonaws.com/auth",
+    //   "ssl-required": "none",
+    //   resource: "claro-apps",
+    //   "public-client": true,
+    //   "verify-token-audience": true,
+    //   "use-resource-role-mappings": true,
+    //   "confidential-port": 0,
+    //   clientId: "claro-apps",
+    //   "enable-cors": true
+    // });
     
-    await keycloak.init({ onLoad: "login-required" }).success(async (authenticated) => {
+    // await keycloak.init({ onLoad: "login-required" }).success(async (authenticated) => {
       
-      await this.setState({ keycloak: keycloak, authenticated: authenticated });
-      Cookies.set('idToken', keycloak.token);
-    });
+    //   await this.setState({ keycloak: keycloak, authenticated: authenticated });
+    //   Cookies.set('idToken', keycloak.token);
+    // });
     
     
     if (
@@ -300,8 +300,6 @@ class Main extends Component {
   }
 
   render() {
-    if (this.state.keycloak) {
-      if (this.state.authenticated)
         return (
           <div>
             <Header />
@@ -326,9 +324,7 @@ class Main extends Component {
             </div>
           </div>
         );
-      else return <div>Unable to authenticate!</div>;
-    }
-    return <div>Initializing Keycloak...</div>;
+     
   }
 }
 

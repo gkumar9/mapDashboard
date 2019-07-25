@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
-import { Link } from "react-router-dom";
-import notify from "bootstrap-notify";
+// import { Link } from "react-router-dom";
+// import notify from "bootstrap-notify";
 import LoadingOverlay from "react-loading-overlay";
 // import { MyMapComponent } from "./rmseditmap.js";
 import axios from "axios";
@@ -10,8 +10,6 @@ import config from "./config.js";
 import Swal from "sweetalert2";
 import AWS from "aws-sdk";
 import statedistrict from "./state_json.js";
-import Cookies from 'js-cookie';
-import Keycloak from "keycloak-js";
 const $ = require("jquery");
 AWS.config.region = "ap-south-1";
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -883,14 +881,8 @@ class Rmsedit extends Component {
           url: config.rmseditget + this.props.location.state.detail.id + "/",
           method: "POST",
           data: {},
-          withCredentials: true,
           headers: {
-            // "Access-Control-Request-Headers":"Origin, Content-Type, X-Auth-Token",
-            // "Access-Control-Allow-Credentials": true,
-            // "Access-Control-Allow-Methods":" GET, POST, PATCH, PUT, DELETE, OPTIONS",
-            // "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-            "Authorization" : 'Bearer ' + Cookies.get('idToken')
+            "Content-Type": "application/json"
           }
         })
           .then(res => {
@@ -940,9 +932,9 @@ class Rmsedit extends Component {
               title: "Oops...",
               text: e
             });
-            // this.props.history.push({
-            //   pathname: "/rms"
-            // });
+            this.props.history.push({
+              pathname: "/rms"
+            });
           });
       } else {
         axios({

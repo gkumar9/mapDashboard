@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-// import { createBrowserHistory } from "history";
-// import { HashRouter , Route } from "react-router-dom";
-import { BrowserRouter as Router , Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import {HashRouter , Route } from "react-router-dom";
+// import { BrowserRouter as Router , Route } from "react-router-dom";
 import UI from "./UI.js";
 import * as serviceWorker from "./serviceWorker";
 import rms from "./rms.js";
@@ -16,12 +16,12 @@ import iaasmobile from './iaasmobile.js';
 import Highcharts from 'highcharts/highstock'
 const borderRadius = require("highcharts-border-radius");
 borderRadius(Highcharts);
-// export const history = createBrowserHistory({
-//   basename: process.env.PUBLIC_URL
-// });
+export const history = createBrowserHistory({
+  basename: process.env.PUBLIC_URL
+});
 
 ReactDOM.render(
-  <Router basename="/home">
+  <HashRouter basename={"/"}>
     <div>
       <Route exact path="/" component={UI} />
       <Route exact path="/rms" component={rms} />
@@ -32,7 +32,7 @@ ReactDOM.render(
       <Route exact path="/farmeredit" component={farmeredit} />
       <Route exact path="/iaasmobile" component={iaasmobile} />
     </div>
-  </Router>,
+  </HashRouter>,
   document.getElementById("root")
 );
 
