@@ -7,6 +7,8 @@ import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
 import Keycloak from "keycloak-js";
+import Cookies from 'js-cookie';
+
 let tempadditional = [
   {
     latitude: 27.45805556,
@@ -237,8 +239,9 @@ class Main extends Component {
     await keycloak.init({ onLoad: "login-required" }).success(async (authenticated) => {
       
       await this.setState({ keycloak: keycloak, authenticated: authenticated });
+      Cookies.set('idToken', keycloak.token);
     });
-    console.log(keycloak)
+    
     
     if (
       this.state.allpins.length === 0 &&
