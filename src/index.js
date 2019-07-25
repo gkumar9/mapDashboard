@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { createBrowserHistory } from "history";
+// import { createBrowserHistory } from "history";
 // import { HashRouter , Route } from "react-router-dom";
 import { BrowserRouter as Router , Route } from "react-router-dom";
 import UI from "./UI.js";
@@ -16,12 +16,12 @@ import iaasmobile from './iaasmobile.js';
 import Highcharts from 'highcharts/highstock'
 const borderRadius = require("highcharts-border-radius");
 borderRadius(Highcharts);
-export const history = createBrowserHistory({
-  basename: process.env.PUBLIC_URL
-});
+// export const history = createBrowserHistory({
+//   basename: process.env.PUBLIC_URL
+// });
 
 ReactDOM.render(
-  <Router basename="/">
+  <Router basename="/home">
     <div>
       <Route exact path="/" component={UI} />
       <Route exact path="/rms" component={rms} />

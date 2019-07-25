@@ -876,16 +876,17 @@ class Rmsedit extends Component {
   componentDidMount() {
     // eslint-disable-next-line no-undef
     
-    console.log(Cookies.getJSON())
+    // console.log(Cookies.get('KEYCLOAK_IDENTITY'))
     if (this.props.location.state !== undefined) {
       if (this.props.location.state.detail.assetType === "pump") {
         axios({
           url: config.rmseditget + this.props.location.state.detail.id + "/",
           method: "POST",
           data: {},
+          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
-            Authorization : 'Bearer ' + Cookies.get('KEYCLOAK_IDENTITY')
+            // Authorization : 'Bearer ' + Cookies.get('KEYCLOAK_IDENTITY')
           }
         })
           .then(res => {
