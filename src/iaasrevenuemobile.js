@@ -12,14 +12,6 @@ class IaasRevenue extends Component {
     this.state = { tabledata: {} };
   }
   componentDidMount() {
-    // let chart;
-    // eslint-disable-next-line no-undef
-    // if (window.screen.width <= 480) {
-    //   if(chart){
-    //     chart.destroy()
-    //   }
-
-    // }
     drilldown(Highcharts);
     Highcharts.setOptions({
       lang: {
@@ -232,105 +224,14 @@ class IaasRevenue extends Component {
               data: arr1
             }
           ]
-          //   responsive: {
-          //     rules: [
-          //       {
-          //         condition: {
-          //           maxWidth: 500
-          //         },
-          //         chartOptions: {
-          //           width: 400,
-          //           legend: {
-          //             align: "center",
-          //             verticalAlign: "bottom",
-          //             layout: "horizontal"
-          //           },
-          //           plotOptions: {
-          //             series: {
-
-          //             borderRadiusTopLeft: 3,
-          //             borderRadiusTopRight: 3,
-          //               pointWidth: 8
-          //             },
-          //           },
-          //           yAxis: {
-          //             // labels: {
-          //             //     align: 'right',
-          //             //     x: 0,
-          //             //     y: -5
-          //             // },
-          //             title: {
-          //               text: null
-          //             }
-          //           },
-          //           subtitle: {
-          //             text: null
-          //           },
-          //           credits: {
-          //             enabled: false
-          //           }
-          //         }
-          //       }
-          //     ]
-          //   }
-          // responsive: {
-          //   rules: [{
-          //       condition: {
-          //           maxWidth: 500
-          //       },
-          //       chartOptions: {
-          //           legend: {
-          //               align: 'center',
-          //               verticalAlign: 'bottom',
-          //               layout: 'horizontal'
-          //           },
-          //           plotOptions:{
-          //             series:{
-          //               pointWidth:null
-          //             }
-          //           },
-          //           yAxis: {
-          //               labels: {
-          //                   align: 'right',
-          //                   x: 0,
-          //                   y: -5
-          //               },
-          //               title: {
-          //                   text: null
-          //               }
-          //           },
-          //           subtitle: {
-          //               text: null
-          //           },
-          //           credits: {
-          //               enabled: false
-          //           }
-          //       }
-          //   }]
-          // }
-          // drilldown: {
-          //   series: []
-          // }
-
-          //to set the position of drillup button
-          // drilldown: {drillUpButton: {
-          //                 relativeTo: 'spacingBox',
-          //                 position: {
-          //                     y: 0,
-          //                     x: -50
-          //                 }},
-          //     series: arr2
-
-          //             },
-          //     xAxis: {
-          //         type: 'category'
-          // }
+          
         });
         $("#drillUp").click(function() {
           document.getElementById("tablerevenue").style.display = "none";
           document.getElementById("iaas").style.display = "block";
-
+          document.getElementById("drillUp").style.display = "block";
           let removed = stateiaas.pop();
+          
           if (stateiaas.length === 0) {
             document.getElementById("drillUp").style.display = "none";
             chart.series[0].setData(arr1, true);
@@ -470,6 +371,7 @@ class IaasRevenue extends Component {
             let date = year + "-" + month + "-" + type;
             opendate(date);
           }
+          
         }
         function opendate(key) {
           document.getElementById("tablerevenue").style.display = "block";
