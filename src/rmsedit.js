@@ -874,7 +874,6 @@ class Rmsedit extends Component {
   };
   async componentDidMount() {
    
-    // console.log(keycloak)
     if (this.props.location.state !== undefined) {
       if (this.props.location.state.detail.assetType === "pump") {
         axios({
