@@ -56,7 +56,7 @@ class Sidebar extends Component {
           </Link>
           <Link key="iaas" to="/iaas">
             <li
-              title="IAAS"
+              title="Irrigation Service"
               className={
                 this.props.history.location.pathname.search("iaas") !== -1
                   ? "active"

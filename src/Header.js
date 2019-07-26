@@ -63,7 +63,7 @@ class Header extends Component {
                 <li className="sidebarheader">
                   <Link to="/iaas" target="_self">
                     <img alt="patvan" src={IAAS} />
-                    IAAS
+                    Irrigation Service
                   </Link>
                 </li>
 
