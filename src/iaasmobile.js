@@ -311,142 +311,148 @@ class Iaas extends Component {
     if (window.screen.width >= 480) {
       this.props.history.push("/iaas");
       
-    }
-    axios({
-      url: config.iaasstats,
-      method: "POST",
-      data: { requestId: 1 },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => {
-        // console.log('res',res.data.data)
-        res.data.data.co2Saved = parseInt(
-          res.data.data.co2Saved
-        ).toLocaleString("en-IN");
-        res.data.data.landIrrigated = parseInt(
-          res.data.data.landIrrigated
-        ).toLocaleString("en-IN");
-        res.data.data.noOfFarmers = parseInt(
-          res.data.data.noOfFarmers
-        ).toLocaleString("en-IN");
-        res.data.data.noOfPatvans = parseInt(
-          res.data.data.noOfPatvans
-        ).toLocaleString("en-IN");
-        res.data.data.waterDischarged = parseInt(
-          res.data.data.waterDischarged
-        ).toLocaleString("en-IN");
-        this.setState({
-          statsdata: res.data.data
-        });
+    }else{
+      
+      axios({
+        url: config.iaasstats,
+        method: "POST",
+        data: { requestId: 1 },
+        headers: {
+          "Content-Type": "application/json"
+        }
       })
-      .catch(e => {
-        // eslint-disable-next-line no-undef
-        console.log(e);
-      });
+        .then(res => {
+          // console.log('res',res.data.data)
+          res.data.data.co2Saved = parseInt(
+            res.data.data.co2Saved
+          ).toLocaleString("en-IN");
+          res.data.data.landIrrigated = parseInt(
+            res.data.data.landIrrigated
+          ).toLocaleString("en-IN");
+          res.data.data.noOfFarmers = parseInt(
+            res.data.data.noOfFarmers
+          ).toLocaleString("en-IN");
+          res.data.data.noOfPatvans = parseInt(
+            res.data.data.noOfPatvans
+          ).toLocaleString("en-IN");
+          res.data.data.waterDischarged = parseInt(
+            res.data.data.waterDischarged
+          ).toLocaleString("en-IN");
+          this.setState({
+            statsdata: res.data.data
+          });
+        })
+        .catch(e => {
+          // eslint-disable-next-line no-undef
+          console.log(e);
+        });
+    }
+    
   }
 
   render() {
-    return (
-      <div>
-        <Header />
-        <div className="mainbody iaasmobile">
-          <Sidebar history={this.props.history} />
-          <div className="main">
-            <IaasHeader />
-            <div className="container">
-              <div
-                className="row row-eq-height"
-                style={{
-                  marginRight: "0",
-                  marginLeft: "0",
-                  fontFamily: "gotham-light"
-                }}
-              >
-                <IaasSidebarmobile statsdata={this.state.statsdata} />
-              </div>
-              <div
-                className="row row-eq-height"
-                style={{
-                  marginRight: "0",
-                  marginLeft: "0",
-                  fontFamily: "gotham-light"
-                }}
-              >
+    // eslint-disable-next-line no-undef
+    if(window.screen.width<480){
+      return (
+        <div>
+          <Header />
+          <div className="mainbody iaasmobile">
+            <Sidebar history={this.props.history} />
+            <div className="main">
+              <IaasHeader />
+              <div className="container">
                 <div
+                  className="row row-eq-height"
                   style={{
-                    // minHeight: "100vh",
-                    // textAlign: "center",
-                    padding: "1em"
+                    marginRight: "0",
+                    marginLeft: "0",
+                    fontFamily: "gotham-light"
                   }}
                 >
-                  <div className="iaasoverall">
-                    <ul
-                      className="nav nav-tabs"
-                      role="tablist"
-                      style={{'paddingTop':'0.3em'}}
-                    >
-                      <li role="presentation" className="active" style={{width:'50%'}}>
-                        <a
-                          style={{
-                            color: "#666666",
-                            fontFamily: "gotham-medium",
-                            textAlign:'center'
-                          }}
-                          href="#home"
-                          aria-controls="home"
-                          role="tab"
-                          data-toggle="tab"
-                        >
-                          Revenue Timeline
-                        </a>
-                      </li>
-                      <li role="presentation" className="" style={{width:'50%',borderLeft: '1px solid #ddd'}}>
-                        <a
-                          style={{
-                            color: "#666666",
-                            fontFamily: "gotham-medium",
-                            textAlign:'center'
-                          }}
-                          href="#profile"
-                          aria-controls="profile"
-                          role="tab"
-                          data-toggle="tab"
-                        >
-                          Patvan's Revenue
-                        </a>
-                      </li>
-                      <li role="presentation" className="" style={{width:'100%'}}>
-                        <a
-                          style={{
-                            color: "#666666",
-                            fontFamily: "gotham-medium",
-                            textAlign: "center"
-                          }}
-                          href="#messages"
-                          aria-controls="messages"
-                          role="tab"
-                          data-toggle="tab"
-                        >
-                          Operations per Transaction
-                        </a>
-                      </li>
-                    </ul>
-
-                    <div className="tab-content">
-                      <div
-                        role="tabpanel"
-                        className="tab-pane active"
-                        id="home"
+                  <IaasSidebarmobile statsdata={this.state.statsdata} />
+                </div>
+                <div
+                  className="row row-eq-height"
+                  style={{
+                    marginRight: "0",
+                    marginLeft: "0",
+                    fontFamily: "gotham-light"
+                  }}
+                >
+                  <div
+                    style={{
+                      // minHeight: "100vh",
+                      // textAlign: "center",
+                      padding: "1em"
+                    }}
+                  >
+                    <div className="iaasoverall">
+                      <ul
+                        className="nav nav-tabs"
+                        role="tablist"
+                        style={{'paddingTop':'0.3em'}}
                       >
-                        <IaasRevenue />
-                      </div>
-                      <div role="tabpanel" className="tab-pane" id="profile">
-                        <IaasPatvan />
-                      </div>
-                      <div role="tabpanel" className="tab-pane" id="messages">
-                        <Iasshourtrans />
+                        <li role="presentation" className="active" style={{width:'50%'}}>
+                          <a
+                            style={{
+                              color: "#666666",
+                              fontFamily: "gotham-medium",
+                              textAlign:'center'
+                            }}
+                            href="#home"
+                            aria-controls="home"
+                            role="tab"
+                            data-toggle="tab"
+                          >
+                            Revenue Timeline
+                          </a>
+                        </li>
+                        <li role="presentation" className="" style={{width:'50%',borderLeft: '1px solid #ddd'}}>
+                          <a
+                            style={{
+                              color: "#666666",
+                              fontFamily: "gotham-medium",
+                              textAlign:'center'
+                            }}
+                            href="#profile"
+                            aria-controls="profile"
+                            role="tab"
+                            data-toggle="tab"
+                          >
+                            Patvan's Revenue
+                          </a>
+                        </li>
+                        <li role="presentation" className="" style={{width:'100%'}}>
+                          <a
+                            style={{
+                              color: "#666666",
+                              fontFamily: "gotham-medium",
+                              textAlign: "center"
+                            }}
+                            href="#messages"
+                            aria-controls="messages"
+                            role="tab"
+                            data-toggle="tab"
+                          >
+                            Operations per Transaction
+                          </a>
+                        </li>
+                      </ul>
+  
+                      <div className="tab-content">
+                        <div
+                          role="tabpanel"
+                          className="tab-pane active"
+                          id="home"
+                        >
+                          <IaasRevenue />
+                        </div>
+                        <div role="tabpanel" className="tab-pane" id="profile">
+                          <IaasPatvan />
+                        </div>
+                        <div role="tabpanel" className="tab-pane" id="messages">
+                          <Iasshourtrans />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -455,8 +461,12 @@ class Iaas extends Component {
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else{
+      return(<center>Sorry for Inconvenience. Please reload page.</center>)
+    }
+    
   }
 }
 
