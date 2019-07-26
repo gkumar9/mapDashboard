@@ -9,14 +9,6 @@ const $ = require("jquery");
 class Iaaspatvan extends Component {
   componentDidMount() {
     drilldown(Highcharts);
-    //     Highcharts.Pointer.prototype.onContainerTouchStart = Highcharts.Pointer.prototype.onContainerMouseDown;
-    // var onContainerMouseMove = Highcharts.Pointer.prototype.onContainerMouseMove;
-    // Highcharts.Pointer.prototype.onContainerTouchMove = function(e) {
-    //     onContainerMouseMove.call(this, e);
-    //     if ("touchstart" === this.chart.mouseIsDown) {
-    //         this.drag(e);
-    //     }
-    // };
     axios({
       url: config.iaaspatvan,
       method: "POST",
@@ -134,11 +126,12 @@ class Iaaspatvan extends Component {
               chart: {
                 type: "bar",
                 backgroundColor: "#f2f2f2",
-                spacingLeft: 10,
-                height: 500,
+                // spacingLeft: 10,
+                // height: 500,
                 scrollablePlotArea: {
-                  minHeight: 500,
-                  scrollPositionX: 1
+                  maxHeight: 600,
+                  scrollPositionY: 1,
+                  // scrollPositionX: 1
               },
                 style: {
                   fontFamily: "gotham-light"

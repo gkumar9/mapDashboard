@@ -1137,3 +1137,10 @@ outline: 1px solid slategrey;
 .iaasmobile .highcharts-scrollbar .highcharts-scrollbar-rifles{
   width: 10px !important;
 } */
+
+/* #container {
+  max-width: 800px;
+  min-width: 320px;
+  height: 400px;
+  width: 400px;
+} */
