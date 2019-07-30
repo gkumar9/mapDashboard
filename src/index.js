@@ -38,15 +38,15 @@ let app = (
   </HashRouter>
 );
 const kc = new Keycloak({
-  realm: "test",
-  url: "http://18.216.208.195:8080/auth/",
+  realm: "claro",
+  url: "http://ec2-13-233-53-253.ap-south-1.compute.amazonaws.com/auth/",
   "ssl-required": "none",
-  resource: "test-app",
+  resource: "claro-apps",
   "public-client": true,
   "verify-token-audience": true,
   "use-resource-role-mappings": true,
   "confidential-port": 0,
-  clientId: "test-app"
+  clientId: "claro-apps"
   // "clientSecret":"",
   // "enable-cors": true
 });
