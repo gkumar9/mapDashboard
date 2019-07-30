@@ -126,7 +126,7 @@ class Iaaspatvan extends Component {
               chart: {
                 type: "bar",
                 backgroundColor: "#f2f2f2",
-                // spacingLeft: 10,
+                spacingLeft: 10,
                 // height: 500,
                 scrollablePlotArea: {
                   maxHeight: 600,
