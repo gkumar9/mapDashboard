@@ -23,23 +23,10 @@ export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL
 });
 
-let app = (
-  <HashRouter basename={"/"}>
-    <div>
-      <Route exact path="/" component={UI} />
-      <Route exact path="/rms" component={rms} />
-      <Route exact path="/rmsedit" component={rmsedit} />
-      <Route exact path="/farmer" component={farmer} />
-      <Route exact path="/iaas" component={iaas} />
-      <Route exact path="/rms/:id" component={rmssub} />
-      <Route exact path="/farmeredit" component={farmeredit} />
-      <Route exact path="/iaasmobile" component={iaasmobile} />
-    </div>
-  </HashRouter>
-);
+
 const kc = new Keycloak({
   realm: "claro",
-  url: "http://ec2-13-233-53-253.ap-south-1.compute.amazonaws.com/auth/",
+  url: "//sso.claroenergy.in/auth/",
   "ssl-required": "none",
   resource: "claro-apps",
   "public-client": true,
@@ -50,6 +37,20 @@ const kc = new Keycloak({
   // "clientSecret":"",
   // "enable-cors": true
 });
+let app = (
+  <HashRouter basename={"/"}>
+    <div>
+      <Route exact path="/" component={UI}   />
+      <Route exact path="/rms" component={rms} />
+      <Route exact path="/rmsedit" component={rmsedit} />
+      <Route exact path="/farmer" component={farmer} />
+      <Route exact path="/iaas" component={iaas} />
+      <Route exact path="/rms/:id" component={rmssub} />
+      <Route exact path="/farmeredit" component={farmeredit} />
+      <Route exact path="/iaasmobile" component={iaasmobile} />
+    </div>
+  </HashRouter>
+);
 kc.init({ onLoad: "login-required" })
   .success(authenticated => {
     console.log(authenticated,kc);
@@ -69,6 +70,15 @@ axios.interceptors.request.use(config => {
   config.headers.Authorization = "Bearer " + kc.token;
   return Promise.resolve(config);
 });
+
+// axios.interceptors.response.use(function (response) {
+//   // Do something with response data
+//   console.log('intercepetor',response)
+//   return response;
+// }, function (error) {
+//   // Do something with response error
+//   return Promise.reject(error);
+// });
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA

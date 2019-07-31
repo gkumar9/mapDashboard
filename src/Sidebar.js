@@ -9,13 +9,30 @@ import ROOFTOP from "./pins/Rooftop(2).png";
 import FARMER from "./pins/Farmer 2.png";
 import axios from "axios";
 import config from "./config.js";
+import Keycloak from "keycloak-js";
+
 class Sidebar extends Component {
-  handleSignout=()=> {
-    // console.log("sign out");
-    axios.get(config.LogoutServlet).then(() => {
-      window.location.href = "../login.html?redirect=maps";
-    });
-  }
+  handleSignout = () => {
+    axios
+      .get(
+        "http://sso.claroenergy.in/auth/realms/claro/protocol/openid-connect/logout"
+      )
+    // axios({
+    //   method:'POST',
+    //   url:"http://sso.claroenergy.in/auth/realms/claro/protocol/openid-connect/logout",
+    //   data:{"clientId":'claro-apps'},
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // })
+    // .then((res)=>{
+    //   console.log('',res)
+    // })
+    // .catch((e)=>{
+    //   console.log(e)
+    // })
+    
+  };
   render() {
     return (
       <aside className="main_sidebar">
@@ -99,15 +116,15 @@ class Sidebar extends Component {
             </li>
           </Link>
           {/* <Link key="farmer" to="/farmer"> */}
-            <li
-              title="signout"
-              style={{bottom:'11px',position:'fixed',cursor:'pointer'}}
-              onClick={this.handleSignout}
-            >
-              <i>
-                <img alt="sigout" src={SIGNOUT} />
-              </i>
-            </li>
+          <li
+            title="signout"
+            style={{ bottom: "11px", position: "fixed", cursor: "pointer" }}
+            onClick={this.handleSignout}
+          >
+            <i>
+              <img alt="sigout" src={SIGNOUT} />
+            </i>
+          </li>
           {/* </Link> */}
         </ul>
       </aside>

@@ -218,6 +218,7 @@ class Main extends Component {
   }
 
   async componentDidMount() {
+    // console.log('kc',this.props)
     if (
       this.state.allpins.length === 0 &&
       this.state.states.length === 0 &&
