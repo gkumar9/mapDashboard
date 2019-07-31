@@ -9,29 +9,10 @@ import ROOFTOP from "./pins/Rooftop(2).png";
 import FARMER from "./pins/Farmer 2.png";
 import axios from "axios";
 import config from "./config.js";
-import Keycloak from "keycloak-js";
 
 class Sidebar extends Component {
   handleSignout = () => {
-    axios
-      .get(
-        "http://sso.claroenergy.in/auth/realms/claro/protocol/openid-connect/logout"
-      )
-    // axios({
-    //   method:'POST',
-    //   url:"http://sso.claroenergy.in/auth/realms/claro/protocol/openid-connect/logout",
-    //   data:{"clientId":'claro-apps'},
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    // .then((res)=>{
-    //   console.log('',res)
-    // })
-    // .catch((e)=>{
-    //   console.log(e)
-    // })
-    
+    this.props.kc.logout()
   };
   render() {
     return (

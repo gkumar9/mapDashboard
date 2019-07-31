@@ -22,8 +22,6 @@ borderRadius(Highcharts);
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL
 });
-
-
 const kc = new Keycloak({
   realm: "claro",
   url: "//sso.claroenergy.in/auth/",
@@ -40,7 +38,7 @@ const kc = new Keycloak({
 let app = (
   <HashRouter basename={"/"}>
     <div>
-      <Route exact path="/" component={UI}   />
+    <Route exact path="/" kc={kc} render={props=>{return(<UI {...props} kc={kc}/>)}}  />
       <Route exact path="/rms" component={rms} />
       <Route exact path="/rmsedit" component={rmsedit} />
       <Route exact path="/farmer" component={farmer} />
@@ -53,9 +51,12 @@ let app = (
 );
 kc.init({ onLoad: "login-required" })
   .success(authenticated => {
-    console.log(authenticated,kc);
+    console.log(authenticated, kc);
     if (authenticated) {
-      ReactDOM.render(app, document.getElementById("root"));
+      ReactDOM.render(
+        app,
+        document.getElementById("root")
+      );
     }
   })
   .error(e => {
@@ -64,7 +65,6 @@ kc.init({ onLoad: "login-required" })
       title: "Error Authentication"
     });
   });
-
 
 axios.interceptors.request.use(config => {
   config.headers.Authorization = "Bearer " + kc.token;

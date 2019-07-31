@@ -218,7 +218,6 @@ class Main extends Component {
   }
 
   async componentDidMount() {
-    // console.log('kc',this.props)
     if (
       this.state.allpins.length === 0 &&
       this.state.states.length === 0 &&
@@ -276,31 +275,30 @@ class Main extends Component {
   }
 
   render() {
-        return (
-          <div>
-            <Header />
-            <div className="mainbody">
-              <Sidebar history={this.props.history} />
-              <div className="main">
-                <Filter
-                  states={this.state.states}
-                  selectedstate={this.state.filteredstate}
-                  onChangeStates={this.handlestatefilter}
-                  filter={this.state.filter}
-                  onChangeFilter={this.handleFilterChange}
-                  onFilterReset={this.handleReset}
-                  onFilterApply={this.handleApply}
-                />
-                <Map
-                  datapins={this.state.filteredpins}
-                  additionalmarkers={this.state.additionalmarkers}
-                  filter={this.state.filter}
-                />
-              </div>
-            </div>
+    return (
+      <div>
+        <Header />
+        <div className="mainbody">
+          <Sidebar kc={this.props.kc} history={this.props.history} />
+          <div className="main">
+            <Filter
+              states={this.state.states}
+              selectedstate={this.state.filteredstate}
+              onChangeStates={this.handlestatefilter}
+              filter={this.state.filter}
+              onChangeFilter={this.handleFilterChange}
+              onFilterReset={this.handleReset}
+              onFilterApply={this.handleApply}
+            />
+            <Map
+              datapins={this.state.filteredpins}
+              additionalmarkers={this.state.additionalmarkers}
+              filter={this.state.filter}
+            />
           </div>
-        );
-     
+        </div>
+      </div>
+    );
   }
 }
 
