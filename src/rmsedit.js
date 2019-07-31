@@ -1075,6 +1075,17 @@ class Rmsedit extends Component {
           this.setState({ isloaderactive: false });
           alert(res.data.error.errorMsg);
         }
+      })
+      .catch(e => {
+        this.setState({ isloaderactive: false });
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
+        this.props.history.push({
+          pathname: "/rms"
+        });
       });
     } else {
       axios({
@@ -1101,6 +1112,17 @@ class Rmsedit extends Component {
           this.setState({ isloaderactive: false });
           alert(res.data.error.errorMsg);
         }
+      })
+      .catch(e => {
+        this.setState({ isloaderactive: false });
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
+        this.props.history.push({
+          pathname: "/rms"
+        });
       });
     }
   };
