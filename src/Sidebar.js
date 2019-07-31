@@ -11,7 +11,11 @@ import axios from "axios";
 import config from "./config.js";
 
 class Sidebar extends Component {
+  constructor(props){
+    super(props)
+  }
   handleSignout = () => {
+    // console.log(this.props)
     this.props.kc.logout()
   };
   render() {

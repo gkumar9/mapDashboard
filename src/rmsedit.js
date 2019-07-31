@@ -873,7 +873,6 @@ class Rmsedit extends Component {
     this.forceUpdate();
   };
   async componentDidMount() {
-   
     if (this.props.location.state !== undefined) {
       if (this.props.location.state.detail.assetType === "pump") {
         axios({
@@ -913,6 +912,7 @@ class Rmsedit extends Component {
               this.handlermsvendoridchange();
               this.setState({ isloaderactive: false });
             } else {
+              console.log(res);
               this.setState({ isloaderactive: false });
               Swal({
                 type: "error",
@@ -926,14 +926,35 @@ class Rmsedit extends Component {
           })
           .catch(e => {
             this.setState({ isloaderactive: false });
-            Swal({
-              type: "error",
-              title: "Oops...",
-              text: e
-            });
-            this.props.history.push({
-              pathname: "/rms"
-            });
+            if (JSON.stringify(e).includes("401")) {
+              Swal({
+                type: "error",
+                title: "Unauthorized",
+                text: "Please login again."
+              });
+              this.props.history.push({
+                pathname: "/"
+              });
+            } else if (JSON.stringify(e).includes("403")) {
+              Swal({
+                type: "error",
+                title: "Forbidden",
+                text: "Access denied for the user."
+              });
+              this.props.history.push({
+                pathname: "/rms"
+              });
+            } else {
+              this.setState({ isloaderactive: false });
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: e
+              });
+              this.props.history.push({
+                pathname: "/rms"
+              });
+            }
           });
       } else {
         axios({
@@ -975,6 +996,7 @@ class Rmsedit extends Component {
               this.setState({ isloaderactive: false });
             } else {
               this.setState({ isloaderactive: false });
+              console.log(res);
               Swal({
                 type: "error",
                 title: "Oops...",
@@ -986,7 +1008,36 @@ class Rmsedit extends Component {
             }
           })
           .catch(e => {
-            console.log(e);
+            this.setState({ isloaderactive: false });
+            if (JSON.stringify(e).includes("401")) {
+              Swal({
+                type: "error",
+                title: "Unauthorized",
+                text: "Please login again."
+              });
+              this.props.history.push({
+                pathname: "/"
+              });
+            } else if (JSON.stringify(e).includes("403")) {
+              Swal({
+                type: "error",
+                title: "Forbidden",
+                text: "Access denied for the user."
+              });
+              this.props.history.push({
+                pathname: "/rms"
+              });
+            } else {
+              this.setState({ isloaderactive: false });
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: e
+              });
+              this.props.history.push({
+                pathname: "/rms"
+              });
+            }
           });
       }
     } else {
@@ -1058,35 +1109,57 @@ class Rmsedit extends Component {
         headers: {
           "Content-Type": "application/json"
         }
-      }).then(res => {
-        // console.log(res.data.data)
-        if (res.data.data !== null && res.data.data.result) {
-          this.setState({ isloaderactive: false });
-          Swal({
-            type: "success",
-            title: "Successfully data updated"
-            // text: res.data.error.errorMsg
-          });
-          this.props.history.push({
-            pathname: "/rms"
-          });
-          // this.forceUpdate();
-        } else {
-          this.setState({ isloaderactive: false });
-          alert(res.data.error.errorMsg);
-        }
       })
-      .catch(e => {
-        this.setState({ isloaderactive: false });
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
+        .then(res => {
+          // console.log(res.data.data)
+          if (res.data.data !== null && res.data.data.result) {
+            this.setState({ isloaderactive: false });
+            Swal({
+              type: "success",
+              title: "Successfully data updated"
+              // text: res.data.error.errorMsg
+            });
+            this.props.history.push({
+              pathname: "/rms"
+            });
+            // this.forceUpdate();
+          } else {
+            this.setState({ isloaderactive: false });
+            alert(res.data.error.errorMsg);
+          }
+        })
+        .catch(e => {
+          this.setState({ isloaderactive: false });
+            if (JSON.stringify(e).includes("401")) {
+              Swal({
+                type: "error",
+                title: "Unauthorized",
+                text: "Please login again."
+              });
+              this.props.history.push({
+                pathname: "/"
+              });
+            } else if (JSON.stringify(e).includes("403")) {
+              Swal({
+                type: "error",
+                title: "Forbidden",
+                text: "Access denied for the user."
+              });
+              this.props.history.push({
+                pathname: "/rms"
+              });
+            } else {
+              this.setState({ isloaderactive: false });
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: e
+              });
+              this.props.history.push({
+                pathname: "/rms"
+              });
+            }
         });
-        this.props.history.push({
-          pathname: "/rms"
-        });
-      });
     } else {
       axios({
         url: config.updatermsedit,
@@ -1095,35 +1168,57 @@ class Rmsedit extends Component {
         headers: {
           "Content-Type": "application/json"
         }
-      }).then(res => {
-        // console.log(res.data.data)
-        if (res.data.data !== null && res.data.data.result) {
-          this.setState({ isloaderactive: false });
-          Swal({
-            type: "success",
-            title: "Successfully data updated"
-            // text: res.data.error.errorMsg
-          });
-          this.props.history.push({
-            pathname: "/rms"
-          });
-          // this.forceUpdate();
-        } else {
-          this.setState({ isloaderactive: false });
-          alert(res.data.error.errorMsg);
-        }
       })
-      .catch(e => {
-        this.setState({ isloaderactive: false });
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
+        .then(res => {
+          // console.log(res.data.data)
+          if (res.data.data !== null && res.data.data.result) {
+            this.setState({ isloaderactive: false });
+            Swal({
+              type: "success",
+              title: "Successfully data updated"
+              // text: res.data.error.errorMsg
+            });
+            this.props.history.push({
+              pathname: "/rms"
+            });
+            // this.forceUpdate();
+          } else {
+            this.setState({ isloaderactive: false });
+            alert(res.data.error.errorMsg);
+          }
+        })
+        .catch(e => {
+          this.setState({ isloaderactive: false });
+          if (JSON.stringify(e).includes("401")) {
+            Swal({
+              type: "error",
+              title: "Unauthorized",
+              text: "Please login again."
+            });
+            this.props.history.push({
+              pathname: "/"
+            });
+          } else if (JSON.stringify(e).includes("403")) {
+            Swal({
+              type: "error",
+              title: "Forbidden",
+              text: "Access denied for the user."
+            });
+            this.props.history.push({
+              pathname: "/rms"
+            });
+          } else {
+            this.setState({ isloaderactive: false });
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
+            this.props.history.push({
+              pathname: "/rms"
+            });
+          }
         });
-        this.props.history.push({
-          pathname: "/rms"
-        });
-      });
     }
   };
   handlecancel = () => {

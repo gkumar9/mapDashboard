@@ -70,33 +70,7 @@ class Farmeraddnew extends Component {
     temp.croplist[event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
   };
-  // handleChangeimage = () => {
-  //   var file = this.fileInput1.current.files[0];
-  //   var fileName = +this.state.famerinfo.id + "-" + Date.now();
-  //   // var albumPhotosKey = encodeURIComponent(albumName) + '//';
-  //   let self = this;
-  //   var photoKey = fileName;
-  //   s3.upload(
-  //     {
-  //       Key: photoKey,
-  //       Body: file,
-  //       ACL: "public-read"
-  //     },
-  //     function(err, data) {
-  //       if (err) {
-  //         return alert(
-  //           "There was an error uploading your photo: ",
-  //           err.message
-  //         );
-  //       } else {
-  //         let temp = self.state.famerinfo;
-  //         temp.farmerImage = data.Location;
-  //         self.setState({ famerinfo: temp });
-  //         alert("Img uploaded succesfully");
-  //       }
-  //     }
-  //   );
-  // };
+  
   handleChangeimage = (index, mediaType) => {
     // console.log(event)
     // let refname=`fileInput${index}`
@@ -128,102 +102,7 @@ class Farmeraddnew extends Component {
       }
     );
   };
-  // handleeditfarmersavecroplist = async () => {
-  //   let check = this.handleeditfarmersave();
-  //   if (check) {
-  //     this.state.famerinfo.croplist.map((item, number) => {
-  //       if (
-  //         item.name &&
-  //         item.name.replace(/\s/g, "").length !== 0 &&
-  //         item.cropSeason &&
-  //         item.cropSeason.replace(/\s/g, "").length !== 0 &&
-  //         item.cropVariety &&
-  //         item.cropVariety.replace(/\s/g, "").length !== 0 &&
-  //         item.sowingMonth &&
-  //         item.sowingMonth.replace(/\s/g, "").length !== 0 &&
-  //         item.harvestingTime &&
-  //         item.harvestingTime.replace(/\s/g, "").length !== 0 &&
-  //         item.grownArea &&
-  //         item.grownArea.replace(/\s/g, "").length !== 0
-  //       ) {
-  //         item.farmerId = this.state.famerinfo.farmerId;
-  //         if (this.state.backupcroplist !== 0 && item !== undefined) {
-  //           axios({
-  //             url: config.addcrop,
-  //             method: "POST",
-  //             data: item,
-  //             headers: {
-  //               "Content-Type": "application/json"
-  //             }
-  //           })
-  //             .then(res => {
-  //               if (res.data.data !== null && res.data.data.result) {
-  //                 Swal({
-  //                   type: "success",
-  //                   title: "Successfully data updated"
-  //                   // text: res.data.error.errorMsg
-  //                 });
-  //                 this.props.getfarmer();
-  //                 // this.setState({
-  //                 //   backupinfo: Object.assign({}, this.state.famerinfo)
-  //                 // });
-  //               } else {
-  //                 alert(res.data.error.errorMsg);
-  //                 return;
-  //               }
-  //             })
-  //             .catch(e => {
-  //               Swal({
-  //                 type: "error",
-  //                 title: "Oops...",
-  //                 text: e
-  //               });
-  //             });
-  //         } else if (this.state.backupcroplist === 0 && item !== undefined) {
-  //           axios({
-  //             url: config.addcrop,
-  //             method: "POST",
-  //             data: item,
-  //             headers: {
-  //               "Content-Type": "application/json"
-  //             }
-  //           })
-  //             .then(res => {
-  //               if (res.data.data !== null && res.data.data.result) {
-  //                 Swal({
-  //                   type: "success",
-  //                   title: "Successfully data updated"
-  //                   // text: res.data.error.errorMsg
-  //                 });
-
-  //                 // this.setState({
-  //                 //   backupinfo: Object.assign({}, this.state.famerinfo)
-  //                 // });
-  //               } else {
-  //                 alert(res.data.error.errorMsg);
-  //                 return;
-  //               }
-  //             })
-  //             .catch(e => {
-  //               Swal({
-  //                 type: "error",
-  //                 title: "Oops...",
-  //                 text: e
-  //               });
-  //             });
-  //         } else {
-  //           alert("error at crop save");
-  //         }
-  //       } else {
-  //         Swal({
-  //           type: "error",
-  //           title: "Fill valid input in all mandatory fields"
-  //           // text: res.data.error.errorMsg
-  //         });
-  //       }
-  //     });
-  //   }
-  // };
+  
   handleeditfarmersave = () => {
     delete this.state.famerinfo["modificationTime"];
     delete this.state.famerinfo["id"];
@@ -297,7 +176,7 @@ class Farmeraddnew extends Component {
             );
           }
         }
-        this.setState({isloaderactive:true})
+        this.setState({ isloaderactive: true });
         axios({
           url: config.addfarmernew,
           method: "POST",
@@ -385,11 +264,36 @@ class Farmeraddnew extends Component {
                             }
                           })
                           .catch(e => {
-                            Swal({
-                              type: "error",
-                              title: "Oops...",
-                              text: e
-                            });
+                            this.setState({ isloaderactive: false });
+                            if (JSON.stringify(e).includes("401")) {
+                              Swal({
+                                type: "error",
+                                title: "Unauthorized",
+                                text: "Please login again."
+                              });
+                              this.props.history.push({
+                                pathname: "/"
+                              });
+                            } else if (JSON.stringify(e).includes("403")) {
+                              Swal({
+                                type: "error",
+                                title: "Forbidden",
+                                text: "Access denied for the user."
+                              });
+                              // this.props.history.push({
+                              //   pathname: "/rms"
+                              // });
+                            } else {
+                              this.setState({ isloaderactive: false });
+                              Swal({
+                                type: "error",
+                                title: "Oops...",
+                                text: e
+                              });
+                              // this.props.history.push({
+                              //   pathname: "/rms"
+                              // });
+                            }
                           });
                       } else {
                         console.log(
@@ -418,22 +322,74 @@ class Farmeraddnew extends Component {
                   }
                 })
                 .catch(e => {
-                  this.setState({isloaderactive:false})
-                  Swal({
-                    type: "error",
-                    title: "Oops...",
-                    text: e
-                  });
+                  this.setState({ isloaderactive: false });
+                  if (JSON.stringify(e).includes("401")) {
+                    Swal({
+                      type: "error",
+                      title: "Unauthorized",
+                      text: "Please login again."
+                    });
+                    this.props.history.push({
+                      pathname: "/"
+                    });
+                  } else if (JSON.stringify(e).includes("403")) {
+                    Swal({
+                      type: "error",
+                      title: "Forbidden",
+                      text: "Access denied for the user."
+                    });
+                    // this.props.history.push({
+                    //   pathname: "/rms"
+                    // });
+                  } else {
+                    this.setState({ isloaderactive: false });
+                    Swal({
+                      type: "error",
+                      title: "Oops...",
+                      text: e
+                    });
+                    // this.props.history.push({
+                    //   pathname: "/rms"
+                    // });
+                  }
                 });
-                this.setState({isloaderactive:false})
+              this.setState({ isloaderactive: false });
             } else {
-              this.setState({isloaderactive:false})
+              this.setState({ isloaderactive: false });
               alert("Add farmer error:", res.data.error.errorMsg);
             }
           })
           .catch(e => {
-            console.log(e);
-            this.setState({isloaderactive:false})
+            this.setState({ isloaderactive: false });
+            if (JSON.stringify(e).includes("401")) {
+              Swal({
+                type: "error",
+                title: "Unauthorized",
+                text: "Please login again."
+              });
+              this.props.history.push({
+                pathname: "/"
+              });
+            } else if (JSON.stringify(e).includes("403")) {
+              Swal({
+                type: "error",
+                title: "Forbidden",
+                text: "Access denied for the user."
+              });
+              // this.props.history.push({
+              //   pathname: "/rms"
+              // });
+            } else {
+              this.setState({ isloaderactive: false });
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: e
+              });
+              // this.props.history.push({
+              //   pathname: "/rms"
+              // });
+            }
           });
       } else {
         Swal({
@@ -550,11 +506,36 @@ class Farmeraddnew extends Component {
                     }
                   })
                   .catch(e => {
-                    Swal({
-                      type: "error",
-                      title: "Oops...",
-                      text: e
-                    });
+                    this.setState({ isloaderactive: false });
+                    if (JSON.stringify(e).includes("401")) {
+                      Swal({
+                        type: "error",
+                        title: "Unauthorized",
+                        text: "Please login again."
+                      });
+                      this.props.history.push({
+                        pathname: "/"
+                      });
+                    } else if (JSON.stringify(e).includes("403")) {
+                      Swal({
+                        type: "error",
+                        title: "Forbidden",
+                        text: "Access denied for the user."
+                      });
+                      // this.props.history.push({
+                      //   pathname: "/rms"
+                      // });
+                    } else {
+                      this.setState({ isloaderactive: false });
+                      Swal({
+                        type: "error",
+                        title: "Oops...",
+                        text: e
+                      });
+                      // this.props.history.push({
+                      //   pathname: "/rms"
+                      // });
+                    }
                   });
               } else {
                 console.log(
@@ -653,161 +634,217 @@ class Farmeraddnew extends Component {
         });
       })
       .catch(e => {
-        console.log(e);
+        this.setState({ isloaderactive: false });
+        if (JSON.stringify(e).includes("401")) {
+          Swal({
+            type: "error",
+            title: "Unauthorized",
+            text: "Please login again."
+          });
+          this.props.history.push({
+            pathname: "/"
+          });
+        } else if (JSON.stringify(e).includes("403")) {
+          Swal({
+            type: "error",
+            title: "Forbidden",
+            text: "Access denied for the user."
+          });
+          // this.props.history.push({
+          //   pathname: "/rms"
+          // });
+        } else {
+          this.setState({ isloaderactive: false });
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
+          // this.props.history.push({
+          //   pathname: "/rms"
+          // });
+        }
       });
     // }
   }
   render() {
     return (
       <div className="farmerinfobody">
-        <LoadingOverlay
-          active={this.state.isloaderactive}
-          spinner
-        >
-        <div id="farmeraddnew" style={{ display: "none" }}>
-          {this.state.famerinfo !== undefined && (
-            <div
-              style={
-                {
-                  // maxHeight: "90vh",
-                  // overflow: "scroll"
-                  // display: "none"
+        <LoadingOverlay active={this.state.isloaderactive} spinner>
+          <div id="farmeraddnew" style={{ display: "none" }}>
+            {this.state.famerinfo !== undefined && (
+              <div
+                style={
+                  {
+                    // maxHeight: "90vh",
+                    // overflow: "scroll"
+                    // display: "none"
+                  }
                 }
-              }
-              className="farmerinfobody"
-            >
-              <ul className="nav nav-tabs" role="tablist">
-                <li role="presentation" className="active">
-                  <a
-                    style={{ color: "black" }}
-                    href="#profile11"
-                    aria-controls="profile1"
-                    role="tab"
-                    data-toggle="tab"
+                className="farmerinfobody"
+              >
+                <ul className="nav nav-tabs" role="tablist">
+                  <li role="presentation" className="active">
+                    <a
+                      style={{ color: "black" }}
+                      href="#profile11"
+                      aria-controls="profile1"
+                      role="tab"
+                      data-toggle="tab"
+                    >
+                      KYC of farmer
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a
+                      style={{ color: "black" }}
+                      href="#family11"
+                      aria-controls="family1"
+                      role="tab"
+                      data-toggle="tab"
+                    >
+                      {/* {this.state.famerinfo.vertical}  */}
+                      Family
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a
+                      style={{ color: "black" }}
+                      href="#crop11"
+                      aria-controls="crop1"
+                      role="tab"
+                      data-toggle="tab"
+                    >
+                      Crop info
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a
+                      style={{ color: "black" }}
+                      href="#images11"
+                      aria-controls="images"
+                      role="tab"
+                      data-toggle="tab"
+                    >
+                      Multimedia
+                    </a>
+                  </li>
+                  <li
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      float: "right",
+                      padding: "0.2em 1.5em"
+                    }}
                   >
-                    KYC of farmer
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a
-                    style={{ color: "black" }}
-                    href="#family11"
-                    aria-controls="family1"
-                    role="tab"
-                    data-toggle="tab"
-                  >
-                    {/* {this.state.famerinfo.vertical}  */}
-                    Family
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a
-                    style={{ color: "black" }}
-                    href="#crop11"
-                    aria-controls="crop1"
-                    role="tab"
-                    data-toggle="tab"
-                  >
-                    Crop info
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a
-                    style={{ color: "black" }}
-                    href="#images11"
-                    aria-controls="images"
-                    role="tab"
-                    data-toggle="tab"
-                  >
-                    Multimedia
-                  </a>
-                </li>
-                <li
+                    <button
+                      onClick={this.handleeditfarmersave}
+                      type="submit"
+                      className="btn btn-default"
+                      aria-label="Right Align"
+                      id="drillUp"
+                      style={{
+                        // display: "none",
+                        width: "50%",
+                        borderRadius: "0px",
+                        // marginBottom: "1em",
+                        borderColor: "darkgray",
+                        float: "left",
+                        outline: "none",
+                        color: "white",
+                        backgroundColor: "blue"
+                      }}
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={this.handlecancelfarmer}
+                      type="button"
+                      className="cancelbutton btn btn-default"
+                      aria-label="Right Align"
+                      id="drillUp"
+                      style={{
+                        // display: "none",
+                        width: "46%",
+                        marginLeft: "1em",
+
+                        borderRadius: "0px",
+                        borderColor: "blue",
+                        float: "left",
+                        outline: "none",
+                        color: "blue",
+                        backgroundColor: "white"
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </li>
+                </ul>
+
+                <div
+                  className="tab-content"
                   style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    float: "right",
-                    padding: "0.2em 1.5em"
+                    padding: "0.5em",
+                    maxHeight: "80vh",
+                    overflowY: "scroll",
+                    overflowX: "hidden"
                   }}
                 >
-                  <button
-                    onClick={this.handleeditfarmersave}
-                    type="submit"
-                    className="btn btn-default"
-                    aria-label="Right Align"
-                    id="drillUp"
-                    style={{
-                      // display: "none",
-                      width: "50%",
-                      borderRadius: "0px",
-                      // marginBottom: "1em",
-                      borderColor: "darkgray",
-                      float: "left",
-                      outline: "none",
-                      color: "white",
-                      backgroundColor: "blue"
-                    }}
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={this.handlecancelfarmer}
-                    type="button"
-                    className="cancelbutton btn btn-default"
-                    aria-label="Right Align"
-                    id="drillUp"
-                    style={{
-                      // display: "none",
-                      width: "46%",
-                      marginLeft: "1em",
-
-                      borderRadius: "0px",
-                      borderColor: "blue",
-                      float: "left",
-                      outline: "none",
-                      color: "blue",
-                      backgroundColor: "white"
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </li>
-              </ul>
-
-              <div
-                className="tab-content"
-                style={{
-                  padding: "0.5em",
-                  maxHeight: "80vh",
-                  overflowY: "scroll",
-                  overflowX: "hidden"
-                }}
-              >
-                <div role="tabpanel" className="tab-pane active" id="profile11">
                   <div
-                    className="row kycbody"
-                    style={{ margin: "0.7em 0.1em" }}
+                    role="tabpanel"
+                    className="tab-pane active"
+                    id="profile11"
                   >
-                    {/* <div className="row" style={{ margin: "0.7em 0" }}> */}
-                    <div className="col-xs-9">
-                      <h3 style={{ marginTop: "5px" }}>Primary</h3>
-                    </div>
-                    {/* <div
+                    <div
+                      className="row kycbody"
+                      style={{ margin: "0.7em 0.1em" }}
+                    >
+                      {/* <div className="row" style={{ margin: "0.7em 0" }}> */}
+                      <div className="col-xs-9">
+                        <h3 style={{ marginTop: "5px" }}>Primary</h3>
+                      </div>
+                      {/* <div
                       className="col-xs-3"
                       style={{ display: "flex", justifyContent: "flex-end" }}
                     >
                      </div> */}
-                  </div>
-                  <div
-                    className="row kycbody"
-                    style={{ margin: "0.7em 0.1em" }}
-                  >
-                    <div className="col-md-5">
-                      <div className="kycbody">
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            <span>
-                              Name{" "}
+                    </div>
+                    <div
+                      className="row kycbody"
+                      style={{ margin: "0.7em 0.1em" }}
+                    >
+                      <div className="col-md-5">
+                        <div className="kycbody">
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              <span>
+                                Name{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="name"
+                                type="text"
+                                className="form-control"
+                                id="name"
+                                value={this.state.famerinfo.name || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="Name"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Status{" "}
                               <i
                                 title="Mandatory fields"
                                 style={{
@@ -817,49 +854,23 @@ class Farmeraddnew extends Component {
                                 className="fa fa-info-circle"
                                 aria-hidden="true"
                               />
-                            </span>
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="name"
-                              type="text"
-                              className="form-control"
-                              id="name"
-                              value={this.state.famerinfo.name || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Name"
-                            />
-                          </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Status{" "}
-                            <i
-                              title="Mandatory fields"
-                              style={{
-                                marginTop: "0.5em",
-                                marginLeft: "0.5em"
-                              }}
-                              className="fa fa-info-circle"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="col-xs-6">
-                            <div>
-                              <select
-                                name="entryStatus"
-                                onChange={this.handleInputChange}
-                                value={
-                                  this.state.famerinfo.entryStatus || "ACTIVE"
-                                }
-                                className="form-control"
-                                id="sel3"
-                              >
-                                <option value="ACTIVE">ACTIVE</option>
-                                <option value="INACTIVE">INACTIVE</option>
-                              </select>
                             </div>
-                            {/* <input
+                            <div className="col-xs-6">
+                              <div>
+                                <select
+                                  name="entryStatus"
+                                  onChange={this.handleInputChange}
+                                  value={
+                                    this.state.famerinfo.entryStatus || "ACTIVE"
+                                  }
+                                  className="form-control"
+                                  id="sel3"
+                                >
+                                  <option value="ACTIVE">ACTIVE</option>
+                                  <option value="INACTIVE">INACTIVE</option>
+                                </select>
+                              </div>
+                              {/* <input
                       name="entryStatus"
                       type="text"
                       className="form-control"
@@ -868,42 +879,11 @@ class Farmeraddnew extends Component {
                       onChange={this.handleInputChange}
                       placeholder="Status"
                     /> */}
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Contact No{" "}
-                            <i
-                              title="Mandatory fields"
-                              style={{
-                                marginTop: "0.5em",
-                                marginLeft: "0.5em"
-                              }}
-                              className="fa fa-info-circle"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="contactNo"
-                              type="number"
-                              className="form-control"
-                              id="contactno"
-                              value={this.state.famerinfo.contactNo || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Contact Number "
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-1" />
-                    <div className="col-md-5">
-                      <div className="kycbody">
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            <span>
-                              UID Type{" "}
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Contact No{" "}
                               <i
                                 title="Mandatory fields"
                                 style={{
@@ -913,33 +893,139 @@ class Farmeraddnew extends Component {
                                 className="fa fa-info-circle"
                                 aria-hidden="true"
                               />
-                            </span>
-                          </div>
-                          <div className="col-xs-6">
-                            <div>
-                              <select
-                                name="uidType"
-                                onChange={this.handleInputChange}
-                                value={this.state.famerinfo.uidType}
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="contactNo"
+                                type="number"
                                 className="form-control"
-                                id="sel2"
-                              >
-                                <option value="AADHAR">AADHAR</option>
-                                <option value="VOTER ID">VOTER ID</option>
-                                <option value="LICENSE">LICENSE</option>
-                                <option value="PAY-GO">PAYGO</option>
-                                {/* <option value="CLARO ID">CLARO ID</option> */}
+                                id="contactno"
+                                value={this.state.famerinfo.contactNo || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="Contact Number "
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-1" />
+                      <div className="col-md-5">
+                        <div className="kycbody">
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              <span>
+                                UID Type{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </div>
+                            <div className="col-xs-6">
+                              <div>
+                                <select
+                                  name="uidType"
+                                  onChange={this.handleInputChange}
+                                  value={this.state.famerinfo.uidType}
+                                  className="form-control"
+                                  id="sel2"
+                                >
+                                  <option value="AADHAR">AADHAR</option>
+                                  <option value="VOTER ID">VOTER ID</option>
+                                  <option value="LICENSE">LICENSE</option>
+                                  <option value="PAY-GO">PAYGO</option>
+                                  {/* <option value="CLARO ID">CLARO ID</option> */}
 
-                                <option value="OTHERS">OTHERS</option>
+                                  <option value="OTHERS">OTHERS</option>
+                                  <option value="N.A">N.A</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              <span>
+                                UID{" "}
+                                <i
+                                  title="Mandatory fields"
+                                  style={{
+                                    marginTop: "0.5em",
+                                    marginLeft: "0.5em"
+                                  }}
+                                  className="fa fa-info-circle"
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="uid"
+                                type="text"
+                                className="form-control"
+                                id="uid"
+                                value={this.state.famerinfo.uid || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="UID "
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Vertical{" "}
+                              <i
+                                title="Mandatory fields"
+                                style={{
+                                  marginTop: "0.5em",
+                                  marginLeft: "0.5em"
+                                }}
+                                className="fa fa-info-circle"
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <div className="col-xs-6">
+                              <select
+                                name="vertical"
+                                onChange={this.handleInputChange}
+                                value={this.state.famerinfo.vertical || "NA"}
+                                className="form-control"
+                                id="vertical"
+                              >
+                                {/* <option value="Solar Irrigation Pump">
+                                Solar Irrigation Pump
+                              </option> */}
+                                {/* <option value="Solar Drinking Water Pump">
+                                Solar Drinking Water Pump
+                              </option> */}
+                                <option value="Solar Mini Grid">
+                                  Solar Mini Grid
+                                </option>
+                                <option value="Solar Irrigation Service">
+                                  Solar Irrigation Service
+                                </option>
                                 <option value="N.A">N.A</option>
                               </select>
                             </div>
                           </div>
                         </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            <span>
-                              UID{" "}
+                      </div>
+                    </div>
+                    <div
+                      className="row kycbody"
+                      style={{ margin: "0.7em 0.1em" }}
+                    >
+                      <div className="col-md-5">
+                        <div className="kycheading">
+                          <h3>Personal</h3>
+                        </div>
+                        <div className="kycbody">
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Gender{" "}
                               <i
                                 title="Mandatory fields"
                                 style={{
@@ -949,210 +1035,143 @@ class Farmeraddnew extends Component {
                                 className="fa fa-info-circle"
                                 aria-hidden="true"
                               />
-                            </span>
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="uid"
-                              type="text"
-                              className="form-control"
-                              id="uid"
-                              value={this.state.famerinfo.uid || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="UID "
-                            />
-                          </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Vertical{" "}
-                            <i
-                              title="Mandatory fields"
-                              style={{
-                                marginTop: "0.5em",
-                                marginLeft: "0.5em"
-                              }}
-                              className="fa fa-info-circle"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="col-xs-6">
-                            <select
-                              name="vertical"
-                              onChange={this.handleInputChange}
-                              value={this.state.famerinfo.vertical || "NA"}
-                              className="form-control"
-                              id="vertical"
-                            >
-                              {/* <option value="Solar Irrigation Pump">
-                                Solar Irrigation Pump
-                              </option> */}
-                              {/* <option value="Solar Drinking Water Pump">
-                                Solar Drinking Water Pump
-                              </option> */}
-                              <option value="Solar Mini Grid">
-                                Solar Mini Grid
-                              </option>
-                              <option value="Solar Irrigation Service">
-                                Solar Irrigation Service
-                              </option>
-                              <option value="N.A">
-                                N.A
-                              </option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="row kycbody"
-                    style={{ margin: "0.7em 0.1em" }}
-                  >
-                    <div className="col-md-5">
-                      <div className="kycheading">
-                        <h3>Personal</h3>
-                      </div>
-                      <div className="kycbody">
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Gender{" "}
-                            <i
-                              title="Mandatory fields"
-                              style={{
-                                marginTop: "0.5em",
-                                marginLeft: "0.5em"
-                              }}
-                              className="fa fa-info-circle"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="col-xs-6">
-                            <div>
-                              <select
-                                name="gender"
-                                onChange={this.handleInputChange}
-                                value={this.state.famerinfo.gender || "NA"}
-                                className="form-control"
-                                id="sel1"
-                              >
-                                <option value="M">M</option>
-                                <option value="F">F</option>
-                                <option value="NA">NA</option>
-                              </select>
+                            </div>
+                            <div className="col-xs-6">
+                              <div>
+                                <select
+                                  name="gender"
+                                  onChange={this.handleInputChange}
+                                  value={this.state.famerinfo.gender || "NA"}
+                                  className="form-control"
+                                  id="sel1"
+                                >
+                                  <option value="M">M</option>
+                                  <option value="F">F</option>
+                                  <option value="NA">NA</option>
+                                </select>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            <span>Father Name</span>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              <span>Father Name</span>
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="fatherName"
+                                type="text"
+                                className="form-control"
+                                id="fathername"
+                                value={this.state.famerinfo.fatherName || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="Father Name"
+                              />
+                            </div>
                           </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="fatherName"
-                              type="text"
-                              className="form-control"
-                              id="fathername"
-                              value={this.state.famerinfo.fatherName || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Father Name"
-                            />
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Alternate Number
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="alternateNumber"
+                                type="number"
+                                className="form-control"
+                                id="alternateNumber"
+                                value={
+                                  this.state.famerinfo.alternateNumber || ""
+                                }
+                                onChange={this.handleInputChange}
+                                placeholder="Alternate Number"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Alternate Number
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              DOB
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="dob"
+                                type="date"
+                                className="form-control"
+                                id="dob"
+                                value={this.state.famerinfo.dob || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="DOB(dd/mm/yyyy)"
+                              />
+                            </div>
                           </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="alternateNumber"
-                              type="number"
-                              className="form-control"
-                              id="alternateNumber"
-                              value={this.state.famerinfo.alternateNumber || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Alternate Number"
-                            />
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Intervention Size
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="interventionSize"
+                                type="number"
+                                className="form-control"
+                                id="interventionSize"
+                                value={
+                                  this.state.famerinfo.interventionSize || ""
+                                }
+                                onChange={this.handleInputChange}
+                                placeholder="Intervention Size"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">DOB</div>
-                          <div className="col-xs-6">
-                            <input
-                              name="dob"
-                              type="date"
-                              className="form-control"
-                              id="dob"
-                              value={this.state.famerinfo.dob || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="DOB(dd/mm/yyyy)"
-                            />
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Govt Card Holder
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="govtCardHolder"
+                                type="text"
+                                className="form-control"
+                                id="govtCardHolder"
+                                value={
+                                  this.state.famerinfo.govtCardHolder || ""
+                                }
+                                onChange={this.handleInputChange}
+                                placeholder="Govt. Card Holder (Y/N)"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">Intervention Size</div>
-                          <div className="col-xs-6">
-                            <input
-                              name="interventionSize"
-                              type="number"
-                              className="form-control"
-                              id="interventionSize"
-                              value={this.state.famerinfo.interventionSize || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Intervention Size"
-                            />
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              BPL Card
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="bplCard"
+                                type="text"
+                                className="form-control"
+                                id="bplCard"
+                                value={this.state.famerinfo.bplCard || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="BPL Card Holder"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Govt Card Holder
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="govtCardHolder"
-                              type="text"
-                              className="form-control"
-                              id="govtCardHolder"
-                              value={this.state.famerinfo.govtCardHolder || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Govt. Card Holder (Y/N)"
-                            />
-                          </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            BPL Card
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="bplCard"
-                              type="text"
-                              className="form-control"
-                              id="bplCard"
-                              value={this.state.famerinfo.bplCard || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="BPL Card Holder"
-                            />
-                          </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            House Type
-                          </div>
-                          <div className="col-xs-6">
-                            <select
-                              name="houseType"
-                              onChange={this.handleInputChange}
-                              value={this.state.famerinfo.houseType || "NA"}
-                              className="form-control"
-                              id="selhouse"
-                            >
-                              <option value="brick">Brick</option>
-                              <option value="mud">Mud</option>
-                              <option value="NA">NA</option>
-                            </select>
-                            {/* <input
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              House Type
+                            </div>
+                            <div className="col-xs-6">
+                              <select
+                                name="houseType"
+                                onChange={this.handleInputChange}
+                                value={this.state.famerinfo.houseType || "NA"}
+                                className="form-control"
+                                id="selhouse"
+                              >
+                                <option value="brick">Brick</option>
+                                <option value="mud">Mud</option>
+                                <option value="NA">NA</option>
+                              </select>
+                              {/* <input
                               name="houseType"
                               type="text"
                               className="form-control"
@@ -1161,319 +1180,325 @@ class Farmeraddnew extends Component {
                               onChange={this.handleInputChange}
                               placeholder="House Type"
                             /> */}
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Total Land Size (ha)
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Total Land Size (ha)
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="totalLandSize"
+                                type="number"
+                                className="form-control"
+                                id="totalLandSize"
+                                value={
+                                  this.state.famerinfo.totalLandSize || "0"
+                                }
+                                onChange={this.handleInputChange}
+                                placeholder="Land Size in Sq. Ft."
+                              />
+                            </div>
                           </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="totalLandSize"
-                              type="number"
-                              className="form-control"
-                              id="totalLandSize"
-                              value={this.state.famerinfo.totalLandSize || "0"}
-                              onChange={this.handleInputChange}
-                              placeholder="Land Size in Sq. Ft."
-                            />
-                          </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Income from Land (INR)
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="incomeFromLand"
-                              type="number"
-                              className="form-control"
-                              id="incomeFromLand"
-                              value={this.state.famerinfo.incomeFromLand || "0"}
-                              onChange={this.handleInputChange}
-                              placeholder="Income From Land in rupee"
-                            />
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Income from Land (INR)
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="incomeFromLand"
+                                type="number"
+                                className="form-control"
+                                id="incomeFromLand"
+                                value={
+                                  this.state.famerinfo.incomeFromLand || "0"
+                                }
+                                onChange={this.handleInputChange}
+                                placeholder="Income From Land in rupee"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-md-1" />
-                    <div className="col-md-5">
-                      <div className="kycheading">
-                        <h3>Location</h3>
-                      </div>
-                      <div className="kycbody">
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            State{" "}
-                            <i
-                              title="Mandatory fields"
-                              style={{
-                                marginTop: "0.5em",
-                                marginLeft: "0.5em"
-                              }}
-                              className="fa fa-info-circle"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="col-xs-6">
-                            <select
-                              name="state"
-                              onChange={this.handleInputChange}
-                              value={this.state.famerinfo.state || "NA"}
-                              className="form-control"
-                              id="state"
-                            >
-                              {Object.keys(statedistrict).map(item => (
-                                <option key={item} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                              <option value="NA">NA</option>
-                            </select>
-                          </div>
+                      <div className="col-md-1" />
+                      <div className="col-md-5">
+                        <div className="kycheading">
+                          <h3>Location</h3>
                         </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            District{" "}
-                            <i
-                              title="Mandatory fields"
-                              style={{
-                                marginTop: "0.5em",
-                                marginLeft: "0.5em"
-                              }}
-                              className="fa fa-info-circle"
-                              aria-hidden="true"
-                            />
+                        <div className="kycbody">
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              State{" "}
+                              <i
+                                title="Mandatory fields"
+                                style={{
+                                  marginTop: "0.5em",
+                                  marginLeft: "0.5em"
+                                }}
+                                className="fa fa-info-circle"
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <div className="col-xs-6">
+                              <select
+                                name="state"
+                                onChange={this.handleInputChange}
+                                value={this.state.famerinfo.state || "NA"}
+                                className="form-control"
+                                id="state"
+                              >
+                                {Object.keys(statedistrict).map(item => (
+                                  <option key={item} value={item}>
+                                    {item}
+                                  </option>
+                                ))}
+                                <option value="NA">NA</option>
+                              </select>
+                            </div>
                           </div>
-                          <div className="col-xs-6">
-                            {this.state.famerinfo.state !== null &&
-                              this.state.famerinfo.state !== undefined && (
-                                <select
-                                  name="district"
-                                  onChange={this.handleInputChange}
-                                  value={this.state.famerinfo.district || "NA"}
-                                  className="form-control"
-                                  id="district"
-                                >
-                                  {statedistrict[
-                                    this.state.famerinfo.state
-                                  ].map(item => (
-                                    <option key={item} value={item}>
-                                      {item}
-                                    </option>
-                                  ))}
-                                  <option value="NA">NA</option>
-                                </select>
-                              )}
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              District{" "}
+                              <i
+                                title="Mandatory fields"
+                                style={{
+                                  marginTop: "0.5em",
+                                  marginLeft: "0.5em"
+                                }}
+                                className="fa fa-info-circle"
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <div className="col-xs-6">
+                              {this.state.famerinfo.state !== null &&
+                                this.state.famerinfo.state !== undefined && (
+                                  <select
+                                    name="district"
+                                    onChange={this.handleInputChange}
+                                    value={
+                                      this.state.famerinfo.district || "NA"
+                                    }
+                                    className="form-control"
+                                    id="district"
+                                  >
+                                    {statedistrict[
+                                      this.state.famerinfo.state
+                                    ].map(item => (
+                                      <option key={item} value={item}>
+                                        {item}
+                                      </option>
+                                    ))}
+                                    <option value="NA">NA</option>
+                                  </select>
+                                )}
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Block
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Block
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="block"
+                                type="text"
+                                className="form-control"
+                                id="block"
+                                value={this.state.famerinfo.block || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="Block"
+                              />
+                            </div>
                           </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="block"
-                              type="text"
-                              className="form-control"
-                              id="block"
-                              value={this.state.famerinfo.block || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Block"
-                            />
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Community
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="community"
+                                type="text"
+                                className="form-control"
+                                id="community"
+                                value={this.state.famerinfo.community || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="Community"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Community
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Sub-community
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="subCommunity"
+                                type="text"
+                                className="form-control"
+                                id="subCommunity"
+                                value={this.state.famerinfo.subCommunity || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="Sub Community"
+                              />
+                            </div>
                           </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="community"
-                              type="text"
-                              className="form-control"
-                              id="community"
-                              value={this.state.famerinfo.community || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Community"
-                            />
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Village
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="village"
+                                type="text"
+                                className="form-control"
+                                id="village"
+                                value={this.state.famerinfo.village || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="Village"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Sub-community
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Pincode
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="pincode"
+                                type="number"
+                                className="form-control"
+                                id="pincode"
+                                value={this.state.famerinfo.pincode || "0"}
+                                onChange={this.handleInputChange}
+                                placeholder="Pincode"
+                              />
+                            </div>
                           </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="subCommunity"
-                              type="text"
-                              className="form-control"
-                              id="subCommunity"
-                              value={this.state.famerinfo.subCommunity || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Sub Community"
-                            />
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Latitude{" "}
+                              <i
+                                title="Mandatory fields"
+                                style={{
+                                  marginTop: "0.5em",
+                                  marginLeft: "0.5em"
+                                }}
+                                className="fa fa-info-circle"
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="latitude"
+                                max="8"
+                                min="36"
+                                type="number"
+                                className="form-control"
+                                id="latitude"
+                                value={this.state.famerinfo.latitude || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="Latitude"
+                                required
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Village
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="village"
-                              type="text"
-                              className="form-control"
-                              id="village"
-                              value={this.state.famerinfo.village || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Village"
-                            />
-                          </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Pincode
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="pincode"
-                              type="number"
-                              className="form-control"
-                              id="pincode"
-                              value={this.state.famerinfo.pincode || "0"}
-                              onChange={this.handleInputChange}
-                              placeholder="Pincode"
-                            />
-                          </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Latitude{" "}
-                            <i
-                              title="Mandatory fields"
-                              style={{
-                                marginTop: "0.5em",
-                                marginLeft: "0.5em"
-                              }}
-                              className="fa fa-info-circle"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="latitude"
-                              max="8"
-                              min="36"
-                              type="number"
-                              className="form-control"
-                              id="latitude"
-                              value={this.state.famerinfo.latitude || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Latitude"
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Longitude{" "}
-                            <i
-                              title="Mandatory fields"
-                              style={{
-                                marginTop: "0.5em",
-                                marginLeft: "0.5em"
-                              }}
-                              className="fa fa-info-circle"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="longitude"
-                              type="number"
-                              className="form-control"
-                              id="longitude"
-                              value={this.state.famerinfo.longitude || ""}
-                              onChange={this.handleInputChange}
-                              placeholder="Longitude"
-                              required
-                            />
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Longitude{" "}
+                              <i
+                                title="Mandatory fields"
+                                style={{
+                                  marginTop: "0.5em",
+                                  marginLeft: "0.5em"
+                                }}
+                                className="fa fa-info-circle"
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="longitude"
+                                type="number"
+                                className="form-control"
+                                id="longitude"
+                                value={this.state.famerinfo.longitude || ""}
+                                onChange={this.handleInputChange}
+                                placeholder="Longitude"
+                                required
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div role="tabpanel" className="tab-pane" id="family11">
-                  <div className="row kycbody" style={{ margin: "0.7em 0" }}>
-                    <div className="col-xs-5">
-                      <div className="">
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            No of dependants
+                  <div role="tabpanel" className="tab-pane" id="family11">
+                    <div className="row kycbody" style={{ margin: "0.7em 0" }}>
+                      <div className="col-xs-5">
+                        <div className="">
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              No of dependants
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="numberOfDependents"
+                                type="number"
+                                className="form-control"
+                                id="numberOfDependents"
+                                value={
+                                  this.state.famerinfo.numberOfDependents || "0"
+                                }
+                                onChange={this.handleInputChange}
+                                placeholder="Number Of Dependents"
+                              />
+                            </div>
                           </div>
-                          <div className="col-xs-6">
-                            <input
-                              name="numberOfDependents"
-                              type="number"
-                              className="form-control"
-                              id="numberOfDependents"
-                              value={
-                                this.state.famerinfo.numberOfDependents || "0"
-                              }
-                              onChange={this.handleInputChange}
-                              placeholder="Number Of Dependents"
-                            />
-                          </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            No of siblings
-                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              No of siblings
+                            </div>
 
-                          <div className="col-xs-6">
-                            <input
-                              name="numberOfSiblings"
-                              type="number"
-                              className="form-control"
-                              id="numberOfSiblings"
-                              value={
-                                this.state.famerinfo.numberOfSiblings || "0"
-                              }
-                              onChange={this.handleInputChange}
-                              placeholder="Number Of Siblings"
-                            />
+                            <div className="col-xs-6">
+                              <input
+                                name="numberOfSiblings"
+                                type="number"
+                                className="form-control"
+                                id="numberOfSiblings"
+                                value={
+                                  this.state.famerinfo.numberOfSiblings || "0"
+                                }
+                                onChange={this.handleInputChange}
+                                placeholder="Number Of Siblings"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Profession of father
-                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Profession of father
+                            </div>
 
-                          <div className="col-xs-6">
-                            <input
-                              name="fathersProfession"
-                              type="text"
-                              className="form-control"
-                              id="fathersProfession"
-                              value={
-                                this.state.famerinfo.fathersProfession || ""
-                              }
-                              onChange={this.handleInputChange}
-                              placeholder="Profession of father"
-                            />
+                            <div className="col-xs-6">
+                              <input
+                                name="fathersProfession"
+                                type="text"
+                                className="form-control"
+                                id="fathersProfession"
+                                value={
+                                  this.state.famerinfo.fathersProfession || ""
+                                }
+                                onChange={this.handleInputChange}
+                                placeholder="Profession of father"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Education level of farmer
-                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Education level of farmer
+                            </div>
 
-                          <div className="col-xs-6">
-                            {/* <input
+                            <div className="col-xs-6">
+                              {/* <input
                               name="highestEducation"
                               type="text"
                               className="form-control"
@@ -1484,53 +1509,55 @@ class Farmeraddnew extends Component {
                               onChange={this.handleInputChange}
                               placeholder="Education level of farmer"
                             /> */}
-                            <select
-                              name="highestEducation"
-                              onChange={this.handleInputChange}
-                              value={
-                                this.state.famerinfo.highestEducation ||
-                                "Less than 10th Pass"
-                              }
-                              className="form-control"
-                              id="highestEducation"
-                            >
-                              <option value="Less than 10th Pass">
-                                Less than 10th Pass
-                              </option>
-                              <option value="10th Pass">10th Pass</option>
-                              <option value="12th Pass">12th Pass</option>
-                              <option value="Graduate">Graduate</option>
-                              <option value="Postgraduate">Postgraduate</option>
-                            </select>
+                              <select
+                                name="highestEducation"
+                                onChange={this.handleInputChange}
+                                value={
+                                  this.state.famerinfo.highestEducation ||
+                                  "Less than 10th Pass"
+                                }
+                                className="form-control"
+                                id="highestEducation"
+                              >
+                                <option value="Less than 10th Pass">
+                                  Less than 10th Pass
+                                </option>
+                                <option value="10th Pass">10th Pass</option>
+                                <option value="12th Pass">12th Pass</option>
+                                <option value="Graduate">Graduate</option>
+                                <option value="Postgraduate">
+                                  Postgraduate
+                                </option>
+                              </select>
+                            </div>
                           </div>
-                        </div>
-                        <div className="row farmerinforow">
-                          <div className="col-xs-6 farmerinforowtitle">
-                            Age when started farming
-                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Age when started farming
+                            </div>
 
-                          <div className="col-xs-6">
-                            <input
-                              name="farmingStartedAt"
-                              type="number"
-                              className="form-control"
-                              id="farmingStartedAt"
-                              value={
-                                this.state.famerinfo.farmingStartedAt || "0"
-                              }
-                              onChange={this.handleInputChange}
-                              placeholder="Age when started farming"
-                            />
+                            <div className="col-xs-6">
+                              <input
+                                name="farmingStartedAt"
+                                type="number"
+                                className="form-control"
+                                id="farmingStartedAt"
+                                value={
+                                  this.state.famerinfo.farmingStartedAt || "0"
+                                }
+                                onChange={this.handleInputChange}
+                                placeholder="Age when started farming"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-xs-4" />
-                    <div
-                      className="col-xs-3"
-                      style={{ display: "flex", justifyContent: "flex-end" }}
-                    >
-                      {/* <button
+                      <div className="col-xs-4" />
+                      <div
+                        className="col-xs-3"
+                        style={{ display: "flex", justifyContent: "flex-end" }}
+                      >
+                        {/* <button
                         onClick={this.handleeditfarmersave}
                         type="submit"
                         className="btn btn-default"
@@ -1571,69 +1598,73 @@ class Farmeraddnew extends Component {
                       >
                         Cancel
                       </button> */}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div role="tabpanel" className="vertical tab-pane" id="crop11">
-                  {this.state.famerinfo !== undefined &&
-                  this.state.famerinfo.croplist !== undefined &&
-                  this.state.famerinfo.croplist.length !== 0 ? (
-                    <div>
-                      {this.state.famerinfo.croplist !== undefined && (
-                        <div
-                          className="row kycbody"
-                          style={{ margin: " 0.7em 0.1em" }}
-                        >
-                          <div className="col-md-5">
-                            <div className="kycbody">
-                              <div className="row farmerinforow">
-                                <div className="col-xs-6 farmerinforowtitle">
-                                  Name{" "}
-                                  <i
-                                    title="Mandatory fields"
-                                    style={{
-                                      marginTop: "0.5em",
-                                      marginLeft: "0.5em"
-                                    }}
-                                    className="fa fa-info-circle"
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                                {/* <div className="col-xs-6">
+                  <div
+                    role="tabpanel"
+                    className="vertical tab-pane"
+                    id="crop11"
+                  >
+                    {this.state.famerinfo !== undefined &&
+                    this.state.famerinfo.croplist !== undefined &&
+                    this.state.famerinfo.croplist.length !== 0 ? (
+                      <div>
+                        {this.state.famerinfo.croplist !== undefined && (
+                          <div
+                            className="row kycbody"
+                            style={{ margin: " 0.7em 0.1em" }}
+                          >
+                            <div className="col-md-5">
+                              <div className="kycbody">
+                                <div className="row farmerinforow">
+                                  <div className="col-xs-6 farmerinforowtitle">
+                                    Name{" "}
+                                    <i
+                                      title="Mandatory fields"
+                                      style={{
+                                        marginTop: "0.5em",
+                                        marginLeft: "0.5em"
+                                      }}
+                                      className="fa fa-info-circle"
+                                      aria-hidden="true"
+                                    />
+                                  </div>
+                                  {/* <div className="col-xs-6">
                                       {this.state.famerinfo.croplist.name || "NA"}
                                     </div> */}
-                                <div className="col-xs-6">
-                                  <input
-                                    name="name"
-                                    type="text"
-                                    className="form-control"
-                                    id="name"
-                                    value={
-                                      this.state.famerinfo.croplist.name || ""
-                                    }
-                                    onChange={this.crophandleInputChange}
-                                    placeholder="Crop Name"
-                                  />
+                                  <div className="col-xs-6">
+                                    <input
+                                      name="name"
+                                      type="text"
+                                      className="form-control"
+                                      id="name"
+                                      value={
+                                        this.state.famerinfo.croplist.name || ""
+                                      }
+                                      onChange={this.crophandleInputChange}
+                                      placeholder="Crop Name"
+                                    />
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="row farmerinforow">
-                                <div className="col-xs-6 farmerinforowtitle">
-                                  Crop season{" "}
-                                  <i
-                                    title="Mandatory fields"
-                                    style={{
-                                      marginTop: "0.5em",
-                                      marginLeft: "0.5em"
-                                    }}
-                                    className="fa fa-info-circle"
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                                {/* <div className="col-xs-6">
+                                <div className="row farmerinforow">
+                                  <div className="col-xs-6 farmerinforowtitle">
+                                    Crop season{" "}
+                                    <i
+                                      title="Mandatory fields"
+                                      style={{
+                                        marginTop: "0.5em",
+                                        marginLeft: "0.5em"
+                                      }}
+                                      className="fa fa-info-circle"
+                                      aria-hidden="true"
+                                    />
+                                  </div>
+                                  {/* <div className="col-xs-6">
                                       {this.state.famerinfo.croplist.cropSeason || "NA"}
                                     </div> */}
-                                <div className="col-xs-6">
-                                  {/* <input
+                                  <div className="col-xs-6">
+                                    {/* <input
                                     name="cropSeason"
                                     type="text"
                                     className="form-control"
@@ -1645,76 +1676,78 @@ class Farmeraddnew extends Component {
                                     onChange={this.crophandleInputChange}
                                     placeholder="Crop Season"
                                   /> */}
-                                  <select
-                                  name="cropSeason"
-                                  onChange={this.crophandleInputChange}
-                                  value={this.state.famerinfo.croplist
-                                    .cropSeason || "NA"}
-                                  className="form-control"
-                                  id="cropSeason"
-                                >
-                                  <option value="Kharif (June/July)">
-                                    Kharif (June/July)
-                                  </option>
-                                  <option value="Rabi (Nov/Dec)">
-                                    Rabi (Nov/Dec)
-                                  </option>
-                                  <option value="Garma (March/April)">
-                                    Garma (March/April)
-                                  </option>
-                                  <option value="NA">NA</option>
-                                </select>
+                                    <select
+                                      name="cropSeason"
+                                      onChange={this.crophandleInputChange}
+                                      value={
+                                        this.state.famerinfo.croplist
+                                          .cropSeason || "NA"
+                                      }
+                                      className="form-control"
+                                      id="cropSeason"
+                                    >
+                                      <option value="Kharif (June/July)">
+                                        Kharif (June/July)
+                                      </option>
+                                      <option value="Rabi (Nov/Dec)">
+                                        Rabi (Nov/Dec)
+                                      </option>
+                                      <option value="Garma (March/April)">
+                                        Garma (March/April)
+                                      </option>
+                                      <option value="NA">NA</option>
+                                    </select>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="row farmerinforow">
-                                <div className="col-xs-6 farmerinforowtitle">
-                                  Crop variety{" "}
-                                  <i
-                                    title="Mandatory fields"
-                                    style={{
-                                      marginTop: "0.5em",
-                                      marginLeft: "0.5em"
-                                    }}
-                                    className="fa fa-info-circle"
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                                {/* <div className="col-xs-6">
+                                <div className="row farmerinforow">
+                                  <div className="col-xs-6 farmerinforowtitle">
+                                    Crop variety{" "}
+                                    <i
+                                      title="Mandatory fields"
+                                      style={{
+                                        marginTop: "0.5em",
+                                        marginLeft: "0.5em"
+                                      }}
+                                      className="fa fa-info-circle"
+                                      aria-hidden="true"
+                                    />
+                                  </div>
+                                  {/* <div className="col-xs-6">
                                       {this.state.famerinfo.croplist.cropVariety || "NA"}
                                     </div> */}
-                                <div className="col-xs-6">
-                                  <input
-                                    name="cropVariety"
-                                    type="text"
-                                    className="form-control"
-                                    id="cropVariety"
-                                    value={
-                                      this.state.famerinfo.croplist
-                                        .cropVariety || ""
-                                    }
-                                    onChange={this.crophandleInputChange}
-                                    placeholder="Crop Variety"
-                                  />
+                                  <div className="col-xs-6">
+                                    <input
+                                      name="cropVariety"
+                                      type="text"
+                                      className="form-control"
+                                      id="cropVariety"
+                                      value={
+                                        this.state.famerinfo.croplist
+                                          .cropVariety || ""
+                                      }
+                                      onChange={this.crophandleInputChange}
+                                      placeholder="Crop Variety"
+                                    />
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="row farmerinforow">
-                                <div className="col-xs-6 farmerinforowtitle">
-                                  Sowing month{" "}
-                                  <i
-                                    title="Mandatory fields"
-                                    style={{
-                                      marginTop: "0.5em",
-                                      marginLeft: "0.5em"
-                                    }}
-                                    className="fa fa-info-circle"
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                                {/* <div className="col-xs-6">
+                                <div className="row farmerinforow">
+                                  <div className="col-xs-6 farmerinforowtitle">
+                                    Sowing month{" "}
+                                    <i
+                                      title="Mandatory fields"
+                                      style={{
+                                        marginTop: "0.5em",
+                                        marginLeft: "0.5em"
+                                      }}
+                                      className="fa fa-info-circle"
+                                      aria-hidden="true"
+                                    />
+                                  </div>
+                                  {/* <div className="col-xs-6">
                                       {this.state.famerinfo.croplist.sowingMonth || "NA"}
                                     </div> */}
-                                <div className="col-xs-6">
-                                  {/* <input
+                                  <div className="col-xs-6">
+                                    {/* <input
                                     name="sowingMonth"
                                     type="text"
                                     className="form-control"
@@ -1726,53 +1759,55 @@ class Farmeraddnew extends Component {
                                     onChange={this.crophandleInputChange}
                                     placeholder="sowing Month"
                                   /> */}
-                                  <select
-                                  name="sowingMonth"
-                                  onChange={this.crophandleInputChange}
-                                  value={this.state.famerinfo.croplist
-                                    .sowingMonth|| "NA"}
-                                  className="form-control"
-                                  id="sowingMonth"
-                                >
-                                  <option value="Jan">Jan</option>
-                                  <option value="Feb">Feb</option>
-                                  <option value="Mar">Mar</option>
-                                  <option value="Apr">Apr</option>
-                                  <option value="May">May</option>
-                                  <option value="Jun">Jun</option>
-                                  <option value="Jul">Jul</option>
-                                  <option value="Aug">Aug</option>
-                                  <option value="Sep">Sep</option>
-                                  <option value="Oct">Oct</option>
-                                  <option value="Nov">Nov</option>
-                                  <option value="Dec">Dec</option>
-                                  <option value="NA">NA</option>
-                                </select>
+                                    <select
+                                      name="sowingMonth"
+                                      onChange={this.crophandleInputChange}
+                                      value={
+                                        this.state.famerinfo.croplist
+                                          .sowingMonth || "NA"
+                                      }
+                                      className="form-control"
+                                      id="sowingMonth"
+                                    >
+                                      <option value="Jan">Jan</option>
+                                      <option value="Feb">Feb</option>
+                                      <option value="Mar">Mar</option>
+                                      <option value="Apr">Apr</option>
+                                      <option value="May">May</option>
+                                      <option value="Jun">Jun</option>
+                                      <option value="Jul">Jul</option>
+                                      <option value="Aug">Aug</option>
+                                      <option value="Sep">Sep</option>
+                                      <option value="Oct">Oct</option>
+                                      <option value="Nov">Nov</option>
+                                      <option value="Dec">Dec</option>
+                                      <option value="NA">NA</option>
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="col-md-1" />
-                          <div className="col-md-5">
-                            <div className="kycbody">
-                              <div className="row farmerinforow">
-                                <div className="col-xs-6 farmerinforowtitle">
-                                  Harvesting time{" "}
-                                  <i
-                                    title="Mandatory fields"
-                                    style={{
-                                      marginTop: "0.5em",
-                                      marginLeft: "0.5em"
-                                    }}
-                                    className="fa fa-info-circle"
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                                {/* <div className="col-xs-6">
+                            <div className="col-md-1" />
+                            <div className="col-md-5">
+                              <div className="kycbody">
+                                <div className="row farmerinforow">
+                                  <div className="col-xs-6 farmerinforowtitle">
+                                    Harvesting time{" "}
+                                    <i
+                                      title="Mandatory fields"
+                                      style={{
+                                        marginTop: "0.5em",
+                                        marginLeft: "0.5em"
+                                      }}
+                                      className="fa fa-info-circle"
+                                      aria-hidden="true"
+                                    />
+                                  </div>
+                                  {/* <div className="col-xs-6">
                                       {this.state.famerinfo.croplist.harvestingTime || "NA"}
                                     </div> */}
-                                <div className="col-xs-6">
-                                  {/* <input
+                                  <div className="col-xs-6">
+                                    {/* <input
                                     name="harvestingTime"
                                     type="text"
                                     className="form-control"
@@ -1784,170 +1819,173 @@ class Farmeraddnew extends Component {
                                     onChange={this.crophandleInputChange}
                                     placeholder="Harvesting Time"
                                   /> */}
-                                  <select
-                                  name="harvestingTime"
-                                  onChange={this.crophandleInputChange}
-                                  value={ this.state.famerinfo.croplist
-                                    .harvestingTime|| "NA"}
-                                  className="form-control"
-                                  id="harvestingTime"
-                                >
-                                  <option value="Jan">Jan</option>
-                                  <option value="Feb">Feb</option>
-                                  <option value="Mar">Mar</option>
-                                  <option value="Apr">Apr</option>
-                                  <option value="May">May</option>
-                                  <option value="Jun">Jun</option>
-                                  <option value="Jul">Jul</option>
-                                  <option value="Aug">Aug</option>
-                                  <option value="Sep">Sep</option>
-                                  <option value="Oct">Oct</option>
-                                  <option value="Nov">Nov</option>
-                                  <option value="Dec">Dec</option>
-                                  <option value="NA">NA</option>
-                                </select>
+                                    <select
+                                      name="harvestingTime"
+                                      onChange={this.crophandleInputChange}
+                                      value={
+                                        this.state.famerinfo.croplist
+                                          .harvestingTime || "NA"
+                                      }
+                                      className="form-control"
+                                      id="harvestingTime"
+                                    >
+                                      <option value="Jan">Jan</option>
+                                      <option value="Feb">Feb</option>
+                                      <option value="Mar">Mar</option>
+                                      <option value="Apr">Apr</option>
+                                      <option value="May">May</option>
+                                      <option value="Jun">Jun</option>
+                                      <option value="Jul">Jul</option>
+                                      <option value="Aug">Aug</option>
+                                      <option value="Sep">Sep</option>
+                                      <option value="Oct">Oct</option>
+                                      <option value="Nov">Nov</option>
+                                      <option value="Dec">Dec</option>
+                                      <option value="NA">NA</option>
+                                    </select>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="row farmerinforow">
-                                <div className="col-xs-6 farmerinforowtitle">
-                                  Estimated Yield (Kg)
-                                </div>
-                                {/* <div className="col-xs-6">
+                                <div className="row farmerinforow">
+                                  <div className="col-xs-6 farmerinforowtitle">
+                                    Estimated Yield (Kg)
+                                  </div>
+                                  {/* <div className="col-xs-6">
                                       {this.state.famerinfo.croplist.estimateYield || "NA"}
                                     </div> */}
-                                <div className="col-xs-6">
-                                  <input
-                                    name="estimateYield"
-                                    type="number"
-                                    className="form-control"
-                                    id="estimateYield"
-                                    value={
-                                      this.state.famerinfo.croplist
-                                        .estimateYield || ""
-                                    }
-                                    onChange={this.crophandleInputChange}
-                                    placeholder="Estimate Yield"
-                                  />
+                                  <div className="col-xs-6">
+                                    <input
+                                      name="estimateYield"
+                                      type="number"
+                                      className="form-control"
+                                      id="estimateYield"
+                                      value={
+                                        this.state.famerinfo.croplist
+                                          .estimateYield || ""
+                                      }
+                                      onChange={this.crophandleInputChange}
+                                      placeholder="Estimate Yield"
+                                    />
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="row farmerinforow">
-                                <div className="col-xs-6 farmerinforowtitle">
-                                  Grown area (katha)
-                                  <i
-                                    title="Mandatory fields"
-                                    style={{
-                                      marginTop: "0.5em",
-                                      marginLeft: "0.5em"
-                                    }}
-                                    className="fa fa-info-circle"
-                                    aria-hidden="true"
-                                  />
-                                </div>
-                                {/* <div className="col-xs-6">
+                                <div className="row farmerinforow">
+                                  <div className="col-xs-6 farmerinforowtitle">
+                                    Grown area (katha)
+                                    <i
+                                      title="Mandatory fields"
+                                      style={{
+                                        marginTop: "0.5em",
+                                        marginLeft: "0.5em"
+                                      }}
+                                      className="fa fa-info-circle"
+                                      aria-hidden="true"
+                                    />
+                                  </div>
+                                  {/* <div className="col-xs-6">
                                       {this.state.famerinfo.croplist.grownArea || "NA"}
                                     </div> */}
-                                <div className="col-xs-6">
-                                  <input
-                                    name="grownArea"
-                                    type="number"
-                                    className="form-control"
-                                    id="grownArea"
-                                    value={
-                                      this.state.famerinfo.croplist.grownArea ||
-                                      ""
-                                    }
-                                    onChange={this.crophandleInputChange}
-                                    placeholder="Grown Area"
-                                  />
+                                  <div className="col-xs-6">
+                                    <input
+                                      name="grownArea"
+                                      type="number"
+                                      className="form-control"
+                                      id="grownArea"
+                                      value={
+                                        this.state.famerinfo.croplist
+                                          .grownArea || ""
+                                      }
+                                      onChange={this.crophandleInputChange}
+                                      placeholder="Grown Area"
+                                    />
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="row farmerinforow">
-                                <div className="col-xs-6 farmerinforowtitle">
-                                  Remark
-                                </div>
-                                {/* <div className="col-xs-6">
+                                <div className="row farmerinforow">
+                                  <div className="col-xs-6 farmerinforowtitle">
+                                    Remark
+                                  </div>
+                                  {/* <div className="col-xs-6">
                                       {this.state.famerinfo.croplist.remarks || "NA"}
                                     </div> */}
-                                <div className="col-xs-6">
-                                  <input
-                                    name="remarks"
-                                    type="textarea"
-                                    className="form-control"
-                                    id="remarks"
-                                    value={
-                                      this.state.famerinfo.croplist.remarks ||
-                                      ""
-                                    }
-                                    onChange={this.crophandleInputChange}
-                                    placeholder="remarks"
-                                  />
+                                  <div className="col-xs-6">
+                                    <input
+                                      name="remarks"
+                                      type="textarea"
+                                      className="form-control"
+                                      id="remarks"
+                                      value={
+                                        this.state.famerinfo.croplist.remarks ||
+                                        ""
+                                      }
+                                      onChange={this.crophandleInputChange}
+                                      placeholder="remarks"
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <center style={{ marginTop: "2em" }}>
-                      <h4>No data found !!!</h4>
-                    </center>
-                  )}
-                </div>
-                <div role="tabpanel" className="tab-pane" id="images11">
-                  {this.state.famerinfo !== undefined &&
-                  this.state.famerinfo.imglist !== undefined &&
-                  this.state.famerinfo.imglist.length !== 0 ? (
-                    <div style={{ padding: "1em" }}>
-                      {this.state.famerinfo.imglist.map((item, number) => (
-                        <div
-                          key={number}
-                          className="row"
-                          style={{ marginBottom: "2em" }}
-                        >
-                          <div className="col-xs-2">
-                            <div className="imglistheading">
-                              <h4>{item.mediaType}</h4>
+                        )}
+                      </div>
+                    ) : (
+                      <center style={{ marginTop: "2em" }}>
+                        <h4>No data found !!!</h4>
+                      </center>
+                    )}
+                  </div>
+                  <div role="tabpanel" className="tab-pane" id="images11">
+                    {this.state.famerinfo !== undefined &&
+                    this.state.famerinfo.imglist !== undefined &&
+                    this.state.famerinfo.imglist.length !== 0 ? (
+                      <div style={{ padding: "1em" }}>
+                        {this.state.famerinfo.imglist.map((item, number) => (
+                          <div
+                            key={number}
+                            className="row"
+                            style={{ marginBottom: "2em" }}
+                          >
+                            <div className="col-xs-2">
+                              <div className="imglistheading">
+                                <h4>{item.mediaType}</h4>
+                              </div>
+                            </div>
+                            <div className="col-xs-3">
+                              <div className="imglistbody">
+                                <img
+                                  // class="img-rounded"
+                                  src={item.link}
+                                  alt={item.mediaType}
+                                />
+                              </div>
+                            </div>
+                            <div className="col-xs-4">
+                              <label>
+                                <b>Upload Image:</b>
+                                <input
+                                  onChange={this.handleChangeimage.bind(
+                                    this,
+                                    number,
+                                    item.mediaType
+                                  )}
+                                  type="file"
+                                  ref={this.fileInput[number]}
+                                  style={{ width: "-webkit-fill-available" }}
+                                />
+                              </label>
                             </div>
                           </div>
-                          <div className="col-xs-3">
-                            <div className="imglistbody">
-                              <img
-                                // class="img-rounded"
-                                src={item.link}
-                                alt={item.mediaType}
-                              />
-                            </div>
-                          </div>
-                          <div className="col-xs-4">
-                            <label>
-                              <b>Upload Image:</b>
-                              <input
-                                onChange={this.handleChangeimage.bind(
-                                  this,
-                                  number,
-                                  item.mediaType
-                                )}
-                                type="file"
-                                ref={this.fileInput[number]}
-                                style={{ width: "-webkit-fill-available" }}
-                              />
-                            </label>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <center style={{ marginTop: "2em" }}>
-                      <h4>No data found !!!</h4>
-                    </center>
-                  )}
+                        ))}
+                      </div>
+                    ) : (
+                      <center style={{ marginTop: "2em" }}>
+                        <h4>No data found !!!</h4>
+                      </center>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-        </LoadingOverlay> </div>
+            )}
+          </div>
+        </LoadingOverlay>{" "}
+      </div>
     );
   }
 }

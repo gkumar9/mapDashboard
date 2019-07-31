@@ -38,7 +38,13 @@ const kc = new Keycloak({
 let app = (
   <HashRouter basename={"/"}>
     <div>
-    <Route exact path="/" kc={kc} render={props=>{return(<UI {...props} kc={kc}/>)}}  />
+      <Route
+        exact
+        path="/"
+        render={props => {
+          return <UI {...props} kc={kc} />;
+        }}
+      />
       <Route exact path="/rms" component={rms} />
       <Route exact path="/rmsedit" component={rmsedit} />
       <Route exact path="/farmer" component={farmer} />
@@ -53,10 +59,7 @@ kc.init({ onLoad: "login-required" })
   .success(authenticated => {
     console.log(authenticated, kc);
     if (authenticated) {
-      ReactDOM.render(
-        app,
-        document.getElementById("root")
-      );
+      ReactDOM.render(app, document.getElementById("root"));
     }
   })
   .error(e => {

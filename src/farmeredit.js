@@ -229,7 +229,7 @@ class Farmer extends Component {
   };
   handleclick = item => {
     if (item.id !== null && item.id !== undefined) {
-      this.setState({isloaderactive:true})
+      this.setState({ isloaderactive: true });
       axios({
         url: config.getfarmer + item.id,
         method: "POST",
@@ -342,7 +342,7 @@ class Farmer extends Component {
               });
             })
             .catch(e => {
-              this.setState({isloaderactive:false})
+              this.setState({ isloaderactive: false });
               console.log(e);
               Swal({
                 type: "error",
@@ -350,7 +350,7 @@ class Farmer extends Component {
                 text: e
               });
             });
-            this.setState({isloaderactive:false})
+          this.setState({ isloaderactive: false });
           document.getElementById("showsidetab").style.display = "block";
           document.getElementById("farmeraddnew").style.display = "none";
           document.getElementById("showsidetabeditfarmer").style.display =
@@ -358,7 +358,7 @@ class Farmer extends Component {
         })
         .catch(e => {
           console.log(e);
-          this.setState({isloaderactive:false})
+          this.setState({ isloaderactive: false });
           Swal({
             type: "error",
             title: "Oops...",
@@ -366,7 +366,7 @@ class Farmer extends Component {
           });
         });
     } else {
-      this.setState({isloaderactive:false})
+      this.setState({ isloaderactive: false });
       Swal({
         type: "error",
         title: "ID not found"
@@ -578,21 +578,7 @@ class Farmer extends Component {
           return;
         }
       }
-      // if (this.state.famerinfo.alternateNumber !== "") {
-      //   if (
-      //     this.state.famerinfo.alternateNumber.length !== 10 ||
-      //     (this.state.famerinfo.alternateNumber.charAt(0) !== "9" &&
-      //       this.state.famerinfo.alternateNumber.charAt(0) !== "8" &&
-      //       this.state.famerinfo.alternateNumber.charAt(0) !== "7" &&
-      //       this.state.famerinfo.alternateNumber.charAt(0) !== "6")
-      //   ) {
-      //     alert(
-      //       "Please set valid Alternate Contact Number.(10 digit starting with 9/8/7/6)"
-      //     );
 
-      //     return;
-      //   }
-      // }
       this.setState({ isloaderactive: true });
       axios({
         url: config.updatefarmer,
@@ -609,7 +595,7 @@ class Farmer extends Component {
               title: "Successfully data updated"
               // text: res.data.error.errorMsg
             });
-            this.handleclick(this.state.famerinfo)
+            this.handleclick(this.state.famerinfo);
             this.setState({
               // backupinfo: Object.assign({}, this.state.famerinfo),
               isloaderactive: false
@@ -628,15 +614,36 @@ class Farmer extends Component {
           }
         })
         .catch(e => {
-          console.log(e);
-          this.setState({
-            isloaderactive: false
-          });
-          Swal({
-            type: "error",
-            title: "Oops...",
-            text: e
-          });
+          this.setState({ isloaderactive: false });
+          if (JSON.stringify(e).includes("401")) {
+            Swal({
+              type: "error",
+              title: "Unauthorized",
+              text: "Please login again."
+            });
+            this.props.history.push({
+              pathname: "/"
+            });
+          } else if (JSON.stringify(e).includes("403")) {
+            Swal({
+              type: "error",
+              title: "Forbidden",
+              text: "Access denied for the user."
+            });
+            // this.props.history.push({
+            //   pathname: "/rms"
+            // });
+          } else {
+            this.setState({ isloaderactive: false });
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
+            // this.props.history.push({
+            //   pathname: "/rms"
+            // });
+          }
         });
     } else {
       this.setState({
@@ -648,89 +655,7 @@ class Farmer extends Component {
       });
     }
   };
-  // handleeditfarmersavepumplist = async () => {
-  //   delete this.state.famerinfo["modificationTime"];
-  //   this.state.famerinfo.pumplist.map((item, number) => {
-  //     if (item.deviceId && item.deviceId.replace(/\s/g, "").length !== 0) {
-  //       if (this.state.backuppumplist.length !== 0 && item !== undefined) {
-  //         axios({
-  //           url: config.updatermsedit,
-  //           method: "POST",
-  //           data: item,
-  //           headers: {
-  //             "Content-Type": "application/json"
-  //           }
-  //         })
-  //           .then(res => {
-  //             if (res.data.data !== null && res.data.data.result) {
-  //               Swal({
-  //                 type: "success",
-  //                 title: "Successfully data updated"
-  //                 // text: res.data.error.errorMsg
-  //               });
 
-  //               // this.setState({
-  //               //   backupinfo: Object.assign({}, this.state.famerinfo)
-  //               // });
-  //             } else {
-  //               alert(res.data.error.errorMsg);
-  //               return;
-  //             }
-  //           })
-  //           .catch(e => {
-  //             Swal({
-  //               type: "error",
-  //               title: "Oops...",
-  //               text: e
-  //             });
-  //           });
-  //       } else if (
-  //         this.state.backuppumplist.length === 0 &&
-  //         item !== undefined
-  //       ) {
-  //         axios({
-  //           url: config.addrms,
-  //           method: "POST",
-  //           data: item,
-  //           headers: {
-  //             "Content-Type": "application/json"
-  //           }
-  //         })
-  //           .then(res => {
-  //             if (res.data.data !== null && res.data.data.result) {
-  //               Swal({
-  //                 type: "success",
-  //                 title: "Successfully data updated"
-  //                 // text: res.data.error.errorMsg
-  //               });
-
-  //               // this.setState({
-  //               //   backupinfo: Object.assign({}, this.state.famerinfo)
-  //               // });
-  //             } else {
-  //               alert(res.data.error.errorMsg);
-  //               return;
-  //             }
-  //           })
-  //           .catch(e => {
-  //             Swal({
-  //               type: "error",
-  //               title: "Oops...",
-  //               text: e
-  //             });
-  //           });
-  //       } else {
-  //         alert("error at pump save");
-  //       }
-  //     } else {
-  //       Swal({
-  //         type: "error",
-  //         title: "Fill valid input in all mandatory fields"
-  //         // text: res.data.error.errorMsg
-  //       });
-  //     }
-  //   });
-  // };
   handleeditfarmersavecroplist = async () => {
     this.state.famerinfo.croplist.map((item, number) => {
       if (
@@ -775,11 +700,30 @@ class Farmer extends Component {
               }
             })
             .catch(e => {
-              Swal({
-                type: "error",
-                title: "Oops...",
-                text: e
-              });
+              this.setState({ isloaderactive: false });
+              if (JSON.stringify(e).includes("401")) {
+                Swal({
+                  type: "error",
+                  title: "Unauthorized",
+                  text: "Please login again."
+                });
+                this.props.history.push({
+                  pathname: "/"
+                });
+              } else if (JSON.stringify(e).includes("403")) {
+                Swal({
+                  type: "error",
+                  title: "Forbidden",
+                  text: "Access denied for the user."
+                });
+              } else {
+                this.setState({ isloaderactive: false });
+                Swal({
+                  type: "error",
+                  title: "Oops...",
+                  text: e
+                });
+              }
             });
         } else if (
           this.state.backupcroplist.length === 0 &&
@@ -812,11 +756,30 @@ class Farmer extends Component {
               }
             })
             .catch(e => {
-              Swal({
-                type: "error",
-                title: "Oops...",
-                text: e
-              });
+              this.setState({ isloaderactive: false });
+              if (JSON.stringify(e).includes("401")) {
+                Swal({
+                  type: "error",
+                  title: "Unauthorized",
+                  text: "Please login again."
+                });
+                this.props.history.push({
+                  pathname: "/"
+                });
+              } else if (JSON.stringify(e).includes("403")) {
+                Swal({
+                  type: "error",
+                  title: "Forbidden",
+                  text: "Access denied for the user."
+                });
+              } else {
+                this.setState({ isloaderactive: false });
+                Swal({
+                  type: "error",
+                  title: "Oops...",
+                  text: e
+                });
+              }
             });
         } else {
           alert("error at crop save");
@@ -1166,9 +1129,9 @@ class Farmer extends Component {
               title: "Oops...",
               text: e
             });
-            this.props.history.push({
-              pathname: "/farmer"
-            });
+            // this.props.history.push({
+            //   pathname: "/farmer"
+            // });
           });
       })
       .catch(e => {
@@ -1315,9 +1278,17 @@ class Farmer extends Component {
         headers: {
           "Content-Type": "application/json"
         }
-      }).then(res => {
-        this.setState({ cropschema: res.data.data });
-      });
+      })
+        .then(res => {
+          this.setState({ cropschema: res.data.data });
+        })
+        .catch(e => {
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
+        });
     }
 
     this.getfarmerlist();
@@ -1326,10 +1297,7 @@ class Farmer extends Component {
   render() {
     return (
       <div className="gauravwww">
-        <LoadingOverlay
-          active={this.state.isloaderactive}
-          spinner
-        >
+        <LoadingOverlay active={this.state.isloaderactive} spinner>
           <Header />
           <div className="mainbody">
             <Sidebar history={this.props.history} />
