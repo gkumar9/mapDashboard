@@ -99,7 +99,7 @@ let app = (
 );
 kc.init({ onLoad: "login-required" })
   .success(authenticated => {
-    console.log(authenticated, kc);
+    // console.log(authenticated, kc);
     if (authenticated) {
       ReactDOM.render(app, document.getElementById("root"));
     }

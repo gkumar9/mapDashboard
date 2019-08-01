@@ -369,6 +369,27 @@ class FormLeft extends Component {
             </div>
           </div>
         )}
+        {this.props.rmsvalues.longitude !== undefined && (
+          <div className="form-group">
+            <label
+              htmlFor="inputlongitude"
+              className="col-sm-6 farmerinforowtitle"
+            >
+              Longitude
+            </label>
+            <div className="col-sm-6">
+              <input
+                name="longitude"
+                type="number"
+                className="form-control"
+                id="inputlongitude"
+                value={this.props.rmsvalues.longitude}
+                onChange={this.props.handleInputChange}
+                placeholder="Longitude"
+              />
+            </div>
+          </div>
+        )}
 
         {/* {this.props.rmsvalues.panelWP !== undefined && (
           <div className="form-group">
@@ -771,7 +792,7 @@ class FormRight extends Component {
             </div>
           </div>
         )}
-        {this.props.rmsvalues.longitude !== undefined && (
+        {/* {this.props.rmsvalues.longitude !== undefined && (
           <div className="form-group">
             <label
               htmlFor="inputlongitude"
@@ -791,7 +812,7 @@ class FormRight extends Component {
               />
             </div>
           </div>
-        )}
+        )} */}
       </form>
     );
   }
@@ -926,7 +947,7 @@ class Rmsedit extends Component {
           })
           .catch(e => {
             this.setState({ isloaderactive: false });
-            if (JSON.stringify(e).includes("401")) {
+            if (e.response.status==401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -935,7 +956,7 @@ class Rmsedit extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (JSON.stringify(e).includes("403")) {
+            } else if (e.response.status==403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -1009,7 +1030,7 @@ class Rmsedit extends Component {
           })
           .catch(e => {
             this.setState({ isloaderactive: false });
-            if (JSON.stringify(e).includes("401")) {
+            if (e.response.status==401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -1018,7 +1039,7 @@ class Rmsedit extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (JSON.stringify(e).includes("403")) {
+            } else if (e.response.status==403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -1129,8 +1150,9 @@ class Rmsedit extends Component {
           }
         })
         .catch(e => {
+          
           this.setState({ isloaderactive: false });
-            if (JSON.stringify(e).includes("401")) {
+            if (e.response.status==401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -1139,7 +1161,7 @@ class Rmsedit extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (JSON.stringify(e).includes("403")) {
+            } else if (e.response.status==403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -1188,8 +1210,9 @@ class Rmsedit extends Component {
           }
         })
         .catch(e => {
+         
           this.setState({ isloaderactive: false });
-          if (JSON.stringify(e).includes("401")) {
+          if (e.response.status==401) {
             Swal({
               type: "error",
               title: "Unauthorized",
@@ -1198,7 +1221,7 @@ class Rmsedit extends Component {
             this.props.history.push({
               pathname: "/"
             });
-          } else if (JSON.stringify(e).includes("403")) {
+          } else if (e.response.status==403) {
             Swal({
               type: "error",
               title: "Forbidden"
@@ -1316,7 +1339,7 @@ class Rmsedit extends Component {
                 <div
                   className="row"
                   style={{
-                    maxHeight: "90vh",
+                    maxHeight: "80vh",
                     overflow: "scroll",
                     padding: "0 3em"
                   }}
