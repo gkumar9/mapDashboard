@@ -357,7 +357,7 @@ class Iaas extends Component {
         <div>
           <Header />
           <div className="mainbody iaasmobile">
-            <Sidebar history={this.props.history} />
+            <Sidebar kc={this.props.kc} history={this.props.history} />
             <div className="main">
               <IaasHeader />
               <div className="container">

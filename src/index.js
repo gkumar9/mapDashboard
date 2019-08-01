@@ -6,13 +6,13 @@ import { HashRouter, Route } from "react-router-dom";
 // import { BrowserRouter as Router , Route } from "react-router-dom";
 import UI from "./UI.js";
 import * as serviceWorker from "./serviceWorker";
-import rms from "./rms.js";
-import rmssub from "./rmssub.js";
-import iaas from "./iaas.js";
-import farmer from "./newfarmer.js";
-import rmsedit from "./rmsedit.js";
-import farmeredit from "./farmeredit.js";
-import iaasmobile from "./iaasmobile.js";
+import Rms from "./rms.js";
+import Rmssub from "./rmssub.js";
+import Iaas from "./iaas.js";
+import Farmer from "./newfarmer.js";
+import Rmsedit from "./rmsedit.js";
+import Farmeredit from "./farmeredit.js";
+import Iaasmobile from "./iaasmobile.js";
 import Highcharts from "highcharts/highstock";
 import Keycloak from "keycloak-js";
 import axios from "axios";
@@ -45,13 +45,55 @@ let app = (
           return <UI {...props} kc={kc} />;
         }}
       />
-      <Route exact path="/rms" component={rms} />
-      <Route exact path="/rmsedit" component={rmsedit} />
-      <Route exact path="/farmer" component={farmer} />
-      <Route exact path="/iaas" component={iaas} />
-      <Route exact path="/rms/:id" component={rmssub} />
-      <Route exact path="/farmeredit" component={farmeredit} />
-      <Route exact path="/iaasmobile" component={iaasmobile} />
+      <Route
+        exact
+        path="/rms"
+        render={props => {
+          return <Rms {...props} kc={kc} />;
+        }}
+      />
+      <Route
+        exact
+        path="/rmsedit"
+        render={props => {
+          return <Rmsedit {...props} kc={kc} />;
+        }}
+      />
+      <Route
+        exact
+        path="/farmer"
+        render={props => {
+          return <Farmer {...props} kc={kc} />;
+        }}
+      />
+      <Route
+        exact
+        path="/iaas"
+        render={props => {
+          return <Iaas {...props} kc={kc} />;
+        }}
+      />
+      <Route
+        path="/rms/:id"
+        exact
+        render={props => {
+          return <Rmssub {...props} kc={kc} />;
+        }}
+      />
+      <Route
+        exact
+        path="/farmeredit"
+        render={props => {
+          return <Farmeredit {...props} kc={kc} />;
+        }}
+      />
+      <Route
+        exact
+        path="/iaasmobile"
+        render={props => {
+          return <Iaasmobile {...props} kc={kc} />;
+        }}
+      />
     </div>
   </HashRouter>
 );

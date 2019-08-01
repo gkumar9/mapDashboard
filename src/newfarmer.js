@@ -641,7 +641,7 @@ class Farmer extends Component {
       <div className="gauravwww">
         <Header />
         <div className="mainbody">
-          <Sidebar history={this.props.history} />
+          <Sidebar kc={this.props.kc} history={this.props.history} />
           <div style={{ backgroundColor: "#F2F2F2" }} className="main">
             <FarmerHeader label={this.state.label} />
             {/* <div style={{ marginLeft: "0" }} className="row gaurav" /> */}

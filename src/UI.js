@@ -280,7 +280,7 @@ class Main extends Component {
       <div>
         <Header />
         <div className="mainbody">
-          <Sidebar kc={this.props.kc} history={this.props.history} />
+          <Sidebar kc={this.props.kc}  history={this.props.history} />
           <div className="main">
             <Filter
               states={this.state.states}
