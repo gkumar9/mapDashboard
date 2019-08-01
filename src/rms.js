@@ -54,7 +54,7 @@ class Rmsdatatable extends Component {
     let self = this;
     var otable = $("#table_id").DataTable({
       data: this.props.data,
-      scrollY: 480,
+      scrollY: 440,
       destroy: true,
       order: [[5, "desc"]],
       paging: true,
@@ -171,12 +171,34 @@ class Rms extends Component {
         }
       })
       .catch(e => {
-        console.log(e);
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
-        });
+        if (JSON.stringify(e).includes("401")) {
+          Swal({
+            type: "error",
+            title: "Unauthorized",
+            text: "Please login again."
+          });
+          this.props.history.push({
+            pathname: "/"
+          });
+        } else if (JSON.stringify(e).includes("403")) {
+          Swal({
+            type: "error",
+            title: "Forbidden"
+          });
+          // this.props.history.push({
+          //   pathname: "/rms"
+          // });
+        } else {
+          // this.setState({ isloaderactive: false });
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
+          // this.props.history.push({
+          //   pathname: "/rms"
+          // });
+        }
       });
     await axios({
       url: config.rmslist,
@@ -217,12 +239,34 @@ class Rms extends Component {
       })
 
       .catch(e => {
-        console.log(e);
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
-        });
+        if (JSON.stringify(e).includes("401")) {
+          Swal({
+            type: "error",
+            title: "Unauthorized",
+            text: "Please login again."
+          });
+          this.props.history.push({
+            pathname: "/"
+          });
+        } else if (JSON.stringify(e).includes("403")) {
+          Swal({
+            type: "error",
+            title: "Forbidden"
+          });
+          // this.props.history.push({
+          //   pathname: "/rms"
+          // });
+        } else {
+          // this.setState({ isloaderactive: false });
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
+          // this.props.history.push({
+          //   pathname: "/rms"
+          // });
+        }
       });
     this.setState({
       allassetstat: allassetstattemp,

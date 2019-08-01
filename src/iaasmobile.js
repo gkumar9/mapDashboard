@@ -13,6 +13,7 @@ import LAND from "./pins/land.png";
 import PATVAN from "./pins/tuk-tuk.png";
 import FARMER from "./pins/farmer 3.png";
 import ACTIVE from "./pins/placeholder.png";
+import Swal from "sweetalert2";
 
 class IaasSidebarmobile extends Component {
   render() {
@@ -343,8 +344,34 @@ class Iaas extends Component {
           });
         })
         .catch(e => {
-          // eslint-disable-next-line no-undef
-          console.log(e);
+          if (JSON.stringify(e).includes("401")) {
+            Swal({
+              type: "error",
+              title: "Unauthorized",
+              text: "Please login again."
+            });
+            this.props.history.push({
+              pathname: "/"
+            });
+          } else if (JSON.stringify(e).includes("403")) {
+            Swal({
+              type: "error",
+              title: "Forbidden"
+            });
+            // this.props.history.push({
+            //   pathname: "/rms"
+            // });
+          } else {
+            // this.setState({ isloaderactive: false });
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
+            // this.props.history.push({
+            //   pathname: "/rms"
+            // });
+          }
         });
     }
     

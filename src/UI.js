@@ -266,11 +266,34 @@ class Main extends Component {
           }
         })
         .catch(e => {
-          Swal({
-            type: "error",
-            title: "Oops...",
-            text: e
-          });
+          if (JSON.stringify(e).includes("401")) {
+            Swal({
+              type: "error",
+              title: "Unauthorized",
+              text: "Please login again."
+            });
+            this.props.history.push({
+              pathname: "/"
+            });
+          } else if (JSON.stringify(e).includes("403")) {
+            Swal({
+              type: "error",
+              title: "Forbidden"
+            });
+            // this.props.history.push({
+            //   pathname: "/rms"
+            // });
+          } else {
+            // this.setState({ isloaderactive: false });
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
+            // this.props.history.push({
+            //   pathname: "/rms"
+            // });
+          }
         });
     }
   }
@@ -280,7 +303,7 @@ class Main extends Component {
       <div>
         <Header />
         <div className="mainbody">
-          <Sidebar kc={this.props.kc}  history={this.props.history} />
+          <Sidebar kc={this.props.kc} history={this.props.history} />
           <div className="main">
             <Filter
               states={this.state.states}

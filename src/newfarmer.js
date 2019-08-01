@@ -9,6 +9,7 @@ import imgmapcluster from "./pins/iconmapcluster.png";
 // import imgmapcluster3 from "./pins/iconmapclustercopy3.png";
 // import imgmapcluster4 from "./pins/iconmapclustercopy4.png";
 import user from "./pins/user1copy.png";
+import Swal from "sweetalert2";
 
 
 import farmerimg from "./pins/user.png";
@@ -87,12 +88,13 @@ const MapWithAMarkerClusterer = compose(
     },
     onMarkerClick: props => markerss => {
       const { setInfoWindow, onToggleOpen } = props;
-
+      
       axios({
         url: config.farmerinfo,
         method: "POST",
         data: {
-          id: markerss.id
+          id: markerss.id,
+          vertical:markerss.vertical
         },
         headers: {
           "Content-Type": "application/json"
@@ -570,6 +572,36 @@ class DemoApp extends Component {
         additionalmarkersmarketserved: tempadditionalmarkersmarketserved,
         additionalmarkersoffice: tempadditionalmarkersoffice
       });
+    })
+    .catch(e => {
+      if (JSON.stringify(e).includes("401")) {
+        Swal({
+          type: "error",
+          title: "Unauthorized",
+          text: "Please login again."
+        });
+        this.props.history.push({
+          pathname: "/"
+        });
+      } else if (JSON.stringify(e).includes("403")) {
+        Swal({
+          type: "error",
+          title: "Forbidden"
+        });
+        // this.props.history.push({
+        //   pathname: "/rms"
+        // });
+      } else {
+        // this.setState({ isloaderactive: false });
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
+        // this.props.history.push({
+        //   pathname: "/rms"
+        // });
+      }
     });
   }
 

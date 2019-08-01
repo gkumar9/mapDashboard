@@ -627,8 +627,8 @@ class Farmer extends Component {
           } else if (JSON.stringify(e).includes("403")) {
             Swal({
               type: "error",
-              title: "Forbidden",
-              text: "Access denied for the user."
+              title: "Forbidden"
+              
             });
             // this.props.history.push({
             //   pathname: "/rms"
@@ -713,8 +713,8 @@ class Farmer extends Component {
               } else if (JSON.stringify(e).includes("403")) {
                 Swal({
                   type: "error",
-                  title: "Forbidden",
-                  text: "Access denied for the user."
+                  title: "Forbidden"
+                  
                 });
               } else {
                 this.setState({ isloaderactive: false });
@@ -769,8 +769,8 @@ class Farmer extends Component {
               } else if (JSON.stringify(e).includes("403")) {
                 Swal({
                   type: "error",
-                  title: "Forbidden",
-                  text: "Access denied for the user."
+                  title: "Forbidden"
+                  
                 });
               } else {
                 this.setState({ isloaderactive: false });

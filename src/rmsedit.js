@@ -370,7 +370,7 @@ class FormLeft extends Component {
           </div>
         )}
 
-        {this.props.rmsvalues.panelWP !== undefined && (
+        {/* {this.props.rmsvalues.panelWP !== undefined && (
           <div className="form-group">
             <label
               htmlFor="inputpanelWP"
@@ -390,7 +390,7 @@ class FormLeft extends Component {
               />
             </div>
           </div>
-        )}
+        )} */}
         {this.props.rmsvalues.customerImage !== undefined && (
           <div className="form-group">
             <label
@@ -522,7 +522,7 @@ class FormRight extends Component {
             </div>
           </div>
         )}
-        {this.props.rmsvalues.panelWp !== undefined && (
+        {/* {this.props.rmsvalues.panelWp !== undefined && (
           <div className="form-group">
             <label
               htmlFor="inputpanelMake"
@@ -542,7 +542,7 @@ class FormRight extends Component {
               />
             </div>
           </div>
-        )}
+        )} */}
         {this.props.rmsvalues.state !== undefined && (
           <div className="form-group">
             <label
@@ -938,8 +938,8 @@ class Rmsedit extends Component {
             } else if (JSON.stringify(e).includes("403")) {
               Swal({
                 type: "error",
-                title: "Forbidden",
-                text: "Access denied for the user."
+                title: "Forbidden"
+               
               });
               this.props.history.push({
                 pathname: "/rms"
@@ -1021,8 +1021,8 @@ class Rmsedit extends Component {
             } else if (JSON.stringify(e).includes("403")) {
               Swal({
                 type: "error",
-                title: "Forbidden",
-                text: "Access denied for the user."
+                title: "Forbidden"
+               
               });
               this.props.history.push({
                 pathname: "/rms"
@@ -1142,8 +1142,8 @@ class Rmsedit extends Component {
             } else if (JSON.stringify(e).includes("403")) {
               Swal({
                 type: "error",
-                title: "Forbidden",
-                text: "Access denied for the user."
+                title: "Forbidden"
+               
               });
               this.props.history.push({
                 pathname: "/rms"
@@ -1201,8 +1201,8 @@ class Rmsedit extends Component {
           } else if (JSON.stringify(e).includes("403")) {
             Swal({
               type: "error",
-              title: "Forbidden",
-              text: "Access denied for the user."
+              title: "Forbidden"
+             
             });
             this.props.history.push({
               pathname: "/rms"

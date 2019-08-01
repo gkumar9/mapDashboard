@@ -8,6 +8,7 @@ import IaasPatvan from "./iaaspatvan.js";
 import Iasshourtrans from "./iaashourtrans.js";
 import axios from "axios";
 import config from "./config.js";
+import Swal from "sweetalert2";
 import { chart } from "highcharts";
 
 class iaas extends Component {
@@ -51,7 +52,34 @@ class iaas extends Component {
           });
         })
         .catch(e => {
-          console.log(e);
+          if (JSON.stringify(e).includes("401")) {
+            Swal({
+              type: "error",
+              title: "Unauthorized",
+              text: "Please login again."
+            });
+            this.props.history.push({
+              pathname: "/"
+            });
+          } else if (JSON.stringify(e).includes("403")) {
+            Swal({
+              type: "error",
+              title: "Forbidden"
+            });
+            // this.props.history.push({
+            //   pathname: "/rms"
+            // });
+          } else {
+            // this.setState({ isloaderactive: false });
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
+            // this.props.history.push({
+            //   pathname: "/rms"
+            // });
+          }
         });
     }
   }
@@ -63,7 +91,7 @@ class iaas extends Component {
         <div>
           <Header />
           <div className="mainbody">
-            <Sidebar history={this.props.history} />
+            <Sidebar kc={this.props.kc} history={this.props.history} />
             <div className="main">
               <IaasHeader />
               <div className="container">

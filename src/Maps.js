@@ -215,7 +215,7 @@ class MapContainer extends Component {
           selectedPlace: data,
           activeMarker: marker,
           showingInfoWindow: true,
-          showingInfoWindowadditional:false
+          showingInfoWindowadditional: false
         });
       } else if (res.data.error !== undefined) {
         if (res.data.error.errorCode === 153) {
@@ -228,6 +228,36 @@ class MapContainer extends Component {
           });
         }
       }
+    })
+    .catch(e => {
+      if (JSON.stringify(e).includes("401")) {
+        Swal({
+          type: "error",
+          title: "Unauthorized",
+          text: "Please login again."
+        });
+        this.props.history.push({
+          pathname: "/"
+        });
+      } else if (JSON.stringify(e).includes("403")) {
+        Swal({
+          type: "error",
+          title: "Forbidden"
+        });
+        // this.props.history.push({
+        //   pathname: "/rms"
+        // });
+      } else {
+        // this.setState({ isloaderactive: false });
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: e
+        });
+        // this.props.history.push({
+        //   pathname: "/rms"
+        // });
+      }
     });
   }
   onMarkerClickAdditional = (props, markerAdditional, e) => {
@@ -236,7 +266,7 @@ class MapContainer extends Component {
       selectedPlaceadditional: props.data,
       activeMarkeradditional: markerAdditional,
       showingInfoWindowadditional: true,
-      showingInfoWindow: false,
+      showingInfoWindow: false
     });
   };
   onClose(props) {
@@ -406,7 +436,7 @@ class MapContainer extends Component {
                             </b>
                           </span>
                           <p>
-                            Solar Panel Capacity{" "}
+                            Intervention Size{" "}
                             {this.state.selectedPlace.panelRating}{" "}
                           </p>
                         </div>
@@ -427,7 +457,7 @@ class MapContainer extends Component {
                             </b>
                           </span>
                           <p>
-                            Solar Panel Capacity{" "}
+                            Intervention Size{" "}
                             {this.state.selectedPlace.panelRating}{" "}
                           </p>
                         </div>
@@ -444,7 +474,7 @@ class MapContainer extends Component {
                             </b>
                           </span>
                           <p>
-                            Solar Panel Capacity{" "}
+                            Intervention Size{" "}
                             {this.state.selectedPlace.panelRating}{" "}
                           </p>
                         </div>
@@ -453,7 +483,7 @@ class MapContainer extends Component {
                         <div>
                           <span>Rooftop</span>
                           <p>
-                            Solar Panel Capacity{" "}
+                            Intervention Size{" "}
                             {this.state.selectedPlace.panelRating}{" "}
                           </p>
                         </div>
