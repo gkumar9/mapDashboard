@@ -112,6 +112,13 @@ kc.init({ onLoad: "login-required" })
   });
 
 axios.interceptors.request.use(config => {
+  // kc.updateToken(15)
+  //   .success(function() {
+  //     console.log("token update success");
+  //   })
+  //   .error(function() {
+  //     console.log("Failed to refresh token");
+  //   });
   config.headers.Authorization = "Bearer " + kc.token;
   return Promise.resolve(config);
 });

@@ -6,7 +6,7 @@ import Filter from "./Filter.js";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
-
+const $ = require("jquery");
 let tempadditional = [
   {
     latitude: 27.45805556,
@@ -219,6 +219,7 @@ class Main extends Component {
 
   async componentDidMount() {
     // console.log(this.props)
+    
     if (
       this.state.allpins.length === 0 &&
       this.state.states.length === 0 &&
@@ -266,6 +267,7 @@ class Main extends Component {
           }
         })
         .catch(e => {
+          console.log(e)
           if (JSON.stringify(e).includes("401")) {
             Swal({
               type: "error",
