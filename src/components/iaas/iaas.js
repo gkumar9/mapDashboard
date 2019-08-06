@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import Header from "./Header.js";
-import Sidebar from "./Sidebar.js";
+import Header from "../../Header.js";
+import Sidebar from "../../Sidebar.js";
 import IaasHeader from "./iaasheader.js";
 import IaasSidebar from "./iaassidebar.js";
 import IaasRevenue from "./iaasrevenue2.js";
 import IaasPatvan from "./iaaspatvan.js";
 import Iasshourtrans from "./iaashourtrans.js";
 import axios from "axios";
-import config from "./config.js";
+import config from "../../config.js";
 import Swal from "sweetalert2";
 import { chart } from "highcharts";
 

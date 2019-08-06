@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Header from "./Header.js";
-import Sidebar from "./Sidebar.js";
+import Header from "../../Header.js";
+import Sidebar from "../../Sidebar.js";
 import axios from "axios";
-import config from "./config.js";
+import config from "../../config.js";
 import RmsSidebardata from "./RmsSidebardata.js";
 import { withRouter } from "react-router";
 import Swal from "sweetalert2";

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import farmerimg from "./pins/user.png";
+import farmerimg from "../../pins/user.png";
 
 class Farmereditshow extends Component {
   render() {

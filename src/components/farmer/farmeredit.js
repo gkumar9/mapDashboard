@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import Header from "./Header.js";
-import Sidebar from "./Sidebar.js";
+import Header from "../../Header.js";
+import Sidebar from "../../Sidebar.js";
 import Farmereditshow from "./Farmereditshow.js";
 import Farmeredit from "./FarmereditComponent.js";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import config from "./config.js";
+import config from "../../config.js";
 import Swal from "sweetalert2";
 import AWS from "aws-sdk";
 import Farmeraddnew from "./Farmeraddnew.js";
-import statedistrict from "./state_json.js";
+import statedistrict from "../../state_json.js";
 import LoadingOverlay from "react-loading-overlay";
 const $ = require("jquery");
 
@@ -615,7 +615,7 @@ class Farmer extends Component {
         })
         .catch(e => {
           this.setState({ isloaderactive: false });
-          if (e.response.status==401) {
+          if (e.response.status===401) {
             Swal({
               type: "error",
               title: "Unauthorized",
@@ -624,7 +624,7 @@ class Farmer extends Component {
             this.props.history.push({
               pathname: "/"
             });
-          } else if (e.response.status==403) {
+          } else if (e.response.status===403) {
             Swal({
               type: "error",
               title: "Forbidden"
@@ -701,7 +701,7 @@ class Farmer extends Component {
             })
             .catch(e => {
               this.setState({ isloaderactive: false });
-              if (e.response.status==401) {
+              if (e.response.status===401) {
                 Swal({
                   type: "error",
                   title: "Unauthorized",
@@ -710,7 +710,7 @@ class Farmer extends Component {
                 this.props.history.push({
                   pathname: "/"
                 });
-              } else if (e.response.status==403) {
+              } else if (e.response.status===403) {
                 Swal({
                   type: "error",
                   title: "Forbidden"
@@ -766,7 +766,7 @@ class Farmer extends Component {
                 this.props.history.push({
                   pathname: "/"
                 });
-              } else if (e.response.status==403) {
+              } else if (e.response.status===403) {
                 Swal({
                   type: "error",
                   title: "Forbidden"

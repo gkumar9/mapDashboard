@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import Header from "./Header.js";
-import Sidebar from "./Sidebar.js";
+import Header from "../../Header.js";
+import Sidebar from "../../Sidebar.js";
 import { Link } from "react-router-dom";
 import Highcharts from "highcharts/highstock";
 import Swal from "sweetalert2";
 import drilldown from "highcharts-drilldown";
 // import rmsdata from "./rmsdata.json";
 import axios from "axios";
-import config from "./config.js";
+import config from "../../config.js";
 import RmsSidebardata from "./RmsSidebardata.js";
-import nodata from "./pins/nodata.png";
+import nodata from "../../pins/nodata.png";
 
 // import fvc from "./fvc.json";
 // const $ = require("jquery");

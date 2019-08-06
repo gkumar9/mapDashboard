@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import CO2 from "./pins/1.png";
-import FLOW from "./pins/2.png";
-import LAND from "./pins/land.png";
-import PATVAN from "./pins/tuk-tuk.png";
-import FARMER from "./pins/farmer 3.png";
-import ACTIVE from "./pins/placeholder.png";
+import CO2 from "../../pins/1.png";
+import FLOW from "../../pins/2.png";
+import LAND from "../../pins/land.png";
+import PATVAN from "../../pins/tuk-tuk.png";
+import FARMER from "../../pins/farmer 3.png";
+import ACTIVE from "../../pins/placeholder.png";
 
 class IaasSidebar extends Component {
   render() {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Highcharts from "highcharts/highstock";
 import drilldown from "highcharts-drilldown";
 import axios from "axios";
-import config from "./config.js";
+import config from "../../config.js";
 // import iaaspatvan from './iaaspatvan.json'
 const $ = require("jquery");
 

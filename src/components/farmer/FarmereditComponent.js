@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import statedistrict from "./state_json.js";
+import statedistrict from "../../state_json.js";
 class Farmeredit extends Component {
   render() {
     return (

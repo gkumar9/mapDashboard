@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import Header from "./Header.js";
-import Sidebar from "./Sidebar.js";
+import Header from "../../Header.js";
+import Sidebar from "../../Sidebar.js";
 import IaasHeader from "./iaasheader.js";
 import IaasRevenue from "./iaasrevenuemobile.js";
 import IaasPatvan from "./iaasmobilepatvan.js";
 import Iasshourtrans from "./iaashourtrans.js";
 import axios from "axios";
-import config from "./config.js";
-import CO2 from "./pins/1.png";
-import FLOW from "./pins/2.png";
-import LAND from "./pins/land.png";
-import PATVAN from "./pins/tuk-tuk.png";
-import FARMER from "./pins/farmer 3.png";
-import ACTIVE from "./pins/placeholder.png";
+import config from "../../config.js";
+import CO2 from "../../pins/1.png";
+import FLOW from "../../pins/2.png";
+import LAND from "../../pins/land.png";
+import PATVAN from "../../pins/tuk-tuk.png";
+import FARMER from "../../pins/farmer 3.png";
+import ACTIVE from "../../pins/placeholder.png";
 import Swal from "sweetalert2";
 
 class IaasSidebarmobile extends Component {
@@ -344,7 +344,7 @@ class Iaas extends Component {
           });
         })
         .catch(e => {
-          if (e.response.status==401) {
+          if (e.response.status===401) {
             Swal({
               type: "error",
               title: "Unauthorized",
@@ -353,7 +353,7 @@ class Iaas extends Component {
             this.props.history.push({
               pathname: "/"
             });
-          } else if (e.response.status==403) {
+          } else if (e.response.status===403) {
             Swal({
               type: "error",
               title: "Forbidden"

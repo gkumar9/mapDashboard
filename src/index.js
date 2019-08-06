@@ -6,13 +6,13 @@ import { HashRouter, Route } from "react-router-dom";
 // import { BrowserRouter as Router , Route } from "react-router-dom";
 import UI from "./UI.js";
 import * as serviceWorker from "./serviceWorker";
-import Rms from "./rms.js";
-import Rmssub from "./rmssub.js";
-import Iaas from "./iaas.js";
-import Farmer from "./newfarmer.js";
-import Rmsedit from "./rmsedit.js";
-import Farmeredit from "./farmeredit.js";
-import Iaasmobile from "./iaasmobile.js";
+import Rms from "./components/rms/rms.js";
+import Rmssub from "./components/rms/rmssub.js";
+import Iaas from "./components/iaas/iaas.js";
+import Farmer from "./components/farmer/newfarmer.js";
+import Rmsedit from "./components/rms/rmsedit.js";
+import Farmeredit from "./components/farmer/farmeredit.js";
+import Iaasmobile from "./components/iaas/iaasmobile.js";
 import Highcharts from "highcharts/highstock";
 import Keycloak from "keycloak-js";
 import axios from "axios";
@@ -97,7 +97,7 @@ let app = (
     </div>
   </HashRouter>
 );
-kc.init({ onLoad: "login-required" })
+kc.init({ onLoad: "login-required",checkLoginIframe: false })
   .success(authenticated => {
     // console.log(authenticated, kc);
     if (authenticated) {

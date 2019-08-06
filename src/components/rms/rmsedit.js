@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import Header from "./Header.js";
-import Sidebar from "./Sidebar.js";
+import Header from "../../Header.js";
+import Sidebar from "../../Sidebar.js";
 // import { Link } from "react-router-dom";
 // import notify from "bootstrap-notify";
 import LoadingOverlay from "react-loading-overlay";
 // import { MyMapComponent } from "./rmseditmap.js";
 import axios from "axios";
-import config from "./config.js";
+import config from "../../config.js";
 import Swal from "sweetalert2";
 import AWS from "aws-sdk";
-import statedistrict from "./state_json.js";
+import statedistrict from "../../state_json.js";
 const $ = require("jquery");
 AWS.config.region = "ap-south-1";
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -947,7 +947,7 @@ class Rmsedit extends Component {
           })
           .catch(e => {
             this.setState({ isloaderactive: false });
-            if (e.response.status==401) {
+            if (e.response.status===401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -956,7 +956,7 @@ class Rmsedit extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (e.response.status==403) {
+            } else if (e.response.status===403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -1030,7 +1030,7 @@ class Rmsedit extends Component {
           })
           .catch(e => {
             this.setState({ isloaderactive: false });
-            if (e.response.status==401) {
+            if (e.response.status===401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -1039,7 +1039,7 @@ class Rmsedit extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (e.response.status==403) {
+            } else if (e.response.status===403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -1152,7 +1152,7 @@ class Rmsedit extends Component {
         .catch(e => {
           
           this.setState({ isloaderactive: false });
-            if (e.response.status==401) {
+            if (e.response.status===401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -1161,7 +1161,7 @@ class Rmsedit extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (e.response.status==403) {
+            } else if (e.response.status===403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -1212,7 +1212,7 @@ class Rmsedit extends Component {
         .catch(e => {
          
           this.setState({ isloaderactive: false });
-          if (e.response.status==401) {
+          if (e.response.status===401) {
             Swal({
               type: "error",
               title: "Unauthorized",
@@ -1221,7 +1221,7 @@ class Rmsedit extends Component {
             this.props.history.push({
               pathname: "/"
             });
-          } else if (e.response.status==403) {
+          } else if (e.response.status===403) {
             Swal({
               type: "error",
               title: "Forbidden"

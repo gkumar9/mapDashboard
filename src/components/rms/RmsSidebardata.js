@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import CO2 from "./pins/1.png";
-import FLOW from "./pins/2.png";
-import SOLARENERGY from "./pins/3.png";
-import SUBMERSIBLE from "./pins/4.png";
-import STATES from "./pins/5.png";
+import CO2 from "../../pins/1.png";
+import FLOW from "../../pins/2.png";
+import SOLARENERGY from "../../pins/3.png";
+import SUBMERSIBLE from "../../pins/4.png";
+import STATES from "../../pins/5.png";
 class RmsSidebardata extends Component {
   render() {
     return (

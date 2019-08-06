@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import Header from "./Header.js";
-import Sidebar from "./Sidebar.js";
+import Header from "../../Header.js";
+import Sidebar from "../../Sidebar.js";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import imgmapcluster from "./pins/iconmapcluster.png";
-// import imgmapcluster1 from "./pins/iconmapclustercopy.png";
-// import imgmapcluster2 from "./pins/iconmapclustercopy2.png";
-// import imgmapcluster3 from "./pins/iconmapclustercopy3.png";
-// import imgmapcluster4 from "./pins/iconmapclustercopy4.png";
-import user from "./pins/user1copy.png";
+import imgmapcluster from "../../pins/iconmapcluster.png";
+// import imgmapcluster1 from "../../pins/iconmapclustercopy.png";
+// import imgmapcluster2 from "../../pins/iconmapclustercopy2.png";
+// import imgmapcluster3 from "../../pins/iconmapclustercopy3.png";
+// import imgmapcluster4 from "../../pins/iconmapclustercopy4.png";
+import user from "../../pins/user1copy.png";
 import Swal from "sweetalert2";
 
 
-import farmerimg from "./pins/user.png";
+import farmerimg from "../../pins/user.png";
 import {
   compose,
   withProps,
@@ -27,7 +27,7 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
-import config from "./config.js";
+import config from "../../config.js";
 const {
   MarkerClusterer
 } = require("react-google-maps/lib/components/addons/MarkerClusterer");
@@ -574,7 +574,7 @@ class DemoApp extends Component {
       });
     })
     .catch(e => {
-      if (e.response.status==401) {
+      if (e.response.status===401) {
         Swal({
           type: "error",
           title: "Unauthorized",
@@ -583,7 +583,7 @@ class DemoApp extends Component {
         this.props.history.push({
           pathname: "/"
         });
-      } else if (e.response.status==403) {
+      } else if (e.response.status===403) {
         Swal({
           type: "error",
           title: "Forbidden"
