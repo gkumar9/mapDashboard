@@ -615,7 +615,7 @@ class Farmer extends Component {
         })
         .catch(e => {
           this.setState({ isloaderactive: false });
-          if (JSON.stringify(e).includes("401")) {
+          if (e.response.status==401) {
             Swal({
               type: "error",
               title: "Unauthorized",
@@ -624,7 +624,7 @@ class Farmer extends Component {
             this.props.history.push({
               pathname: "/"
             });
-          } else if (JSON.stringify(e).includes("403")) {
+          } else if (e.response.status==403) {
             Swal({
               type: "error",
               title: "Forbidden"
@@ -701,7 +701,7 @@ class Farmer extends Component {
             })
             .catch(e => {
               this.setState({ isloaderactive: false });
-              if (JSON.stringify(e).includes("401")) {
+              if (e.response.status==401) {
                 Swal({
                   type: "error",
                   title: "Unauthorized",
@@ -710,7 +710,7 @@ class Farmer extends Component {
                 this.props.history.push({
                   pathname: "/"
                 });
-              } else if (JSON.stringify(e).includes("403")) {
+              } else if (e.response.status==403) {
                 Swal({
                   type: "error",
                   title: "Forbidden"
@@ -757,7 +757,7 @@ class Farmer extends Component {
             })
             .catch(e => {
               this.setState({ isloaderactive: false });
-              if (JSON.stringify(e).includes("401")) {
+              if (e.response.status==401) {
                 Swal({
                   type: "error",
                   title: "Unauthorized",
@@ -766,7 +766,7 @@ class Farmer extends Component {
                 this.props.history.push({
                   pathname: "/"
                 });
-              } else if (JSON.stringify(e).includes("403")) {
+              } else if (e.response.status==403) {
                 Swal({
                   type: "error",
                   title: "Forbidden"

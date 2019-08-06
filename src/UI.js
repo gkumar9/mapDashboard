@@ -267,8 +267,7 @@ class Main extends Component {
           }
         })
         .catch(e => {
-          console.log(e)
-          if (JSON.stringify(e).includes("401")) {
+          if (e.response.status==401) {
             Swal({
               type: "error",
               title: "Unauthorized",
@@ -277,7 +276,7 @@ class Main extends Component {
             this.props.history.push({
               pathname: "/"
             });
-          } else if (JSON.stringify(e).includes("403")) {
+          } else if (e.response.status==403) {
             Swal({
               type: "error",
               title: "Forbidden"
