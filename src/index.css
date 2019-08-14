@@ -184,6 +184,15 @@ a.disabled {
   background: transparent;
   outline: none;
 }
+.dropdown-toggle:hover{
+  border-color:transparent;
+}
+.dropdown-toggle:active:hover{
+  border-color:transparent;
+}
+.open>.dropdown-toggle.btn-default:focus{
+  border-color:transparent;
+}
 .iaasbutton .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
   border-color:transparent ;
   outline: none;
@@ -773,6 +782,29 @@ input[type="radio"] {
   top: 0px;
   left: 0;
 }
+.gauravwwwagro .gm-style-iw-d {
+  overflow: hidden !important;
+  width: -webkit-fill-available;
+  max-width: -webkit-fill-available !important;
+  max-height: unset !important;
+}
+.gauravwwwagro .infobox .body{
+  width:450px;
+}
+.gauravwwwagro .gm-style .gm-style-iw-c {
+  padding: 0 !important;
+  width: 450px !important;
+  max-width: -webkit-fill-available !important;
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
+  left: 0;
+  top: -32px;
+}
+.gauravwwwagro .gm-style .gm-style-iw-t::after {
+  background-color: #ffffff;
+  top: 0px;
+  left: 0;
+}
 .gm-style .gm-style-iw-t::after {
   background-color: #ffffff;
 }
@@ -913,6 +945,10 @@ input[type="radio"] {
     left: 0 !important;
     max-height: unset !important;
   }
+  .gauravwwwagro .gm-style-iw {
+    left: 0 !important;
+    max-height: unset !important;
+  }
 }
 .famerinfobox{
   padding-left:0px; 
@@ -1030,36 +1066,7 @@ outline: 1px solid slategrey;
   color:#315ca6;
   font-size: 0.8em;
 }
-.additional .infobox .body{
-  width: 350px !important;
-  padding: 1em !important;
-}
-.iaasoverall{
-  background: #F2F2F2;
-  padding: 0.1em;
-  border-radius: 0.5em;
-  /* height: 80vh */
-}
- .gm-style-iw-d >.additional{
-  overflow: hidden !important;
-  width: -webkit-fill-available;
-  max-width: -webkit-fill-available !important;
-  max-height: unset !important;
-}
-.gm-style .gm-style-iw-c > .additional {
-  padding: 0 !important;
-  /* width: 800px; */
-  max-width: -webkit-fill-available !important;
-  background-color: #ffffff;
-  border: 1px solid #e6e6e6;
-  left: 0;
-  top: -32px;
-}
-.gm-style .gm-style-iw-t::after > .additional {
-  background-color: #ffffff;
-  top: 0px;
-  left: 0;
-}
+
 
 .navbar-default .navbar-toggle .icon-bar{
   background-color: #315ca6;

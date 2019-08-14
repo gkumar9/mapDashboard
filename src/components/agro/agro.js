@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Map from "./Maps.js";
-import Header from "./Header.js";
-import Sidebar from "./Sidebar.js";
-import Filter from "./Filter.js";
+import Agromap from "./agromaps";
+import Header from "../../Header.js";
+import Sidebar from "../../Sidebar.js";
+import Filter from "./filter.js";
 import axios from "axios";
-import config from "./config.js";
+import config from "../../config.js";
 import Swal from "sweetalert2";
 
 
@@ -13,15 +13,14 @@ class Main extends Component {
     super(props);
     this.state = {
       states: [],
-      allpins: [],
+      agroallpins: [],
       filteredstate: "",
       filteredpins: [],
       filter: {
-        IRRIGATION_PUMP: true,
-        PATVAN: true,
-        DRINKING_WATER_PUMP: true,
-        MINIGRID: true,
-        ROOFTOP: true,
+        MANDI: true,
+        MARKET:true,
+        OFFICE:true,
+        PROCESSING_CENTRES:true
       }
     };
     this.handleFilterChange = this.handleFilterChange.bind(this);
@@ -31,34 +30,35 @@ class Main extends Component {
   }
   handleReset() {
     let newfilter = {
-      IRRIGATION_PUMP: true,
-      PATVAN: true,
-      DRINKING_WATER_PUMP: true,
-      MINIGRID: true,
-      ROOFTOP: true,
+        MANDI: true,
+        MARKET:true,
+        OFFICE:true,
+        PROCESSING_CENTRES:true
     };
     this.setState(prevState => ({
       ...prevState,
       filter: newfilter,
       filteredstate: "",
-      filteredpins: prevState.allpins,
+      filteredpins: prevState.agroallpins,
     }));
   }
   handleApply() {
     let filterpins = [];
-    this.state.allpins.map((item, key) => {
+    console.log(this.state.agroallpins)
+    this.state.agroallpins.map((item, key) => {
       if (this.state.filteredstate === "") {
-        if (this.state.filter[item.assetType]) {
+        if (this.state.filter[item.agroAssetType]) {
           filterpins.push(item);
         }
       } else {
         if (item.state === this.state.filteredstate) {
-          if (this.state.filter[item.assetType]) {
+          if (this.state.filter[item.agroAssetType]) {
             filterpins.push(item);
           }
         }
       }
     });
+    console.log(filterpins)
     this.setState(prevState => ({
           ...prevState,
           filteredpins: filterpins,
@@ -85,12 +85,12 @@ class Main extends Component {
   async componentDidMount() {
     
     if (
-      this.state.allpins.length === 0 &&
+      this.state.agroallpins.length === 0 &&
       this.state.states.length === 0 &&
       this.state.filteredpins.length === 0
     ) {
       axios({
-        url: config.allpins,
+        url: config.agroallassets,
         method: "POST",
         data: {
           temp: "temp"
@@ -114,7 +114,7 @@ class Main extends Component {
               }
             });
             this.setState({
-              allpins: res.data.data.list,
+              agroallpins: res.data.data.list,
               filteredpins: res.data.data.list,
               states: tempstate
             });
@@ -159,8 +159,8 @@ class Main extends Component {
 
   render() {
     return (
-      <div>
-        <Header kc={this.props.kc} history={this.props.history}/>
+      <div className="gauravwwwagro ">
+        <Header />
         <div className="mainbody">
           <Sidebar kc={this.props.kc} history={this.props.history} />
           <div className="main">
@@ -173,7 +173,7 @@ class Main extends Component {
               onFilterReset={this.handleReset}
               onFilterApply={this.handleApply}
             />
-            <Map
+            <Agromap
               datapins={this.state.filteredpins}
               // additionalmarkers={this.state.additionalmarkers}
               filter={this.state.filter}

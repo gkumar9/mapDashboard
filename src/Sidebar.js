@@ -7,16 +7,11 @@ import SIGNOUT from "./pins/sign-out.png";
 import HOMEACTIVE from "./pins/Home.png";
 import ROOFTOP from "./pins/Rooftop(2).png";
 import FARMER from "./pins/Farmer 2.png";
-import axios from "axios";
-import config from "./config.js";
+import AGRO from "./pins/agronomy.png";
 
 class Sidebar extends Component {
-  constructor(props){
-    super(props)
-  }
   handleSignout = () => {
-    // console.log(this.props)
-    this.props.kc.logout()
+    this.props.kc.logout();
   };
   render() {
     return (
@@ -28,7 +23,8 @@ class Sidebar extends Component {
               className={
                 this.props.history.location.pathname.search("rms") === -1 &&
                 this.props.history.location.pathname.search("iaas") === -1 &&
-                this.props.history.location.pathname.search("farmer") === -1
+                this.props.history.location.pathname.search("farmer") === -1&&
+                this.props.history.location.pathname.search("agroassets") === -1
                   ? "active"
                   : ""
               }
@@ -97,6 +93,20 @@ class Sidebar extends Component {
             >
               <i>
                 <img alt="farmer" src={FARMER} />
+              </i>
+            </li>
+          </Link>
+          <Link key="agroassets" to="/agroassets">
+            <li
+              title="Agroassests"
+              className={
+                this.props.history.location.pathname.search("agroassets") !== -1
+                  ? "active"
+                  : ""
+              }
+            >
+              <i>
+                <img alt="farmer" src={AGRO} />
               </i>
             </li>
           </Link>

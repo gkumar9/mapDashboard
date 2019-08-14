@@ -396,7 +396,7 @@ class IaasRevenue extends Component {
               temp["number"] = datatable.length;
               temp["sum"] = sum;
               self.setState({ tabledata: temp });
-              var table = $("#example").DataTable({
+              $("#example").DataTable({
                 data: datatable,
                 destroy: true,
                 scrollY: 380,

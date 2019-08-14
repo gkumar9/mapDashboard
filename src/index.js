@@ -13,6 +13,7 @@ import Farmer from "./components/farmer/newfarmer.js";
 import Rmsedit from "./components/rms/rmsedit.js";
 import Farmeredit from "./components/farmer/farmeredit.js";
 import Iaasmobile from "./components/iaas/iaasmobile.js";
+import Agroassets from './components/agro/agro.js'
 import Highcharts from "highcharts/highstock";
 import Keycloak from "keycloak-js";
 import axios from "axios";
@@ -94,12 +95,19 @@ let app = (
           return <Iaasmobile {...props} kc={kc} />;
         }}
       />
+      <Route
+        exact
+        path="/agroassets"
+        render={props => {
+          return <Agroassets {...props} kc={kc} />;
+        }}
+      />
     </div>
   </HashRouter>
 );
 kc.init({ onLoad: "login-required",checkLoginIframe: false })
   .success(authenticated => {
-    // console.log(authenticated, kc);
+    console.log( kc);
     if (authenticated) {
       ReactDOM.render(app, document.getElementById("root"));
     }

@@ -265,7 +265,7 @@ class Farmeraddnew extends Component {
                           })
                           .catch(e => {
                             this.setState({ isloaderactive: false });
-                            if (e.response.status===401) {
+                            if (e.response!==undefined&&e.response.status===401) {
                               Swal({
                                 type: "error",
                                 title: "Unauthorized",
@@ -274,7 +274,7 @@ class Farmeraddnew extends Component {
                               this.props.history.push({
                                 pathname: "/"
                               });
-                            } else if (e.response.status===403) {
+                            } else if (e.response!==undefined&&e.response.status===403) {
                               Swal({
                                 type: "error",
                                 title: "Forbidden"
@@ -323,7 +323,7 @@ class Farmeraddnew extends Component {
                 })
                 .catch(e => {
                   this.setState({ isloaderactive: false });
-                  if (e.response.status===401) {
+                  if (e.response!==undefined&&e.response.status===401) {
                     Swal({
                       type: "error",
                       title: "Unauthorized",
@@ -332,7 +332,7 @@ class Farmeraddnew extends Component {
                     this.props.history.push({
                       pathname: "/"
                     });
-                  } else if (e.response.status===403) {
+                  } else if (e.response!==undefined&&e.response.status===403) {
                     Swal({
                       type: "error",
                       title: "Forbidden"
@@ -361,7 +361,7 @@ class Farmeraddnew extends Component {
           })
           .catch(e => {
             this.setState({ isloaderactive: false });
-            if (e.response.status===401) {
+            if (e.response!==undefined&&e.response.status===401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -370,7 +370,7 @@ class Farmeraddnew extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (e.response.status===403) {
+            } else if (e.response!==undefined&&e.response.status===403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -507,7 +507,7 @@ class Farmeraddnew extends Component {
                   })
                   .catch(e => {
                     this.setState({ isloaderactive: false });
-                    if (e.response.status===401) {
+                    if (e.response!==undefined&&e.response.status===401) {
                       Swal({
                         type: "error",
                         title: "Unauthorized",
@@ -516,7 +516,7 @@ class Farmeraddnew extends Component {
                       this.props.history.push({
                         pathname: "/"
                       });
-                    } else if (e.response.status===403) {
+                    } else if (e.response!==undefined&&e.response.status===403) {
                       Swal({
                         type: "error",
                         title: "Forbidden"
@@ -635,7 +635,7 @@ class Farmeraddnew extends Component {
       })
       .catch(e => {
         this.setState({ isloaderactive: false });
-        if (e.response.status===401) {
+        if (e.response!==undefined&&e.response.status===401) {
           Swal({
             type: "error",
             title: "Unauthorized",
@@ -644,7 +644,7 @@ class Farmeraddnew extends Component {
           this.props.history.push({
             pathname: "/"
           });
-        } else if (e.response.status===403) {
+        } else if (e.response!==undefined&&e.response.status===403) {
           Swal({
             type: "error",
             title: "Forbidden"
@@ -991,7 +991,7 @@ class Farmeraddnew extends Component {
                               <select
                                 name="vertical"
                                 onChange={this.handleInputChange}
-                                value={this.state.famerinfo.vertical || "NA"}
+                                value={this.state.famerinfo.vertical}
                                 className="form-control"
                                 id="vertical"
                               >

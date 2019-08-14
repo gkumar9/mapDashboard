@@ -171,7 +171,7 @@ class Rms extends Component {
         }
       })
       .catch(e => {
-        if (e.response.status==401) {
+        if (e.response!==undefined&&e.response.status===401) {
           Swal({
             type: "error",
             title: "Unauthorized",
@@ -180,7 +180,7 @@ class Rms extends Component {
           this.props.history.push({
             pathname: "/"
           });
-        } else if (e.response.status==403) {
+        } else if (e.response!==undefined&&e.response.status===403) {
           Swal({
             type: "error",
             title: "Forbidden"
@@ -239,7 +239,7 @@ class Rms extends Component {
       })
 
       .catch(e => {
-        if (e.response.status==401) {
+        if (e.response!==undefined&&e.response.status===401) {
           Swal({
             type: "error",
             title: "Unauthorized",
@@ -248,7 +248,7 @@ class Rms extends Component {
           this.props.history.push({
             pathname: "/"
           });
-        } else if (e.response.status==403) {
+        } else if (e.response!==undefined&&e.response.status===403) {
           Swal({
             type: "error",
             title: "Forbidden"

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import DRINKING_WATER_PUMP from "./pins/strop3.png";
-import ROOFTOP from "./pins/strop2.png";
-import IRRIGATION_PUMP from "./pins/strop1.png";
-import PATVAN from "./pins/strop5patvan.png";
-import MINIGRID from "./pins/strop4.png";
+
+// import IRRIGATION_PUMP from "../../pins/strop1.png";
+import MANDI from "../../pins/pin1.png";
+import OFFICE from "../../pins/pin2.png";
+import MARKET from "../../pins/pin3.png";
+import PROCESSING_CENTRES from "../../pins/pin4.png";
+// import MINIGRID from "./pins/strop4.png";
 // import agroassetsicon from "./pins/Filter Icon.png";
 const $ = require("jquery");
 class Filter extends Component {
@@ -49,7 +51,7 @@ class Filter extends Component {
     return (
       <div className="container ">
         <nav id="filter" className="navbar navbar-default">
-          <div className="container-fluid" style={{paddingLeft:'0'}}>
+          <div className="container-fluid" style={{ paddingLeft: "0" }}>
             <div
               className="navbar-header"
               data-toggle="collapse"
@@ -85,43 +87,50 @@ class Filter extends Component {
             </div>
             <div id="navbar2" className="navbar-collapse collapse">
               <ul className="nav navbar-nav">
-                <li style={{ width: "137px" }} className="filterItem">
+                <li style={{ width: "125px" }} className="filterItem">
                   <input
+                    style={{ margin: "18px 11px 0px 0px" }}
                     type="checkbox"
-                    name="red"
-                    value="IRRIGATION_PUMP"
-                    checked={this.props.filter.IRRIGATION_PUMP}
+                    name="MANDI"
+                    value="MANDI"
+                    checked={this.props.filter.MANDI}
                     onChange={this.handleFilterChange}
                   />
                   <img
-                    src={IRRIGATION_PUMP}
+                    src={MANDI}
                     style={{ width: "14%" }}
                     alt="logo"
                     className="filterImg responsive"
                   />
-                  <span className="filterText">Irrigation pump</span>
+                  <span className="filterText">Mandi</span>
                 </li>
                 <li>
                   <a>
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li style={{ width: "84px" }} className="filterItem">
+
+                <li style={{ width: "136px" }} className="filterItem">
                   <input
                     type="checkbox"
-                    name="red"
-                    value="PATVAN"
-                    checked={this.props.filter.PATVAN}
+                    name="MARKET"
+                    value="MARKET"
+                    checked={this.props.filter.MARKET}
                     onChange={this.handleFilterChange}
                   />
                   <img
-                    src={PATVAN}
+                    style={{
+                      width: "14%",
+                      marginLeft: "7px",
+                      filter: "opacity(0.8)"
+                    }}
+                    src={MARKET}
                     alt="logo"
-                    style={{ width: "21%" }}
                     className="filterImg responsive"
                   />
-                  <span className="filterText">Patvan</span>
+                  <span className="filterText">Market</span>
                 </li>
+
                 <li>
                   <a>
                     <span className="verticalLine" />
@@ -130,89 +139,57 @@ class Filter extends Component {
                 <li style={{ width: "136px" }} className="filterItem">
                   <input
                     type="checkbox"
-                    name="red"
-                    value="DRINKING_WATER_PUMP"
-                    checked={this.props.filter.DRINKING_WATER_PUMP}
+                    name="OFFICE"
+                    value="OFFICE"
+                    checked={this.props.filter.OFFICE}
                     onChange={this.handleFilterChange}
                   />
                   <img
-                    style={{ width: "15%" }}
-                    src={DRINKING_WATER_PUMP}
+                    style={{
+                      width: "14%",
+                      marginLeft: "7px",
+                      filter: "opacity(0.8)"
+                    }}
+                    src={OFFICE}
                     alt="logo"
                     className="filterImg responsive"
                   />
-                  <span className="filterText">Drinking water</span>
+                  <span className="filterText">Office</span>
                 </li>
+
                 <li>
                   <a>
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li style={{ width: "94px" }} className="filterItem">
+                <li style={{ width: "156px" }} className="filterItem">
                   <input
                     type="checkbox"
-                    name="red"
-                    value="MINIGRID"
-                    checked={this.props.filter.MINIGRID}
+                    name="PROCESSING_CENTRES"
+                    value="PROCESSING_CENTRES"
+                    checked={this.props.filter.PROCESSING_CENTRES}
                     onChange={this.handleFilterChange}
                   />
                   <img
-                    style={{ width: "19%" }}
-                    src={MINIGRID}
+                    style={{
+                      width: "12%",
+                      marginLeft: "7px",
+                      filter: "opacity(0.8)"
+                    }}
+                    src={PROCESSING_CENTRES}
                     alt="logo"
                     className="filterImg responsive"
                   />
-                  <span className="filterText">Minigrid</span>
+                  <span className="filterText">Processing center</span>
                 </li>
+
                 <li>
                   <a>
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li style={{ width: "94px" }} className="filterItem">
-                  <input
-                    type="checkbox"
-                    name="red"
-                    value="ROOFTOP"
-                    checked={this.props.filter.ROOFTOP}
-                    onChange={this.handleFilterChange}
-                  />
-                  <img
-                    style={{ width: "22%" }}
-                    src={ROOFTOP}
-                    alt="logo"
-                    className="filterImg responsive"
-                  />
-                  <span className="filterText">Rooftop</span>
-                </li>
-                <li>
-                  <a>
-                    <span className="verticalLine" />
-                  </a>
-                </li>
-                {/* <li style={{ width: "116px" }} className="filterItem">
-                  <input
-                    type="checkbox"
-                    name="AGROASSETS"
-                    value="AGROASSETS"
-                    checked={this.props.filter.AGROASSETS}
-                    onChange={this.handleFilterChange}
-                  />
-                  <img
-                    style={{ width: "12%",marginLeft:'7px',filter:'opacity(0.8)' }}
-                    src={agroassetsicon}
-                    alt="logo"
-                    className="filterImg responsive"
-                  />
-                  <span className="filterText">Agro assets</span>
-                </li>
-                <li>
-                  <a>
-                    <span className="verticalLine" />
-                  </a>
-                </li> */}
                 <li
-                  style={{ width: "144px" }}
+                  style={{ width: "110px" }}
                   className="filterItem statefilter"
                 >
                   <div className="dropdown">
@@ -220,7 +197,7 @@ class Filter extends Component {
                       style={{
                         width: "-webkit-fill-available",
                         borderRadius: "0",
-                        backgroundColor:'transparent'
+                        backgroundColor: "transparent"
                       }}
                       className="btn btn-default dropdown-toggle"
                       type="button"

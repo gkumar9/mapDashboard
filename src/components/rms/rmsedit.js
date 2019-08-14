@@ -424,7 +424,7 @@ class FormLeft extends Component {
               <img
                 style={{ borderRadius: "0.3em" }}
                 src={this.props.rmsvalues.customerImage}
-                alt="customer Image"
+                alt="customerImage"
                 width="220"
                 height="200"
               />
@@ -947,7 +947,7 @@ class Rmsedit extends Component {
           })
           .catch(e => {
             this.setState({ isloaderactive: false });
-            if (e.response.status===401) {
+            if (e.response!==undefined&&e.response.status===401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -956,7 +956,7 @@ class Rmsedit extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (e.response.status===403) {
+            } else if (e.response!==undefined&&e.response.status===403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -1030,7 +1030,7 @@ class Rmsedit extends Component {
           })
           .catch(e => {
             this.setState({ isloaderactive: false });
-            if (e.response.status===401) {
+            if (e.response!==undefined&&e.response.status===401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -1039,7 +1039,7 @@ class Rmsedit extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (e.response.status===403) {
+            } else if (e.response!==undefined&&e.response.status===403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -1152,7 +1152,7 @@ class Rmsedit extends Component {
         .catch(e => {
           
           this.setState({ isloaderactive: false });
-            if (e.response.status===401) {
+            if (e.response!==undefined&&e.response.status===401) {
               Swal({
                 type: "error",
                 title: "Unauthorized",
@@ -1161,7 +1161,7 @@ class Rmsedit extends Component {
               this.props.history.push({
                 pathname: "/"
               });
-            } else if (e.response.status===403) {
+            } else if (e.response!==undefined&&e.response.status===403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
@@ -1212,7 +1212,7 @@ class Rmsedit extends Component {
         .catch(e => {
          
           this.setState({ isloaderactive: false });
-          if (e.response.status===401) {
+          if (e.response!==undefined&&e.response.status===401) {
             Swal({
               type: "error",
               title: "Unauthorized",
@@ -1221,7 +1221,7 @@ class Rmsedit extends Component {
             this.props.history.push({
               pathname: "/"
             });
-          } else if (e.response.status===403) {
+          } else if (e.response!==undefined&&e.response.status===403) {
             Swal({
               type: "error",
               title: "Forbidden"

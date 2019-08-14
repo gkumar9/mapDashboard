@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 // import ROOFTOP from "./pins/ROOFTOP.png";
 import RMS from "./pins/RMS 2.png";
 import IAAS from "./pins/IAAS 2.png";
-import MINIGRID from "./pins/Minigrid(2).png";
+// import MINIGRID from "./pins/Minigrid(2).png";
 
-import ROOFTOP from "./pins/Rooftop(2).png";
+// import ROOFTOP from "./pins/Rooftop(2).png";
 import FARMER from "./pins/Farmer 2.png";
 
 // import RMS from "./pins/RMS.png";
@@ -21,6 +21,7 @@ import HOME from "./pins/Home.png";
 // import ROOFTOP from "./pins/Rooftop(2).png";
 // import FARMER from "./pins/user1.png";
 class Header extends Component {
+
   render() {
     return (
       <div className="container">
@@ -106,6 +107,7 @@ class Header extends Component {
                       fontWeight: "600"
                     }}
                   >
+                    {/* Welcome {this.props.kc.idTokenParsed.prefredUserName} */}
                     Welcome User
                   </a>
                 </li>

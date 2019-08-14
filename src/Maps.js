@@ -87,79 +87,7 @@ class MapList extends Component {
     );
   }
 }
-class MapListAdditional extends Component {
-  constructor(props) {
-    super(props);
-    this.markersRendered = false;
-  }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (
-      JSON.stringify(this.props.places) === JSON.stringify(nextProps.places) &&
-      this.markersRendered
-    ) {
-      return false;
-    }
-    this.markersRendered = true;
-    return true;
-  }
-
-  render() {
-    return (
-      <span>
-        {this.props.places.map((marker, index) => {
-          let assetType = marker.type;
-          let icon = {
-            url: "",
-            anchor: new this.props.google.maps.Point(12, 23),
-            origin: new this.props.google.maps.Point(0, 0),
-            scaledSize: new this.props.google.maps.Size(20, 20)
-          };
-          switch (assetType) {
-            case "Mini-Grid":
-              icon.url = Centre;
-              break;
-            case "Procurement":
-              icon.url = Centre;
-              break;
-            case "Processing":
-              icon.url = Centre;
-              break;
-            case "Present Market":
-              icon.url = market;
-              break;
-            case "Planned Market":
-              icon.url = market;
-              break;
-            case "Corporate Office":
-              icon.url = office;
-              break;
-            case "Off-Site":
-              icon.url = office;
-              break;
-            default:
-              break;
-          }
-          return (
-            <Marker
-              {...this.props}
-              key={index}
-              data={marker}
-              // assetId={marker.assetId}
-              // assetType={assetType}
-              icon={icon}
-              zIndex={999999999999}
-              position={{
-                lat: parseFloat(marker.latitude),
-                lng: parseFloat(marker.longitude)
-              }}
-            />
-          );
-        })}
-      </span>
-    );
-  }
-}
 class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -169,9 +97,6 @@ class MapContainer extends Component {
       activeMarker: {}, //Shows the active marker upon click
       selectedPlace: { owner: {} }, //Shows the infoWindow to the selected place upon a marker
 
-      showingInfoWindowadditional: false,
-      activeMarkeradditional: {},
-      selectedPlaceadditional: {}
     };
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onClose = this.onClose.bind(this);
@@ -230,7 +155,7 @@ class MapContainer extends Component {
       }
     })
     .catch(e => {
-      if (e.response.status==401) {
+      if (e.response.status===401) {
         Swal({
           type: "error",
           title: "Unauthorized",
@@ -239,7 +164,7 @@ class MapContainer extends Component {
         this.props.history.push({
           pathname: "/"
         });
-      } else if (e.response.status==403) {
+      } else if (e.response.status===403) {
         Swal({
           type: "error",
           title: "Forbidden"
@@ -260,15 +185,6 @@ class MapContainer extends Component {
       }
     });
   }
-  onMarkerClickAdditional = (props, markerAdditional, e) => {
-    // console.log("additional",props.data);
-    this.setState({
-      selectedPlaceadditional: props.data,
-      activeMarkeradditional: markerAdditional,
-      showingInfoWindowadditional: true,
-      showingInfoWindow: false
-    });
-  };
   onClose(props) {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -277,14 +193,6 @@ class MapContainer extends Component {
       });
     }
   }
-  onCloseadditional = () => {
-    if (this.state.showingInfoWindowadditional) {
-      this.setState({
-        showingInfoWindowadditional: false,
-        activeMarkeradditional: null
-      });
-    }
-  };
   portalredirect(id) {
     console.log("ddd");
   }
@@ -343,11 +251,7 @@ class MapContainer extends Component {
           places={this.props.datapins}
           onClick={this.onMarkerClick}
         />
-        <MapListAdditional
-          google={this.props.google}
-          places={this.props.additionalmarkers}
-          onClick={this.onMarkerClickAdditional}
-        />
+        
 
         <InfoWindow
           className="infoWindowCard"
@@ -508,71 +412,6 @@ class MapContainer extends Component {
                   <div />
                 )}
               </div> */}
-            </div>
-          </div>
-        </InfoWindow>
-
-        <InfoWindow
-          className="tesingclass"
-          // pixelOffset={new this.props.google.maps.Size(190, 290)}
-          marker={this.state.activeMarkeradditional}
-          visible={this.state.showingInfoWindowadditional}
-          onClose={this.onCloseadditional}
-        >
-          <div className=" additional">
-            <div
-              className="infobox clearfix"
-              style={{ textTransform: "capitalize" }}
-            >
-              <div
-                className="header clearfix"
-                style={{ fontFamily: "gotham-regular" }}
-              >
-                <h3 style={{ color: "#315ca6" }}>
-                  {this.state.selectedPlaceadditional.name}{" "}
-                  <br className="breakline" />
-                  <small>{this.state.selectedPlaceadditional.what}</small>
-                </h3>
-              </div>
-              <div className="body clearfix ">
-                <div
-                  className="row"
-                  style={{
-                    marginLeft: "0",
-                    marginRight: "0",
-                    fontSize: "initial",
-                    fontFamily: "gotham-light",
-                    marginBottom: "1em"
-                  }}
-                >
-                  <b>Type: </b> {this.state.selectedPlaceadditional.type}
-                </div>
-                <div
-                  className="row"
-                  style={{
-                    marginLeft: "0",
-                    marginRight: "0",
-                    fontSize: "initial",
-                    fontFamily: "gotham-light",
-                    marginBottom: "1em"
-                  }}
-                >
-                  <b>Latitude: </b>{" "}
-                  {this.state.selectedPlaceadditional.latitude}
-                </div>
-                <div
-                  className="row"
-                  style={{
-                    marginLeft: "0",
-                    marginRight: "0",
-                    fontSize: "initial",
-                    fontFamily: "gotham-light"
-                  }}
-                >
-                  <b>Longitude: </b>{" "}
-                  {this.state.selectedPlaceadditional.longitude}
-                </div>
-              </div>
             </div>
           </div>
         </InfoWindow>
