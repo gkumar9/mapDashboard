@@ -4,10 +4,23 @@ import MANDI from "../../pins/pin1.png";
 import OFFICE from "../../pins/pin2.png";
 import MARKET from "../../pins/pin3.png";
 import PROCESSING_CENTRES from "../../pins/pin4.png";
+import CUSTOMER from "../../pins/pin5.png";
 import axios from "axios";
 import config from "../../config.js";
 import Swal from "sweetalert2";
-import democenterimg from "../../pins/democenter.png";
+import democenterimg from "../../pins/ComingSoon.png";
+import Irrigationicon from "../../pins/Irrigation.png";
+import Powericon from "../../pins/Power Supply.png";
+import Oilicon from "../../pins/Oil Expeller.png";
+import Flouricon from "../../pins/Flour Mill.png";
+import Spicesicon from "../../pins/Spices.png";
+import Corriandericon from "../../pins/Coriander.png";
+import Wheaticon from "../../pins/wheat.png";
+import Mustardicon from "../../pins/Mustard.png";
+import Coldicon from "../../pins/Cold Storage.png";
+import Ripeningicon from "../../pins/Cold Storage.png";
+import Bananasicon from "../../pins/banana.png";
+import Procurementicon from "../../pins/Procurement.png";
 // import office from "../../pins/Office.png";
 const mapStyles = {
   width: "100%",
@@ -59,7 +72,9 @@ class MapList extends Component {
             case "PROCESSING_CENTRES":
               icon.url = PROCESSING_CENTRES;
               break;
-
+            case "CUSTOMER":
+              icon.url = CUSTOMER;
+              break;
             default:
               break;
           }
@@ -109,6 +124,9 @@ class MapContainer extends Component {
       case "PROCESSING_CENTRES":
         url = config.agrocenter;
         break;
+      case "CUSTOMER":
+        url = config.agrocustomer;
+        break;
 
       default:
         break;
@@ -146,7 +164,7 @@ class MapContainer extends Component {
         }
       })
       .catch(e => {
-        if (e.response.status === 401) {
+        if (e.response !== undefined && e.response.status === 401) {
           Swal({
             type: "error",
             title: "Unauthorized",
@@ -155,7 +173,7 @@ class MapContainer extends Component {
           this.props.history.push({
             pathname: "/"
           });
-        } else if (e.response.status === 403) {
+        } else if (e.response !== undefined && e.response.status === 403) {
           Swal({
             type: "error",
             title: "Forbidden"
@@ -184,307 +202,138 @@ class MapContainer extends Component {
   }
   render() {
     return (
-      <Map
-        id="map"
-        mapTypeControl={false}
-        gestureHandling={"greedy"}
-        zoomControl={true}
-        // zoomControlOptions= {{position :this.props.google.maps.ControlPosition.RIGHT_CENTER}}
-        streetViewControl={false}
-        fullscreenControl={false}
-        google={this.props.google}
-        zoom={5}
-        style={mapStyles}
-        styles={[
-          { elementType: "geometry.fill", stylers: [{ color: "#F2F2F2" }] },
-          {
-            featureType: "water",
-            elementType: "geometry",
-            // stylers: [{ color: "#E3E3E3" }]
-            stylers: [{ color: "#ACC8F2" }]
-          },
-          {
-            featureType: "transit.line",
-            elementType: "geometry",
-            stylers: [{ visibility: "off" }]
-          },
-          {
-            featureType: "road",
-            elementType: "labels",
-            stylers: [{ visibility: "off" }]
-          },
-          {
-            featureType: "road",
-            elementType: "geometry",
-            stylers: [{ visibility: "off" }]
-          }
-          // {
-          //   featureType: "water",
-          //   elementType: "labels.text.fill",
-          //   stylers: [{ color: "#515c6d" }]
-          // },
-          // {
-          //   featureType: "water",
-          //   elementType: "labels.text.stroke",
-          //   stylers: [{ color: "#17263c" }]
-          // }
-        ]}
-        initialCenter={{ lat: 22.845625996700075, lng: 78.9629 }}
-      >
-        <MapList
-          style={{ display: "none" }}
+      <div className="agro">
+        <Map
+          id="map"
+          mapTypeControl={false}
+          gestureHandling={"greedy"}
+          zoomControl={true}
+          // zoomControlOptions= {{position :this.props.google.maps.ControlPosition.RIGHT_CENTER}}
+          streetViewControl={false}
+          fullscreenControl={false}
           google={this.props.google}
-          places={this.props.datapins}
-          onClick={this.onMarkerClick}
-        />
-
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
+          zoom={5}
+          style={mapStyles}
+          styles={[
+            { elementType: "geometry.fill", stylers: [{ color: "#F2F2F2" }] },
+            {
+              featureType: "water",
+              elementType: "geometry",
+              // stylers: [{ color: "#E3E3E3" }]
+              stylers: [{ color: "#ACC8F2" }]
+            },
+            {
+              featureType: "transit.line",
+              elementType: "geometry",
+              stylers: [{ visibility: "off" }]
+            },
+            {
+              featureType: "road",
+              elementType: "labels",
+              stylers: [{ visibility: "off" }]
+            },
+            {
+              featureType: "road",
+              elementType: "geometry",
+              stylers: [{ visibility: "off" }]
+            }
+            // {
+            //   featureType: "water",
+            //   elementType: "labels.text.fill",
+            //   stylers: [{ color: "#515c6d" }]
+            // },
+            // {
+            //   featureType: "water",
+            //   elementType: "labels.text.stroke",
+            //   stylers: [{ color: "#17263c" }]
+            // }
+          ]}
+          initialCenter={{ lat: 22.845625996700075, lng: 78.9629 }}
         >
-          <div>
-            {this.state.selectedPlace !== undefined &&
-              this.state.selectedPlace.agroAssetType === "MANDI" && (
-                <div
-                  className="infobox clearfix"
-                  style={{ textTransform: "capitalize" }}
-                >
+          <MapList
+            style={{ display: "none" }}
+            google={this.props.google}
+            places={this.props.datapins}
+            onClick={this.onMarkerClick}
+          />
+
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+            onClose={this.onClose}
+          >
+            <div>
+              {this.state.selectedPlace !== undefined &&
+                this.state.selectedPlace.agroAssetType === "MANDI" && (
                   <div
-                    className="header clearfix"
-                    style={{ fontFamily: "gotham-regular" }}
+                    className="infobox clearfix"
+                    style={{ textTransform: "capitalize" }}
                   >
-                    <h3 style={{ color: "#315ca6" }}>
-                      {this.state.selectedPlace["name"]}
-                      <br className="breakline" />
-                      <small style={{ color: "#333131" }}>
-                        <span style={{ textTransform: "capitalize" }}>
-                          ({" "}
-                          {this.state.selectedPlace[
-                            "agroAssetType"
-                          ].toLowerCase()}{" "}
-                          )
-                        </span>
-                      </small>
-                    </h3>
-                  </div>
-                  <div className="body clearfix ">
                     <div
-                      className="row"
+                      className="header clearfix"
                       style={{
-                        marginLeft: "0",
-                        marginRight: "0",
-                        fontSize: "initial",
                         fontFamily: "gotham-light",
-                        marginBottom: "1em"
+                        display: "flex",
+                        justifyContent: "center",
+                        fontWeight: "600"
                       }}
                     >
-                      <b>Location: </b> {this.state.selectedPlace.location}
+                      <h4 style={{ color: "white", fontWeight: "600" }}>
+                        {/* {this.state.selectedPlace["name"]} */}
+                        MANDI
+                        {/* <br className="breakline" />
+                        <small style={{ color: "#333131" }}>
+                          <span style={{ textTransform: "capitalize" }}>
+                            ({" "}
+                            {this.state.selectedPlace[
+                              "agroAssetType"
+                            ].toLowerCase()}{" "}
+                            )
+                          </span>
+                        </small> */}
+                      </h4>
                     </div>
-                    <div
-                      className="row"
-                      style={{
-                        marginLeft: "0",
-                        marginRight: "0",
-                        fontSize: "initial",
-                        fontFamily: "gotham-light",
-                        marginBottom: "1em"
-                      }}
-                    >
-                      <b>City: </b> {this.state.selectedPlace.city}
-                    </div>
-                    <div
-                      className="row"
-                      style={{
-                        marginLeft: "0",
-                        marginRight: "0",
-                        fontSize: "initial",
-                        fontFamily: "gotham-light",
-                        marginBottom: "1em"
-                      }}
-                    >
-                      <b>State: </b> {this.state.selectedPlace.state}
-                    </div>
-                  </div>
-                </div>
-              )}
-            {this.state.selectedPlace !== undefined &&
-              this.state.selectedPlace.agroAssetType === "MARKET" && (
-                <div
-                  className="infobox clearfix"
-                  style={{ textTransform: "capitalize" }}
-                >
-                  <div
-                    className="header clearfix"
-                    style={{ fontFamily: "gotham-regular" }}
-                  >
-                    <h3 style={{ color: "#315ca6" }}>
-                      {this.state.selectedPlace["location"]}
-                      <br className="breakline" />
-                      <small style={{ color: "#333131" }}>
-                        <span style={{ textTransform: "capitalize" }}>
-                          {" ("}{" "}
-                          {this.state.selectedPlace[
-                            "agroAssetType"
-                          ].toLowerCase()}{" "}
-                          )
-                        </span>
-                      </small>
-                    </h3>
-                  </div>
-                  <div className="body clearfix ">
-                    <div
-                      className="row"
-                      style={{
-                        marginLeft: "0",
-                        marginRight: "0",
-                        fontSize: "initial",
-                        fontFamily: "gotham-light",
-                        marginBottom: "1em"
-                      }}
-                    >
-                      <b>Area: </b> {this.state.selectedPlace.area}
-                    </div>
-                    <div
-                      className="row"
-                      style={{
-                        marginLeft: "0",
-                        marginRight: "0",
-                        fontSize: "initial",
-                        fontFamily: "gotham-light",
-                        marginBottom: "1em"
-                      }}
-                    >
-                      <b>Population: </b> {this.state.selectedPlace.population}
-                    </div>
-                    <div
-                      className="row"
-                      style={{
-                        marginLeft: "0",
-                        marginRight: "0",
-                        fontSize: "initial",
-                        fontFamily: "gotham-light",
-                        marginBottom: "1em"
-                      }}
-                    >
-                      <b>Type: </b> {this.state.selectedPlace.type}
-                    </div>
-                    <div
-                      className="row"
-                      style={{
-                        marginLeft: "0",
-                        marginRight: "0",
-                        fontSize: "initial",
-                        fontFamily: "gotham-light",
-                        marginBottom: "1em"
-                      }}
-                    >
-                      <b>State: </b> {this.state.selectedPlace.state}
-                    </div>
-                  </div>
-                </div>
-              )}
-            {this.state.selectedPlace !== undefined &&
-              this.state.selectedPlace.agroAssetType === "OFFICE" && (
-                <div
-                  className="infobox clearfix"
-                  style={{ textTransform: "capitalize" }}
-                >
-                  <div
-                    className="header clearfix"
-                    style={{ fontFamily: "gotham-regular" }}
-                  >
-                    <h3 style={{ color: "#315ca6" }}>
-                      {this.state.selectedPlace["location"]}
-                      <br className="breakline" />
-                      <small style={{ color: "#333131" }}>
-                        <span style={{ textTransform: "capitalize" }}>
-                          ({" "}
-                          {this.state.selectedPlace[
-                            "agroAssetType"
-                          ].toLowerCase()}{" "}
-                          )
-                        </span>
-                      </small>
-                    </h3>
-                  </div>
-                  <div className="body clearfix ">
-                    <div
-                      className="row"
-                      style={{
-                        marginLeft: "0",
-                        marginRight: "0",
-                        fontSize: "initial",
-                        fontFamily: "gotham-light",
-                        marginBottom: "1em"
-                      }}
-                    >
-                      <b>State: </b> {this.state.selectedPlace.state}
-                    </div>
-                  </div>
-                </div>
-              )}
-            {this.state.selectedPlace !== undefined &&
-              this.state.selectedPlace.agroAssetType ===
-                "PROCESSING_CENTRES" && (
-                <div
-                  className="infobox clearfix"
-                  style={{ textTransform: "capitalize" }}
-                >
-                  <div
-                    className="header clearfix"
-                    style={{ fontFamily: "gotham-regular" }}
-                  >
-                    <h3 style={{ color: "#315ca6" }}>
-                      {this.state.selectedPlace["location"]}
-                      <br className="breakline" />
-                      <small style={{ color: "#333131" }}>
-                        <span style={{ textTransform: "capitalize" }}>
-                          {" ("}{" "}
-                          {this.state.selectedPlace["agroAssetType"]
-                            .toLowerCase()
-                            .replace("_", " ")}{" "}
-                          )
-                        </span>
-                      </small>
-                    </h3>
-                  </div>
-                  <div className="body clearfix ">
-                    <div className="image">
-                      {this.state.selectedPlace.image !== null &&
-                      this.state.selectedPlace.image !== "NA" &&
-                      this.state.selectedPlace.image !== "0" ? (
-                        <img
-                          className="famrerimggg"
-                          alt="famerimg"
-                          src={this.state.selectedPlace.farmerImage}
-                          width="65%"
-                        />
-                      ) : (
-                        <img
-                          alt="placeholderfamerimg"
-                          className="palceholder"
-                          style={{ margin: "2.5em 0 0em 1em" }}
-                          src={democenterimg}
-                          width="55%"
-                        />
-                      )}
-                    </div>
-                    <div className="column">
+                    <div className="body clearfix ">
                       <div className="row">
-                        <div
-                          className="row"
-                          style={{
-                            marginLeft: "0",
-                            marginRight: "0",
-                            fontSize: "initial",
-                            fontFamily: "gotham-light",
-                            marginBottom: "1em"
-                          }}
-                        >
-                          <b>Facilities: </b>{" "}
-                          {this.state.selectedPlace.facilities}
+                        <div className="image">
+                          {this.state.selectedPlace.image &&
+                          this.state.selectedPlace.image !== "NA" &&
+                          this.state.selectedPlace.image !== "0" ? (
+                            <img
+                              alt="famerimg"
+                              src={this.state.selectedPlace.farmerImage}
+                              // width="65%"
+                            />
+                          ) : (
+                            <img
+                              alt="placeholderfamerimg"
+                              className="palceholder"
+                              // style={{ margin: "2.5em 0 0em 1em" }}
+                              src={democenterimg}
+                              // width="60%"
+                            />
+                          )}
                         </div>
+                        <h4
+                          style={{
+                            color: "#3663b3",
+                            marginBottom: "5px",
+                            textAlign: "center"
+                          }}
+                        >
+                          {this.state.selectedPlace.name}
+                        </h4>
+                        {/* <span style={{ fontSize: "15px", fontWeight: "200" }}>
+                          ID:CCC83
+                        </span> */}
+                      </div>
+                      <div
+                        style={{
+                          marginTop: "0.5em",
+                          padding: "1em"
+                          // borderTop: "1px #325ca6 solid"
+                        }}
+                      >
                         <div
                           className="row"
                           style={{
@@ -495,41 +344,467 @@ class MapContainer extends Component {
                             marginBottom: "1em"
                           }}
                         >
-                          <b>Processing Goods: </b>{" "}
-                          {this.state.selectedPlace.processingGoods}
-                        </div>
-                        <div
-                          className="row"
-                          style={{
-                            marginLeft: "0",
-                            marginRight: "0",
-                            fontSize: "initial",
-                            fontFamily: "gotham-light",
-                            marginBottom: "1em"
-                          }}
-                        >
-                          <b>Type: </b> {this.state.selectedPlace.type}
-                        </div>
-                        <div
-                          className="row"
-                          style={{
-                            marginLeft: "0",
-                            marginRight: "0",
-                            fontSize: "initial",
-                            fontFamily: "gotham-light",
-                            marginBottom: "1em"
-                          }}
-                        >
-                          <b>State: </b> {this.state.selectedPlace.state}
+                          {this.state.selectedPlace.location}
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
-          </div>
-        </InfoWindow>
-      </Map>
+                )}
+              {this.state.selectedPlace !== undefined &&
+                this.state.selectedPlace.agroAssetType === "MARKET" && (
+                  <div
+                    className="infobox clearfix"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    <div
+                      className="header clearfix"
+                      style={{
+                        fontFamily: "gotham-light",
+                        display: "flex",
+                        justifyContent: "center",
+                        fontWeight: "600"
+                      }}
+                    >
+                      <h4 style={{ color: "white", fontWeight: "600" }}>
+                        {/* {this.state.selectedPlace["name"]} */}
+                        MARKET
+                        {/* <br className="breakline" />
+                        <small style={{ color: "#333131" }}>
+                          <span style={{ textTransform: "capitalize" }}>
+                            ({" "}
+                            {this.state.selectedPlace[
+                              "agroAssetType"
+                            ].toLowerCase()}{" "}
+                            )
+                          </span>
+                        </small> */}
+                      </h4>
+                    </div>
+                    <div
+                      className="body clearfix "
+                      // style={{ textAlign: "left" }}
+                    >
+                      <div className="row">
+                        <div className="image">
+                          {this.state.selectedPlace.image &&
+                          this.state.selectedPlace.image !== "NA" &&
+                          this.state.selectedPlace.image !== "0" ? (
+                            <img
+                              alt="famerimg"
+                              src={this.state.selectedPlace.farmerImage}
+                              // width="65%"
+                            />
+                          ) : (
+                            <img
+                              alt="placeholderfamerimg"
+                              className="palceholder"
+                              // style={{ margin: "2.5em 0 0em 1em" }}
+                              src={democenterimg}
+                              // width="60%"
+                            />
+                          )}
+                        </div>
+                        <h4
+                          style={{
+                            color: "#3663b3",
+                            marginBottom: "5px",
+                            textAlign: "center"
+                          }}
+                        >
+                          {this.state.selectedPlace.location}
+                        </h4>
+                        <span style={{ fontSize: "15px", fontWeight: "200" }}>
+                          {this.state.selectedPlace.type}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              {this.state.selectedPlace !== undefined &&
+                this.state.selectedPlace.agroAssetType === "OFFICE" && (
+                  <div
+                    className="infobox clearfix"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    <div
+                      className="header clearfix"
+                      style={{
+                        fontFamily: "gotham-light",
+                        display: "flex",
+                        justifyContent: "center",
+                        fontWeight: "600"
+                      }}
+                    >
+                      <h4 style={{ color: "white", fontWeight: "600" }}>
+                        {/* {this.state.selectedPlace["name"]} */}
+                        OFFICE
+                        {/* <br className="breakline" />
+                        <small style={{ color: "#333131" }}>
+                          <span style={{ textTransform: "capitalize" }}>
+                            ({" "}
+                            {this.state.selectedPlace[
+                              "agroAssetType"
+                            ].toLowerCase()}{" "}
+                            )
+                          </span>
+                        </small> */}
+                      </h4>
+                    </div>
+                    <div
+                      className="body clearfix "
+                      // style={{ textAlign: "left" }}
+                    >
+                      <div className="row">
+                        <div className="image">
+                          {this.state.selectedPlace.image &&
+                          this.state.selectedPlace.image !== "NA" &&
+                          this.state.selectedPlace.image !== "0" ? (
+                            <img
+                              alt="famerimg"
+                              src={this.state.selectedPlace.farmerImage}
+                              // width="65%"
+                            />
+                          ) : (
+                            <img
+                              alt="placeholderfamerimg"
+                              className="palceholder"
+                              // style={{ margin: "2.5em 0 0em 1em" }}
+                              src={democenterimg}
+                              // width="60%"
+                            />
+                          )}
+                        </div>
+                        <h4
+                          style={{
+                            color: "#3663b3",
+                            marginBottom: "5px",
+                            textAlign: "center"
+                          }}
+                        >
+                          {/* {this.state.selectedPlace.type} */}
+                          {this.state.selectedPlace.location}
+                        </h4>
+                        <p style={{ fontSize: "13px", fontWeight: "200" }}>
+                          {this.state.selectedPlace.type}
+                          <br />
+                        </p>
+                        <p
+                          style={{
+                            marginTop: "0.5em",
+                            fontSize: "15px",
+                            fontWeight: "200"
+                          }}
+                        >
+                          {this.state.selectedPlace.address}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              {this.state.selectedPlace !== undefined &&
+                this.state.selectedPlace.agroAssetType ===
+                  "PROCESSING_CENTRES" && (
+                  <div
+                    className="infobox clearfix"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    <div
+                      className="header clearfix"
+                      style={{
+                        fontFamily: "gotham-light",
+                        display: "flex",
+                        justifyContent: "center",
+                        fontWeight: "600"
+                      }}
+                    >
+                      <h4
+                        style={{
+                          color: "white",
+                          fontWeight: "600",
+                          textTransform: "uppercase"
+                        }}
+                      >
+                        {this.state.selectedPlace.type}
+                      </h4>
+                    </div>
+                    <div className="body clearfix ">
+                      <div className="row">
+                        <div className="image">
+                          {this.state.selectedPlace.image !== null &&
+                          this.state.selectedPlace.image !== "NA" &&
+                          this.state.selectedPlace.image !== "0" ? (
+                            <img
+                              alt="famerimg"
+                              src={this.state.selectedPlace.image}
+                              // width="65%"
+                            />
+                          ) : (
+                            <img
+                              alt="placeholderfamerimg"
+                              className="palceholder"
+                              // style={{ margin: "2.5em 0 0em 1em" }}
+                              src={democenterimg}
+                              // width="60%"
+                            />
+                          )}
+                        </div>
+                        <h4 style={{ color: "#3663b3", marginBottom: "5px" }}>
+                          {this.state.selectedPlace.location}
+                        </h4>
+                        <span style={{ fontSize: "15px", fontWeight: "200" }}>
+                          ID:{this.state.selectedPlace.centreId}
+                        </span>
+                      </div>
+                      {this.state.selectedPlace.facilities !== undefined &&
+                        this.state.selectedPlace.facilities !== "NA" && (
+                          <div className="row">
+                            <div className="headerfacilities">
+                              <span>Facilities </span>{" "}
+                            </div>
+                            <ul id="myList">
+                              {this.state.selectedPlace.facilities
+                                .split(",")
+                                .map(item => {
+                                  if (item.includes("Irrigation")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "19%" }}
+                                          src={Irrigationicon}
+                                          alt="irrigation"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("Power")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "16%" }}
+                                          src={Powericon}
+                                          alt="Powericon"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("Oil")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "19%" }}
+                                          src={Oilicon}
+                                          alt="Oil"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("Flour")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "19%" }}
+                                          src={Flouricon}
+                                          alt="Flour"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("Cold")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "19%" }}
+                                          src={Coldicon}
+                                          alt="Flour"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("Ripening")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "19%" }}
+                                          src={Ripeningicon}
+                                          alt="Flour"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("Procurement")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "21%" }}
+                                          src={Procurementicon}
+                                          alt="procurement"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  }
+                                })}
+                            </ul>
+                          </div>
+                        )}
+                      {this.state.selectedPlace.processingGoods &&
+                        this.state.selectedPlace.processingGoods !== "NA" && (
+                          <div className="row">
+                            <div className="headerfacilities">
+                              <span>Processing Goods </span>{" "}
+                            </div>
+                            <ul id="myList">
+                              {this.state.selectedPlace.processingGoods
+                                .split(",")
+                                .map(item => {
+                                  if (item.includes("Spice")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "18%" }}
+                                          src={Spicesicon}
+                                          alt="Spice"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("Coriander")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "18%" }}
+                                          src={Corriandericon}
+                                          alt="Coriander"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("Mustard")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "18%" }}
+                                          src={Mustardicon}
+                                          alt="Mustard"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("Wheat")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "18%" }}
+                                          src={Wheaticon}
+                                          alt="Wheat"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  } else if (item.includes("anana")) {
+                                    return (
+                                      <li key={item}>
+                                        <img
+                                          style={{ width: "18%" }}
+                                          src={Bananasicon}
+                                          alt="Banana"
+                                        />
+                                        &nbsp;{item}
+                                      </li>
+                                    );
+                                  }
+                                })}
+                            </ul>
+                          </div>
+                        )}
+                    </div>
+                  </div>
+                )}
+              {this.state.selectedPlace !== undefined &&
+                this.state.selectedPlace.agroAssetType === "CUSTOMER" && (
+                  <div
+                    className="infobox clearfix"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    <div
+                      className="header clearfix"
+                      style={{
+                        fontFamily: "gotham-light",
+                        display: "flex",
+                        justifyContent: "center",
+                        fontWeight: "600"
+                      }}
+                    >
+                      <h4 style={{ color: "white", fontWeight: "600" }}>
+                        B2B CUSTOMER
+                      </h4>
+                    </div>
+                    <div className="body clearfix ">
+                      <div className="row" style={{ marginBottom: "1em" }}>
+                        <div className="image">
+                          {this.state.selectedPlace.customerImage !== null &&
+                          this.state.selectedPlace.customerImage !== "NA" &&
+                          this.state.selectedPlace.customerImage !== "0" ? (
+                            <img
+                              alt="famerimg"
+                              src={this.state.selectedPlace.customerImage}
+                              // width="65%"
+                            />
+                          ) : (
+                            <img
+                              alt="placeholderfamerimg"
+                              className="palceholder"
+                              // style={{ margin: "2.5em 0 0em 1em" }}
+                              src={democenterimg}
+                              // width="60%"
+                            />
+                          )}
+                        </div>
+                        <h4 style={{ color: "#3663b3", marginBottom: "5px" }}>
+                          {this.state.selectedPlace.name}
+                        </h4>
+                        <span style={{ fontSize: "15px", fontWeight: "200" }}>
+                          {this.state.selectedPlace.location}
+                        </span>
+                      </div>
+                      <div className="customer row">
+                        {this.state.selectedPlace.rawId !== undefined && (
+                          <div className="row">
+                            <ul id="myList">
+                              <li>
+                                <b>ID:</b>
+                                {this.state.selectedPlace.customerId}
+                              </li>
+                            </ul>
+                          </div>
+                        )}
+                        {this.state.selectedPlace.rawId !== undefined && (
+                          <div className="row">
+                            <ul id="myList">
+                              <li>
+                                <b>Type:</b>
+                                {this.state.selectedPlace.typeOfCustomer}
+                              </li>
+                            </ul>
+                          </div>
+                        )}
+                        {this.state.selectedPlace.rawId !== undefined && (
+                          <div className="row">
+                            <ul id="myList">
+                              <li>
+                                <b>Deals In:</b> Bananas
+                              </li>
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+            </div>
+          </InfoWindow>
+        </Map>
+      </div>
     );
   }
 }

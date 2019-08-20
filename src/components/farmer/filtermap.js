@@ -16,7 +16,6 @@ class Filter extends Component {
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.handlefilterReset = this.handlefilterReset.bind(this);
     this.handlefilterApply = this.handlefilterApply.bind(this);
-    this.handlestatefilter = this.handlestatefilter.bind(this);
   }
   handleFilterChange(e) {
     this.props.onChangeFilter(e.target.value);
@@ -30,10 +29,7 @@ class Filter extends Component {
     this.props.onFilterApply();
     this.setState({ classdisabledapply: true, classdisabledreset: false });
   }
-  handlestatefilter(filteredstates) {
-    this.props.onChangeStates(filteredstates);
-    this.setState({ classdisabledapply: false, classdisabledreset: false });
-  }
+ 
   componentDidMount() {
     function myFunction(x) {
       if (x.matches) {
@@ -88,13 +84,13 @@ class Filter extends Component {
             </div>
             <div id="navbar2" className="navbar-collapse collapse">
               <ul className="nav navbar-nav">
-                <li style={{ width: "125px" }} className="filterItem">
+                <li style={{ width: "150px" }} className="filterItem">
                   <input
                     style={{ margin: "18px 11px 0px 0px" }}
                     type="checkbox"
-                    name="MANDI"
-                    value="MANDI"
-                    checked={this.props.filter.MANDI}
+                    name="SolarIrrigationPump"
+                    value="SolarIrrigationPump"
+                    checked={this.props.filter.SolarIrrigationPump}
                     onChange={this.handleFilterChange}
                   />
                   <img
@@ -103,7 +99,7 @@ class Filter extends Component {
                     alt="logo"
                     className="filterImg responsive"
                   />
-                  <span className="filterText">Mandi</span>
+                  <span className="filterText">Irrigation Pump</span>
                 </li>
                 <li>
                   <a>
@@ -114,9 +110,9 @@ class Filter extends Component {
                 <li style={{ width: "136px" }} className="filterItem">
                   <input
                     type="checkbox"
-                    name="MARKET"
-                    value="MARKET"
-                    checked={this.props.filter.MARKET}
+                    name="SolarDrinkingWaterPump"
+                    value="SolarDrinkingWaterPump"
+                    checked={this.props.filter.SolarDrinkingWaterPump}
                     onChange={this.handleFilterChange}
                   />
                   <img
@@ -129,7 +125,7 @@ class Filter extends Component {
                     alt="logo"
                     className="filterImg responsive"
                   />
-                  <span className="filterText">Market</span>
+                  <span className="filterText">Water Pump</span>
                 </li>
 
                 <li>
@@ -137,12 +133,12 @@ class Filter extends Component {
                     <span className="verticalLine" />
                   </a>
                 </li>
-                <li style={{ width: "136px" }} className="filterItem">
+                <li style={{ width: "155px" }} className="filterItem">
                   <input
                     type="checkbox"
-                    name="OFFICE"
-                    value="OFFICE"
-                    checked={this.props.filter.OFFICE}
+                    name="SolarIrrigationService"
+                    value="SolarIrrigationService"
+                    checked={this.props.filter.SolarIrrigationService}
                     onChange={this.handleFilterChange}
                   />
                   <img
@@ -155,7 +151,7 @@ class Filter extends Component {
                     alt="logo"
                     className="filterImg responsive"
                   />
-                  <span className="filterText">Office</span>
+                  <span className="filterText">Irrigation Service</span>
                 </li>
 
                 <li>
@@ -166,9 +162,9 @@ class Filter extends Component {
                 <li style={{ width: "156px" }} className="filterItem">
                   <input
                     type="checkbox"
-                    name="PROCESSING_CENTRES"
-                    value="PROCESSING_CENTRES"
-                    checked={this.props.filter.PROCESSING_CENTRES}
+                    name="SolarMiniGrid"
+                    value="SolarMiniGrid"
+                    checked={this.props.filter.SolarMiniGrid}
                     onChange={this.handleFilterChange}
                   />
                   <img
@@ -181,90 +177,10 @@ class Filter extends Component {
                     alt="logo"
                     className="filterImg responsive"
                   />
-                  <span className="filterText">Agro center</span>
+                  <span className="filterText">Minigrid</span>
                 </li>
-                <li>
-                  <a>
-                    <span className="verticalLine" />
-                  </a>
-                </li>
-                <li style={{ width: "156px" }} className="filterItem">
-                  <input
-                    type="checkbox"
-                    name="CUSTOMER"
-                    value="CUSTOMER"
-                    checked={this.props.filter.CUSTOMER}
-                    onChange={this.handleFilterChange}
-                  />
-                  <img
-                    style={{
-                      width: "12%",
-                      marginLeft: "7px",
-                      filter: "opacity(0.8)"
-                    }}
-                    src={CUSTOMER}
-                    alt="logo"
-                    className="filterImg responsive"
-                  />
-                  <span className="filterText">Customer</span>
-                </li>
-
-                <li>
-                  <a>
-                    <span className="verticalLine" />
-                  </a>
-                </li>
-                <li
-                  style={{ width: "110px" }}
-                  className="filterItem statefilter"
-                >
-                  <div className="dropdown">
-                    <button
-                      style={{
-                        width: "-webkit-fill-available",
-                        borderRadius: "0",
-                        backgroundColor: "transparent"
-                      }}
-                      className="btn btn-default dropdown-toggle"
-                      type="button"
-                      id="dropdownMenu1"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="true"
-                    >
-                      {this.props.selectedstate === "" ? (
-                        <span>All states</span>
-                      ) : (
-                        this.props.selectedstate
-                      )}
-                      <span className="caret" />
-                    </button>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenu1"
-                    >
-                      {this.props.states.map(item => {
-                        if (item !== null) {
-                          return (
-                            <li
-                              onClick={this.handlestatefilter.bind(this, item)}
-                              key={
-                                item.slice(0, 1) + item.slice(1).toLowerCase()
-                              }
-                            >
-                              <a>
-                                {item.slice(0, 1) + item.slice(1).toLowerCase()}
-                              </a>
-                            </li>
-                          );
-                        } else {
-                          return null;
-                        }
-                      })}
-                    </ul>
-                  </div>
-                </li>
-              </ul>
+               
+                </ul>
               <div className="filterbutton">
                 {this.state.classdisabledreset === true ? (
                   <button

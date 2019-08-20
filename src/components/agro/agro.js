@@ -20,7 +20,8 @@ class Main extends Component {
         MANDI: true,
         MARKET:true,
         OFFICE:true,
-        PROCESSING_CENTRES:true
+        PROCESSING_CENTRES:true,
+        CUSTOMER:true
       }
     };
     this.handleFilterChange = this.handleFilterChange.bind(this);
@@ -33,7 +34,8 @@ class Main extends Component {
         MANDI: true,
         MARKET:true,
         OFFICE:true,
-        PROCESSING_CENTRES:true
+        PROCESSING_CENTRES:true,
+        CUSTOMER:true
     };
     this.setState(prevState => ({
       ...prevState,
