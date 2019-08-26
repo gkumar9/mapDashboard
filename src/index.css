@@ -20,7 +20,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
-
+.container .rmssidebar .btn-default:hover{
+  border-color: transparent;
+}
+.gauravwww .btn-default:hover{
+  border-color: transparent;
+}
 g[class^="raphael-group-"][class$="-creditgroup"] {
   display: none !important;
 }
@@ -32,6 +37,11 @@ a {
 }
 .graycolortable {
   background: #f9f9f9;
+}
+.iaasoverall{
+  background: #f2f2f2;
+    padding: .1em;
+    border-radius: .5em;
 }
 .table-hover > tbody > tr:hover {
   background-color: #ffffff;
@@ -820,6 +830,7 @@ input[type="radio"] {
   flex-direction: column;
   text-align:center;
   padding:2em;
+  font-family: gotham-light !important;
 }
 .gauravwwwagro .infobox .image{
   width: auto;
@@ -829,53 +840,47 @@ input[type="radio"] {
 }
 .gauravwwwagro .infobox .image img{
   border-radius: 50%;
-  border: 2px #b12d28 solid;
+  /* border: 2px #b12d28 solid; */
   /* margin: 1em; */
+  height: 17vh;
   width: 50%;
+}
+.gauravwwwagro .infobox  .image .customerimgg{
+  border: 2px #b12d28 solid ;
 }
 .gauravwwwagro .headerfacilities{
   color:#b12d28;
   font-size: 18px;
   font-weight: 600;
   padding: 0.3em;
-  margin:1em;
+  margin:1em 2.3em;
   border-top: 1px #325ca6 solid;
   border-bottom: 1px #325ca6 solid;
 }
 .gauravwwwagro .infobox ul {
-  /* width: 600px; */
-  padding-inline-start: 0px;
-  column-count:2;
-  margin: 0.8em;
-  text-align: left;
-  list-style: none;
+    padding-inline-start: 10px;
+    text-align: left;
+    columns: 2;
 }
 .gauravwwwagro .infobox li {
-width: 100%;
-/* height: 75px; */
-/* margin-top: 10px;
-margin-right: 10px; */
-display: inline-block;
-margin:0.5em 0;
-font-weight: 500;
-font-size: 14px;
+padding: 0.7em 0;
+font-size: 15px;
 
 }
 .gauravwwwagro .infobox .customer{
-  margin: 1em;
+  margin: 0 0.5em;
+  font-family: gotham-light;
+  font-size: 15px;
+  text-align: left;
+  border-top: 1px #325ca6 solid;
+  /* padding:0 1em; */
+}
+.gauravwwwagro .infobox .customer .row{
+  margin: 1em 0;
+  
   /* border-top: 1px #325ca6 solid; */
-  padding:0 1em;
+  /* padding:0 1em; */
 }
-.gauravwwwagro .infobox .customer ul{
-margin: 0.2em;
-font-size: initial;
-font-family: gotham-light;
-
-    column-count: auto !important;
-}
-.gauravwwwagro .infobox .customer ul li{
-  font-weight: normal;
-  }
 .gm-style .gm-style-iw-t::after {
   background-color: #ffffff;
 }
@@ -976,6 +981,28 @@ font-family: gotham-light;
   margin-bottom: -3.2em;
 }
 @media (max-width: 770px) {
+  .gauravwwwagro .gm-style .gm-style-iw-c{
+    width: 250px !important;
+  }
+  .gauravwwwagro .infobox .header h4{
+    font-size: 16px;
+  }
+  .gauravwwwagro .infobox .body{
+    width:auto;
+    padding: 1.1em !important;
+  }
+  /* .gauravwwwagro .infobox .image img{
+    height: 19vh;
+  } */
+  .gauravwwwagro .headerfacilities{
+    font-size: 15px;
+  }
+  .gauravwwwagro .infobox ul{
+    padding-inline-start:15px;
+  }
+  .gauravwwwagro .infobox li{
+font-size: 13px;
+  }
   .breakline {
     display: block;
   }
@@ -1035,6 +1062,7 @@ font-family: gotham-light;
   margin-left: 0; 
   border: 1px solid #ddd;
   border-bottom:0;
+  border-left-color: transparent;
 }
 .farmerinfobody{
   margin-left: 0; 
@@ -1051,7 +1079,7 @@ font-family: gotham-light;
   margin-top: 0.3em;
 }
 .farmerlists{
-  max-height: 72vh;
+  max-height: 75vh;
   overflow: scroll;
 }
 label {

@@ -8,7 +8,7 @@ import CUSTOMER from "../../pins/pin5.png";
 import axios from "axios";
 import config from "../../config.js";
 import Swal from "sweetalert2";
-import democenterimg from "../../pins/ComingSoon.png";
+import democenterimg from "../../pins/Coming Soon.png";
 import Irrigationicon from "../../pins/Irrigation.png";
 import Powericon from "../../pins/Power Supply.png";
 import Oilicon from "../../pins/Oil Expeller.png";
@@ -294,14 +294,15 @@ class MapContainer extends Component {
                       </h4>
                     </div>
                     <div className="body clearfix ">
-                      <div className="row">
+                      <div className="row" style={{padding: '0.2em'}}>
                         <div className="image">
                           {this.state.selectedPlace.image &&
                           this.state.selectedPlace.image !== "NA" &&
                           this.state.selectedPlace.image !== "0" ? (
                             <img
                               alt="famerimg"
-                              src={this.state.selectedPlace.farmerImage}
+                              className="customerimgg"
+                              src={this.state.selectedPlace.image}
                               // width="65%"
                             />
                           ) : (
@@ -318,7 +319,8 @@ class MapContainer extends Component {
                           style={{
                             color: "#3663b3",
                             marginBottom: "5px",
-                            textAlign: "center"
+                            textAlign: "center",
+                            fontWeight: '600'
                           }}
                         >
                           {this.state.selectedPlace.name}
@@ -384,14 +386,15 @@ class MapContainer extends Component {
                       className="body clearfix "
                       // style={{ textAlign: "left" }}
                     >
-                      <div className="row">
+                      <div className="row" style={{padding: '0.2em'}}>
                         <div className="image">
                           {this.state.selectedPlace.image &&
                           this.state.selectedPlace.image !== "NA" &&
                           this.state.selectedPlace.image !== "0" ? (
                             <img
                               alt="famerimg"
-                              src={this.state.selectedPlace.farmerImage}
+                              className="customerimgg"
+                              src={this.state.selectedPlace.image}
                               // width="65%"
                             />
                           ) : (
@@ -408,7 +411,8 @@ class MapContainer extends Component {
                           style={{
                             color: "#3663b3",
                             marginBottom: "5px",
-                            textAlign: "center"
+							textAlign: "center",
+							fontWeight: '600'
                           }}
                         >
                           {this.state.selectedPlace.location}
@@ -454,14 +458,15 @@ class MapContainer extends Component {
                       className="body clearfix "
                       // style={{ textAlign: "left" }}
                     >
-                      <div className="row">
+                      <div className="row" style={{padding: '0.2em'}}>
                         <div className="image">
                           {this.state.selectedPlace.image &&
                           this.state.selectedPlace.image !== "NA" &&
                           this.state.selectedPlace.image !== "0" ? (
                             <img
                               alt="famerimg"
-                              src={this.state.selectedPlace.farmerImage}
+                              className="customerimgg"
+                              src={this.state.selectedPlace.image}
                               // width="65%"
                             />
                           ) : (
@@ -478,13 +483,14 @@ class MapContainer extends Component {
                           style={{
                             color: "#3663b3",
                             marginBottom: "5px",
-                            textAlign: "center"
+							textAlign: "center",
+							fontWeight: '600'
                           }}
                         >
                           {/* {this.state.selectedPlace.type} */}
                           {this.state.selectedPlace.location}
                         </h4>
-                        <p style={{ fontSize: "13px", fontWeight: "200" }}>
+                        <p style={{ fontSize: "15px", fontWeight: "200" }}>
                           {this.state.selectedPlace.type}
                           <br />
                         </p>
@@ -535,6 +541,7 @@ class MapContainer extends Component {
                           this.state.selectedPlace.image !== "0" ? (
                             <img
                               alt="famerimg"
+                              className="customerimgg"
                               src={this.state.selectedPlace.image}
                               // width="65%"
                             />
@@ -548,7 +555,7 @@ class MapContainer extends Component {
                             />
                           )}
                         </div>
-                        <h4 style={{ color: "#3663b3", marginBottom: "5px" }}>
+                        <h4 style={{ color: "#3663b3", marginBottom: "5px",fontWeight: '600' }}>
                           {this.state.selectedPlace.location}
                         </h4>
                         <span style={{ fontSize: "15px", fontWeight: "200" }}>
@@ -565,11 +572,12 @@ class MapContainer extends Component {
                               {this.state.selectedPlace.facilities
                                 .split(",")
                                 .map(item => {
+                                  item = item.trim();
                                   if (item.includes("Irrigation")) {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "19%" }}
+                                          style={{ width: "16%" }}
                                           src={Irrigationicon}
                                           alt="irrigation"
                                         />
@@ -591,7 +599,7 @@ class MapContainer extends Component {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "19%" }}
+                                          style={{ width: "16%" }}
                                           src={Oilicon}
                                           alt="Oil"
                                         />
@@ -602,19 +610,8 @@ class MapContainer extends Component {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "19%" }}
+                                          style={{ width: "16%" }}
                                           src={Flouricon}
-                                          alt="Flour"
-                                        />
-                                        &nbsp;{item}
-                                      </li>
-                                    );
-                                  } else if (item.includes("Cold")) {
-                                    return (
-                                      <li key={item}>
-                                        <img
-                                          style={{ width: "19%" }}
-                                          src={Coldicon}
                                           alt="Flour"
                                         />
                                         &nbsp;{item}
@@ -624,18 +621,21 @@ class MapContainer extends Component {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "19%" }}
+                                          style={{ width: "14%" }}
                                           src={Ripeningicon}
-                                          alt="Flour"
+                                          alt="Ripeningicon"
                                         />
-                                        &nbsp;{item}
+                                        &nbsp;
+                                        <span style={{ fontSize: "11px" }}>
+                                          {item}
+                                        </span>
                                       </li>
                                     );
                                   } else if (item.includes("Procurement")) {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "21%" }}
+                                          style={{ width: "16%" }}
                                           src={Procurementicon}
                                           alt="procurement"
                                         />
@@ -657,11 +657,12 @@ class MapContainer extends Component {
                               {this.state.selectedPlace.processingGoods
                                 .split(",")
                                 .map(item => {
+                                  item = item.trim();
                                   if (item.includes("Spice")) {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "18%" }}
+                                          style={{ width: "16%" }}
                                           src={Spicesicon}
                                           alt="Spice"
                                         />
@@ -672,7 +673,7 @@ class MapContainer extends Component {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "18%" }}
+                                          style={{ width: "16%" }}
                                           src={Corriandericon}
                                           alt="Coriander"
                                         />
@@ -683,7 +684,7 @@ class MapContainer extends Component {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "18%" }}
+                                          style={{ width: "16%" }}
                                           src={Mustardicon}
                                           alt="Mustard"
                                         />
@@ -694,7 +695,7 @@ class MapContainer extends Component {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "18%" }}
+                                          style={{ width: "16%" }}
                                           src={Wheaticon}
                                           alt="Wheat"
                                         />
@@ -705,7 +706,7 @@ class MapContainer extends Component {
                                     return (
                                       <li key={item}>
                                         <img
-                                          style={{ width: "18%" }}
+                                          style={{ width: "16%" }}
                                           src={Bananasicon}
                                           alt="Banana"
                                         />
@@ -740,7 +741,7 @@ class MapContainer extends Component {
                       </h4>
                     </div>
                     <div className="body clearfix ">
-                      <div className="row" style={{ marginBottom: "1em" }}>
+                      <div className="row" style={{ padding:'0.2',marginBottom: "1.5em" }}>
                         <div className="image">
                           {this.state.selectedPlace.customerImage !== null &&
                           this.state.selectedPlace.customerImage !== "NA" &&
@@ -749,6 +750,7 @@ class MapContainer extends Component {
                               alt="famerimg"
                               src={this.state.selectedPlace.customerImage}
                               // width="65%"
+                              className="customerimgg"
                             />
                           ) : (
                             <img
@@ -760,7 +762,7 @@ class MapContainer extends Component {
                             />
                           )}
                         </div>
-                        <h4 style={{ color: "#3663b3", marginBottom: "5px" }}>
+                        <h4 style={{ color: "#3663b3", marginBottom: "5px",fontWeight: '600' }}>
                           {this.state.selectedPlace.name}
                         </h4>
                         <span style={{ fontSize: "15px", fontWeight: "200" }}>
@@ -770,31 +772,19 @@ class MapContainer extends Component {
                       <div className="customer row">
                         {this.state.selectedPlace.rawId !== undefined && (
                           <div className="row">
-                            <ul id="myList">
-                              <li>
-                                <b>ID:</b>
-                                {this.state.selectedPlace.customerId}
-                              </li>
-                            </ul>
+                            <b>ID:</b>
+                            {this.state.selectedPlace.customerId}
                           </div>
                         )}
                         {this.state.selectedPlace.rawId !== undefined && (
                           <div className="row">
-                            <ul id="myList">
-                              <li>
-                                <b>Type:</b>
-                                {this.state.selectedPlace.typeOfCustomer}
-                              </li>
-                            </ul>
+                            <b>Type:</b>
+                            {this.state.selectedPlace.typeOfCustomer}
                           </div>
                         )}
                         {this.state.selectedPlace.rawId !== undefined && (
                           <div className="row">
-                            <ul id="myList">
-                              <li>
-                                <b>Deals In:</b> Bananas
-                              </li>
-                            </ul>
+                            <b>Deals In:</b> Bananas
                           </div>
                         )}
                       </div>

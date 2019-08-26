@@ -89,7 +89,7 @@ class iaas extends Component {
     if (window.screen.width > 480) {
       return (
         <div>
-          <Header />
+          <Header  kc={this.props.kc}/>
           <div className="mainbody">
             <Sidebar kc={this.props.kc} history={this.props.history} />
             <div className="main">

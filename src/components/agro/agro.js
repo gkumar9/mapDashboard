@@ -7,7 +7,6 @@ import axios from "axios";
 import config from "../../config.js";
 import Swal from "sweetalert2";
 
-
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -18,10 +17,10 @@ class Main extends Component {
       filteredpins: [],
       filter: {
         MANDI: true,
-        MARKET:true,
-        OFFICE:true,
-        PROCESSING_CENTRES:true,
-        CUSTOMER:true
+        MARKET: true,
+        OFFICE: true,
+        PROCESSING_CENTRES: true,
+        CUSTOMER: true
       }
     };
     this.handleFilterChange = this.handleFilterChange.bind(this);
@@ -31,22 +30,22 @@ class Main extends Component {
   }
   handleReset() {
     let newfilter = {
-        MANDI: true,
-        MARKET:true,
-        OFFICE:true,
-        PROCESSING_CENTRES:true,
-        CUSTOMER:true
+      MANDI: true,
+      MARKET: true,
+      OFFICE: true,
+      PROCESSING_CENTRES: true,
+      CUSTOMER: true
     };
     this.setState(prevState => ({
       ...prevState,
       filter: newfilter,
       filteredstate: "",
-      filteredpins: prevState.agroallpins,
+      filteredpins: prevState.agroallpins
     }));
   }
   handleApply() {
     let filterpins = [];
-    console.log(this.state.agroallpins)
+
     this.state.agroallpins.map((item, key) => {
       if (this.state.filteredstate === "") {
         if (this.state.filter[item.agroAssetType]) {
@@ -60,12 +59,11 @@ class Main extends Component {
         }
       }
     });
-    console.log(filterpins)
+
     this.setState(prevState => ({
-          ...prevState,
-          filteredpins: filterpins,
-          
-        }));
+      ...prevState,
+      filteredpins: filterpins
+    }));
   }
   handleFilterChange(filtervalue) {
     this.setState(prevState => ({
@@ -85,7 +83,6 @@ class Main extends Component {
   }
 
   async componentDidMount() {
-    
     if (
       this.state.agroallpins.length === 0 &&
       this.state.states.length === 0 &&
@@ -134,7 +131,7 @@ class Main extends Component {
         })
         .catch(e => {
           // console.log( Error(e))
-          if (e.response!==undefined&&e.response.status===401) {
+          if (e.response !== undefined && e.response.status === 401) {
             Swal({
               type: "error",
               title: "Unauthorized",
@@ -143,7 +140,7 @@ class Main extends Component {
             this.props.history.push({
               pathname: "/"
             });
-          } else if (e.response!==undefined&&e.response.status===403) {
+          } else if (e.response !== undefined && e.response.status === 403) {
             Swal({
               type: "error",
               title: "Forbidden"
@@ -162,7 +159,7 @@ class Main extends Component {
   render() {
     return (
       <div className="gauravwwwagro ">
-        <Header />
+        <Header  kc={this.props.kc}/>
         <div className="mainbody">
           <Sidebar kc={this.props.kc} history={this.props.history} />
           <div className="main">

@@ -39,7 +39,13 @@ class RmsHeader extends Component {
                 Home{" "}
               </button>
             </Link> */}
-            <span style={{ fontFamily:'gotham-medium',fontSize: "large", color: "#b12d28" }}>
+            <span
+              style={{
+                fontFamily: "gotham-medium",
+                fontSize: "large",
+                color: "#b12d28"
+              }}
+            >
               Remote Monitoring System{" "}
             </span>
           </div>
@@ -52,64 +58,134 @@ class RmsHeader extends Component {
 class Rmsdatatable extends Component {
   componentDidUpdate() {
     let self = this;
-    var otable = $("#table_id").DataTable({
-      data: this.props.data,
-      scrollY: 440,
-      destroy: true,
-      order: [[5, "desc"]],
-      paging: true,
-      pageLength: 100,
-      scrollX: true,
-      ordering: true,
-      responsive: true,
-      columns: [
-        {
-          data: "deviceId",
-          render: function(data, type, row) {
-            return "<a style='color:blue'>" + data + "</a>";
+    if (this.props.data.length !== 0) {
+      let check = true;
+      if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
+        this.props.kc.realmAccess.roles.map(item => {
+          if (item === "user" || item === "iaas") {
+            check = false;
           }
-        },
-        { data: "customerId" },
-        { data: "customerName" },
-
-        { data: "district" },
-        { data: "state" },
-        { data: "lastActive" },
-        {
-          data: "assetType",
-          render: function(data, type, row) {
-            return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
-          }
-        }
-      ]
-    });
-    $("#table_id").delegate("tr td:first-child", "click", function() {
-      let rmssubdata = otable.row($(this).parents("tr")).data();
-      if (rmssubdata && rmssubdata.deviceId !== "0") {
-        self.props.history.push({
-          pathname: "/rms/" + rmssubdata.deviceId,
-          state: { detail: rmssubdata }
         });
       }
-    });
-    $("#table_id").delegate("tr td:last-child", "click", function() {
-      let rmssubdata = otable.row($(this).parents("tr")).data();
-      // if(rmssubdata.assetType!=='rooftop'){
-        self.props.history.push({
-          pathname: "/rmsedit",
-          state: { detail: rmssubdata }
+      if (check) {
+        var otable = $("#table_id").DataTable({
+          data: this.props.data,
+          scrollY: 440,
+          destroy: true,
+          order: [[5, "desc"]],
+          paging: true,
+          pageLength: 100,
+          scrollX: true,
+          ordering: true,
+          responsive: true,
+          columns: [
+            {
+              data: "deviceId",
+              render: function(data, type, row) {
+                return "<a style='color:blue'>" + data + "</a>";
+              }
+            },
+            { data: "customerId" },
+            { data: "customerName" },
+
+            { data: "district" },
+            { data: "state" },
+            { data: "lastActive" },
+            {
+              data: "assetType",
+              render: function(data, type, row) {
+                return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
+              }
+            }
+          ]
         });
-      // }
-      
-    });
+        $("#table_id").delegate("tr td:first-child", "click", function() {
+          let rmssubdata = otable.row($(this).parents("tr")).data();
+          if (rmssubdata && rmssubdata.deviceId !== "0") {
+            self.props.history.push({
+              pathname: "/rms/" + rmssubdata.deviceId,
+              state: { detail: rmssubdata }
+            });
+          }
+        });
+        $("#table_id").delegate("tr td:last-child", "click", function() {
+          let rmssubdata = otable.row($(this).parents("tr")).data();
+          // if(rmssubdata.assetType!=='rooftop'){
+          self.props.history.push({
+            pathname: "/rmsedit",
+            state: { detail: rmssubdata }
+          });
+          // }
+        });
+      } else {
+        var otable = $("#table_id").DataTable({
+          data: this.props.data,
+          scrollY: 440,
+          destroy: true,
+          order: [[5, "desc"]],
+          paging: true,
+          pageLength: 100,
+          scrollX: true,
+          ordering: true,
+          responsive: true,
+          columns: [
+            {
+              data: "deviceId",
+              render: function(data, type, row) {
+                return "<a style='color:blue'>" + data + "</a>";
+              }
+            },
+            { data: "customerId" },
+            { data: "customerName" },
+
+            { data: "district" },
+            { data: "state" },
+            { data: "lastActive" }
+            // {
+            //   data: "assetType",
+            //   render: function(data, type, row) {
+            //     return '<i style="cursor:pointer" title="edit this cell" class="fa fa-pencil-square-o"></i>';
+            //   }
+            // }
+          ]
+        });
+        $("#table_id").delegate("tr td:first-child", "click", function() {
+          let rmssubdata = otable.row($(this).parents("tr")).data();
+          if (rmssubdata && rmssubdata.deviceId !== "0") {
+            self.props.history.push({
+              pathname: "/rms/" + rmssubdata.deviceId,
+              state: { detail: rmssubdata }
+            });
+          }
+        });
+        // $("#table_id").delegate("tr td:last-child", "click", function() {
+        //   let rmssubdata = otable.row($(this).parents("tr")).data();
+        //   // if(rmssubdata.assetType!=='rooftop'){
+        //     self.props.history.push({
+        //       pathname: "/rmsedit",
+        //       state: { detail: rmssubdata }
+        //     });
+        //   // }
+
+        // });
+      }
+    }
   }
   render() {
+    let check = true;
+      if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
+        this.props.kc.realmAccess.roles.map(item => {
+          if (item === "user" || item === "iaas") {
+            check = false;
+          }
+        });
+      }
     return (
       <div style={{ padding: "10px" }} className="col-xs-10 table-responsive">
         <table
           id="table_id"
           className="table table-striped table-hover"
-          style={{ width: "100%",padding:'0.5em' }}
+          style={{ width: "100%", padding: "0.5em" }}
         >
           {/* <table id="example" className="display" width="100%" ref={el=>this.el=el}> */}
           <thead>
@@ -120,7 +196,7 @@ class Rmsdatatable extends Component {
               <th>District</th>
               <th>State</th>
               <th>Last Active</th>
-              <th>Edit</th>
+              {check && (<th>Edit</th>)}
             </tr>
           </thead>
         </table>
@@ -171,7 +247,7 @@ class Rms extends Component {
         }
       })
       .catch(e => {
-        if (e.response!==undefined&&e.response.status===401) {
+        if (e.response !== undefined && e.response.status === 401) {
           Swal({
             type: "error",
             title: "Unauthorized",
@@ -180,7 +256,7 @@ class Rms extends Component {
           this.props.history.push({
             pathname: "/"
           });
-        } else if (e.response!==undefined&&e.response.status===403) {
+        } else if (e.response !== undefined && e.response.status === 403) {
           Swal({
             type: "error",
             title: "Forbidden"
@@ -239,7 +315,7 @@ class Rms extends Component {
       })
 
       .catch(e => {
-        if (e.response!==undefined&&e.response.status===401) {
+        if (e.response !== undefined && e.response.status === 401) {
           Swal({
             type: "error",
             title: "Unauthorized",
@@ -248,7 +324,7 @@ class Rms extends Component {
           this.props.history.push({
             pathname: "/"
           });
-        } else if (e.response!==undefined&&e.response.status===403) {
+        } else if (e.response !== undefined && e.response.status === 403) {
           Swal({
             type: "error",
             title: "Forbidden"
@@ -277,7 +353,7 @@ class Rms extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header kc={this.props.kc} />
         <div className="mainbody">
           <Sidebar kc={this.props.kc} history={this.props.history} />
           <div style={{ backgroundColor: "#F2F2F2" }} className="main">
@@ -292,6 +368,7 @@ class Rms extends Component {
                 <Rmsdatatable
                   data={this.state.list}
                   history={this.props.history}
+                  kc={this.props.kc}
                 />
               </div>
             </div>

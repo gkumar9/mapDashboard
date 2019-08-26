@@ -3,6 +3,14 @@ import farmerimg from "../../pins/user.png";
 
 class Farmereditshow extends Component {
   render() {
+    let check = true;
+      if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
+        this.props.kc.realmAccess.roles.map(item => {
+          if (item === "user" ) {
+            check = false;
+          }
+        });
+      }
     return (
       <div id="showsidetab" style={{ display: "none" }}>
         <div className="container">
@@ -43,28 +51,29 @@ class Farmereditshow extends Component {
                   </div>
                 </div>
                 <div className="col-sm-4">
-                  {/* <div className="col-xs-6" /> */}
-                  <div className="col-xs-12">
-                    <button
-                      onClick={this.props.handleeditfarmer}
-                      type="button"
-                      className="btn btn-default "
-                      aria-label="Right Align"
-                      // id="drillUp"
-                      style={{
-                        // display: "none",
-                        width: "36%",
-                        borderRadius: "0px",
-                        borderColor: "darkgray",
-                        float: "right",
-                        outline: "none",
-                        color: "white",
-                        backgroundColor: "blue"
-                      }}
-                    >
-                      Edit
-                    </button>
-                  </div>
+                  {check && (
+                      <div className="col-xs-12">
+                        <button
+                          onClick={this.props.handleeditfarmer}
+                          type="button"
+                          className="btn btn-default "
+                          aria-label="Right Align"
+                          // id="drillUp"
+                          style={{
+                            // display: "none",
+                            width: "36%",
+                            borderRadius: "0px",
+                            borderColor: "darkgray",
+                            float: "right",
+                            outline: "none",
+                            color: "white",
+                            backgroundColor: "blue"
+                          }}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    )}
                 </div>
               </div>
               <div className="row">

@@ -9,10 +9,6 @@ import farmer from "./pins/user.png";
 import axios from "axios";
 import config from "./config.js";
 import Swal from "sweetalert2";
-import market from "./pins/Market Served.png";
-import Centre from "./pins/Processing center 1.png";
-
-import office from "./pins/Office.png";
 const mapStyles = {
   width: "100%",
   height: "89%",

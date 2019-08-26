@@ -5,7 +5,7 @@ import MANDI from "../../pins/pin1.png";
 import OFFICE from "../../pins/pin2.png";
 import MARKET from "../../pins/pin3.png";
 import PROCESSING_CENTRES from "../../pins/pin4.png";
-import CUSTOMER from '../../pins/pin5.png'
+// import CUSTOMER from '../../pins/pin5.png'
 // import MINIGRID from "./pins/strop4.png";
 // import agroassetsicon from "./pins/Filter Icon.png";
 const $ = require("jquery");

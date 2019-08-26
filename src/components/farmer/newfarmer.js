@@ -3,15 +3,10 @@ import Header from "../../Header.js";
 import Sidebar from "../../Sidebar.js";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Filter from "./filtermap.js";
 import imgmapcluster from "../../pins/iconmapcluster.png";
-// import imgmapcluster1 from "../../pins/iconmapclustercopy.png";
-// import imgmapcluster2 from "../../pins/iconmapclustercopy2.png";
-// import imgmapcluster3 from "../../pins/iconmapclustercopy3.png";
-// import imgmapcluster4 from "../../pins/iconmapclustercopy4.png";
 import user from "../../pins/user1copy.png";
 import Swal from "sweetalert2";
-
-
 import farmerimg from "../../pins/user.png";
 import {
   compose,
@@ -33,18 +28,12 @@ const {
 } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
 const checkPropsChange = (props, nextProps) => {
+  // console.log('check',nextProps.markers.length,props.markers.length)
   return nextProps.markers.length !== props.markers.length;
 };
 
 const MyMarkerClusterer = shouldUpdate(checkPropsChange)(props => {
-  const {
-    onMarkerClick,
-    additionalmarkerscollectioncenter,
-    additionalmarkersmarketserved,
-    additionalmarkersoffice,
-    markers,
-    ...clusterProps
-  } = props;
+  const { onMarkerClick, markers, ...clusterProps } = props;
   // console.log("props:",props);
   return (
     <MarkerClusterer {...clusterProps}>
@@ -75,7 +64,7 @@ const MapWithAMarkerClusterer = compose(
     }
   ),
   withStateHandlers(
-    { isOpen: false},
+    { isOpen: false },
     {
       onToggleOpen: ({ isOpen }) => () => ({
         isOpen: !isOpen
@@ -84,17 +73,19 @@ const MapWithAMarkerClusterer = compose(
   ),
   withHandlers({
     onMarkerClustererClick: () => markerClusterer => {
-      const clickedMarkers = markerClusterer.getMarkers();
+      
+      markerClusterer.getMarkers();
+      
     },
     onMarkerClick: props => markerss => {
       const { setInfoWindow, onToggleOpen } = props;
-      
+
       axios({
         url: config.farmerinfo,
         method: "POST",
         data: {
           id: markerss.id,
-          vertical:markerss.vertical
+          vertical: markerss.vertical
         },
         headers: {
           "Content-Type": "application/json"
@@ -110,56 +101,60 @@ const MapWithAMarkerClusterer = compose(
         .catch(e => {
           alert(e);
         });
-    },
+    }
   }),
   withScriptjs,
   withGoogleMap
 )(props => (
   <GoogleMap
     defaultZoom={5}
-    defaultCenter={{ lat: 22.845625996700075, lng: 78.9629 }}
+    defaultCenter={{ lat: 21.045625996700075, lng: 78.9629 }}
     options={{
       gestureHandling: "greedy",
-      // zoomControl:true,
-      // disableDefaultUI:true,
-      // mapTypeControlOptions:{position: 'TOP_CENTER'},
-      // zoomControlOptions: { position: 3, style: 4 },
       streetViewControl: false,
       fullscreenControl: false,
-      
+      zoomControl: true,
+      mapTypeControl:false,
       styles: [
         { elementType: "geometry.fill", stylers: [{ color: "#F2F2F2" }] },
-          {
-            featureType: "water",
-            elementType: "geometry",
-            // stylers: [{ color: "#E3E3E3" }]
-            stylers: [{ color: "#ACC8F2" }]
-          },
-          {
-            featureType: "transit.line",
-            elementType: "geometry",
-            stylers: [{ visibility: "off" }]
-          },
-          {
-            featureType: "road",
-            elementType: "labels",
-            stylers: [{ visibility: "off" }]
-          },
-          {
-            featureType: "road",
-            elementType: "geometry",
-            stylers: [{ visibility: "off" }]
-          },
+        {
+          featureType: "water",
+          elementType: "geometry",
+          // stylers: [{ color: "#E3E3E3" }]
+          stylers: [{ color: "#ACC8F2" }]
+        },
+        {
+          featureType: "transit.line",
+          elementType: "geometry",
+          stylers: [{ visibility: "off" }]
+        },
+        {
+          featureType: "road",
+          elementType: "labels",
+          stylers: [{ visibility: "off" }]
+        },
+        {
+          featureType: "road",
+          elementType: "geometry",
+          stylers: [{ visibility: "off" }]
+        }
       ]
     }}
   >
+    {/* {props.markers.map((marker, index) => (
+        <Marker
+          key={index}
+          icon={user}
+          onClick={props.onMarkerClick.bind(props, marker)}
+          position={{ lat: marker.latitude, lng: marker.longitude }}
+        />
+      ))} */}
     <MyMarkerClusterer
       onClick={props.onMarkerClustererClick}
       minimumClusterSize={2}
       averageCenter
       onMarkerClick={props.onMarkerClick}
       markers={props.markers}
-      
       styles={[
         {
           textColor: "white",
@@ -168,39 +163,11 @@ const MapWithAMarkerClusterer = compose(
           lineHeight: 3,
           width: 70
         }
-        // {
-        //   url: imgmapcluster1,
-        //   height: 68,
-        //   lineHeight: 3,
-        //   width: 70	,
-        //   textColor:"white",
-        // },
-        // {
-        //   url: imgmapcluster2,
-        //   height: 68,
-        //   lineHeight: 3,
-        //   width: 70	,
-        //   textColor:"white",
-        // },
-        // {
-        //   url: imgmapcluster3,
-        //   height: 68,
-        //   lineHeight: 3,
-        //   width: 70	,
-        //   textColor:"white",
-        // },
-        // {
-        //   url: imgmapcluster4,
-        //   height: 68,
-        //   lineHeight: 3,
-        //   width: 70	,
-        //   textColor:"white",
-        // }
       ]}
       enableRetinaIcons
       gridSize={80}
     />
-    
+
     {props.isOpen && props.InfoWindowobject !== null && (
       <div>
         <InfoWindow
@@ -226,7 +193,8 @@ const MapWithAMarkerClusterer = compose(
               <div className="body clearfix ">
                 <div className="image">
                   {props.InfoWindowobject.farmerImage !== null &&
-                  props.InfoWindowobject.farmerImage !== "NA" ? (
+                  props.InfoWindowobject.farmerImage !== "NA"&&
+                  props.InfoWindowobject.farmerImage !== "N.A" ? (
                     <img
                       className="famrerimggg"
                       alt="famerimg"
@@ -373,189 +341,81 @@ const MapWithAMarkerClusterer = compose(
         </InfoWindow>
       </div>
     )}
-    {/* {props.isOpenadditional && props.InfoWindowobjectadditional !== null && (
-      <div >
-        <InfoWindow
-          position={{
-            lat: props.InfoWindowobjectadditional.latitude,
-            lng: props.InfoWindowobjectadditional.longitude
-          }}
-          onCloseClick={props.onToggleOpenadditional}
-        >
-          {props.InfoWindowobjectadditional !== null && (
-            <div className="additional">
-            <div
-              className="infobox clearfix"
-              style={{ textTransform: "capitalize" }}
-            >
-              <div className="header clearfix" style={{fontFamily:'gotham-regular'}}>
-                <h3 style={{color:'#315ca6'}}>
-                  {props.InfoWindowobjectadditional.name}{" "}
-                  <br className="breakline" />
-                  <small>{props.InfoWindowobjectadditional.what}</small>
-                </h3>
-              </div>
-              <div className="body clearfix ">
-                  <div className="row" style={{marginLeft:'0',marginRight:'0',fontSize:'initial',fontFamily:'gotham-light',marginBottom:'1em'}}>
-                    <b>Type: </b> {props.InfoWindowobjectadditional.type}
-                  </div>
-                  <div className="row" style={{marginLeft:'0',marginRight:'0',fontSize:'initial',fontFamily:'gotham-light',marginBottom:'1em'}}>
-                    <b>Latitude: </b> {props.InfoWindowobjectadditional.latitude}
-                  </div>
-                  <div className="row" style={{marginLeft:'0',marginRight:'0',fontSize:'initial',fontFamily:'gotham-light'}}>
-                    <b>Longitude: </b> {props.InfoWindowobjectadditional.longitude}
-                  </div>
-              </div>
-            </div>
-            </div>
-          )}
-        </InfoWindow>
-      </div>
-    )} */}
   </GoogleMap>
 ));
 
 class DemoApp extends Component {
-  componentWillMount() {
-    this.setState({
+  constructor(props) {
+    super(props)
+    this.state={
       markers: [],
+      filteredpins:[],
       isOpen: false,
       InfoWindowobject: {},
-      additionalmarkerscollectioncenter: [],
-      additionalmarkersmarketserved: [],
-      additionalmarkersoffice: []
+      filter: {
+        SolarIrrigationPump: true,
+        SolarDrinkingWaterPump: true,
+        SolarIrrigationService: true,
+        SolarMiniGrid: true
+      }
+    }
+  }
+  handleReset = () => {
+    let newfilter = {
+      SolarIrrigationPump: true,
+      SolarDrinkingWaterPump: true,
+      SolarIrrigationService: true,
+      SolarMiniGrid: true
+    };
+    this.setState(prevState => ({
+      ...prevState,
+      filter: newfilter,
+      filteredpins: prevState.markers
+    }));
+  };
+  handleApply= ()=> {
+    let filterpins = [];
+    
+    
+     this.state.markers.map((item) => {
+      if(item.vertical==='Solar Irrigation Pump'){
+        if (this.state.filter.SolarIrrigationPump) {
+          filterpins.push(item);
+        }
+      }
+      else if(item.vertical==='Solar Drinking Water Pump'){
+        if (this.state.filter.SolarDrinkingWaterPump) {
+          filterpins.push(item);
+        }
+      }
+      else if(item.vertical==='Solar Irrigation Service'){
+        if (this.state.filter.SolarIrrigationService) {
+          filterpins.push(item);
+        }
+      }
+      else if(item.vertical==='Solar Mini Grid'){
+        if (this.state.filter.SolarMiniGrid) {
+          filterpins.push(item);
+        }
+      }
+      
     });
+
+    this.setState({filteredpins: filterpins});
+    
+  }
+  handleFilterChange=(filtervalue)=> {
+    
+    this.setState(prevState => ({
+      ...prevState,
+      filter: {
+        ...prevState.filter,
+        [filtervalue]: !prevState.filter[filtervalue]
+      }
+    }));
   }
 
   componentDidMount() {
-    let tempadditionalmarkerscollectioncenter = [
-      {
-        latitude: 27.45805556,
-        longitude: 80.58944444,
-        name: "Ucchauli",
-        type: "Mini-Grid",
-        what:'Collection / Processing Centres'
-      },
-      {
-        latitude: 27.45805556,
-        longitude: 80.58944444,
-        name: "Govindpur",
-        type: "Mini-Grid",
-        what:'Collection / Processing Centres'
-      },
-      {
-        latitude: 28.26083333,
-        longitude: 80.11444444,
-        name: "Bicchauli",
-        type: "Mini-Grid",
-        what:'Collection / Processing Centres'
-      },
-      {
-        latitude: 27.41305556,
-        longitude: 80.76027778,
-        name: "Ramgarh",
-        type: "Mini-Grid",
-        what:'Collection / Processing Centres'
-      },
-      {
-        latitude: 26.69333333,
-        longitude: 85.68611111,
-        name: "Takia",
-        type: "Mini-Grid",
-        what:'Collection / Processing Centres'
-      },
-      {
-        latitude: 20.615156,
-        longitude: 77.5035243,
-        name: "Kamragaon",
-        type: "Procurement",
-        what:'Collection / Processing Centres'
-      },
-      {
-        latitude: 28.875826,
-        longitude: 77.106487,
-        name: "Kundli	",
-        type: "Processing",
-        what:'Collection / Processing Centres'
-      },
-      {
-        latitude: 27.01222222,
-        longitude: 84.69888889,
-        name: "Ramchandrapur",
-        type: "Mini-Grid",
-        what:'Collection / Processing Centres'
-      }
-    ];
-    let tempadditionalmarkersmarketserved = [
-      {
-        latitude: 28.7140497,
-        longitude: 77.1661905,
-        name: "NCR",
-        type: "Present Market",
-        what:'Markets Served'
-      },
-      {
-        latitude: 26.8424945,
-        longitude: 80.8751914,
-        name: "Lucknow",
-        type: "Planned Market",
-        what:'Markets Served'
-      },
-      {
-        latitude: 26.4474128,
-        longitude: 80.198295,
-        name: "Kanpur",
-        type: "Planned Market",
-        what:'Markets Served'
-      },
-      {
-        latitude: 25.6081756,
-        longitude: 85.0730021,
-        name: "Patna",
-        type: "Planned Market",
-        what:'Markets Served'
-      },
-      {
-        latitude: 25.3209013,
-        longitude: 82.9210681,
-        name: "Varanasi",
-        type: "Planned Market",
-        what:'Markets Served'
-      }
-    ];
-    let tempadditionalmarkersoffice = [
-      {
-        latitude: 28.52356,
-        longitude: 77.194194,
-        type:'Corporate Office',
-        name: "Delhi",
-        what:'Office'
-      },
-      {
-        latitude: 25.6226064,
-        longitude: 85.1277454,
-        type:'Off-Site',
-        name: "Patna",
-        what:'Office'
-        
-      },
-      {
-        latitude: 26.8746814,
-        longitude: 80.9729577,
-        type:'Off-Site',
-        name: "Lucknow",
-        what:'Office'
-        
-      },
-      {
-        latitude: 23.167633,
-        longitude: 79.901402,
-        type:'Off-Site',
-        name: "Jabalpur",
-        what:'Office'
-      }
-    ];
-
     axios({
       url: config.farmercoordinates,
       method: "POST",
@@ -565,59 +425,62 @@ class DemoApp extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => {
-      this.setState({
-        markers: res.data.data.list,
-        additionalmarkerscollectioncenter: tempadditionalmarkerscollectioncenter,
-        additionalmarkersmarketserved: tempadditionalmarkersmarketserved,
-        additionalmarkersoffice: tempadditionalmarkersoffice
-      });
     })
-    .catch(e => {
-      if (e.response!==undefined&&e.response.status===401) {
-        Swal({
-          type: "error",
-          title: "Unauthorized",
-          text: "Please login again."
+      .then(res => {
+        
+        this.setState({
+          markers: res.data.data.list,
+          filteredpins:  res.data.data.list
         });
-        this.props.history.push({
-          pathname: "/"
-        });
-      } else if (e.response!==undefined&&e.response.status===403) {
-        Swal({
-          type: "error",
-          title: "Forbidden"
-        });
-        // this.props.history.push({
-        //   pathname: "/rms"
-        // });
-      } else {
-        // this.setState({ isloaderactive: false });
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
-        });
-        // this.props.history.push({
-        //   pathname: "/rms"
-        // });
-      }
-    });
+      })
+      .catch(e => {
+        if (e.response !== undefined && e.response.status === 401) {
+          Swal({
+            type: "error",
+            title: "Unauthorized",
+            text: "Please login again."
+          });
+          this.props.history.push({
+            pathname: "/"
+          });
+        } else if (e.response !== undefined && e.response.status === 403) {
+          Swal({
+            type: "error",
+            title: "Forbidden"
+          });
+          // this.props.history.push({
+          //   pathname: "/rms"
+          // });
+        } else {
+          // this.setState({ isloaderactive: false });
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
+          // this.props.history.push({
+          //   pathname: "/rms"
+          // });
+        }
+      });
   }
 
   render() {
-    // console.log("state", this.state);
+    // console.log("state", this.state.filteredpins.length);
     return (
-      <MapWithAMarkerClusterer
-        markers={this.state.markers}
-        additionalmarkerscollectioncenter={
-          this.state.additionalmarkerscollectioncenter
-        }
-        additionalmarkersmarketserved={this.state.additionalmarkersmarketserved}
-        additionalmarkersoffice={this.state.additionalmarkersoffice}
-        isOpen={this.state.isOpen}
-        InfoWindowobject={this.state.InfoWindowobject}
-      />
+      <div>
+        {/* <Filter
+          filter={this.state.filter}
+          onChangeFilter={this.handleFilterChange}
+          onFilterReset={this.handleReset}
+          onFilterApply={this.handleApply}
+        /> */}
+        <MapWithAMarkerClusterer
+          markers={this.state.filteredpins}
+          isOpen={this.state.isOpen}
+          InfoWindowobject={this.state.InfoWindowobject}
+        />
+      </div>
     );
   }
 }
@@ -649,10 +512,16 @@ class FarmerHeader extends Component {
                   backgroundColor: "blue"
                 }}
               >
-                Add/edit Farmer
+                View Farmers
               </button>
             </Link>
-            <span style={{ fontFamily:'gotham-medium',fontSize: "large", color: "#b12d28" }}>
+            <span
+              style={{
+                fontFamily: "gotham-medium",
+                fontSize: "large",
+                color: "#b12d28"
+              }}
+            >
               Farmer Database In India
             </span>
           </div>
@@ -663,20 +532,16 @@ class FarmerHeader extends Component {
 }
 
 class Farmer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+
 
   render() {
     return (
       <div className="gauravwww">
-        <Header />
+        <Header  kc={this.props.kc} />
         <div className="mainbody">
           <Sidebar kc={this.props.kc} history={this.props.history} />
           <div style={{ backgroundColor: "#F2F2F2" }} className="main">
-            <FarmerHeader label={this.state.label} />
-            {/* <div style={{ marginLeft: "0" }} className="row gaurav" /> */}
+            <FarmerHeader  />
             <DemoApp />
           </div>
         </div>

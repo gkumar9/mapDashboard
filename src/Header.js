@@ -18,10 +18,16 @@ import FARMER from "./pins/Farmer 2.png";
 // import MINIGRID from "./pins/Minigrid(2).png";
 // import HOME from "./pins/ROOFTOP.png";
 import HOME from "./pins/Home.png";
+import AGRO from "./pins/agronomy.png";
 // import ROOFTOP from "./pins/Rooftop(2).png";
 // import FARMER from "./pins/user1.png";
 class Header extends Component {
-
+  state={name:""}
+  componentDidMount(){
+    if(this.props.kc){
+      this.setState({name:this.props.kc.idTokenParsed.preferred_username})
+    }
+  }
   render() {
     return (
       <div className="container">
@@ -96,6 +102,12 @@ class Header extends Component {
                     Farmer
                   </Link>
                 </li>
+                <li className="sidebarheader">
+                  <Link to="/agroassets" target="_self">
+                    <img alt="Minigrid" src={AGRO} />
+                    Agro Assets
+                  </Link>
+                </li>
                 {/* <li className="headerdivider" /> */}
                 <li className="hideliinmobile">
                   <a
@@ -104,11 +116,12 @@ class Header extends Component {
                       fontSize: "1.1em",
                       cursor: "default",
                       fontFamily: "gotham-light",
-                      fontWeight: "600"
+                      fontWeight: "600",
+                      textTransform: 'capitalize'
                     }}
                   >
                     {/* Welcome {this.props.kc.idTokenParsed.prefredUserName} */}
-                    Welcome User
+                    Welcome {this.state.name}
                   </a>
                 </li>
                 <li className="hideliinmobile">

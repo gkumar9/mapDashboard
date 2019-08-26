@@ -755,7 +755,7 @@ class Rms extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header  kc={this.props.kc} />
         <div className="mainbody">
           <Sidebar kc={this.props.kc} history={this.props.history} />
           <div style={{ backgroundColor: "#F2F2F2" }} className="main">

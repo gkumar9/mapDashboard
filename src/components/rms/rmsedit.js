@@ -1277,7 +1277,7 @@ class Rmsedit extends Component {
     return (
       <div>
         <LoadingOverlay active={this.state.isloaderactive} spinner>
-          <Header />
+          <Header  kc={this.props.kc} />
           <div className="mainbody">
             <Sidebar history={this.props.history} />
             <div style={{ backgroundColor: "#F2F2F2" }} className="main">

@@ -52,7 +52,7 @@ class Filter extends Component {
     return (
       <div className="container ">
         <nav id="filter" className="navbar navbar-default">
-          <div className="container-fluid" style={{ paddingLeft: "0" }}>
+          <div className="container-fluid" >
             <div
               className="navbar-header"
               data-toggle="collapse"

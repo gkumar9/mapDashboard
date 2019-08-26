@@ -125,7 +125,7 @@ class Farmer extends Component {
   handlesearch = event => {
     if (
       this.state.searchtext === event.target.value &&
-      event.target.value.length > 2
+      event.target.value.length >= 2
     ) {
       this.setState({ searchtext: event.target.value });
       let tempsearchscrollcount = this.state.searchscrollcount + 1;
@@ -165,7 +165,7 @@ class Farmer extends Component {
         });
     } else if (
       this.state.searchtext !== event.target.value &&
-      event.target.value.length > 2
+      event.target.value.length >= 2
     ) {
       this.setState({ searchtext: event.target.value });
       let tempsearchscrollcount = 1;
@@ -200,7 +200,7 @@ class Farmer extends Component {
               this.classList.add("active");
             });
             var listItems = $(".list-group-item");
-            listItems[1].classList.add("active");
+            listItems[0].classList.add("active");
           } else {
             let temp = [{ name: "No result found", id: null }];
             this.setState({
@@ -219,7 +219,7 @@ class Farmer extends Component {
         });
     } else if (
       this.state.searchtext !== event.target.value &&
-      event.target.value.length <= 2
+      event.target.value.length < 2
     ) {
       this.setState({ searchtext: event.target.value });
     }
@@ -615,7 +615,7 @@ class Farmer extends Component {
         })
         .catch(e => {
           this.setState({ isloaderactive: false });
-          if (e.response!==undefined&&e.response.status===401) {
+          if (e.response !== undefined && e.response.status === 401) {
             Swal({
               type: "error",
               title: "Unauthorized",
@@ -624,11 +624,10 @@ class Farmer extends Component {
             this.props.history.push({
               pathname: "/"
             });
-          } else if (e.response!==undefined&&e.response.status===403) {
+          } else if (e.response !== undefined && e.response.status === 403) {
             Swal({
               type: "error",
               title: "Forbidden"
-              
             });
             // this.props.history.push({
             //   pathname: "/rms"
@@ -701,7 +700,7 @@ class Farmer extends Component {
             })
             .catch(e => {
               this.setState({ isloaderactive: false });
-              if (e.response!==undefined&&e.response.status===401) {
+              if (e.response !== undefined && e.response.status === 401) {
                 Swal({
                   type: "error",
                   title: "Unauthorized",
@@ -710,11 +709,13 @@ class Farmer extends Component {
                 this.props.history.push({
                   pathname: "/"
                 });
-              } else if (e.response!==undefined&&e.response.status===403) {
+              } else if (
+                e.response !== undefined &&
+                e.response.status === 403
+              ) {
                 Swal({
                   type: "error",
                   title: "Forbidden"
-                  
                 });
               } else {
                 this.setState({ isloaderactive: false });
@@ -757,7 +758,7 @@ class Farmer extends Component {
             })
             .catch(e => {
               this.setState({ isloaderactive: false });
-              if (e.response!==undefined&&e.response.status===401) {
+              if (e.response !== undefined && e.response.status === 401) {
                 Swal({
                   type: "error",
                   title: "Unauthorized",
@@ -766,11 +767,13 @@ class Farmer extends Component {
                 this.props.history.push({
                   pathname: "/"
                 });
-              } else if (e.response!==undefined&&e.response.status===403) {
+              } else if (
+                e.response !== undefined &&
+                e.response.status === 403
+              ) {
                 Swal({
                   type: "error",
                   title: "Forbidden"
-                  
                 });
               } else {
                 this.setState({ isloaderactive: false });
@@ -1111,7 +1114,7 @@ class Farmer extends Component {
                   this.classList.add("active");
                 });
                 var listItems = $(".list-group-item");
-                listItems[1].classList.add("active");
+                listItems[0].classList.add("active");
               })
               .catch(e => {
                 console.log(e);
@@ -1147,6 +1150,7 @@ class Farmer extends Component {
     let self = this;
 
     $("#maptable").scroll(function() {
+      console.log("scroll");
       if (
         $(this).scrollTop() + $(this).innerHeight() >=
           $(this)[0].scrollHeight &&
@@ -1295,10 +1299,18 @@ class Farmer extends Component {
   }
 
   render() {
+    let check = true;
+    if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
+      this.props.kc.realmAccess.roles.map(item => {
+        if (item === "user") {
+          check = false;
+        }
+      });
+    }
     return (
       <div className="gauravwww">
         <LoadingOverlay active={this.state.isloaderactive} spinner>
-          <Header />
+          <Header kc={this.props.kc} />
           <div className="mainbody">
             <Sidebar kc={this.props.kc} history={this.props.history} />
             <div style={{ backgroundColor: "#F2F2F2" }} className="main">
@@ -1314,103 +1326,106 @@ class Farmer extends Component {
                   }}
                 >
                   <div className="list-group">
-                    <a
-                      onClick={this.handleclickaddfarmer}
-                      className="list-group-item list-group-item-action flex-column align-items-start  "
-                    >
-                      <h4
-                        style={{ textAlign: "right", fontSize: "13px" }}
-                        className="list-group-item-heading"
+                    {check && (
+                      <a
+                        onClick={this.handleclickaddfarmer}
+                        className="list-group-item list-group-item-action flex-column align-items-start  "
                       >
-                        <span
-                          className="glyphicon glyphicon-plus"
-                          style={{ marginRight: "6px" }}
-                          aria-hidden="true"
-                        />
-                        <span>Add Farmer</span>
-                      </h4>
-                      {/* <p class="list-group-item-text" /> */}
-                    </a>
-                    <div className="row ">
-                      <div className="col-xs-4" style={{ paddingRight: "0" }}>
-                        <select
-                          name="selectkey"
-                          onChange={this.handlesearchselect}
-                          value={this.state.searchvariantselected}
-                          className="form-control"
-                          id="sel1"
+                        <h4
+                          style={{ textAlign: "right", fontSize: "13px" }}
+                          className="list-group-item-heading"
                         >
-                          <option value="name">Name</option>
-                          <option value="uid">Uid</option>
-                          <option value="contactNo">Contact no.</option>
-                          <option value="state">State</option>
-                          <option value="vertical">Vertical</option>
-                        </select>
-                      </div>
-                      <div
-                        id="normaltextsearch"
-                        className="col-xs-8"
-                        style={{ display: "block", paddingLeft: "0" }}
-                      >
-                        <input
-                          value={this.state.searchtext}
-                          onChange={this.handlesearch}
-                          type="search"
-                          className="form-control "
-                          placeholder="Search"
-                          aria-label="..."
-                        />
-                      </div>
-                      <div
-                        id="statedropdownsearch"
-                        className="col-xs-8"
-                        style={{ paddingLeft: "0", display: "none" }}
-                      >
-                        <select
-                          name="stateselectkey"
-                          onChange={this.handlestatesearchselect}
-                          value={this.state.statesearchvariantselected || ""}
-                          className="form-control"
-                          id="sel1111"
+                          <span
+                            className="glyphicon glyphicon-plus"
+                            style={{ marginRight: "6px" }}
+                            aria-hidden="true"
+                          />
+                          <span>Add Farmer</span>
+                        </h4>
+                      </a>
+                    )}
+                    {this.state.farmerlist.length !== 0 && (
+                      <div className="row ">
+                        <div className="col-xs-4" style={{ paddingRight: "0" }}>
+                          <select
+                            name="selectkey"
+                            onChange={this.handlesearchselect}
+                            value={this.state.searchvariantselected}
+                            className="form-control"
+                            id="sel1"
+                          >
+                            <option value="name">Name</option>
+                            <option value="uid">Uid</option>
+                            <option value="contactNo">Contact no.</option>
+                            <option value="state">State</option>
+                            <option value="vertical">Vertical</option>
+                          </select>
+                        </div>
+                        <div
+                          id="normaltextsearch"
+                          className="col-xs-8"
+                          style={{ display: "block", paddingLeft: "0" }}
                         >
-                          {Object.keys(statedistrict).map(item => (
-                            <option key={item} value={item}>
-                              {item}
+                          <input
+                            value={this.state.searchtext}
+                            onChange={this.handlesearch}
+                            type="search"
+                            className="form-control "
+                            placeholder="Search"
+                            aria-label="..."
+                          />
+                        </div>
+                        <div
+                          id="statedropdownsearch"
+                          className="col-xs-8"
+                          style={{ paddingLeft: "0", display: "none" }}
+                        >
+                          <select
+                            name="stateselectkey"
+                            onChange={this.handlestatesearchselect}
+                            value={this.state.statesearchvariantselected || ""}
+                            className="form-control"
+                            id="sel1111"
+                          >
+                            {Object.keys(statedistrict).map(item => (
+                              <option key={item} value={item}>
+                                {item}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div
+                          id="verticaldropdownsearch"
+                          className="col-xs-8"
+                          style={{ paddingLeft: "0", display: "none" }}
+                        >
+                          <select
+                            name="verticalselectkey"
+                            onChange={this.handleverticalsearchselect}
+                            value={
+                              this.state.verticalsearchvariantselected ||
+                              "Solar Irrigation Pump"
+                            }
+                            className="form-control"
+                            id="sel111"
+                          >
+                            <option value="Solar Irrigation Pump">
+                              Solar Irrigation Pump
                             </option>
-                          ))}
-                        </select>
+                            <option value="Solar Drinking Water Pump">
+                              Solar Drinking Water Pump
+                            </option>
+                            <option value="Solar Mini Grid">
+                              Solar Mini Grid
+                            </option>
+                            <option value="Solar Irrigation Service">
+                              Solar Irrigation Service
+                            </option>
+                            <option value="NA">NA</option>
+                          </select>
+                        </div>
                       </div>
-                      <div
-                        id="verticaldropdownsearch"
-                        className="col-xs-8"
-                        style={{ paddingLeft: "0", display: "none" }}
-                      >
-                        <select
-                          name="verticalselectkey"
-                          onChange={this.handleverticalsearchselect}
-                          value={
-                            this.state.verticalsearchvariantselected ||
-                            "Solar Irrigation Pump"
-                          }
-                          className="form-control"
-                          id="sel111"
-                        >
-                          <option value="Solar Irrigation Pump">
-                            Solar Irrigation Pump
-                          </option>
-                          <option value="Solar Drinking Water Pump">
-                            Solar Drinking Water Pump
-                          </option>
-                          <option value="Solar Mini Grid">
-                            Solar Mini Grid
-                          </option>
-                          <option value="Solar Irrigation Service">
-                            Solar Irrigation Service
-                          </option>
-                          <option value="NA">NA</option>
-                        </select>
-                      </div>
-                    </div>
+                    )}
                     <div id="maptable" className="farmerlists">
                       {this.state.farmerlist !== [] &&
                         this.state.farmerlist.map((item, index) => (
@@ -1447,8 +1462,10 @@ class Farmer extends Component {
                     </div>
                   </div>
                 </div>
+
                 <div className="col-xs-9 famerinfobox">
                   <Farmereditshow
+                    kc={this.props.kc}
                     handleeditfarmer={this.handleeditfarmer}
                     famerinfo={this.state.famerinfo}
                   />
