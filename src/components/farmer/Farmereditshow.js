@@ -16,7 +16,7 @@ class Farmereditshow extends Component {
         <div className="container">
           <div className="row farmerinfoheader">
             <div className="col-xs-2">
-              {this.props.famerinfo.farmerImage !== null &&
+              {this.props.famerinfo && this.props.famerinfo.farmerImage !== null &&
               this.props.famerinfo.farmerImage !== "NA" &&
               this.props.famerinfo.farmerImage !== "N.A" ? (
                 <img

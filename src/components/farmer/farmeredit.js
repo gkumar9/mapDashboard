@@ -199,8 +199,20 @@ class Farmer extends Component {
               //Add 'active' tag for currently selected item
               this.classList.add("active");
             });
+            let check;
             var listItems = $(".list-group-item");
-            listItems[0].classList.add("active");
+            if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
+              this.props.kc.realmAccess.roles.map(item => {
+                if (item === "user") {
+                  check = false;
+                }
+              });
+            }
+            if(check){
+              listItems[1].classList.add("active");
+            }else{
+              listItems[0].classList.add("active");
+            }
           } else {
             let temp = [{ name: "No result found", id: null }];
             this.setState({
@@ -241,10 +253,20 @@ class Farmer extends Component {
         }
       })
         .then(res => {
-          this.setState({
-            famerinfo: res.data.data,
-            backupinfo: Object.assign({}, res.data.data)
-          });
+          if(res.data.data!==null){
+            this.setState({
+              famerinfo: res.data.data,
+              backupinfo: Object.assign({}, res.data.data)
+            });
+          }
+          else if(res.data.error!==null){
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: res.data.error.errorMsg
+            });
+          }
+          
 
           axios({
             url: config.getfarmercroplist + item.id,
@@ -616,14 +638,7 @@ class Farmer extends Component {
         .catch(e => {
           this.setState({ isloaderactive: false });
           if (e.response !== undefined && e.response.status === 401) {
-            Swal({
-              type: "error",
-              title: "Unauthorized",
-              text: "Please login again."
-            });
-            this.props.history.push({
-              pathname: "/"
-            });
+            window.location.reload();
           } else if (e.response !== undefined && e.response.status === 403) {
             Swal({
               type: "error",
@@ -654,7 +669,6 @@ class Farmer extends Component {
       });
     }
   };
-
   handleeditfarmersavecroplist = async () => {
     this.state.famerinfo.croplist.map((item, number) => {
       if (
@@ -701,14 +715,7 @@ class Farmer extends Component {
             .catch(e => {
               this.setState({ isloaderactive: false });
               if (e.response !== undefined && e.response.status === 401) {
-                Swal({
-                  type: "error",
-                  title: "Unauthorized",
-                  text: "Please login again."
-                });
-                this.props.history.push({
-                  pathname: "/"
-                });
+                window.location.reload();
               } else if (
                 e.response !== undefined &&
                 e.response.status === 403
@@ -1033,12 +1040,15 @@ class Farmer extends Component {
                 });
               })
               .catch(e => {
-                console.log(e);
-                Swal({
-                  type: "error",
-                  title: "Oops...",
-                  text: e
-                });
+                if (e.response !== undefined && e.response.status === 401) {
+                  window.location.reload();
+                }else{
+                  Swal({
+                    type: "error",
+                    title: "Oops...",
+                    text: e
+                  });
+                }
               });
             axios({
               url: config.getfarmerimg + res.data.data.list[0].id,
@@ -1114,7 +1124,20 @@ class Farmer extends Component {
                   this.classList.add("active");
                 });
                 var listItems = $(".list-group-item");
-                listItems[0].classList.add("active");
+                let check = true;
+                if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
+                  this.props.kc.realmAccess.roles.map(item => {
+                    if (item === "user") {
+                      check = false;
+                    }
+                  });
+                }
+                if(check){
+                  listItems[1].classList.add("active");
+                }else{
+                  listItems[0].classList.add("active");
+                }
+                
               })
               .catch(e => {
                 console.log(e);
@@ -1126,24 +1149,30 @@ class Farmer extends Component {
               });
           })
           .catch(e => {
-            console.log(e);
-            Swal({
-              type: "error",
-              title: "Oops...",
-              text: e
-            });
+            if (e.response !== undefined && e.response.status === 401) {
+              window.location.reload();
+            }else{
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: e
+              });
+            }
             // this.props.history.push({
             //   pathname: "/farmer"
             // });
           });
       })
       .catch(e => {
-        console.log(e);
-        Swal({
-          type: "error",
-          title: "Oops...",
-          text: e
-        });
+        if (e.response !== undefined && e.response.status === 401) {
+          window.location.reload();
+        }else{
+          Swal({
+            type: "error",
+            title: "Oops...",
+            text: e
+          });
+        }
       });
   };
   componentDidMount() {
@@ -1287,11 +1316,16 @@ class Farmer extends Component {
           this.setState({ cropschema: res.data.data });
         })
         .catch(e => {
-          Swal({
-            type: "error",
-            title: "Oops...",
-            text: e
-          });
+          if (e.response !== undefined && e.response.status === 401) {
+            window.location.reload();
+          }else{
+            Swal({
+              type: "error",
+              title: "Oops...",
+              text: e
+            });
+          }
+          
         });
     }
 

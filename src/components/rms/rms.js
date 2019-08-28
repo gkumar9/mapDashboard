@@ -248,14 +248,7 @@ class Rms extends Component {
       })
       .catch(e => {
         if (e.response !== undefined && e.response.status === 401) {
-          Swal({
-            type: "error",
-            title: "Unauthorized",
-            text: "Please login again."
-          });
-          this.props.history.push({
-            pathname: "/"
-          });
+          window.location.reload();
         } else if (e.response !== undefined && e.response.status === 403) {
           Swal({
             type: "error",
@@ -316,14 +309,7 @@ class Rms extends Component {
 
       .catch(e => {
         if (e.response !== undefined && e.response.status === 401) {
-          Swal({
-            type: "error",
-            title: "Unauthorized",
-            text: "Please login again."
-          });
-          this.props.history.push({
-            pathname: "/"
-          });
+          window.location.reload();
         } else if (e.response !== undefined && e.response.status === 403) {
           Swal({
             type: "error",
