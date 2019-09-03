@@ -199,7 +199,14 @@ class Farmer extends Component {
               //Add 'active' tag for currently selected item
               this.classList.add("active");
             });
-            let check;
+            let check = true;
+            if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
+              this.props.kc.realmAccess.roles.map(item => {
+                if (item === "user") {
+                  check = false;
+                }
+              });
+            }
             var listItems = $(".list-group-item");
             if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
               this.props.kc.realmAccess.roles.map(item => {
@@ -208,9 +215,9 @@ class Farmer extends Component {
                 }
               });
             }
-            if(check){
+            if (check) {
               listItems[1].classList.add("active");
-            }else{
+            } else {
               listItems[0].classList.add("active");
             }
           } else {
@@ -253,20 +260,18 @@ class Farmer extends Component {
         }
       })
         .then(res => {
-          if(res.data.data!==null){
+          if (res.data.data !== null) {
             this.setState({
               famerinfo: res.data.data,
               backupinfo: Object.assign({}, res.data.data)
             });
-          }
-          else if(res.data.error!==null){
+          } else if (res.data.error !== null) {
             Swal({
               type: "error",
               title: "Oops...",
               text: res.data.error.errorMsg
             });
           }
-          
 
           axios({
             url: config.getfarmercroplist + item.id,
@@ -518,10 +523,13 @@ class Farmer extends Component {
   };
   handleInputChange = event => {
     event.persist();
+    console.log(event.target.value)
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
-    if (event.target.name === "state") {
+    if (event.target.name === "state" && event.target.value !== "NA") {
       temp.district = statedistrict[event.target.value][0];
+    } else if (event.target.name === "state" && event.target.value === "NA") {
+      temp.district = "NA";
     }
     this.setState({ famerinfo: temp });
   };
@@ -1042,7 +1050,7 @@ class Farmer extends Component {
               .catch(e => {
                 if (e.response !== undefined && e.response.status === 401) {
                   window.location.reload();
-                }else{
+                } else {
                   Swal({
                     type: "error",
                     title: "Oops...",
@@ -1125,19 +1133,21 @@ class Farmer extends Component {
                 });
                 var listItems = $(".list-group-item");
                 let check = true;
-                if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
+                if (
+                  this.props.kc &&
+                  this.props.kc.realmAccess.roles.length !== 0
+                ) {
                   this.props.kc.realmAccess.roles.map(item => {
                     if (item === "user") {
                       check = false;
                     }
                   });
                 }
-                if(check){
+                if (check) {
                   listItems[1].classList.add("active");
-                }else{
+                } else {
                   listItems[0].classList.add("active");
                 }
-                
               })
               .catch(e => {
                 console.log(e);
@@ -1151,7 +1161,7 @@ class Farmer extends Component {
           .catch(e => {
             if (e.response !== undefined && e.response.status === 401) {
               window.location.reload();
-            }else{
+            } else {
               Swal({
                 type: "error",
                 title: "Oops...",
@@ -1166,7 +1176,7 @@ class Farmer extends Component {
       .catch(e => {
         if (e.response !== undefined && e.response.status === 401) {
           window.location.reload();
-        }else{
+        } else {
           Swal({
             type: "error",
             title: "Oops...",
@@ -1318,14 +1328,13 @@ class Farmer extends Component {
         .catch(e => {
           if (e.response !== undefined && e.response.status === 401) {
             window.location.reload();
-          }else{
+          } else {
             Swal({
               type: "error",
               title: "Oops...",
               text: e
             });
           }
-          
         });
     }
 

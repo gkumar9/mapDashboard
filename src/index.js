@@ -130,15 +130,6 @@ axios.interceptors.request.use(config => {
   config.headers.Authorization = "Bearer " + kc.token;
   return Promise.resolve(config);
 });
-
-// axios.interceptors.response.use(function (response) {
-//   // Do something with response data
-//   console.log('intercepetor',response)
-//   return response;
-// }, function (error) {
-//   // Do something with response error
-//   return Promise.reject(error);
-// });
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA

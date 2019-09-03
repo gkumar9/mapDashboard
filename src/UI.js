@@ -175,7 +175,6 @@ class Main extends Component {
             />
             <Map
               datapins={this.state.filteredpins}
-              // additionalmarkers={this.state.additionalmarkers}
               filter={this.state.filter}
             />
           </div>
