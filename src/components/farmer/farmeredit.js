@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "../../Header.js";
+import Header from "../../Header.jsx";
 import Sidebar from "../../Sidebar.js";
 import Farmereditshow from "./Farmereditshow.js";
 import Farmeredit from "./FarmereditComponent.js";

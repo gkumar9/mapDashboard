@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "../../Header.js";
+import Header from "../../Header.jsx";
 import Sidebar from "../../Sidebar.js";
 import axios from "axios";
 import { Link } from "react-router-dom";

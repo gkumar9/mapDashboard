@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Agromap from "./agromaps";
-import Header from "../../Header.js";
+import Header from "../../Header.jsx";
 import Sidebar from "../../Sidebar.js";
 import Filter from "./filter.js";
 import axios from "axios";

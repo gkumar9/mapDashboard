@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Map from "./Maps.js";
-import Header from "./Header.js";
+import Header from "./Header.jsx";
 import Sidebar from "./Sidebar.js";
 import Filter from "./Filter.js";
 import axios from "axios";
