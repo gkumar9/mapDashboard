@@ -22,10 +22,10 @@ import AGRO from "./pins/agronomy.png";
 // import ROOFTOP from "./pins/Rooftop(2).png";
 // import FARMER from "./pins/user1.png";
 class Header extends Component {
-  state={name:""}
-  componentDidMount(){
-    if(this.props.kc){
-      this.setState({name:this.props.kc.idTokenParsed.preferred_username})
+  state = { name: "" };
+  componentDidMount() {
+    if (this.props.kc) {
+      this.setState({ name: this.props.kc.idTokenParsed.preferred_username });
     }
   }
   render() {
@@ -52,7 +52,7 @@ class Header extends Component {
                 />
               </a>
             </div>
-            <div id="navbar1" className="navbar-collapse collapse gaurav" >
+            <div id="navbar1" className="navbar-collapse collapse gaurav">
               <ul className="nav navbar-nav">
                 <li className="sidebarheader">
                   <Link to="/" target="_self">
@@ -117,7 +117,7 @@ class Header extends Component {
                       cursor: "default",
                       fontFamily: "gotham-light",
                       fontWeight: "600",
-                      textTransform: 'capitalize'
+                      textTransform: "capitalize"
                     }}
                   >
                     {/* Welcome {this.props.kc.idTokenParsed.prefredUserName} */}

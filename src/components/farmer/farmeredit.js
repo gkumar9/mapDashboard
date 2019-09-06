@@ -107,7 +107,7 @@ class Farmer extends Component {
       backupinfo: {},
       scrollcount: 0,
       backupimglist: [],
-      backupcroplist: 0,
+      backupcroplist: [],
       searchscrollcount: 0,
       searchhasmore: false,
       cropschema: undefined,
@@ -521,9 +521,19 @@ class Farmer extends Component {
     document.getElementById("showsidetabeditfarmer").style.display = "block";
     document.getElementById("farmeraddnew").style.display = "none";
   };
+  getAge = dateString => {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
   handleInputChange = event => {
     event.persist();
-    console.log(event.target.value)
+    // console.log(event.target.value);
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
     if (event.target.name === "state" && event.target.value !== "NA") {
@@ -531,14 +541,13 @@ class Farmer extends Component {
     } else if (event.target.name === "state" && event.target.value === "NA") {
       temp.district = "NA";
     }
+    if (event.target.name === "dob") {
+      let age = this.getAge(event.target.value);
+      temp.age = age;
+    }
     this.setState({ famerinfo: temp });
   };
-  pumphandleInputChange = (index, event) => {
-    event.persist();
-    let temp = this.state.famerinfo;
-    temp.pumplist[index][event.target.name] = event.target.value;
-    this.setState({ famerinfo: temp });
-  };
+
   crophandleInputChange = (index, event) => {
     event.persist();
     let temp = this.state.famerinfo;
@@ -546,7 +555,9 @@ class Farmer extends Component {
     this.setState({ famerinfo: temp });
   };
   handlecancelfarmer = () => {
-    this.setState({ famerinfo: Object.assign({}, this.state.backupinfo) });
+    let tempinfo = Object.assign({}, this.state.backupinfo);
+    tempinfo.croplist = this.state.backupcroplist.slice();
+    this.setState({ famerinfo: tempinfo });
     document.getElementById("showsidetab").style.display = "block";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
   };
@@ -893,20 +904,7 @@ class Farmer extends Component {
       }
     );
   };
-  // handlesearchselect = event => {
-  //   this.setState({
-  //     searchvariantselected: event.target.value,
-  //     searchtext: ""
-  //   });
-  //   var listItems = $(".list-group-item"); //Select all list items
 
-  //   //Remove 'active' tag for all list items
-  //   for (let i = 0; i < listItems.length; i++) {
-  //     listItems[i].classList.remove("active");
-  //   }
-
-  //   this.handlesearch({ ["target"]: { ["value"]: "" } });
-  // };
   handlesearchselect = async event => {
     var listItems = $(".list-group-item"); //Select all list items
 
@@ -986,38 +984,6 @@ class Farmer extends Component {
           }
         })
           .then(resp => {
-            // axios({
-            //   url: config.getfarmerpumplist + res.data.data.list[0].id,
-            //   method: "POST",
-            //   data: {
-            //     temp: "temp"
-            //   },
-            //   headers: {
-            //     "Content-Type": "application/json"
-            //   }
-            // })
-            //   .then(Response => {
-            //     let tmp = resp.data.data;
-            //     tmp["pumplist"] = Response.data.data.list.slice();
-            //     if (Response.data.data.list.length === 0) {
-            //       // console.log(temporary)
-            //       tmp.pumplist.push(Object.assign({}, this.state.deviceschema));
-            //       tmp.pumplist[0].farmerId = res.data.data.list[0].id;
-            //     }
-            //     this.setState({
-            //       famerinfo: tmp,
-            //       backuppumplist: Response.data.data.list.slice(),
-            //       backupinfo: Object.assign({}, tmp)
-            //     });
-            //   })
-            //   .catch(e => {
-            //     console.log(e);
-            //     Swal({
-            //       type: "error",
-            //       title: "Oops...",
-            //       text: e
-            //     });
-            //   });
             axios({
               url: config.getfarmercroplist + res.data.data.list[0].id,
               method: "POST",
@@ -1356,7 +1322,10 @@ class Farmer extends Component {
           <Header kc={this.props.kc} />
           <div className="mainbody">
             <Sidebar kc={this.props.kc} history={this.props.history} />
-            <div style={{ backgroundColor: "#F2F2F2" }} className="main">
+            <div
+              style={{ backgroundColor: "#F2F2F2", fontFamily: "gotham-light" }}
+              className="main"
+            >
               <FarmerHeader label={this.state.label} />
 
               <div className="row">
@@ -1371,6 +1340,7 @@ class Farmer extends Component {
                   <div className="list-group">
                     {check && (
                       <a
+                        style={{ height: "auto" }}
                         onClick={this.handleclickaddfarmer}
                         className="list-group-item list-group-item-action flex-column align-items-start  "
                       >
@@ -1480,16 +1450,15 @@ class Farmer extends Component {
                             <h4 className="list-group-item-heading">
                               {item.name}
                             </h4>
-                            {item.uid && item.uidType && (
-                              <p className="list-group-item-text">
-                                {item.uidType}: {item.uid}
-                                {item.contactNo && (
-                                  <span style={{ float: "right" }}>
-                                    {item.contactNo}
-                                  </span>
-                                )}
-                              </p>
-                            )}
+                            <p className="list-group-item-text">
+                              {item.uidType ? item.uidType : "NA"}:{" "}
+                              {item.uid ? item.uid : "NA"}
+                              {item.contactNo && (
+                                <span style={{ float: "right" }}>
+                                  +91-{item.contactNo.replace("IN(+91)-", "")}
+                                </span>
+                              )}
+                            </p>
                           </a>
                         ))}
                       <div
@@ -1513,7 +1482,6 @@ class Farmer extends Component {
                     famerinfo={this.state.famerinfo}
                   />
                   <Farmeredit
-                    pumphandleInputChange={this.pumphandleInputChange}
                     crophandleInputChange={this.crophandleInputChange}
                     handleChangeimage={this.handleChangeimage}
                     fileInput={this.fileInput}
@@ -1521,9 +1489,6 @@ class Farmer extends Component {
                     handlecancelfarmer={this.handlecancelfarmer}
                     handleInputChange={this.handleInputChange}
                     handleeditfarmersave={this.handleeditfarmersave}
-                    // handleeditfarmersavepumplist={
-                    //   this.handleeditfarmersavepumplist
-                    // }
                     handleeditfarmersavecroplist={
                       this.handleeditfarmersavecroplist
                     }

@@ -197,7 +197,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="contactno"
-                        value={this.props.famerinfo.contactNo || ""}
+                        value={Number(this.props.famerinfo.contactNo) || ""}
                         onChange={this.props.handleInputChange}
                         placeholder="Contact Number "
                       />
@@ -216,7 +216,7 @@ class Farmeredit extends Component {
                     <div className="col-xs-6">
                       <input
                         name="paygoNumber"
-                        type="number"
+                        // type="number"
                         className="form-control"
                         id="paygoNumber"
                         value={this.props.famerinfo.paygoNumber || ""}
@@ -408,10 +408,11 @@ class Farmeredit extends Component {
                     <div className="col-xs-6">
                       <input
                         name="alternateNumber"
-                        type="number"
+                        type="text"
+                        maxLength="10"
                         className="form-control"
                         id="alternateNumber"
-                        value={this.props.famerinfo.alternateNumber || ""}
+                        value={this.props.famerinfo.alternateNumber || "NA"}
                         onChange={this.props.handleInputChange}
                         placeholder="Alternate Number"
                       />
@@ -527,12 +528,44 @@ class Farmeredit extends Component {
                       Land Owner
                     </div>
                     <div className="col-xs-6">
-                      <input
+                      <select
+                        name="ownLand"
+                        className="form-control"
+                        id="ownLand"
+                        value={this.props.famerinfo.ownLand}
+                        onChange={this.props.handleInputChange}
+                      >
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        {this.props.famerinfo.ownLand !== "Yes" &&
+                          this.props.famerinfo.ownLand !== "No" && (
+                            <option value={this.props.famerinfo.ownLand}>
+                              {this.props.famerinfo.ownLand}
+                            </option>
+                          )}
+                      </select>
+                      {/* <input
                         name="ownLand"
                         type="text"
                         className="form-control"
                         id="ownLand"
                         value={this.props.famerinfo.ownLand}
+                        onChange={this.props.handleInputChange}
+                        // placeholder=""
+                      /> */}
+                    </div>
+                  </div>
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      No of Lands
+                    </div>
+                    <div className="col-xs-6">
+                      <input
+                        name="numberOfLands"
+                        type="number"
+                        className="form-control"
+                        id="numberOfLands"
+                        value={Number(this.props.famerinfo.numberOfLands) || ""}
                         onChange={this.props.handleInputChange}
                         // placeholder=""
                       />
@@ -548,7 +581,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="totalLandSize"
-                        value={this.props.famerinfo.totalLandSize || "0"}
+                        value={Number(this.props.famerinfo.totalLandSize) || ""}
                         onChange={this.props.handleInputChange}
                         placeholder="Land Size in Sq. Ft."
                       />
@@ -564,7 +597,9 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="incomeFromLand"
-                        value={this.props.famerinfo.incomeFromLand || "0"}
+                        value={
+                          Number(this.props.famerinfo.incomeFromLand) || ""
+                        }
                         onChange={this.props.handleInputChange}
                         placeholder="Income From Land in Rupees"
                       />
@@ -589,38 +624,25 @@ class Farmeredit extends Component {
                       />
                     </div>
                     <div className="col-xs-6">
-                      {/^[a-zA-Z0-9- ]*$/.test(this.props.famerinfo.state) &&
-                      this.props.famerinfo.state ? (
-                        <select
-                          name="state"
-                          onChange={this.props.handleInputChange}
-                          value={this.props.famerinfo.state || "NA"}
-                          className="form-control"
-                          id="state"
-                        >
-                          {Object.keys(statedistrict).map(item => (
-                            <option key={item} value={item}>
-                              {item}
-                            </option>
-                          ))}
-                          <option value="NA">NA</option>
-                        </select>
-                      ) : (
-                        <select
-                          name="state"
-                          onChange={this.props.handleInputChange}
-                          value={"NA"}
-                          className="form-control"
-                          id="state"
-                        >
-                          {Object.keys(statedistrict).map(item => (
-                            <option key={item} value={item}>
-                              {item}
-                            </option>
-                          ))}
-                          <option value="NA">NA</option>
-                        </select>
-                      )}
+                      <select
+                        name="state"
+                        onChange={this.props.handleInputChange}
+                        value={
+                          this.props.famerinfo.state &&
+                          /^[a-zA-Z0-9- ]*$/.test(this.props.famerinfo.state)
+                            ? this.props.famerinfo.state
+                            : "NA"
+                        }
+                        className="form-control"
+                        id="state"
+                      >
+                        {Object.keys(statedistrict).map(item => (
+                          <option key={item} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                        <option value="NA">NA</option>
+                      </select>
                     </div>
                   </div>
                   <div className="row farmerinforow">
@@ -710,6 +732,24 @@ class Farmeredit extends Component {
                     </div>
                   </div>
                   <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      No of Community
+                    </div>
+                    <div className="col-xs-6">
+                      <input
+                        name="numberOfCommunity"
+                        type="number"
+                        className="form-control"
+                        id="numberOfCommunity"
+                        value={
+                          Number(this.props.famerinfo.numberOfCommunity) || ""
+                        }
+                        onChange={this.props.handleInputChange}
+                        // placeholder="Number Of C"
+                      />
+                    </div>
+                  </div>
+                  <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">Village</div>
                     <div className="col-xs-6">
                       <input
@@ -728,12 +768,14 @@ class Farmeredit extends Component {
                     <div className="col-xs-6">
                       <input
                         name="pincode"
-                        type="number"
+                        maxLength="6"
+                        // onInput={function(){return(this.value=this.value.replace(/[^0-9]/g,''));}}
+                        // type="number"
                         className="form-control"
                         id="pincode"
-                        value={this.props.famerinfo.pincode || "0"}
+                        value={this.props.famerinfo.pincode + ""}
                         onChange={this.props.handleInputChange}
-                        placeholder="Pincode"
+                        // placeholder="Pincode"
                       />
                     </div>
                   </div>
@@ -803,9 +845,29 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="numberOfDependents"
-                        value={this.props.famerinfo.numberOfDependents || "0"}
+                        value={
+                          Number(this.props.famerinfo.numberOfDependents) || ""
+                        }
                         onChange={this.props.handleInputChange}
-                        placeholder="Number Of Dependents"
+                        // placeholder="Number Of Dependents"
+                      />
+                    </div>
+                  </div>
+                  <div className="row farmerinforow">
+                    <div className="col-xs-6 farmerinforowtitle">
+                      No of Children
+                    </div>
+                    <div className="col-xs-6">
+                      <input
+                        name="numberOfChildren"
+                        type="number"
+                        className="form-control"
+                        id="numberOfChildren"
+                        value={
+                          Number(this.props.famerinfo.numberOfChildren) || ""
+                        }
+                        onChange={this.props.handleInputChange}
+                        // placeholder="Number Of Dependents"
                       />
                     </div>
                   </div>
@@ -820,12 +882,15 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="numberOfSiblings"
-                        value={this.props.famerinfo.numberOfSiblings || "0"}
+                        value={
+                          Number(this.props.famerinfo.numberOfSiblings) || ""
+                        }
                         onChange={this.props.handleInputChange}
                         placeholder="Number Of Siblings"
                       />
                     </div>
                   </div>
+
                   <div className="row farmerinforow">
                     <div className="col-xs-6 farmerinforowtitle">
                       Profession of father
@@ -894,7 +959,7 @@ class Farmeredit extends Component {
                         type="number"
                         className="form-control"
                         id="farmingStartedAt"
-                        value={this.props.famerinfo.farmingStartedAt || "0"}
+                        value={this.props.famerinfo.farmingStartedAt || ""}
                         onChange={this.props.handleInputChange}
                         placeholder="Age when started farming"
                       />
@@ -962,31 +1027,22 @@ class Farmeredit extends Component {
                   style={{ marginTop: "8px" }}
                 >
                   {this.props.famerinfo.croplist !== undefined &&
-                    this.props.famerinfo.croplist.map((item, index) =>
-                      index === 0 ? (
-                        <li key={item} role="presentation" className="active">
-                          <a
-                            href={`#` + item.creationTime}
-                            aria-controls={item.deviceId}
-                            role="tab"
-                            data-toggle="tab"
-                          >
-                            Crop
-                          </a>
-                        </li>
-                      ) : (
-                        <li key={item} role="presentation">
-                          <a
-                            href={`#` + item.creationTime}
-                            aria-controls={item.deviceId}
-                            role="tab"
-                            data-toggle="tab"
-                          >
-                            Crop
-                          </a>
-                        </li>
-                      )
-                    )}
+                    this.props.famerinfo.croplist.map((item, index) => (
+                      <li
+                        key={index}
+                        role="presentation"
+                        className={index === 0 ? "active" : ""}
+                      >
+                        <a
+                          href={`#e` + item.name + item.id}
+                          aria-controls={item.id}
+                          role="tab"
+                          data-toggle="tab"
+                        >
+                          {item.name || "NA"}
+                        </a>
+                      </li>
+                    ))}
                   <li
                     role="presentation"
                     style={{
@@ -1044,10 +1100,10 @@ class Farmeredit extends Component {
                   {this.props.famerinfo.croplist !== undefined &&
                     this.props.famerinfo.croplist.map((item, index) => (
                       <div
-                        key={item}
+                        key={index}
                         role="tabpanel"
-                        className="vertical tab-pane active"
-                        id={item.creationTime}
+                        className={index === 0 ? "tab-pane active" : "tab-pane"}
+                        id={"e" + item.name + item.id}
                       >
                         <div className="col-md-5">
                           <div className="kycbody">
@@ -1293,7 +1349,7 @@ class Farmeredit extends Component {
                                   type="number"
                                   className="form-control"
                                   id="estimateYield"
-                                  value={item.estimatedYield || ""}
+                                  value={Number(item.estimatedYield) || ""}
                                   onChange={this.props.crophandleInputChange.bind(
                                     this,
                                     index
@@ -1324,7 +1380,7 @@ class Farmeredit extends Component {
                                   type="number"
                                   className="form-control"
                                   id="grownArea"
-                                  value={item.grownArea || ""}
+                                  value={Number(item.grownArea) || ""}
                                   onChange={this.props.crophandleInputChange.bind(
                                     this,
                                     index
