@@ -107,7 +107,7 @@ let app = (
 );
 kc.init({ onLoad: "login-required",checkLoginIframe: false })
   .success(authenticated => {
-    console.log( kc);
+    // console.log( kc);
     if (authenticated) {
       ReactDOM.render(app, document.getElementById("root"));
     }

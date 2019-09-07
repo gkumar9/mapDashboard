@@ -31,7 +31,7 @@ class RmsSidebardata extends Component {
               </div>
               <div className="col-xs-9">
                 <span>
-                  <b>{this.props.allassetstat.totalCo2Emission} tonnes</b>
+                  <b>{this.props.allassetstat.totalCo2Emission} </b>
                 </span>
                 <p>
                   <small>CO2 avoided</small>
@@ -51,7 +51,7 @@ class RmsSidebardata extends Component {
               </div>
               <div className="col-xs-9">
                 <span>
-                  <b>{this.props.allassetstat.totalDischarge} kL</b>
+                  <b>{this.props.allassetstat.totalDischarge} </b>
                 </span>
                 <p>
                   <small>Water pumped</small>
@@ -71,7 +71,7 @@ class RmsSidebardata extends Component {
               </div>
               <div className="col-xs-9">
                 <span>
-                  <b>{this.props.allassetstat.totalEnergy} MWh</b>
+                  <b>{this.props.allassetstat.totalEnergy} </b>
                 </span>
                 <p>
                   <small>Energy generated</small>

@@ -54,12 +54,26 @@ class Farmeraddnew extends Component {
     ];
     this.props.getfarmer();
   };
+  getAge = dateString => {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
   handleInputChange = event => {
     event.persist();
     let temp = this.state.famerinfo;
     temp[event.target.name] = event.target.value;
     if (event.target.name === "state") {
       temp.district = statedistrict[event.target.value][0];
+    }
+    if (event.target.name === "dob") {
+      let age = this.getAge(event.target.value);
+      temp.age = age;
     }
 
     this.setState({ famerinfo: temp });
@@ -70,7 +84,7 @@ class Farmeraddnew extends Component {
     temp.croplist[event.target.name] = event.target.value;
     this.setState({ famerinfo: temp });
   };
-  
+
   handleChangeimage = (index, mediaType) => {
     // console.log(event)
     // let refname=`fileInput${index}`
@@ -102,7 +116,7 @@ class Farmeraddnew extends Component {
       }
     );
   };
-  
+
   handleeditfarmersave = () => {
     delete this.state.famerinfo["modificationTime"];
     delete this.state.famerinfo["id"];
@@ -265,13 +279,18 @@ class Farmeraddnew extends Component {
                           })
                           .catch(e => {
                             this.setState({ isloaderactive: false });
-                            if (e.response!==undefined&&e.response.status===401) {
+                            if (
+                              e.response !== undefined &&
+                              e.response.status === 401
+                            ) {
                               window.location.reload();
-                            } else if (e.response!==undefined&&e.response.status===403) {
+                            } else if (
+                              e.response !== undefined &&
+                              e.response.status === 403
+                            ) {
                               Swal({
                                 type: "error",
                                 title: "Forbidden"
-                                
                               });
                               // this.props.history.push({
                               //   pathname: "/rms"
@@ -316,13 +335,15 @@ class Farmeraddnew extends Component {
                 })
                 .catch(e => {
                   this.setState({ isloaderactive: false });
-                  if (e.response!==undefined&&e.response.status===401) {
+                  if (e.response !== undefined && e.response.status === 401) {
                     window.location.reload();
-                  } else if (e.response!==undefined&&e.response.status===403) {
+                  } else if (
+                    e.response !== undefined &&
+                    e.response.status === 403
+                  ) {
                     Swal({
                       type: "error",
                       title: "Forbidden"
-                      
                     });
                     // this.props.history.push({
                     //   pathname: "/rms"
@@ -347,13 +368,12 @@ class Farmeraddnew extends Component {
           })
           .catch(e => {
             this.setState({ isloaderactive: false });
-            if (e.response!==undefined&&e.response.status===401) {
+            if (e.response !== undefined && e.response.status === 401) {
               window.location.reload();
-            } else if (e.response!==undefined&&e.response.status===403) {
+            } else if (e.response !== undefined && e.response.status === 403) {
               Swal({
                 type: "error",
                 title: "Forbidden"
-                
               });
               // this.props.history.push({
               //   pathname: "/rms"
@@ -486,13 +506,15 @@ class Farmeraddnew extends Component {
                   })
                   .catch(e => {
                     this.setState({ isloaderactive: false });
-                    if (e.response!==undefined&&e.response.status===401) {
+                    if (e.response !== undefined && e.response.status === 401) {
                       window.location.reload();
-                    } else if (e.response!==undefined&&e.response.status===403) {
+                    } else if (
+                      e.response !== undefined &&
+                      e.response.status === 403
+                    ) {
                       Swal({
                         type: "error",
                         title: "Forbidden"
-                        
                       });
                       // this.props.history.push({
                       //   pathname: "/rms"
@@ -582,20 +604,6 @@ class Farmeraddnew extends Component {
             farmerId: null,
             type: "image",
             modifiedBy: "0"
-          },
-          {
-            mediaType: "Farm Pic",
-            link: "https://via.placeholder.com/500",
-            farmerId: null,
-            type: "image",
-            modifiedBy: "0"
-          },
-          {
-            mediaType: "Crop Pic",
-            link: "https://via.placeholder.com/500",
-            farmerId: null,
-            type: "image",
-            modifiedBy: "0"
           }
         ];
 
@@ -607,13 +615,12 @@ class Farmeraddnew extends Component {
       })
       .catch(e => {
         this.setState({ isloaderactive: false });
-        if (e.response!==undefined&&e.response.status===401) {
+        if (e.response !== undefined && e.response.status === 401) {
           window.location.reload();
-        } else if (e.response!==undefined&&e.response.status===403) {
+        } else if (e.response !== undefined && e.response.status === 403) {
           Swal({
             type: "error",
             title: "Forbidden"
-            
           });
           // this.props.history.push({
           //   pathname: "/rms"
@@ -672,7 +679,7 @@ class Farmeraddnew extends Component {
                       Family
                     </a>
                   </li>
-                  <li role="presentation">
+                  {/* <li role="presentation">
                     <a
                       style={{ color: "black" }}
                       href="#crop11"
@@ -682,7 +689,7 @@ class Farmeraddnew extends Component {
                     >
                       Crop info
                     </a>
-                  </li>
+                  </li> */}
                   <li role="presentation">
                     <a
                       style={{ color: "black" }}
@@ -762,7 +769,7 @@ class Farmeraddnew extends Component {
                   >
                     <div
                       className="row kycbody"
-                      style={{ margin: "0.7em 0.1em" }}
+                      
                     >
                       {/* <div className="row" style={{ margin: "0.7em 0" }}> */}
                       <div className="col-xs-9">
@@ -776,7 +783,7 @@ class Farmeraddnew extends Component {
                     </div>
                     <div
                       className="row kycbody"
-                      style={{ margin: "0.7em 0.1em" }}
+                      
                     >
                       <div className="col-md-5">
                         <div className="kycbody">
@@ -803,7 +810,7 @@ class Farmeraddnew extends Component {
                                 id="name"
                                 value={this.state.famerinfo.name || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="Name"
+                                //placeholder="Name"
                               />
                             </div>
                           </div>
@@ -842,7 +849,7 @@ class Farmeraddnew extends Component {
                       id="entryStatus"
                       value={this.state.famerinfo.entryStatus}
                       onChange={this.handleInputChange}
-                      placeholder="Status"
+                      //placeholder="Status"
                     /> */}
                             </div>
                           </div>
@@ -867,7 +874,29 @@ class Farmeraddnew extends Component {
                                 id="contactno"
                                 value={this.state.famerinfo.contactNo || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="Contact Number "
+                                //placeholder="Contact Number "
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              PAYGO Number{" "}
+                              {/* <i
+                        title="Mandatory fields"
+                        style={{ marginTop: "0.5em", marginLeft: "0.5em" }}
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                      /> */}
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="paygoNumber"
+                                // type="number"
+                                className="form-control"
+                                id="paygoNumber"
+                                value={this.state.famerinfo.paygoNumber || ""}
+                                onChange={this.handleInputChange}
+                                // //placeholder="Contact Number "
                               />
                             </div>
                           </div>
@@ -935,7 +964,7 @@ class Farmeraddnew extends Component {
                                 id="uid"
                                 value={this.state.famerinfo.uid || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="UID "
+                                //placeholder="UID "
                               />
                             </div>
                           </div>
@@ -976,18 +1005,6 @@ class Farmeraddnew extends Component {
                               </select>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="row kycbody"
-                      style={{ margin: "0.7em 0.1em" }}
-                    >
-                      <div className="col-md-5">
-                        <div className="kycheading">
-                          <h3>Personal</h3>
-                        </div>
-                        <div className="kycbody">
                           <div className="row farmerinforow">
                             <div className="col-xs-6 farmerinforowtitle">
                               Gender{" "}
@@ -1006,18 +1023,28 @@ class Farmeraddnew extends Component {
                                 <select
                                   name="gender"
                                   onChange={this.handleInputChange}
-                                  value={this.state.famerinfo.gender || "NA"}
+                                  value={this.state.famerinfo.gender}
                                   className="form-control"
                                   id="sel1"
                                 >
                                   <option value="M">M</option>
                                   <option value="F">F</option>
-                                  <option value="NA">NA</option>
                                 </select>
                               </div>
                             </div>
                           </div>
-
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="row kycbody"
+                      
+                    >
+                      <div className="col-md-5">
+                        <div className="kycheading">
+                          <h3>Personal</h3>
+                        </div>
+                        <div className="kycbody">
                           <div className="row farmerinforow">
                             <div className="col-xs-6 farmerinforowtitle">
                               <span>Father Name</span>
@@ -1030,7 +1057,7 @@ class Farmeraddnew extends Component {
                                 id="fathername"
                                 value={this.state.famerinfo.fatherName || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="Father Name"
+                                //placeholder="Father Name"
                               />
                             </div>
                           </div>
@@ -1048,7 +1075,7 @@ class Farmeraddnew extends Component {
                                   this.state.famerinfo.alternateNumber || ""
                                 }
                                 onChange={this.handleInputChange}
-                                placeholder="Alternate Number"
+                                //placeholder="Alternate Number"
                               />
                             </div>
                           </div>
@@ -1064,8 +1091,25 @@ class Farmeraddnew extends Component {
                                 id="dob"
                                 value={this.state.famerinfo.dob || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="DOB(dd/mm/yyyy)"
+                                //placeholder="DOB(dd/mm/yyyy)"
                               />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Age{" "}
+                            </div>
+                            <div className="col-xs-6">
+                              <div>
+                                <input
+                                  name="age"
+                                  type="number"
+                                  className="form-control"
+                                  id="age"
+                                  value={this.state.famerinfo.age || ""}
+                                  onChange={this.props.handleInputChange}
+                                />
+                              </div>
                             </div>
                           </div>
                           <div className="row farmerinforow">
@@ -1082,7 +1126,7 @@ class Farmeraddnew extends Component {
                                   this.state.famerinfo.interventionSize || ""
                                 }
                                 onChange={this.handleInputChange}
-                                placeholder="Intervention Size"
+                                //placeholder="Intervention Size"
                               />
                             </div>
                           </div>
@@ -1100,7 +1144,7 @@ class Farmeraddnew extends Component {
                                   this.state.famerinfo.govtCardHolder || ""
                                 }
                                 onChange={this.handleInputChange}
-                                placeholder="Govt. Card Holder (Y/N)"
+                                //placeholder="Govt. Card Holder (Y/N)"
                               />
                             </div>
                           </div>
@@ -1116,7 +1160,7 @@ class Farmeraddnew extends Component {
                                 id="bplCard"
                                 value={this.state.famerinfo.bplCard || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="BPL Card Holder"
+                                //placeholder="BPL Card Holder"
                               />
                             </div>
                           </div>
@@ -1143,10 +1187,56 @@ class Farmeraddnew extends Component {
                               id="houseType"
                               value={this.state.famerinfo.houseType || ""}
                               onChange={this.handleInputChange}
-                              placeholder="House Type"
+                              //placeholder="House Type"
                             /> */}
                             </div>
                           </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Land Owner
+                            </div>
+                            <div className="col-xs-6">
+                              <select
+                                name="ownLand"
+                                className="form-control"
+                                id="ownLand"
+                                value={this.state.famerinfo.ownLand}
+                                onChange={this.handleInputChange}
+                              >
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                              </select>
+                              {/* <input
+                        name="ownLand"
+                        type="text"
+                        className="form-control"
+                        id="ownLand"
+                        value={this.props.famerinfo.ownLand}
+                        onChange={this.props.handleInputChange}
+                        // //placeholder=""
+                      /> */}
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              No of Lands
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="numberOfLands"
+                                type="number"
+                                className="form-control"
+                                id="numberOfLands"
+                                value={
+                                  Number(this.state.famerinfo.numberOfLands) ||
+                                  ""
+                                }
+                                onChange={this.handleInputChange}
+                                // //placeholder=""
+                              />
+                            </div>
+                          </div>
+
                           <div className="row farmerinforow">
                             <div className="col-xs-6 farmerinforowtitle">
                               Total Land Size (ha)
@@ -1161,7 +1251,7 @@ class Farmeraddnew extends Component {
                                   this.state.famerinfo.totalLandSize || "0"
                                 }
                                 onChange={this.handleInputChange}
-                                placeholder="Land Size in Sq. Ft."
+                                //placeholder="Land Size in Sq. Ft."
                               />
                             </div>
                           </div>
@@ -1179,7 +1269,7 @@ class Farmeraddnew extends Component {
                                   this.state.famerinfo.incomeFromLand || "0"
                                 }
                                 onChange={this.handleInputChange}
-                                placeholder="Income From Land in rupee"
+                                //placeholder="Income From Land in rupee"
                               />
                             </div>
                           </div>
@@ -1270,7 +1360,7 @@ class Farmeraddnew extends Component {
                                 id="block"
                                 value={this.state.famerinfo.block || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="Block"
+                                //placeholder="Block"
                               />
                             </div>
                           </div>
@@ -1286,7 +1376,7 @@ class Farmeraddnew extends Component {
                                 id="community"
                                 value={this.state.famerinfo.community || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="Community"
+                                //placeholder="Community"
                               />
                             </div>
                           </div>
@@ -1302,7 +1392,27 @@ class Farmeraddnew extends Component {
                                 id="subCommunity"
                                 value={this.state.famerinfo.subCommunity || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="Sub Community"
+                                //placeholder="Sub Community"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              No of Community
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="numberOfCommunity"
+                                type="number"
+                                className="form-control"
+                                id="numberOfCommunity"
+                                value={
+                                  Number(
+                                    this.state.famerinfo.numberOfCommunity
+                                  ) || ""
+                                }
+                                onChange={this.handleInputChange}
+                                // //placeholder="Number Of C"
                               />
                             </div>
                           </div>
@@ -1318,7 +1428,7 @@ class Farmeraddnew extends Component {
                                 id="village"
                                 value={this.state.famerinfo.village || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="Village"
+                                //placeholder="Village"
                               />
                             </div>
                           </div>
@@ -1334,7 +1444,7 @@ class Farmeraddnew extends Component {
                                 id="pincode"
                                 value={this.state.famerinfo.pincode || "0"}
                                 onChange={this.handleInputChange}
-                                placeholder="Pincode"
+                                //placeholder="Pincode"
                               />
                             </div>
                           </div>
@@ -1361,7 +1471,7 @@ class Farmeraddnew extends Component {
                                 id="latitude"
                                 value={this.state.famerinfo.latitude || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="Latitude"
+                                //placeholder="Latitude"
                                 required
                               />
                             </div>
@@ -1387,8 +1497,254 @@ class Farmeraddnew extends Component {
                                 id="longitude"
                                 value={this.state.famerinfo.longitude || ""}
                                 onChange={this.handleInputChange}
-                                placeholder="Longitude"
+                                //placeholder="Longitude"
                                 required
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row kycbody">
+                      <div className="kycheading" style={{ margin: "0 1em" }}>
+                        <h3>Miscellaneous</h3>
+                      </div>
+                      <div className="col-md-5">
+                        <div className="kycbody">
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Intervention Size
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="interventionSize"
+                                type="number"
+                                className="form-control"
+                                id="interventionSize"
+                                value={
+                                  this.state.famerinfo.interventionSize || ""
+                                }
+                                onChange={this.handleInputChange}
+                                //////placeholder="interventionSize"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              BPL Card
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="bplCard"
+                                type="text"
+                                className="form-control"
+                                id="bplCard"
+                                value={this.state.famerinfo.bplCard || ""}
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Smart Phone Owner
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="haveSmartPhone"
+                                type="text"
+                                className="form-control"
+                                id="haveSmartPhone"
+                                value={
+                                  this.state.famerinfo.haveSmartPhone || ""
+                                }
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Smart Phone Number
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="smartPhoneNumber"
+                                type="number"
+                                className="form-control"
+                                id="smartPhoneNumber"
+                                value={
+                                  this.state.famerinfo.smartPhoneNumber || ""
+                                }
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Meter Capacity
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="meterCapacity"
+                                type="text"
+                                className="form-control"
+                                id="meterCapacity"
+                                value={this.state.famerinfo.meterCapacity || ""}
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Yearly Digital Expenditure
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="yearlyDigitalExpenditure"
+                                type="text"
+                                className="form-control"
+                                id="yearlyDigitalExpenditure"
+                                value={
+                                  this.state.famerinfo
+                                    .yearlyDigitalExpenditure || ""
+                                }
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Daily Electricity Availability
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="dailyElectricityAvailability"
+                                type="text"
+                                className="form-control"
+                                id="dailyElectricityAvailability"
+                                value={
+                                  this.state.famerinfo
+                                    .dailyElectricityAvailability || ""
+                                }
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-1" />
+                      <div className="col-md-5">
+                        <div className="kycbody">
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Electricity Connection
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="electricityConnection"
+                                type="text"
+                                className="form-control"
+                                id="electricityConnection"
+                                value={
+                                  this.state.famerinfo.electricityConnection ||
+                                  ""
+                                }
+                                onChange={this.handleInputChange}
+                                //////placeholder="interventionSize"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Monthly Electricity Bill
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="monthlyElectricityBill"
+                                type="text"
+                                className="form-control"
+                                id="monthlyElectricityBill"
+                                value={
+                                  this.state.famerinfo.monthlyElectricityBill ||
+                                  ""
+                                }
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Have Digital Pump
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="haveDigitalPump"
+                                type="text"
+                                className="form-control"
+                                id="haveDigitalPump"
+                                value={
+                                  this.state.famerinfo.haveDigitalPump || ""
+                                }
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Hourly Rent
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="hourlyRent"
+                                type="text"
+                                className="form-control"
+                                id="hourlyRent"
+                                value={this.state.famerinfo.hourlyRent || ""}
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Yearly Rent
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="yearlyRent"
+                                type="text"
+                                className="form-control"
+                                id="yearlyRent"
+                                value={this.state.famerinfo.yearlyRent || ""}
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Digital Pump Owner
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="digitalPumpOwner"
+                                type="text"
+                                className="form-control"
+                                id="digitalPumpOwner"
+                                value={
+                                  this.state.famerinfo.digitalPumpOwner || ""
+                                }
+                                onChange={this.handleInputChange}
+                                ////placeholder="BPL Card Holder"
                               />
                             </div>
                           </div>
@@ -1415,7 +1771,27 @@ class Farmeraddnew extends Component {
                                   this.state.famerinfo.numberOfDependents || "0"
                                 }
                                 onChange={this.handleInputChange}
-                                placeholder="Number Of Dependents"
+                                //placeholder="Number Of Dependents"
+                              />
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              No of Children
+                            </div>
+                            <div className="col-xs-6">
+                              <input
+                                name="numberOfChildren"
+                                type="number"
+                                className="form-control"
+                                id="numberOfChildren"
+                                value={
+                                  Number(
+                                    this.state.famerinfo.numberOfChildren
+                                  ) || ""
+                                }
+                                onChange={this.handleInputChange}
+                                // //placeholder="Number Of Dependents"
                               />
                             </div>
                           </div>
@@ -1434,7 +1810,7 @@ class Farmeraddnew extends Component {
                                   this.state.famerinfo.numberOfSiblings || "0"
                                 }
                                 onChange={this.handleInputChange}
-                                placeholder="Number Of Siblings"
+                                //placeholder="Number Of Siblings"
                               />
                             </div>
                           </div>
@@ -1453,7 +1829,7 @@ class Farmeraddnew extends Component {
                                   this.state.famerinfo.fathersProfession || ""
                                 }
                                 onChange={this.handleInputChange}
-                                placeholder="Profession of father"
+                                //placeholder="Profession of father"
                               />
                             </div>
                           </div>
@@ -1472,7 +1848,7 @@ class Farmeraddnew extends Component {
                                 this.state.famerinfo.highestEducation || ""
                               }
                               onChange={this.handleInputChange}
-                              placeholder="Education level of farmer"
+                              //placeholder="Education level of farmer"
                             /> */}
                               <select
                                 name="highestEducation"
@@ -1511,7 +1887,7 @@ class Farmeraddnew extends Component {
                                   this.state.famerinfo.farmingStartedAt || "0"
                                 }
                                 onChange={this.handleInputChange}
-                                placeholder="Age when started farming"
+                                //placeholder="Age when started farming"
                               />
                             </div>
                           </div>
@@ -1608,7 +1984,7 @@ class Farmeraddnew extends Component {
                                         this.state.famerinfo.croplist.name || ""
                                       }
                                       onChange={this.crophandleInputChange}
-                                      placeholder="Crop Name"
+                                      //placeholder="Crop Name"
                                     />
                                   </div>
                                 </div>
@@ -1639,7 +2015,7 @@ class Farmeraddnew extends Component {
                                         .cropSeason || ""
                                     }
                                     onChange={this.crophandleInputChange}
-                                    placeholder="Crop Season"
+                                    //placeholder="Crop Season"
                                   /> */}
                                     <select
                                       name="cropSeason"
@@ -1691,7 +2067,7 @@ class Farmeraddnew extends Component {
                                           .cropVariety || ""
                                       }
                                       onChange={this.crophandleInputChange}
-                                      placeholder="Crop Variety"
+                                      //placeholder="Crop Variety"
                                     />
                                   </div>
                                 </div>
@@ -1722,7 +2098,7 @@ class Farmeraddnew extends Component {
                                         .sowingMonth || ""
                                     }
                                     onChange={this.crophandleInputChange}
-                                    placeholder="sowing Month"
+                                    //placeholder="sowing Month"
                                   /> */}
                                     <select
                                       name="sowingMonth"
@@ -1782,7 +2158,7 @@ class Farmeraddnew extends Component {
                                         .harvestingTime || ""
                                     }
                                     onChange={this.crophandleInputChange}
-                                    placeholder="Harvesting Time"
+                                    //placeholder="Harvesting Time"
                                   /> */}
                                     <select
                                       name="harvestingTime"
@@ -1828,7 +2204,7 @@ class Farmeraddnew extends Component {
                                           .estimateYield || ""
                                       }
                                       onChange={this.crophandleInputChange}
-                                      placeholder="Estimate Yield"
+                                      //placeholder="Estimate Yield"
                                     />
                                   </div>
                                 </div>
@@ -1859,7 +2235,7 @@ class Farmeraddnew extends Component {
                                           .grownArea || ""
                                       }
                                       onChange={this.crophandleInputChange}
-                                      placeholder="Grown Area"
+                                      //placeholder="Grown Area"
                                     />
                                   </div>
                                 </div>
@@ -1881,7 +2257,7 @@ class Farmeraddnew extends Component {
                                         ""
                                       }
                                       onChange={this.crophandleInputChange}
-                                      placeholder="remarks"
+                                      //placeholder="remarks"
                                     />
                                   </div>
                                 </div>

@@ -5,162 +5,273 @@ class Tabprofile extends Component {
   render() {
     return (
       <div role="tabpanel" className="tab-pane active" id="profile">
-        <div className="col-md-5">
-          <div className="kycheading">
-            <h3>Personal</h3>
-          </div>
-          <div className="kycbody">
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">
-                Alternate Number
-              </div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.alternateNumber || "NA"}
-              </div>
+        <div className="row" style={{ padding: "0 1em" }}>
+          <div className="col-md-5">
+            <div className="kycheading">
+              <h3>Personal</h3>
             </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Father Name</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.fatherName || "NA"}
+            <div className="kycbody">
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Alternate Number
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.alternateNumber || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Gender</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.gender || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Father Name</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.fatherName || "NA"}
+                </div>
               </div>
-            </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Gender</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.gender || "NA"}
+                </div>
+              </div>
 
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">DOB</div>
-              <div className="col-xs-6">{this.props.famerinfo.dob || "NA"}</div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Age</div>
-              <div className="col-xs-6">{this.props.famerinfo.age || "NA"}</div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">
-                Intervention Size
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">DOB</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.dob || "NA"}
+                </div>
               </div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.interventionSize || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Age</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.age || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">
-                Govt Card Holder
+
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">House Type</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.houseType || "NA"}
+                </div>
               </div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.govtCardHolder || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Land Owner</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.ownLand || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">BPL Card</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.bplCard || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">No of Lands</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.numberOflands || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">House Type</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.houseType || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Total Land Size
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.totalLandSize || "NA"}{" "}
+                  {this.props.famerinfo.totalLandSize && "ha"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Land Owner</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.ownLand || "NA"}
-              </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">No of Lands</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.numberOflands || "NA"}
-              </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Total Land Size</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.totalLandSize || "NA"}{" "}
-                {this.props.famerinfo.totalLandSize && "ha"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Income from Land
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.incomeFromLand && "INR"}{" "}
+                  {this.props.famerinfo.incomeFromLand || "NA"}
+                </div>
               </div>
             </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">
-                Income from Land
+          </div>
+          <div className="col-md-1" />
+          <div className="col-md-5">
+            <div className="kycheading">
+              <h3>Location</h3>
+            </div>
+            <div className="kycbody">
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">State</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.state || "NA"}
+                </div>
               </div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.incomeFromLand && "INR"}{" "}
-                {this.props.famerinfo.incomeFromLand || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">District</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.district || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Block</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.block || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Community</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.community || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Sub-community</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.subCommunity || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  No of community
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.numberOfCommunity || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Village</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.village || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Pincode</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.pincode || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Latitude</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.latitude || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Longitude</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.longitude || "NA"}
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-md-1" />
-        <div className="col-md-5">
-          <div className="kycheading">
-            <h3>Location</h3>
+        <div className="row" style={{ padding: "0 1em" }}>
+          <div className="kycheading" style={{ margin: "0 1em" }}>
+            <h3>Miscellaneous</h3>
           </div>
-          <div className="kycbody">
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">State</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.state || "NA"}
+          <div className="col-md-5">
+            <div className="kycbody">
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Intervention Size
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.interventionSize || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Govt Card Holder
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.govtCardHolder || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">BPL Card</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.bplCard || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Smart Phone Owner
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.haveSmartPhone || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Smart Phone Number
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.smartPhoneNumber || "NA"}
+                </div>
+              </div>
+
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Meter Capacity
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.meterCapacity || "NA"}
+                </div>
+              </div>
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Yearly Digital Expenditure
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.yearlyDigitalExpenditure || "NA"}
+                </div>
               </div>
             </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">District</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.district || "NA"}
+          </div>
+          <div className="col-md-1" />
+          <div className="col-md-5">
+            <div className="kycbody">
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Electricity Connection
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.electricityConnection || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Block</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.block || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Monthly Electricity Bill
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.monthlyElectricityBill || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Community</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.community || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Have Digital Pump
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.haveDigitalPump || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Sub-community</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.subCommunity || "NA"}
+
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Hourly Rent</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.hourlyRent || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">No of community</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.numberOfCommunity || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">Yearly Rent</div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.yearlyRent || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Village</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.village || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Digital Pump Owner
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.digitalPumpOwner || "NA"}
+                </div>
               </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Pincode</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.pincode || "NA"}
-              </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Latitude</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.latitude || "NA"}
-              </div>
-            </div>
-            <div className="row farmerinforow">
-              <div className="col-xs-6 farmerinforowtitle">Longitude</div>
-              <div className="col-xs-6">
-                {this.props.famerinfo.longitude || "NA"}
+              <div className="row farmerinforow">
+                <div className="col-xs-6 farmerinforowtitle">
+                  Daily Electricity Availability
+                </div>
+                <div className="col-xs-6">
+                  {this.props.famerinfo.dailyElectricityAvailability || "NA"}
+                </div>
               </div>
             </div>
           </div>
@@ -297,6 +408,28 @@ class Tabcrop extends Component {
                               {item.sowingMonth || "NA"}
                             </div>
                           </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Sowing Date
+                            </div>
+                            <div className="col-xs-6">
+                              {item.sowingDate || "NA"}
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Accuracy
+                            </div>
+                            <div className="col-xs-6">
+                              {item.accuracy || "NA"}
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Unit
+                            </div>
+                            <div className="col-xs-6">{item.unit || "NA"}</div>
+                          </div>
                         </div>
                       </div>
                       <div className="col-md-1" />
@@ -330,10 +463,34 @@ class Tabcrop extends Component {
                           </div>
                           <div className="row farmerinforow">
                             <div className="col-xs-6 farmerinforowtitle">
-                              Remark
+                              Previous Buyer
                             </div>
                             <div className="col-xs-6">
-                              {item.remarks || "NA"}
+                              {item.previousBuyer || "NA"}
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Previous Sold unit
+                            </div>
+                            <div className="col-xs-6">
+                              {item.previousSoldUnit || "NA"}
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Previous Sold Quantity
+                            </div>
+                            <div className="col-xs-6">
+                              {item.previousSoldQuantity || "NA"}
+                            </div>
+                          </div>
+                          <div className="row farmerinforow">
+                            <div className="col-xs-6 farmerinforowtitle">
+                              Previous Sold Price
+                            </div>
+                            <div className="col-xs-6">
+                              {item.previousSoldPrice || "NA"}
                             </div>
                           </div>
                         </div>
@@ -346,7 +503,10 @@ class Tabcrop extends Component {
                             <h3 className="farmerinfobody">Crop Image</h3>
                           </div>
                           <div className="cropimagebody">
-                            <img src={item.cropImage} />
+                            <img
+                              src={item.cropImage}
+                              // style={{ width: "100%" }}
+                            />
                           </div>
                         </div>
                       )}
@@ -356,7 +516,10 @@ class Tabcrop extends Component {
                             <h3 className="farmerinfobody">Farm Image</h3>
                           </div>
                           <div className="cropimagebody">
-                            <img src={item.farmImage} />
+                            <img
+                              src={item.farmImage}
+                              // style={{ width: "100%" }}
+                            />
                           </div>
                         </div>
                       )}
@@ -381,20 +544,21 @@ class Tabmedia extends Component {
         {this.props.famerinfo !== undefined &&
         this.props.famerinfo.imglist !== undefined &&
         this.props.famerinfo.imglist.length !== 0 ? (
-          <div style={{ padding: "1em" }}>
+          <div>
+            {/* <div className="row"> */}
             {this.props.famerinfo.imglist.map((item, number) => (
-              <div key={number} className="row" style={{ marginBottom: "2em" }}>
-                <div className="col-xs-2">
-                  <div className="imglistheading">
-                    <span style={{ fontSize: "1.1em" }}>{item.mediaType}</span>
+              <div key={number} className="col-md-6">
+                <div className="card">
+                  <div className="card-body cropimageheading">
+                    <h3 className="card-title farmerinfobody">
+                      {item.mediaType}
+                    </h3>
                   </div>
-                </div>
-                <div className="col-xs-3">
-                  <div className="imglistbody">
+                  <div className="card-body cropimagebody">
                     <img
-                      // class="img-rounded"
                       src={item.link}
                       alt={item.mediaType}
+                      // style={{ width: "100%" }}
                     />
                   </div>
                 </div>
@@ -402,6 +566,7 @@ class Tabmedia extends Component {
             ))}
           </div>
         ) : (
+          // </div>
           <center style={{ marginTop: "2em" }}>
             <h4>No data found !!!</h4>
           </center>
@@ -593,6 +758,7 @@ class Farmereditshow extends Component {
                 className="tab-content"
                 style={{
                   marginRight: "1em",
+                  paddingBottom: "1em",
                   maxHeight: "60vh",
                   overflowY: "scroll",
                   overflowX: "hidden"

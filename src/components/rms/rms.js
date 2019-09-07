@@ -225,15 +225,15 @@ class Rms extends Component {
       .then(res => {
         if (res.data.data !== null) {
           allassetstattemp = res.data.data;
-          allassetstattemp.totalCo2Emission = parseInt(
-            allassetstattemp.totalCo2Emission
-          ).toLocaleString("en-IN");
-          allassetstattemp.totalDischarge = parseInt(
-            allassetstattemp.totalDischarge
-          ).toLocaleString("en-IN");
-          allassetstattemp.totalEnergy = parseInt(
-            allassetstattemp.totalEnergy
-          ).toLocaleString("en-IN");
+          // allassetstattemp.totalCo2Emission = parseInt(
+          //   allassetstattemp.totalCo2Emission
+          // ).toLocaleString("en-IN");
+          // allassetstattemp.totalDischarge = parseInt(
+          //   allassetstattemp.totalDischarge
+          // ).toLocaleString("en-IN");
+          // allassetstattemp.totalEnergy = parseInt(
+          //   allassetstattemp.totalEnergy
+          // ).toLocaleString("en-IN");
         } else if (res.data.error !== undefined) {
           if (res.data.error.errorCode === 153) {
             window.location.href = "../login.html?redirect=maps";

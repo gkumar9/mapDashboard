@@ -115,11 +115,13 @@ class Farmer extends Component {
       hasMore: false,
       isloaderactive: false
     };
+    this.fileInputCrop = React.createRef();
+    this.fileInputFarm = React.createRef();
     this.fileInput = [
       React.createRef(),
-      React.createRef(),
-      React.createRef(),
       React.createRef()
+      // React.createRef(),
+      // React.createRef()
     ];
   }
   handlesearch = event => {
@@ -337,20 +339,6 @@ class Farmer extends Component {
                   farmerId: res.data.data.id,
                   type: "image",
                   modifiedBy: "0"
-                },
-                {
-                  mediaType: "Farm Pic",
-                  link: "https://via.placeholder.com/500",
-                  farmerId: res.data.data.id,
-                  type: "image",
-                  modifiedBy: "0"
-                },
-                {
-                  mediaType: "Crop Pic",
-                  link: "https://via.placeholder.com/500",
-                  farmerId: res.data.data.id,
-                  type: "image",
-                  modifiedBy: "0"
                 }
               ];
 
@@ -547,7 +535,12 @@ class Farmer extends Component {
     }
     this.setState({ famerinfo: temp });
   };
-
+  addcrop=()=>{
+    let tempinfo = Object.assign({}, this.state.famerinfo);
+    tempinfo.croplist.push(Object.assign({}, this.state.cropschema));
+      tempinfo.croplist[0].farmerId = tempinfo.id;
+    this.setState({ famerinfo: tempinfo });
+  }
   crophandleInputChange = (index, event) => {
     event.persist();
     let temp = this.state.famerinfo;
@@ -556,7 +549,14 @@ class Farmer extends Component {
   };
   handlecancelfarmer = () => {
     let tempinfo = Object.assign({}, this.state.backupinfo);
-    tempinfo.croplist = this.state.backupcroplist.slice();
+    tempinfo.croplist = [];
+    if (this.state.backupcroplist.length !== 0) {
+      tempinfo.croplist = this.state.backupcroplist.slice();
+    } else {
+      tempinfo.croplist.push(Object.assign({}, this.state.cropschema));
+      tempinfo.croplist[0].farmerId = tempinfo.id;
+    }
+
     this.setState({ famerinfo: tempinfo });
     document.getElementById("showsidetab").style.display = "block";
     document.getElementById("showsidetabeditfarmer").style.display = "none";
@@ -822,6 +822,60 @@ class Farmer extends Component {
       }
     });
   };
+  handleCropChangeimage = index => {
+    if (this.fileInputCrop.current) {
+      var file = this.fileInputCrop.current.files[0];
+      var fileName = +this.state.famerinfo.id + "-crop-" + Date.now();
+      let self = this;
+      var photoKey = fileName;
+      s3.upload(
+        {
+          Key: photoKey,
+          Body: file,
+          ACL: "public-read"
+        },
+        function(err, data) {
+          if (err) {
+            return alert(
+              "There was an error uploading your photo: ",
+              err.message
+            );
+          } else {
+            let temp = self.state.famerinfo;
+            temp.croplist[index].cropImage = data.Location;
+            self.setState({ famerinfo: temp });
+          }
+        }
+      );
+    }
+  };
+  handleFarmChangeimage = index => {
+    if (this.fileInputFarm.current) {
+      var file = this.fileInputFarm.current.files[0];
+      var fileName = +this.state.famerinfo.id + "-farm-" + Date.now();
+      let self = this;
+      var photoKey = fileName;
+      s3.upload(
+        {
+          Key: photoKey,
+          Body: file,
+          ACL: "public-read"
+        },
+        function(err, data) {
+          if (err) {
+            return alert(
+              "There was an error uploading your photo: ",
+              err.message
+            );
+          } else {
+            let temp = self.state.famerinfo;
+            temp.croplist[index].farmImage = data.Location;
+            self.setState({ famerinfo: temp });
+          }
+        }
+      );
+    }
+  };
   handleChangeimage = (index, mediaType) => {
     // console.log(event)
     // let refname=`fileInput${index}`
@@ -984,6 +1038,14 @@ class Farmer extends Component {
           }
         })
           .then(resp => {
+            if (resp.data.data === null) {
+              Swal({
+                type: "error",
+                title: "Oops...",
+                text: resp.data.error.errorMsg
+              });
+              return;
+            }
             axios({
               url: config.getfarmercroplist + res.data.data.list[0].id,
               method: "POST",
@@ -1047,20 +1109,6 @@ class Farmer extends Component {
                   },
                   {
                     mediaType: "Public Pic",
-                    link: "https://via.placeholder.com/500",
-                    farmerId: res.data.data.list[0].id,
-                    type: "image",
-                    modifiedBy: "0"
-                  },
-                  {
-                    mediaType: "Farm Pic",
-                    link: "https://via.placeholder.com/500",
-                    farmerId: res.data.data.list[0].id,
-                    type: "image",
-                    modifiedBy: "0"
-                  },
-                  {
-                    mediaType: "Crop Pic",
                     link: "https://via.placeholder.com/500",
                     farmerId: res.data.data.list[0].id,
                     type: "image",
@@ -1484,7 +1532,11 @@ class Farmer extends Component {
                   <Farmeredit
                     crophandleInputChange={this.crophandleInputChange}
                     handleChangeimage={this.handleChangeimage}
+                    handleFarmChangeimage={this.handleFarmChangeimage}
+                    handleCropChangeimage={this.handleCropChangeimage}
                     fileInput={this.fileInput}
+                    fileInputCrop={this.fileInputCrop}
+                    fileInputFarm={this.fileInputFarm}
                     famerinfo={this.state.famerinfo}
                     handlecancelfarmer={this.handlecancelfarmer}
                     handleInputChange={this.handleInputChange}
@@ -1492,6 +1544,7 @@ class Farmer extends Component {
                     handleeditfarmersavecroplist={
                       this.handleeditfarmersavecroplist
                     }
+                    addcrop={this.addcrop}
                   />
                   <Farmeraddnew
                     getfarmer={this.getfarmerlist}
