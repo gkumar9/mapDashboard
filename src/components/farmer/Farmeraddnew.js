@@ -1107,7 +1107,7 @@ class Farmeraddnew extends Component {
                                   className="form-control"
                                   id="age"
                                   value={this.state.famerinfo.age || ""}
-                                  onChange={this.props.handleInputChange}
+                                  onChange={this.handleInputChange}
                                 />
                               </div>
                             </div>

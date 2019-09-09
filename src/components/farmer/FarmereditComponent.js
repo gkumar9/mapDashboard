@@ -1574,10 +1574,10 @@ class Tabcrop extends Component {
                             </div>
                             <div className="col-xs-6">
                               <input
-                                name="perviousBuyer"
+                                name="previousBuyer"
                                 type="textarea"
                                 className="form-control"
-                                id="perviousBuyer"
+                                id="previousBuyer"
                                 value={item.previousBuyer || ""}
                                 onChange={this.props.crophandleInputChange.bind(
                                   this,
