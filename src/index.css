@@ -32,6 +32,7 @@ body {
 .cropimagebody img{
   max-width: 100%;
   max-height:40vh;
+  height:40vh;
 }
 .container .rmssidebar .btn-default:hover {
   border-color: transparent;

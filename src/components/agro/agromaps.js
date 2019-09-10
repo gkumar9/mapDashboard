@@ -736,14 +736,14 @@ class MapContainer extends Component {
                     <div className="body clearfix ">
                       <div className="row" style={{ padding:'0.2',marginBottom: "1.5em" }}>
                         <div className="image">
-                          {this.state.selectedPlace.customerImage !== null &&
-                          this.state.selectedPlace.customerImage !== "NA" &&
-                          this.state.selectedPlace.customerImage !== "0" ? (
+                          {this.state.selectedPlace.premisesImage !== null &&
+                          this.state.selectedPlace.premisesImage !== "NA" &&
+                          this.state.selectedPlace.premisesImage !== "0" ? (
                             <img
                               alt="famerimg"
-                              src={this.state.selectedPlace.customerImage}
+                              src={this.state.selectedPlace.premisesImage}
                               // width="65%"
-                              className="customerimgg"
+                              className="premisesImage"
                             />
                           ) : (
                             <img
