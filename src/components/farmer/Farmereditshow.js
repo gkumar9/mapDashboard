@@ -60,7 +60,7 @@ class Tabprofile extends Component {
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">No of Lands</div>
                 <div className="col-xs-6">
-                  {this.props.famerinfo.numberOflands || "NA"}
+                  {this.props.famerinfo.numberOfLands || "NA"}
                 </div>
               </div>
               <div className="row farmerinforow">
@@ -294,12 +294,12 @@ class Tabfamily extends Component {
                 {this.props.famerinfo.numberOfDependents || "NA"}
               </div>
             </div>
-            <div className="row farmerinforow">
+            {/* <div className="row farmerinforow">
               <div className="col-xs-6 farmerinforowtitle">No of children</div>
               <div className="col-xs-6">
                 {this.props.famerinfo.numberOfChildren || "NA"}
               </div>
-            </div>
+            </div> */}
             <div className="row farmerinforow">
               <div className="col-xs-6 farmerinforowtitle">No of siblings</div>
               <div className="col-xs-6">

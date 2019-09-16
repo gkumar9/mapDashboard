@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { Component } from "react";
 import Header from "../../Header.jsx";
 import Sidebar from "../../Sidebar.js";
@@ -1130,6 +1131,7 @@ class Farmer extends Component {
                   backupimglist: rreess.data.data.list.slice(),
                   backupinfo: Object.assign({}, temporaryy)
                 });
+                // eslint-disable-next-line no-undef
                 document.getElementById("showsidetab").style.display = "block";
                 document.getElementById("farmeraddnew").style.display = "none";
                 document.getElementById("showsidetabeditfarmer").style.display =

@@ -95,15 +95,15 @@ class Rms extends Component {
         .then(res => {
           if (res.data.data !== null) {
             singleassetstatttemp = res.data.data;
-            singleassetstatttemp.totalCo2Emission = parseInt(
-              singleassetstatttemp.totalCo2Emission
-            ).toLocaleString("en-IN");
-            singleassetstatttemp.totalDischarge = parseInt(
-              singleassetstatttemp.totalDischarge
-            ).toLocaleString("en-IN");
-            singleassetstatttemp.totalEnergy = parseInt(
-              singleassetstatttemp.totalEnergy
-            ).toLocaleString("en-IN");
+            // singleassetstatttemp.totalCo2Emission = (
+            //   singleassetstatttemp.totalCo2Emission
+            // ).toLocaleString("en-IN");
+            // singleassetstatttemp.totalDischarge = (
+            //   singleassetstatttemp.totalDischarge
+            // ).toLocaleString("en-IN");
+            // singleassetstatttemp.totalEnergy = (
+            //   singleassetstatttemp.totalEnergy
+            // ).toLocaleString("en-IN");
             this.setState({ singleassetstat: singleassetstatttemp });
           } else if (res.data.error !== undefined) {
             if (res.data.error.errorCode === 153) {

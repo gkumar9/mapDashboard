@@ -1099,6 +1099,48 @@ class Rmsedit extends Component {
 
       return;
     }
+    if (
+      !this.state.rmsvendorimeicheck&&(this.state.rmsvalues.vfdSno ===''||this.state.rmsvalues.vfdSno===null)
+    ) {
+      $.notify(
+        {
+          // options
+          message: "Please fill valid VFD Sno value."
+        },
+        {
+          // settings
+          type: "danger",
+          placement: {
+            from: "top",
+            align: "center"
+          }
+        }
+      );
+      // alert("Please set valid Longitude value.(Longitude - 68′E to 97′E)");
+
+      return;
+    }
+    if (
+      this.state.rmsvendorimeicheck&&(this.state.rmsvalues.imei ===''||this.state.rmsvalues.imei===null)
+    ) {
+      $.notify(
+        {
+          // options
+          message: "Please fill valid IMEI value."
+        },
+        {
+          // settings
+          type: "danger",
+          placement: {
+            from: "top",
+            align: "center"
+          }
+        }
+      );
+      // alert("Please set valid Longitude value.(Longitude - 68′E to 97′E)");
+
+      return;
+    }
     this.setState({ isloaderactive: true });
     let tempdatechangedobject = this.state.rmsvalues;
     if (this.state.rmsvalues.installationDate) {

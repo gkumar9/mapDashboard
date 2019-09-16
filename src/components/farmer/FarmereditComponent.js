@@ -974,7 +974,7 @@ class Tabfamily extends Component {
                   />
                 </div>
               </div>
-              <div className="row farmerinforow">
+              {/* <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
                   No of Children
                 </div>
@@ -989,7 +989,7 @@ class Tabfamily extends Component {
                     // //placeholder="Number Of Dependents"
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
                   No of siblings

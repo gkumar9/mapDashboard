@@ -157,7 +157,7 @@ class Filter extends Component {
                     onChange={this.handleFilterChange}
                   />
                   <img
-                    style={{ width: "19%" }}
+                    style={{ width: "20%" }}
                     src={MINIGRID}
                     alt="logo"
                     className="filterImg responsive"

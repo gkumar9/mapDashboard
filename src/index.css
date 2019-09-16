@@ -19,6 +19,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
+.titlefarmermap{
+  color:#999;
+}
 .cropimagebody{
   text-align: center;
   /* padding:1em; */
@@ -176,7 +179,7 @@ a.disabled {
 }
 .filterbuttonreset {
   margin-top: 8px;
-  margin-right: -20px;
+  margin-right: 10px;
   float: right;
   border-radius: 0;
   border-color: blue;
@@ -888,8 +891,8 @@ input[type="radio"] {
   font-family: gotham-light;
   font-size: 15px;
   text-align: left;
-  border-top: 1px #325ca6 solid;
-  /* padding:0 1em; */
+  /* border-top: 1px #325ca6 solid; */
+  padding:0 0.5em;
 }
 .gauravwwwagro .infobox .customer .row {
   margin: 1em 0;
@@ -972,7 +975,7 @@ input[type="radio"] {
   border-bottom-right-radius: 6px;
 }
 .farmerportalfont {
-  font-size: medium;
+  font-size: 14px;
 }
 .farmerrow {
   margin-bottom: 1em;
@@ -981,11 +984,16 @@ input[type="radio"] {
 .infobox .image {
   width: 30%;
   float: left;
+  text-align: center;
+   
 }
 .famrerimggg {
-  transform: rotate(270deg) translate(24px, 30px);
+  /* transform: rotate(270deg) translate(24px, 30px); */
+  /* height: 20vh; */
 }
-
+.gauravwww .gm-style{
+  font-family: gotham-light;
+}
 .infobox .column {
   width: 70%;
   float: right;
@@ -1036,7 +1044,7 @@ input[type="radio"] {
     padding: 2px 12px !important;
   }
   .famrerimggg {
-    transform: rotate(270deg) translate(19px, 0);
+    /* transform: rotate(270deg) translate(19px, 0); */
   }
   .infobox .image {
     width: auto;

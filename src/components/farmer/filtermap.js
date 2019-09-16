@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-
-// import IRRIGATION_PUMP from "../../pins/strop1.png";
-import MANDI from "../../pins/pin1.png";
-import OFFICE from "../../pins/pin2.png";
-import MARKET from "../../pins/pin3.png";
-import PROCESSING_CENTRES from "../../pins/pin4.png";
-// import CUSTOMER from '../../pins/pin5.png'
-// import MINIGRID from "./pins/strop4.png";
-// import agroassetsicon from "./pins/Filter Icon.png";
+import { Link } from "react-router-dom";
+import DRINKING_WATER_PUMP from "../../pins/strop3.png";
+// import ROOFTOP from "../../pins/strop2.png";
+import IRRIGATION_PUMP from "../../pins/strop1.png";
+import PATVAN from "../../pins/strop5patvan.png";
+import MINIGRID from "../../pins/strop4.png";
 const $ = require("jquery");
 class Filter extends Component {
   constructor(props) {
@@ -29,7 +26,7 @@ class Filter extends Component {
     this.props.onFilterApply();
     this.setState({ classdisabledapply: true, classdisabledreset: false });
   }
- 
+
   componentDidMount() {
     function myFunction(x) {
       if (x.matches) {
@@ -40,6 +37,7 @@ class Filter extends Component {
       }
     }
 
+    // eslint-disable-next-line no-undef
     var x = window.matchMedia("(max-width: 770px)");
     myFunction(x); // Call listener function at run time
     x.addListener(myFunction); // Attach listener function on state changes
@@ -94,7 +92,7 @@ class Filter extends Component {
                     onChange={this.handleFilterChange}
                   />
                   <img
-                    src={MANDI}
+                    src={IRRIGATION_PUMP}
                     style={{ width: "14%" }}
                     alt="logo"
                     className="filterImg responsive"
@@ -107,7 +105,7 @@ class Filter extends Component {
                   </a>
                 </li>
 
-                <li style={{ width: "136px" }} className="filterItem">
+                <li style={{ width: "190px" }} className="filterItem">
                   <input
                     type="checkbox"
                     name="SolarDrinkingWaterPump"
@@ -117,15 +115,15 @@ class Filter extends Component {
                   />
                   <img
                     style={{
-                      width: "14%",
+                      width: "12%",
                       marginLeft: "7px",
                       filter: "opacity(0.8)"
                     }}
-                    src={MARKET}
+                    src={DRINKING_WATER_PUMP}
                     alt="logo"
                     className="filterImg responsive"
                   />
-                  <span className="filterText">Water Pump</span>
+                  <span className="filterText">Drinking Water Pump</span>
                 </li>
 
                 <li>
@@ -147,7 +145,7 @@ class Filter extends Component {
                       marginLeft: "7px",
                       filter: "opacity(0.8)"
                     }}
-                    src={OFFICE}
+                    src={PATVAN}
                     alt="logo"
                     className="filterImg responsive"
                   />
@@ -169,19 +167,41 @@ class Filter extends Component {
                   />
                   <img
                     style={{
-                      width: "12%",
+                      width: "14%",
                       marginLeft: "7px",
                       filter: "opacity(0.8)"
                     }}
-                    src={PROCESSING_CENTRES}
+                    src={MINIGRID}
                     alt="logo"
                     className="filterImg responsive"
                   />
                   <span className="filterText">Minigrid</span>
                 </li>
-               
-                </ul>
+              </ul>
               <div className="filterbutton">
+                <Link to="/farmeredit">
+                  <button
+                    type="button"
+                    className="btn btn-primary "
+                    aria-label="Right Align"
+                    id="drillUp"
+                    style={{
+                      // display: "none",
+                      // borderColor: "darkgray",
+                      marginTop: "8px",
+                      marginRight: "10px",
+                      borderRadius: "0px",
+                      float: "right",
+                      outline: "none",
+                      color: "white",
+                      backgroundColor: "#b12d28",
+                      // background-color: ;
+                      borderColor: "transparent"
+                    }}
+                  >
+                    View Farmers
+                  </button>
+                </Link>
                 {this.state.classdisabledreset === true ? (
                   <button
                     type="button"
