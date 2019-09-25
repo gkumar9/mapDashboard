@@ -1109,7 +1109,7 @@ input[type="radio"] {
   /* font-weight: bold; */
 }
 .farmerlists {
-  max-height: 80vh;
+  max-height: 75vh;
   overflow: hidden scroll;
   border-bottom: 1px solid #ddd;
 }

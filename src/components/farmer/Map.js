@@ -35,10 +35,7 @@ class MapList extends Component {
     this.markersRendered = true;
     return true;
   }
-  componentWillUnmount() {
-    console.log("unmount");
-    this.props.unmountpins();
-  }
+  
 
   render() {
     // console.log('marker')
@@ -68,6 +65,7 @@ class MapList extends Component {
                 break;
                 default:
                   console.log('marker error',marker);
+                  return;
                   break;
             }
             return (

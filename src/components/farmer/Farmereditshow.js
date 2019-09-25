@@ -209,10 +209,10 @@ class Tabprofile extends Component {
               </div>
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  Yearly Digital Expenditure
+                  Yearly Diesel Expenditure
                 </div>
                 <div className="col-xs-6">
-                  {this.props.famerinfo.yearlyDigitalExpenditure || "NA"}
+                  {this.props.famerinfo.yearlyDieselExpenditure || "NA"}
                 </div>
               </div>
             </div>
@@ -238,10 +238,10 @@ class Tabprofile extends Component {
               </div>
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  Have Digital Pump
+                  Have Diesel Pump
                 </div>
                 <div className="col-xs-6">
-                  {this.props.famerinfo.haveDigitalPump || "NA"}
+                  {this.props.famerinfo.haveDieselPump || "NA"}
                 </div>
               </div>
 
@@ -259,10 +259,10 @@ class Tabprofile extends Component {
               </div>
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  Digital Pump Owner
+                  Diesel Pump Owner
                 </div>
                 <div className="col-xs-6">
-                  {this.props.famerinfo.digitalPumpOwner || "NA"}
+                  {this.props.famerinfo.dieselPumpOwner || "NA"}
                 </div>
               </div>
               <div className="row farmerinforow">

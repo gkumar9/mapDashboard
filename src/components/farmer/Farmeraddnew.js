@@ -1600,17 +1600,17 @@ class Farmeraddnew extends Component {
                           </div>
                           <div className="row farmerinforow">
                             <div className="col-xs-6 farmerinforowtitle">
-                              Yearly Digital Expenditure
+                              Yearly Diesel Expenditure
                             </div>
                             <div className="col-xs-6">
                               <input
-                                name="yearlyDigitalExpenditure"
+                                name="yearlyDieselExpenditure"
                                 type="text"
                                 className="form-control"
-                                id="yearlyDigitalExpenditure"
+                                id="yearlyDieselExpenditure"
                                 value={
                                   this.state.famerinfo
-                                    .yearlyDigitalExpenditure || ""
+                                    .yearlyDieselExpenditure || ""
                                 }
                                 onChange={this.handleInputChange}
                                 ////placeholder="BPL Card Holder"
@@ -1682,16 +1682,16 @@ class Farmeraddnew extends Component {
                           </div>
                           <div className="row farmerinforow">
                             <div className="col-xs-6 farmerinforowtitle">
-                              Have Digital Pump
+                              Have Diesel Pump
                             </div>
                             <div className="col-xs-6">
                               <input
-                                name="haveDigitalPump"
+                                name="haveDieselPump"
                                 type="text"
                                 className="form-control"
-                                id="haveDigitalPump"
+                                id="haveDieselPump"
                                 value={
-                                  this.state.famerinfo.haveDigitalPump || ""
+                                  this.state.famerinfo.haveDieselPump || ""
                                 }
                                 onChange={this.handleInputChange}
                                 ////placeholder="BPL Card Holder"
@@ -1732,16 +1732,16 @@ class Farmeraddnew extends Component {
                           </div>
                           <div className="row farmerinforow">
                             <div className="col-xs-6 farmerinforowtitle">
-                              Digital Pump Owner
+                              Diesel Pump Owner
                             </div>
                             <div className="col-xs-6">
                               <input
-                                name="digitalPumpOwner"
+                                name="dieselPumpOwner"
                                 type="text"
                                 className="form-control"
-                                id="digitalPumpOwner"
+                                id="dieselPumpOwner"
                                 value={
-                                  this.state.famerinfo.digitalPumpOwner || ""
+                                  this.state.famerinfo.dieselPumpOwner || ""
                                 }
                                 onChange={this.handleInputChange}
                                 ////placeholder="BPL Card Holder"

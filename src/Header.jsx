@@ -29,6 +29,14 @@ class Header extends Component {
     }
   }
   render() {
+    let check = false;
+      if (this.props.kc && this.props.kc.realmAccess.roles.length !== 0) {
+        this.props.kc.realmAccess.roles.map(item => {
+          if (item === "ops" || item === "admin") {
+            check = true;
+          }
+        });
+      }
     return (
       <div className="container">
         <nav className="navbar navbar-default">
@@ -124,11 +132,14 @@ class Header extends Component {
                     Welcome {this.state.name}
                   </a>
                 </li>
-                <li className="hideliinmobile">
+                {check&&(
+                  <React.Fragment>
+                  <li className="hideliinmobile">
                   <a style={{ padding: "14px 1px" }}>
                     <span className="verticalLine" />
                   </a>
                 </li>
+                
                 <li className="hideliinmobile">
                   <a
                     target="_blank"
@@ -143,7 +154,9 @@ class Header extends Component {
                   >
                     Operations
                   </a>
-                </li>
+                </li></React.Fragment>
+                )}
+                
                 {/* <li>
                   <a>
                     <span className="verticalLine" />

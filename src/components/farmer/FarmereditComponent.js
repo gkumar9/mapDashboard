@@ -812,15 +812,15 @@ class Tabprofile extends Component {
               </div>
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  Yearly Digital Expenditure
+                  Yearly Diesel Expenditure
                 </div>
                 <div className="col-xs-6">
                   <input
-                    name="yearlyDigitalExpenditure"
+                    name="yearlyDieselExpenditure"
                     type="text"
                     className="form-control"
-                    id="yearlyDigitalExpenditure"
-                    value={this.props.famerinfo.yearlyDigitalExpenditure || ""}
+                    id="yearlyDieselExpenditure"
+                    value={this.props.famerinfo.yearlyDieselExpenditure || ""}
                     onChange={this.props.handleInputChange}
                     //placeholder="BPL Card Holder"
                   />
@@ -884,15 +884,15 @@ class Tabprofile extends Component {
               </div>
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  Have Digital Pump
+                  Have Diesel Pump
                 </div>
                 <div className="col-xs-6">
                   <input
-                    name="haveDigitalPump"
+                    name="haveDieselPump"
                     type="text"
                     className="form-control"
-                    id="haveDigitalPump"
-                    value={this.props.famerinfo.haveDigitalPump || ""}
+                    id="haveDieselPump"
+                    value={this.props.famerinfo.haveDieselPump || ""}
                     onChange={this.props.handleInputChange}
                     //placeholder="BPL Card Holder"
                   />
@@ -928,15 +928,15 @@ class Tabprofile extends Component {
               </div>
               <div className="row farmerinforow">
                 <div className="col-xs-6 farmerinforowtitle">
-                  Digital Pump Owner
+                  Diesel Pump Owner
                 </div>
                 <div className="col-xs-6">
                   <input
-                    name="digitalPumpOwner"
+                    name="dieselPumpOwner"
                     type="text"
                     className="form-control"
-                    id="digitalPumpOwner"
-                    value={this.props.famerinfo.digitalPumpOwner || ""}
+                    id="dieselPumpOwner"
+                    value={this.props.famerinfo.dieselPumpOwner || ""}
                     onChange={this.props.handleInputChange}
                     //placeholder="BPL Card Holder"
                   />
