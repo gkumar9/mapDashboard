@@ -9,7 +9,7 @@
     "datatables.net": "^1.10.19",
     "fusioncharts": "^3.13.4",
     "google-maps-react": "^2.0.2",
-    "highcharts": "^7.0.2",
+    "highcharts": "^9.0.0",
     "highcharts-border-radius": "0.0.2",
     "highcharts-drilldown": "^0.1.7",
     "history": "^4.7.2",
